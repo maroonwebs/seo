@@ -1,0 +1,2016 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Instagram Prompt Builder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0e0d0b;
+  --ink2: #2a2825;
+  --ink3: #4a4845;
+  --muted: #8a8780;
+  --paper: #faf8f4;
+  --paper2: #f3f0ea;
+  --border: rgba(14,13,11,0.1);
+  --border2: rgba(14,13,11,0.18);
+  --gold: #b8860b;
+  --gold2: #d4a017;
+  --blue-light: #e8edf8;
+  --blue: #1a3a6b;
+  --rose: #9f1d64;
+  --rose-soft: #fce8f3;
+  --shadow: 0 1px 3px rgba(14,13,11,0.08), 0 4px 16px rgba(14,13,11,0.06);
+  --shadow-lg: 0 2px 8px rgba(14,13,11,0.1), 0 12px 40px rgba(14,13,11,0.12);
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'DM Sans', 'Helvetica Neue', sans-serif;
+  --font-mono: 'DM Mono', 'Courier New', monospace;
+  --radius: 10px;
+  --radius-lg: 16px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: radial-gradient(circle at top right, #ffeaf4 0, #faf8f4 42%, #f5f1e9 100%);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.ig-header {
+  background: var(--ink);
+  padding: 16px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.ig-logo {
+  font-family: var(--font-display);
+  font-size: 16px;
+  color: var(--paper);
+}
+
+.ig-logo span { color: #ff7fbf; font-style: italic; }
+
+.ig-actions { display: flex; align-items: center; gap: 10px; }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: var(--radius);
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 13px;
+  font-family: var(--font-body);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: rgba(255,255,255,0.84);
+  border: 1.5px solid rgba(255,255,255,0.3);
+}
+.btn-ghost:hover { color: #fff; border-color: rgba(255,255,255,0.45); }
+.btn-primary { background: var(--gold); color: #fff; }
+.btn-primary:hover { background: var(--gold2); }
+.btn-light { background: var(--paper2); color: var(--ink2); border: 1px solid var(--border2); }
+.btn-light:hover { border-color: rgba(14,13,11,0.28); }
+.btn-rose { background: var(--rose); color: #fff; }
+.btn-rose:hover { background: #8d1457; }
+
+.ig-main {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 34px 40px 70px;
+}
+
+.callout {
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  margin: 14px 0 22px;
+  border-left: 3px solid var(--rose);
+  background: var(--rose-soft);
+  color: #6f1a45;
+  font-size: 13.5px;
+}
+
+.ig-grid {
+  display: grid;
+  grid-template-columns: minmax(340px, 0.95fr) minmax(340px, 1.05fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.ig-card {
+  background: #fff;
+  border: 1px solid var(--border2);
+  border-radius: var(--radius-lg);
+  padding: 18px;
+  box-shadow: var(--shadow);
+}
+
+.ig-card h3 {
+  font-family: var(--font-display);
+  font-size: 21px;
+  font-weight: 500;
+  margin-bottom: 14px;
+}
+
+.field-group { margin-bottom: 14px; }
+
+.field-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink2);
+  margin-bottom: 8px;
+}
+
+.field-label span {
+  color: var(--gold);
+  font-size: 11px;
+  margin-left: 6px;
+  font-family: var(--font-mono);
+}
+
+input[type="text"], textarea, select {
+  width: 100%;
+  border: 1.5px solid var(--border2);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+  font-size: 14px;
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: #fff;
+}
+
+select {
+  font-weight: 500;
+  background: linear-gradient(180deg, #fffefb 0%, #f8f5ee 100%);
+}
+
+textarea { min-height: 90px; resize: vertical; }
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--gold2);
+  box-shadow: 0 0 0 2px rgba(212,160,23,0.15);
+}
+
+.ig-form-actions,
+.ig-preview-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
+
+.helper-box {
+  background: #f7f4ec;
+  border: 1px dashed rgba(14,13,11,0.25);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+  margin-bottom: 14px;
+  font-size: 12.5px;
+  color: var(--ink3);
+}
+
+.ig-preview {
+  background: #151411;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: var(--shadow-lg);
+  padding: 18px;
+  min-height: 520px;
+}
+
+.ig-preview pre {
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: #efe8d7;
+  line-height: 1.72;
+}
+
+.muted { color: var(--muted); }
+
+.site-credit {
+  margin: 18px auto 28px;
+  max-width: 1320px;
+  padding: 0 40px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--ink3);
+}
+
+.site-credit a {
+  color: var(--blue);
+  text-decoration: none;
+  border-bottom: 1px dashed rgba(26,58,107,0.35);
+}
+
+.site-credit a:hover { border-bottom-color: rgba(26,58,107,0.65); }
+
+@media (max-width: 900px) {
+  .ig-header, .ig-main { padding-left: 20px; padding-right: 20px; }
+  .ig-header { flex-wrap: wrap; align-items: stretch; }
+  .ig-logo { width: 100%; }
+  .btn { font-size: 12px; padding: 9px 10px; }
+  .ig-actions { width: 100%; display: grid; grid-template-columns: 1fr; gap: 8px; }
+  .ig-actions .btn { width: 100%; }
+  .ig-grid { grid-template-columns: 1fr; }
+  .ig-card { padding: 14px; }
+  .ig-card h3 { font-size: 19px; }
+  .ig-preview { min-height: 440px; }
+  .ig-form-actions .btn,
+  .ig-preview-actions .btn { width: 100%; }
+  .site-credit { padding-left: 20px; padding-right: 20px; }
+}
+</style>
+</head>
+<body>
+  <header class="ig-header">
+    <div class="ig-logo">Prompt <em>Instagram</em> Builder — <span id="ig-brand-header">Brand</span></div>
+    <div class="ig-actions">
+      <a class="btn btn-ghost" href="index.html">← Kembali ke SEO System</a>
+      <button class="btn btn-ghost" onclick="copyInstagramMarkdown()">Copy Markdown</button>
+      <button class="btn btn-primary" onclick="downloadInstagramMarkdown()">⬇ Download .md</button>
+    </div>
+  </header>
+
+  <main class="ig-main">
+    <div class="callout"><strong>Mode Builder:</strong> halaman ini membaca paket prompt Instagram dari sumber Anda, menganalisa struktur input setiap prompt, lalu membuat form dinamis lengkap per prompt agar output markdown lebih cepat dipakai.</div>
+
+    <div class="ig-grid">
+      <section class="ig-card">
+        <h3>Input Prompt Instagram</h3>
+
+        <div class="field-group">
+          <label class="field-label" for="ig_category">Filter Kategori</label>
+          <select id="ig_category" onchange="onInstagramFilterChange()">
+            <option value="all">Semua Kategori</option>
+            <option value="Caption">Caption</option>
+            <option value="Story">Story</option>
+            <option value="UMKM">UMKM</option>
+            <option value="Niche">Niche</option>
+            <option value="System">System</option>
+          </select>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label" for="ig_template_search">Cari Prompt</label>
+          <input type="text" id="ig_template_search" placeholder="Contoh: reels, launching, umkm, niche, sistem" oninput="onInstagramFilterChange()">
+        </div>
+
+        <div class="field-group">
+          <label class="field-label" for="ig_template">Pilihan Prompt Instagram <span id="ig-template-count">0</span></label>
+          <select id="ig_template" onchange="onInstagramTemplateChange()"></select>
+        </div>
+
+        <div class="helper-box" id="ig-template-summary">Analisa input prompt akan tampil otomatis sesuai template yang dipilih.</div>
+
+        <div class="field-group">
+          <label class="field-label" for="ig_field_search">Cari Field Input</label>
+          <input type="text" id="ig_field_search" placeholder="Ketik kata kunci field, contoh: target market / CTA / tone" oninput="filterInstagramFields()">
+        </div>
+
+        <div id="ig-dynamic-fields"></div>
+
+        <div class="ig-form-actions">
+          <button class="btn btn-rose" onclick="generateInstagramMarkdown()">✦ Generate Markdown Prompt</button>
+          <button class="btn btn-light" onclick="resetInstagramForm()">Reset Form</button>
+        </div>
+      </section>
+
+      <section class="ig-card">
+        <h3>Preview Markdown</h3>
+        <div class="ig-preview-actions">
+          <button class="btn btn-light" onclick="copyInstagramMarkdown()">Copy Hasil Markdown</button>
+        </div>
+        <div class="ig-preview"><pre id="ig-markdown-preview">Belum ada output. Pilih prompt, isi field input, lalu klik "Generate Markdown Prompt".</pre></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-credit">
+    Credit : Dikembangkan oleh PixxelPro Digital, Hubungi via WA
+    <a href="https://wa.me/62895639068080" target="_blank" rel="noopener">0895-6390-68080</a>
+  </footer>
+
+  <textarea id="ig_source_raw" style="display:none;"># khusus untuk prompt sosial media, terutama Instagram, bisakan buatkan saya beberapa prompt mulai dari membuat caption disesuaikan dengan tujuan dan target market, misal edukasi, carousell, hard selling, soft selling dan lainnya
+
+Bisa. Saya buatkan **paket prompt khusus Instagram** yang fokus ke **caption berdasarkan tujuan konten dan target market**, dengan struktur yang bisa langsung Anda copy-paste untuk produksi harian.
+
+Prompt ini saya susun agar fleksibel untuk:
+
+- edukasi
+- carousel
+- hard selling
+- soft selling
+- storytelling
+- engagement
+- launching
+- testimonial
+- promo
+- personal branding
+- community building
+
+
+## Cara pakai
+
+Isi variabel seperti:
+
+- `[produk/jasa]`
+- `[target market]`
+- `[tujuan]`
+- `[tone brand]`
+- `[CTA]`
+
+Lalu tempel prompt ke model AI Anda.
+
+***
+
+# 1) Prompt Caption Edukasi Instagram
+
+Bertindaklah sebagai Instagram Content Strategist dan Copywriter.
+
+Tugasmu adalah membuat caption Instagram bertema edukasi yang informatif, relevan, mudah dipahami, dan tetap menarik untuk audiens target.
+
+## Tujuan konten:
+Edukasi
+
+## Input:
+- Topik:
+- Produk/jasa/brand:
+- Target market:
+- Masalah utama audiens:
+- Insight atau poin edukasi utama:
+- Tone brand:
+- CTA:
+- Panjang caption:
+  [pendek / sedang / panjang]
+
+## Instruksi:
+Buat caption Instagram edukasi yang:
+- Hook kuat di kalimat pertama
+- Menjelaskan masalah atau miskonsepsi audiens
+- Memberi insight yang praktis dan spesifik
+- Tidak terlalu menggurui
+- Tetap enak dibaca di Instagram
+- Cocok untuk target market yang disebutkan
+- Mengandung CTA yang sesuai tujuan
+
+## Output wajib:
+1. 3 versi caption
+2. Masing-masing dengan angle berbeda:
+   - Angle 1: problem-solution
+   - Angle 2: myth-busting
+   - Angle 3: step-by-step insight
+3. Tambahkan:
+   - Hook utama
+   - CTA
+   - 5 hashtag relevan
+```
+
+
+***
+
+# 2) Prompt Caption Carousel Instagram
+
+Bertindaklah sebagai Instagram Carousel Copywriter.
+
+Tugasmu adalah membuat caption khusus untuk konten carousel Instagram, sehingga caption mendukung isi slide, bukan mengulang mentah isi carousel.
+
+## Tujuan konten:
+Carousel edukatif / informatif / selling / branding
+
+## Input:
+- Judul carousel:
+- Isi singkat tiap slide:
+- Produk/jasa/brand:
+- Target market:
+- Tujuan carousel:
+- Tone brand:
+- CTA:
+- Panjang caption:
+  [singkat / sedang / panjang]
+
+## Instruksi:
+Buat caption Instagram untuk carousel yang:
+- Punya hook kuat di awal
+- Mendukung isi slide
+- Memberi konteks tambahan, bukan copy isi slide
+- Membuat orang terdorong swipe sampai selesai
+- Menutup dengan CTA yang jelas
+- Relevan dengan target market
+
+## Output wajib:
+1. 3 versi caption carousel
+2. Versi 1: edukatif
+3. Versi 2: persuasif
+4. Versi 3: conversational
+5. Tambahkan:
+   - 3 opsi hook baris pertama
+   - CTA paling cocok
+   - 5–10 hashtag relevan
+```
+
+
+***
+
+# 3) Prompt Caption Hard Selling Instagram
+
+Bertindaklah sebagai Direct Response Copywriter untuk Instagram.
+
+Tugasmu adalah membuat caption hard selling yang kuat, persuasif, jelas, dan tetap natural untuk Instagram tanpa terdengar murahan.
+
+## Tujuan konten:
+Hard selling
+
+## Input:
+- Nama produk/jasa:
+- Penawaran:
+- Harga:
+- Promo / bonus / deadline:
+- Target market:
+- Masalah audiens:
+- Benefit utama:
+- Keunggulan dibanding kompetitor:
+- Tone brand:
+- CTA utama:
+- Format caption:
+  [singkat / sedang / panjang]
+
+## Instruksi:
+Buat caption hard selling yang:
+- Langsung jelas menjual
+- Menyebut siapa yang cocok membeli
+- Menunjukkan masalah yang diselesaikan
+- Menekankan manfaat utama
+- Menampilkan urgency atau scarcity bila ada
+- Menggunakan CTA tegas
+- Tetap enak dibaca di Instagram
+
+## Output wajib:
+1. 3 versi caption hard selling
+2. Masing-masing dengan angle:
+   - Angle 1: urgency
+   - Angle 2: pain point
+   - Angle 3: offer-driven
+3. Tambahkan:
+   - 3 CTA alternatif
+   - 5 headline pembuka
+   - 5 hashtag relevan
+```
+
+
+***
+
+# 4) Prompt Caption Soft Selling Instagram
+
+Bertindaklah sebagai Instagram Soft Selling Copywriter.
+
+Tugasmu adalah membuat caption soft selling yang halus, relatable, membangun minat, dan tidak terasa seperti dipaksa membeli.
+
+## Tujuan konten:
+Soft selling
+
+## Input:
+- Nama produk/jasa:
+- Target market:
+- Masalah atau kebutuhan audiens:
+- Situasi yang relatable:
+- Benefit utama:
+- Tone brand:
+- CTA:
+- Gaya caption:
+  [storytelling / casual / aspirational / warm]
+
+## Instruksi:
+Buat caption soft selling yang:
+- Dimulai dari situasi atau masalah yang dekat dengan audiens
+- Mengajak audiens merasa dipahami
+- Mengenalkan produk/jasa secara natural
+- Tidak langsung terlalu promosi
+- Tetap punya arah ke konversi
+- Cocok untuk target market
+
+## Output wajib:
+1. 3 versi caption soft selling
+2. Angle:
+   - Angle 1: relatable daily life
+   - Angle 2: aspirational
+   - Angle 3: subtle recommendation
+3. Tambahkan:
+   - Hook utama
+   - CTA lembut
+   - 5 hashtag relevan
+```
+
+
+***
+
+# 5) Prompt Caption Storytelling Instagram
+
+Bertindaklah sebagai Storytelling Copywriter untuk Instagram.
+
+Tugasmu adalah menulis caption storytelling yang emosional, engaging, natural, dan tetap punya tujuan bisnis atau branding yang jelas.
+
+## Input:
+- Cerita utama:
+- Tokoh:
+- Konflik:
+- Pelajaran / insight:
+- Produk/jasa/brand yang terkait:
+- Target market:
+- Tujuan caption:
+  [branding / soft selling / engagement / edukasi]
+- Tone:
+- CTA:
+
+## Instruksi:
+Buat caption storytelling yang:
+- Punya pembuka yang menarik
+- Membawa audiens masuk ke cerita
+- Memiliki emosi atau ketegangan yang cukup
+- Menyampaikan insight yang relevan
+- Bisa dihubungkan ke brand atau produk secara natural
+- Tetap terasa manusiawi, bukan iklan terselubung
+
+## Output wajib:
+1. 2 versi storytelling pendek
+2. 1 versi storytelling panjang
+3. 3 opsi hook pembuka
+4. CTA yang sesuai tujuan
+```
+
+
+***
+
+# 6) Prompt Caption Engagement / Komentar
+
+Bertindaklah sebagai Instagram Engagement Copywriter.
+
+Tugasmu adalah membuat caption yang mendorong interaksi: komentar, save, share, atau DM.
+
+## Input:
+- Topik:
+- Target market:
+- Tujuan interaksi:
+  [komentar / save / share / DM]
+- Format post:
+  [foto / carousel / reels]
+- Tone brand:
+- CTA:
+- Konteks brand / produk:
+
+## Instruksi:
+Buat caption Instagram yang:
+- Mengandung hook yang mengundang perhatian
+- Mengajak audiens ikut merespons
+- Menggunakan pertanyaan atau trigger diskusi yang natural
+- Tidak terkesan memaksa engagement
+- Tetap relevan dengan brand
+- Cocok untuk target market
+
+## Output wajib:
+1. 5 versi caption engagement
+2. Variasi CTA:
+   - komentar
+   - save
+   - share
+   - DM
+   - tag teman
+3. Tambahkan 10 ide pertanyaan pemancing komentar
+```
+
+
+***
+
+# 7) Prompt Caption Launching Produk / Jasa
+
+Bertindaklah sebagai Instagram Launch Copywriter.
+
+Tugasmu adalah membuat caption launching produk/jasa yang membangun excitement, kejelasan penawaran, dan dorongan aksi.
+
+## Input:
+- Nama produk/jasa:
+- Apa yang diluncurkan:
+- Untuk siapa:
+- Masalah yang diselesaikan:
+- Benefit utama:
+- Harga:
+- Bonus/promo:
+- Periode launching:
+- Tone brand:
+- CTA:
+
+## Instruksi:
+Buat caption launching Instagram yang:
+- Mengkomunikasikan peluncuran dengan jelas
+- Menjelaskan siapa targetnya
+- Menjelaskan kenapa produk ini relevan
+- Menonjolkan value, bukan hanya fitur
+- Memiliki CTA yang kuat
+- Bisa digunakan untuk feed atau reels
+
+## Output wajib:
+1. 3 versi caption launching
+2. Versi:
+   - teaser launch
+   - official launch
+   - last call launch
+3. Tambahkan:
+   - 5 hook launch
+   - 3 CTA kuat
+   - 5 hashtag relevan
+```
+
+
+***
+
+# 8) Prompt Caption Testimoni / Social Proof
+
+Bertindaklah sebagai Instagram Social Proof Copywriter.
+
+Tugasmu adalah membuat caption dari testimoni pelanggan agar terasa kredibel, menarik, dan membantu konversi.
+
+## Input:
+- Produk/jasa:
+- Isi testimoni:
+- Hasil yang didapat pelanggan:
+- Sebelum vs sesudah:
+- Target market:
+- Tone brand:
+- CTA:
+
+## Instruksi:
+Buat caption Instagram berbasis testimoni yang:
+- Menonjolkan perubahan atau hasil
+- Membuat testimoni terasa nyata
+- Tidak berlebihan
+- Menghubungkan hasil testimoni dengan kebutuhan target market
+- Mengarahkan audiens ke langkah berikutnya
+
+## Output wajib:
+1. 3 versi caption testimoni
+2. Angle:
+   - hasil nyata
+   - emotional transformation
+   - credibility building
+3. Tambahkan:
+   - Hook
+   - CTA
+   - 5 hashtag relevan
+```
+
+
+***
+
+# 9) Prompt Caption Promo / Diskon
+
+Bertindaklah sebagai Instagram Promo Copywriter.
+
+Tugasmu adalah membuat caption promo yang jelas, cepat dipahami, dan mendorong aksi tanpa terlalu ramai.
+
+## Input:
+- Nama produk/jasa:
+- Detail promo:
+- Periode promo:
+- Syarat promo:
+- Target market:
+- Benefit utama:
+- Tone brand:
+- CTA:
+
+## Instruksi:
+Buat caption promo Instagram yang:
+- Langsung menjelaskan promonya
+- Tidak bertele-tele
+- Menjelaskan siapa yang cocok ambil promo
+- Menyebut batas waktu jika ada
+- Menutup dengan CTA yang jelas
+
+## Output wajib:
+1. 3 versi caption promo
+2. Versi:
+   - singkat to the point
+   - persuasif
+   - urgency tinggi
+3. Tambahkan:
+   - 5 hook promo
+   - 3 CTA
+   - 5 hashtag
+```
+
+
+***
+
+# 10) Prompt Caption Personal Branding Instagram
+
+Bertindaklah sebagai Personal Branding Copywriter untuk Instagram.
+
+Tugasmu adalah membuat caption yang membangun kredibilitas, kepercayaan, dan kedekatan personal dengan audiens.
+
+## Input:
+- Nama personal brand:
+- Bidang / expertise:
+- Topik post:
+- Pengalaman atau opini utama:
+- Target market:
+- Tujuan:
+  [authority / engagement / soft selling / networking]
+- Tone:
+- CTA:
+
+## Instruksi:
+Buat caption personal branding yang:
+- Terdengar autentik
+- Menunjukkan sudut pandang atau pengalaman
+- Membangun trust
+- Tidak terlalu narsis atau terlalu formal
+- Tetap menarik untuk target market
+- Memiliki CTA natural
+
+## Output wajib:
+1. 3 versi caption personal branding
+2. Angle:
+   - pengalaman pribadi
+   - opini ahli
+   - refleksi profesional
+3. Tambahkan:
+   - 3 hook
+   - CTA
+   - hashtag relevan
+```
+
+
+***
+
+# 11) Prompt Caption Reels Instagram
+
+Bertindaklah sebagai Instagram Reels Copywriter.
+
+Tugasmu adalah membuat caption Reels yang singkat, kuat, menarik, dan mendukung performa video.
+
+## Input:
+- Topik reels:
+- Isi video singkat:
+- Target market:
+- Tujuan reels:
+  [awareness / engagement / edukasi / selling]
+- Tone:
+- CTA:
+- Produk/brand yang disebut:
+
+## Instruksi:
+Buat caption Reels Instagram yang:
+- Punya hook cepat
+- Tidak terlalu panjang
+- Mendukung isi video, bukan menjelaskan semuanya
+- Mendorong interaksi atau tindakan
+- Cocok dengan target market
+- Tetap relevan dengan tujuan konten
+
+## Output wajib:
+1. 5 versi caption reels
+2. Variasi:
+   - super singkat
+   - conversational
+   - curiosity-driven
+   - edukatif
+   - selling halus
+3. Tambahkan:
+   - 10 hook pendek
+   - 5 CTA pendek
+   - hashtag relevan
+```
+
+
+***
+
+# 12) Prompt Caption Berdasarkan Target Market
+
+Ini yang paling berguna kalau Anda ingin caption benar-benar disesuaikan dengan audiens tertentu.
+
+Bertindaklah sebagai Instagram Market-Aware Copywriter.
+
+Tugasmu adalah membuat caption Instagram yang sangat disesuaikan dengan target market tertentu, baik dari sisi bahasa, masalah, impian, resistensi, maupun gaya komunikasi.
+
+## Input:
+- Produk/jasa:
+- Target market utama:
+- Demografi:
+- Psikografi:
+- Masalah utama:
+- Keinginan utama:
+- Ketakutan / resistensi:
+- Tingkat awareness:
+  [tidak sadar / sadar masalah / sadar solusi / sadar produk]
+- Tujuan konten:
+  [edukasi / soft selling / hard selling / engagement / branding]
+- Format konten:
+  [feed / reels / carousel / story]
+- Tone brand:
+- CTA:
+
+## Instruksi:
+Buat caption Instagram yang:
+- Menggunakan bahasa yang paling nyambung dengan target market
+- Menyentuh masalah, keinginan, dan resistensi mereka
+- Menyesuaikan gaya komunikasi dengan level awareness mereka
+- Tidak terlalu generik
+- Relevan dengan format konten dan tujuan konten
+- Punya CTA yang paling cocok untuk target market ini
+
+## Output wajib:
+1. Profil singkat target market
+2. Insight psikologis audiens
+3. 3 versi caption paling cocok
+4. Penjelasan kenapa tiap caption cocok untuk audiens tersebut
+5. CTA terbaik
+6. Hook terbaik
+```
+
+
+***
+
+## 13) Template super praktis
+
+Kalau Anda mau versi yang paling cepat dipakai tiap hari, ini template universalnya:
+
+Bertindaklah sebagai Instagram Copywriter profesional.
+
+Buat caption Instagram untuk:
+- Tujuan konten: [edukasi / carousel / hard selling / soft selling / reels / branding / engagement]
+- Produk/jasa/brand: [isi]
+- Target market: [isi detail]
+- Topik konten: [isi]
+- Masalah audiens: [isi]
+- Benefit utama: [isi]
+- Tone brand: [isi]
+- CTA: [isi]
+- Panjang caption: [pendek / sedang / panjang]
+
+Instruksi:
+- Sesuaikan gaya bahasa dengan target market
+- Buat hook kuat di awal
+- Jaga agar caption natural untuk Instagram
+- Hindari bahasa generik
+- Pastikan CTA sesuai tujuan
+- Beri 3 versi caption dengan angle berbeda
+
+Output:
+1. Caption versi 1
+2. Caption versi 2
+3. Caption versi 3
+4. 5 hook alternatif
+5. 5 hashtag relevan
+```
+
+## 14) Prompt Story Edukasi
+
+Bertindaklah sebagai Instagram Story Strategist dan Copywriter.
+
+Tugasmu adalah membuat rangkaian Instagram Story bertema edukasi yang singkat, jelas, engaging, dan mudah dipahami dalam format beberapa frame.
+
+## Input:
+- Topik:
+- Brand / produk / jasa:
+- Target market:
+- Masalah utama audiens:
+- Insight edukasi utama:
+- Tujuan story:
+  [edukasi / save / DM / klik link / awareness]
+- Tone brand:
+- Jumlah frame:
+  [3 / 4 / 5 / 6]
+
+## Instruksi:
+Buat rangkaian Instagram Story yang:
+- Punya hook kuat di frame pertama
+- Menjelaskan masalah secara cepat
+- Memberi insight yang praktis
+- Ringkas dan cocok dibaca cepat
+- Mengandung CTA yang sesuai
+- Bisa dipadukan dengan sticker story bila perlu
+
+## Output wajib:
+1. Breakdown per frame
+2. Teks per frame
+3. Ide visual per frame
+4. Sticker/interaksi yang cocok
+5. CTA penutup
+```
+
+
+***
+
+## 15) Prompt Story Soft Selling
+
+Bertindaklah sebagai Instagram Story Copywriter.
+
+Tugasmu adalah membuat rangkaian Story untuk soft selling yang terasa natural, halus, relatable, dan tetap mengarah ke minat beli.
+
+## Input:
+- Produk/jasa:
+- Target market:
+- Situasi yang relatable:
+- Masalah audiens:
+- Benefit utama:
+- Tone brand:
+- Tujuan:
+  [DM / klik link / reply / awareness]
+- Jumlah frame:
+
+## Instruksi:
+Buat Instagram Story soft selling yang:
+- Diawali situasi yang dekat dengan audiens
+- Membangun koneksi emosional
+- Memperkenalkan produk/jasa secara natural
+- Tidak terasa terlalu jualan
+- Tetap mengarahkan audiens ke CTA
+
+## Output wajib:
+1. Story sequence per frame
+2. Teks singkat per frame
+3. Visual cue per frame
+4. CTA akhir
+5. Saran sticker interaktif
+```
+
+
+***
+
+## 16) Prompt Story Hard Selling
+
+Bertindaklah sebagai Instagram Story Direct Response Copywriter.
+
+Tugasmu adalah membuat rangkaian Story hard selling yang cepat, jelas, to the point, dan mendorong aksi.
+
+## Input:
+- Produk/jasa:
+- Penawaran:
+- Harga:
+- Bonus/promo:
+- Deadline:
+- Target market:
+- Pain point audiens:
+- CTA:
+- Jumlah frame:
+
+## Instruksi:
+Buat rangkaian Story hard selling yang:
+- Langsung menunjukkan penawaran
+- Menjelaskan untuk siapa produk ini cocok
+- Menampilkan manfaat utama
+- Menggunakan urgency jika relevan
+- Menutup dengan CTA tegas
+
+## Output wajib:
+1. Breakdown frame demi frame
+2. Copy singkat tiap frame
+3. Ide visual
+4. 3 CTA alternatif
+5. 3 versi urutan story
+```
+
+
+***
+
+## 17) Prompt Story Interaktif
+
+Bertindaklah sebagai Instagram Engagement Strategist.
+
+Tugasmu adalah membuat Story interaktif yang mendorong audiens untuk polling, menjawab pertanyaan, slider, quiz, atau reply.
+
+## Input:
+- Topik:
+- Brand:
+- Target market:
+- Tujuan interaksi:
+  [polling / quiz / reply / DM / engagement]
+- Tone:
+- Konteks produk/jasa (bila ada):
+- Jumlah frame:
+
+## Instruksi:
+Buat Story interaktif yang:
+- Menarik sejak frame pertama
+- Memancing respons cepat
+- Relevan dengan target market
+- Bisa meningkatkan engagement dan insight audiens
+- Tetap nyambung dengan brand
+
+## Output wajib:
+1. Sequence story
+2. Teks per frame
+3. Jenis sticker yang dipakai
+4. Pertanyaan/polling/quiz copy
+5. CTA akhir
+```
+
+
+***
+
+## 18) Prompt Story Launching / Promo
+
+Bertindaklah sebagai Instagram Launch Story Copywriter.
+
+Tugasmu adalah membuat rangkaian Story untuk launching atau promo agar audiens penasaran, paham value-nya, dan terdorong bertindak.
+
+## Input:
+- Produk/jasa:
+- Jenis launch/promo:
+- Target market:
+- Benefit utama:
+- Harga:
+- Bonus:
+- Deadline:
+- Tone:
+- CTA:
+- Jumlah frame:
+
+## Instruksi:
+Buat rangkaian Story launching/promo yang:
+- Membangun antusiasme
+- Menjelaskan value utama
+- Menyampaikan detail promo dengan jelas
+- Tidak terlalu padat teks
+- Mengarahkan audiens ke CTA
+
+## Output wajib:
+1. Sequence 5–7 frame
+2. Copy tiap frame
+3. Ide visual
+4. CTA swipe/link/DM
+5. Sticker yang direkomendasikan
+```
+
+
+***
+
+## 19) Prompt Caption UMKM Harian
+
+Bertindaklah sebagai Instagram Content Writer untuk UMKM.
+
+Tugasmu adalah membuat caption Instagram yang sederhana, menjual, mudah dipahami, dan cocok untuk audiens bisnis kecil atau pelanggan lokal.
+
+## Input:
+- Nama usaha:
+- Jenis usaha:
+- Produk/jasa:
+- Lokasi:
+- Target market:
+- Tujuan konten:
+  [edukasi / branding / soft selling / hard selling / promo / engagement]
+- Topik:
+- Benefit utama:
+- Tone:
+- CTA:
+
+## Instruksi:
+Buat caption Instagram untuk UMKM yang:
+- Mudah dipahami
+- Tidak terlalu formal
+- Tidak terlalu "AI banget"
+- Menonjolkan manfaat produk/jasa
+- Cocok untuk audiens lokal atau pembeli sehari-hari
+- Mengandung CTA jelas
+
+## Output wajib:
+1. 3 versi caption
+2. 3 hook pembuka
+3. CTA yang paling cocok
+4. 5 hashtag lokal/relevan
+```
+
+
+***
+
+## 20) Prompt Kalender Konten UMKM
+
+Bertindaklah sebagai Instagram Content Planner untuk UMKM.
+
+Tugasmu adalah membuat ide konten Instagram selama 30 hari untuk UMKM berdasarkan tujuan bisnis dan target pasar.
+
+## Input:
+- Nama usaha:
+- Jenis usaha:
+- Produk/jasa utama:
+- Lokasi:
+- Target market:
+- Tujuan bisnis:
+  [meningkatkan penjualan / awareness / repeat order / DM / kunjungan toko]
+- Tone brand:
+- Platform fokus:
+  [feed / reels / story / carousel]
+
+## Instruksi:
+Buat rencana konten 30 hari yang:
+- Variatif
+- Realistis untuk UMKM
+- Bisa dibuat tanpa tim besar
+- Menggabungkan edukasi, jualan, engagement, social proof, dan promo
+- Tetap relevan dengan target market
+
+## Output wajib:
+1. Kalender 30 ide konten
+2. Format konten tiap ide
+3. Tujuan tiap konten
+4. Angle singkat tiap ide
+5. CTA tiap ide
+```
+
+
+***
+
+## 21) Prompt Konten Promo UMKM
+
+Bertindaklah sebagai Instagram Promo Copywriter untuk UMKM.
+
+Tugasmu adalah membuat caption promo yang cocok untuk usaha kecil, mudah dipahami pelanggan, dan mendorong pembelian.
+
+## Input:
+- Nama usaha:
+- Produk/jasa:
+- Promo:
+- Harga:
+- Lokasi:
+- Deadline:
+- Target market:
+- Tone:
+- CTA:
+
+## Instruksi:
+Buat caption promo UMKM yang:
+- Langsung jelas
+- Tidak bertele-tele
+- Menjelaskan promo dan manfaatnya
+- Cocok untuk pelanggan lokal
+- Menutup dengan CTA yang jelas
+
+## Output wajib:
+1. 3 caption promo
+2. 5 hook promo
+3. 3 CTA
+4. 5 hashtag relevan
+```
+
+
+***
+
+## 22) Prompt Story Selling UMKM
+
+Bertindaklah sebagai Instagram Story Copywriter untuk UMKM.
+
+Tugasmu adalah membuat rangkaian Story jualan untuk UMKM yang sederhana, cepat dipahami, dan efektif mendorong chat atau order.
+
+## Input:
+- Nama usaha:
+- Produk/jasa:
+- Promo/penawaran:
+- Lokasi:
+- Target market:
+- CTA:
+- Jumlah frame:
+- Tone:
+
+## Instruksi:
+Buat Story jualan untuk UMKM yang:
+- Ringkas
+- Menjelaskan apa yang dijual
+- Menjelaskan siapa yang cocok membeli
+- Menampilkan manfaat utama
+- Punya CTA tegas
+
+## Output wajib:
+1. Sequence story
+2. Copy singkat per frame
+3. Visual cue
+4. CTA
+```
+
+***
+
+## 23) Prompt Niche Jasa
+
+Bertindaklah sebagai Instagram Copywriter untuk bisnis jasa.
+
+Tugasmu adalah membuat caption Instagram untuk bisnis jasa agar audiens paham nilai layanan, percaya, dan terdorong inquiry.
+
+## Input:
+- Jenis jasa:
+- Target market:
+- Masalah utama audiens:
+- Hasil yang dijanjikan:
+- Keunggulan jasa:
+- Tone:
+- Tujuan:
+  [edukasi / soft selling / hard selling / trust building]
+- CTA:
+
+## Instruksi:
+Buat caption yang:
+- Menjelaskan manfaat jasa dengan jelas
+- Mengurangi keraguan audiens
+- Menunjukkan hasil atau transformasi
+- Tidak terlalu generik
+- Mendorong konsultasi/inquiry
+
+## Output wajib:
+1. 3 caption
+2. 3 hook
+3. 3 CTA inquiry
+4. hashtag relevan
+```
+
+
+***
+
+## 24) Prompt Niche Klinik / Kesehatan / Estetika
+
+Bertindaklah sebagai Instagram Copywriter untuk klinik / layanan kesehatan / estetika.
+
+Tugasmu adalah membuat caption yang informatif, meyakinkan, tetap etis, dan tidak berlebihan.
+
+## Input:
+- Jenis klinik/layanan:
+- Target market:
+- Keluhan / kebutuhan audiens:
+- Layanan yang dipromosikan:
+- Benefit utama:
+- Hal yang harus dihindari:
+- Tone:
+- Tujuan:
+- CTA:
+
+## Instruksi:
+Buat caption yang:
+- Menenangkan dan edukatif
+- Tidak menakut-nakuti
+- Tidak overclaim
+- Menjelaskan manfaat layanan dengan jelas
+- Cocok untuk membangun trust
+- Mengarahkan ke konsultasi atau booking
+
+## Output wajib:
+1. 3 caption
+2. 3 hook
+3. CTA booking / konsultasi
+4. hashtag relevan
+```
+
+
+***
+
+## 24) Prompt Niche Properti
+
+Bertindaklah sebagai Instagram Copywriter untuk bisnis properti.
+
+Tugasmu adalah membuat caption yang membantu calon pembeli/investor memahami value properti dan tertarik bertanya lebih lanjut.
+
+## Input:
+- Jenis properti:
+- Lokasi:
+- Target market:
+- Masalah / kebutuhan audiens:
+- Keunggulan properti:
+- Harga / skema:
+- Tone:
+- Tujuan:
+- CTA:
+
+## Instruksi:
+Buat caption properti yang:
+- Menonjolkan value dan lokasi
+- Menjelaskan siapa properti ini cocok untuk siapa
+- Menyentuh kebutuhan calon pembeli/investor
+- Tidak sekadar listing
+- Mendorong DM / survey / konsultasi
+
+## Output wajib:
+1. 3 caption
+2. 3 hook
+3. CTA
+4. hashtag properti
+```
+
+
+***
+
+## 25) Prompt Niche Fashion
+
+Bertindaklah sebagai Instagram Copywriter untuk brand fashion.
+
+Tugasmu adalah membuat caption Instagram yang menarik, stylish, relatable, dan bisa mendorong minat beli.
+
+## Input:
+- Nama brand:
+- Produk fashion:
+- Target market:
+- Style / image brand:
+- Benefit utama:
+- Occasion / momen penggunaan:
+- Tone:
+- Tujuan:
+- CTA:
+
+## Instruksi:
+Buat caption fashion yang:
+- Menjual feel dan gaya, bukan hanya produk
+- Tetap menjelaskan manfaat utama
+- Relevan dengan gaya hidup target market
+- Bisa dipakai untuk feed, reels, atau carousel
+- Mendorong minat beli atau save post
+
+## Output wajib:
+1. 3 caption
+2. 5 hook
+3. CTA
+4. hashtag fashion
+```
+
+
+***
+
+## 26) Prompt Niche Kuliner
+
+Bertindaklah sebagai Instagram Copywriter untuk brand kuliner.
+
+Tugasmu adalah membuat caption yang menggugah, relevan, dan mampu mendorong audiens datang, pesan, atau share.
+
+## Input:
+- Nama brand:
+- Produk makanan/minuman:
+- Lokasi:
+- Target market:
+- Rasa / keunikan produk:
+- Promo / penawaran:
+- Tone:
+- Tujuan:
+- CTA:
+
+## Instruksi:
+Buat caption kuliner yang:
+- Menggambarkan rasa atau pengalaman makan secara menarik
+- Menjelaskan apa yang membuat produk berbeda
+- Relevan dengan target market
+- Mendorong pembelian, kunjungan, atau order
+- Tetap enak dibaca dan tidak terlalu generik
+
+## Output wajib:
+1. 3 caption
+2. 5 hook
+3. CTA
+4. hashtag kuliner lokal
+```
+
+
+***
+
+## 27) Prompt Niche Pendidikan / Kursus / Pelatihan
+
+Bertindaklah sebagai Instagram Copywriter untuk bisnis pendidikan, kursus, atau pelatihan.
+
+Tugasmu adalah membuat caption yang informatif, meyakinkan, dan mendorong minat daftar.
+
+## Input:
+- Nama lembaga / brand:
+- Program / kelas:
+- Target market:
+- Masalah / kebutuhan audiens:
+- Hasil belajar yang dijanjikan:
+- Keunggulan program:
+- Tone:
+- Tujuan:
+- CTA:
+
+## Instruksi:
+Buat caption pendidikan yang:
+- Menjelaskan manfaat belajar dengan konkret
+- Tidak terlalu formal dan kaku
+- Menunjukkan hasil atau transformasi yang mungkin dicapai
+- Mengurangi keraguan calon peserta
+- Mendorong pendaftaran atau konsultasi
+
+## Output wajib:
+1. 3 caption
+2. 3 hook
+3. CTA daftar / konsultasi
+4. hashtag relevan
+```
+
+
+***
+
+# 28) Prompt Sistem Lengkap: Caption + Hook + CTA + Hashtag
+
+Ini yang paling berguna kalau Anda ingin satu prompt lengkap untuk produksi konten Instagram end-to-end.
+
+# INSTAGRAM CAPTION SYSTEM PROMPT
+## Hook + Caption + CTA + Hashtag + Angle + Market Fit
+
+Bertindaklah sebagai Instagram Content Strategist, Copywriter, dan Audience Analyst.
+
+Tugasmu adalah membuat paket caption Instagram lengkap yang disesuaikan dengan tujuan konten, format konten, target market, dan karakter brand.
+
+==================================================
+INPUT
+==================================================
+
+- Brand / bisnis:
+- Produk / jasa:
+- Industri / niche:
+- Target market:
+- Demografi target:
+- Psikografi target:
+- Masalah utama audiens:
+- Keinginan utama audiens:
+- Ketakutan / resistensi audiens:
+- Tujuan konten:
+  [edukasi / carousel / engagement / awareness / soft selling / hard selling / promo / launching / branding / storytelling]
+- Format konten:
+  [feed / reels / carousel / story]
+- Topik konten:
+- Insight utama:
+- Benefit utama:
+- Penawaran / promo (jika ada):
+- Harga (jika ada):
+- Tone brand:
+- CTA utama:
+- Panjang caption:
+  [pendek / sedang / panjang]
+
+==================================================
+TUGAS
+==================================================
+
+Buat caption Instagram yang:
+- Disesuaikan dengan target market
+- Punya hook kuat di awal
+- Relevan dengan tujuan konten
+- Cocok dengan format konten
+- Menggunakan bahasa yang natural untuk Instagram
+- Tidak terlalu generik
+- Tetap punya arah konversi atau engagement
+- Menampilkan CTA yang sesuai tujuan
+- Menggunakan hashtag yang relevan dan tidak spam
+
+==================================================
+OUTPUT WAJIB
+==================================================
+
+## A. Audience Insight
+- Siapa target market ini
+- Apa yang mereka pedulikan
+- Gaya bahasa yang paling cocok
+- Trigger emosional yang paling kuat
+- Resistensi utama yang harus diatasi
+
+## B. Hook Options
+Buat 10 hook pembuka:
+- 3 hook problem-based
+- 2 hook curiosity-based
+- 2 hook aspirational
+- 2 hook direct selling
+- 1 hook soft emotional
+
+## C. Caption Versions
+Buat 5 caption dengan angle berbeda:
+1. Edukatif
+2. Soft selling
+3. Hard selling
+4. Storytelling
+5. Engagement-driven
+
+## D. CTA Options
+Buat 10 CTA yang dibagi menjadi:
+- 2 CTA komentar
+- 2 CTA save
+- 2 CTA share
+- 2 CTA DM / inquiry
+- 2 CTA beli / daftar / klik link
+
+## E. Hashtag System
+Buat 3 set hashtag:
+- Set 1: broad hashtag
+- Set 2: niche hashtag
+- Set 3: local/intent hashtag
+
+Masing-masing 5–10 hashtag.
+
+## F. Best Recommendation
+- Hook terbaik:
+- Caption terbaik:
+- CTA terbaik:
+- Set hashtag terbaik:
+- Alasan kenapa kombinasi ini paling cocok
+```
+
+
+***
+
+## 29)Prompt super singkat siap pakai
+
+Kalau Anda ingin versi paling praktis untuk penggunaan cepat harian:
+Buat caption Instagram lengkap untuk konten berikut:
+
+- Brand:
+- Produk/jasa:
+- Target market:
+- Tujuan konten:
+- Format konten:
+- Topik:
+- Masalah audiens:
+- Benefit utama:
+- Penawaran/promo:
+- Tone brand:
+- CTA:
+- Panjang caption:
+
+Output:
+1. 5 hook
+2. 3 caption versi berbeda
+3. 5 CTA
+4. 3 set hashtag
+5. Rekomendasi caption terbaik untuk target market ini
+```
+
+
+***
+
+## Cara saya sarankan menyusun prompt harian
+
+Supaya lebih rapi, Anda bisa menyimpan prompt dalam 4 level kerja:
+
+
+| Level | Fungsi |
+| :-- | :-- |
+| Prompt Story | untuk produksi story harian |
+| Prompt UMKM | untuk bisnis kecil/lokal |
+| Prompt Niche | untuk industri spesifik |
+| Prompt Sistem Lengkap | untuk produksi caption serius/campaign |
+
+
+***
+
+## Saran praktis penggunaan
+
+Untuk operasional paling efektif:
+
+- **Story** dipakai untuk warming, interaksi, reminder, soft selling.
+- **Prompt UMKM** dipakai untuk bisnis harian yang butuh cepat dan praktis.
+- **Prompt niche** dipakai saat ingin copy yang lebih presisi sesuai industri.
+- **Prompt sistem lengkap** dipakai untuk campaign, launching, promosi, dan konten penting.
+
+***
+
+
+## Saran penggunaan
+
+Agar hasil caption lebih akurat, isi target market sejelas mungkin. Misalnya jangan hanya:
+
+- “wanita”
+
+Tapi lebih baik:
+
+- “wanita 25–35 tahun, pekerja kantoran, tinggal di kota besar, ingin tampil rapi tanpa ribet, sensitif pada harga, suka konten praktis”
+
+Semakin spesifik input Anda, semakin tajam hasil captionnya.
+
+## Paket prompt yang paling saya sarankan
+
+</textarea>
+
+<script>
+let instagramPrompts = [];
+let currentInstagramFields = [];
+let lastInstagramMarkdown = '';
+
+function cleanText(s) {
+  return (s || '')
+    .replace(/\u00a0/g, ' ')
+    .replace(/[ \t]+\n/g, '\n')
+    .replace(/\n[ \t]+/g, '\n')
+    .replace(/[ \t]{2,}/g, ' ')
+    .trim();
+}
+
+function slug(s) {
+  return (s || '')
+    .toLowerCase()
+    .replace(/[^a-z0-9\s]/g, '')
+    .replace(/\s+/g, '_')
+    .replace(/_+/g, '_')
+    .replace(/^_|_$/g, '')
+    .substring(0, 60);
+}
+
+function escapeRegex(s) {
+  return (s || '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function inferPromptCategory(title, raw) {
+  const hay = `${title} ${raw}`.toLowerCase();
+  if (/\bstory\b/.test(hay)) return 'Story';
+  if (/\bumkm\b/.test(hay)) return 'UMKM';
+  if (/\bniche\b|klinik|properti|fashion|kuliner|pendidikan|jasa/.test(hay)) return 'Niche';
+  if (/sistem lengkap|super praktis|super singkat|universal|system prompt/.test(hay)) return 'System';
+  return 'Caption';
+}
+
+function findNearestIndex(raw, fromIndex, regexList) {
+  const candidates = [];
+  regexList.forEach((rx) => {
+    const re = new RegExp(rx.source, rx.flags.includes('g') ? rx.flags : `${rx.flags}g`);
+    re.lastIndex = fromIndex;
+    const m = re.exec(raw);
+    if (m && typeof m.index === 'number') candidates.push(m.index);
+  });
+  if (!candidates.length) return raw.length;
+  return Math.min(...candidates);
+}
+
+function detectInputBlock(raw) {
+  const patterns = [
+    {
+      start: /(^|\n)##\s*Input\s*:\s*\n?/i,
+      end: [/(\n##\s*Instruksi\s*:)/i, /(\n##\s*Output\s*wajib\s*:)/i, /(\n\*\*\*)/i]
+    },
+    {
+      start: /(^|\n)INPUT\s*\n=+\s*\n/i,
+      end: [/(\n=+\s*\nTUGAS\s*\n=+)/i, /(\n##\s*TUGAS)/i, /(\n\*\*\*)/i]
+    },
+    {
+      start: /Buat caption Instagram untuk:\s*\n/i,
+      end: [/(\n\nInstruksi:)/i, /(\nInstruksi:)/i, /(\nOutput:)/i, /(\n\*\*\*)/i]
+    },
+    {
+      start: /Buat caption Instagram lengkap untuk konten berikut:\s*\n/i,
+      end: [/(\n\nOutput:)/i, /(\nOutput:)/i, /(\n\*\*\*)/i]
+    }
+  ];
+
+  for (const p of patterns) {
+    const m = p.start.exec(raw);
+    if (!m) continue;
+    const start = m.index + m[0].length;
+    const end = findNearestIndex(raw, start, p.end);
+    const text = raw.slice(start, end).trim();
+    if (text) return { text, start, end };
+  }
+
+  return { text: '', start: 0, end: 0 };
+}
+
+function parseFieldOptions(placeholder) {
+  const p = cleanText(placeholder || '');
+  if (!p) return [];
+  const pureBracket = p.match(/^\[(.+)\]$/);
+  if (!pureBracket) return [];
+  const parts = pureBracket[1]
+    .split('/')
+    .map((s) => cleanText(s))
+    .filter(Boolean);
+  if (parts.length < 2 || parts.length > 12) return [];
+  return parts.map((item) => ({ value: item, label: item }));
+}
+
+function buildFieldMeta(label, placeholder) {
+  const ph = cleanText(placeholder || '');
+  const options = parseFieldOptions(ph);
+  const longRx = /(cerita|masalah|insight|psikografi|demografi|hasil|testimoni|sebelum|sesudah|isi\s+singkat|konteks|keinginan|ketakutan|resistensi|keunggulan|benefit|topik|produk|jasa|target\s+market|tujuan|tone|cta)/i;
+  const inputType = options.length ? 'select' : ((ph.length > 34 || longRx.test(`${label} ${ph}`)) ? 'textarea' : 'text');
+  return {
+    key: slug(label),
+    label,
+    placeholder: ph,
+    options,
+    inputType
+  };
+}
+
+function extractInputFields(inputText) {
+  const lines = (inputText || '').split(/\r?\n/);
+  const fields = [];
+  let current = null;
+
+  lines.forEach((line) => {
+    const ln = line.trim();
+    if (!ln) return;
+
+    const m = ln.match(/^[-*]\s*(.+?)\s*:\s*(.*)$/);
+    if (m) {
+      const label = cleanText(m[1]);
+      const placeholder = cleanText(m[2]);
+      if (!label) return;
+      current = buildFieldMeta(label, placeholder);
+      fields.push(current);
+      return;
+    }
+
+    if (current && /^\[[^\]]+\]$/.test(ln)) {
+      current.placeholder = cleanText(`${current.placeholder} ${ln}`);
+      const options = parseFieldOptions(ln);
+      if (options.length) {
+        current.options = options;
+        current.inputType = 'select';
+      }
+    }
+  });
+
+  const seen = new Set();
+  return fields.filter((f) => {
+    if (!f.key || seen.has(f.key)) return false;
+    seen.add(f.key);
+    return true;
+  });
+}
+
+function parseInstagramPrompts(source) {
+  const rx = /^\s{0,3}(?:#|##)\s*(\d+)\)\s*(.+?)\s*$/gm;
+  const heads = [];
+  let m;
+  while ((m = rx.exec(source)) !== null) {
+    heads.push({ sourceNo: m[1], title: cleanText(m[2]), start: m.index });
+  }
+
+  const prompts = heads.map((h, idx) => {
+    const next = heads[idx + 1];
+    const end = next ? next.start : source.length;
+    const raw = source.slice(h.start, end).trim();
+    const input = detectInputBlock(raw);
+    const fields = extractInputFields(input.text);
+    return {
+      uid: String(idx + 1).padStart(2, '0'),
+      sourceNo: h.sourceNo,
+      title: h.title,
+      category: inferPromptCategory(h.title, raw),
+      raw,
+      fields
+    };
+  });
+
+  return prompts;
+}
+
+function getSelectedInstagramPrompt() {
+  const sel = document.getElementById('ig_template');
+  const uid = sel ? sel.value : '';
+  return instagramPrompts.find((p) => p.uid === uid) || null;
+}
+
+function renderInstagramPromptInfo(prompt) {
+  const el = document.getElementById('ig-template-summary');
+  if (!prompt) {
+    el.textContent = 'Prompt tidak ditemukan. Ubah filter kategori atau pencarian.';
+    return;
+  }
+  const duplicateNote = instagramPrompts.filter((p) => p.sourceNo === prompt.sourceNo).length > 1
+    ? ` (nomor sumber ${prompt.sourceNo} memiliki lebih dari satu prompt)`
+    : '';
+  el.innerHTML = `Kategori: <strong>${prompt.category}</strong> · Prompt sumber #${prompt.sourceNo}${duplicateNote}<br>Field input terdeteksi: <strong>${prompt.fields.length}</strong>.`;
+}
+
+function populateInstagramTemplateSelect(preferredUid = '') {
+  const category = (document.getElementById('ig_category') || {}).value || 'all';
+  const keyword = cleanText((document.getElementById('ig_template_search') || {}).value || '').toLowerCase();
+  const sel = document.getElementById('ig_template');
+  if (!sel) return;
+
+  const filtered = instagramPrompts.filter((p) => {
+    if (category !== 'all' && p.category !== category) return false;
+    if (!keyword) return true;
+    return `${p.uid} ${p.sourceNo} ${p.title} ${p.category}`.toLowerCase().includes(keyword);
+  });
+
+  sel.innerHTML = '';
+  document.getElementById('ig-template-count').textContent = `${filtered.length} Prompt`;
+
+  if (!filtered.length) {
+    const empty = document.createElement('option');
+    empty.value = '';
+    empty.textContent = 'Tidak ada prompt yang cocok';
+    sel.appendChild(empty);
+    renderInstagramPromptInfo(null);
+    currentInstagramFields = [];
+    renderInstagramFields(currentInstagramFields);
+    return;
+  }
+
+  filtered.forEach((p) => {
+    const opt = document.createElement('option');
+    opt.value = p.uid;
+    opt.textContent = `[${p.category}] ${p.uid}. (#${p.sourceNo}) ${p.title}`;
+    sel.appendChild(opt);
+  });
+
+  const hasPreferred = filtered.some((p) => p.uid === preferredUid);
+  sel.value = hasPreferred ? preferredUid : filtered[0].uid;
+}
+
+function renderInstagramFields(fields) {
+  const wrap = document.getElementById('ig-dynamic-fields');
+  wrap.innerHTML = '';
+
+  if (!fields.length) {
+    const p = document.createElement('p');
+    p.className = 'muted';
+    p.textContent = 'Field input tidak terdeteksi otomatis untuk prompt ini. Anda tetap bisa generate markdown mentahnya.';
+    wrap.appendChild(p);
+    return;
+  }
+
+  fields.forEach((f) => {
+    const group = document.createElement('div');
+    group.className = 'field-group';
+    group.dataset.fieldText = `${f.label} ${f.placeholder}`.toLowerCase();
+
+    const label = document.createElement('label');
+    label.className = 'field-label';
+    label.setAttribute('for', `ig_${f.key}`);
+    label.textContent = f.label;
+
+    let input;
+    if (f.inputType === 'select' && f.options.length) {
+      input = document.createElement('select');
+      const opt0 = document.createElement('option');
+      opt0.value = '';
+      opt0.textContent = f.placeholder || 'Pilih salah satu';
+      input.appendChild(opt0);
+      f.options.forEach((o) => {
+        const opt = document.createElement('option');
+        opt.value = o.value;
+        opt.textContent = o.label;
+        input.appendChild(opt);
+      });
+    } else if (f.inputType === 'textarea') {
+      input = document.createElement('textarea');
+      input.placeholder = f.placeholder || `Isi ${f.label}`;
+    } else {
+      input = document.createElement('input');
+      input.type = 'text';
+      input.placeholder = f.placeholder || `Isi ${f.label}`;
+    }
+
+    input.id = `ig_${f.key}`;
+    input.autocomplete = 'off';
+    input.autocorrect = 'off';
+    input.autocapitalize = 'off';
+    input.spellcheck = false;
+
+    group.appendChild(label);
+    group.appendChild(input);
+    wrap.appendChild(group);
+  });
+
+  const brandField = fields.find((f) => /(brand|bisnis|usaha|nama\s*brand|nama\s*usaha)/i.test(f.label));
+  if (brandField) {
+    const brandEl = document.getElementById(`ig_${brandField.key}`);
+    if (brandEl) {
+      const sync = () => {
+        document.getElementById('ig-brand-header').textContent = cleanText(brandEl.value) || 'Brand';
+      };
+      brandEl.addEventListener('input', sync);
+      sync();
+    }
+  } else {
+    document.getElementById('ig-brand-header').textContent = 'Brand';
+  }
+}
+
+function filterInstagramFields() {
+  const key = cleanText((document.getElementById('ig_field_search') || {}).value || '').toLowerCase();
+  document.querySelectorAll('#ig-dynamic-fields .field-group').forEach((row) => {
+    const hay = row.dataset.fieldText || '';
+    row.style.display = !key || hay.includes(key) ? 'block' : 'none';
+  });
+}
+
+function onInstagramFilterChange() {
+  const prev = getSelectedInstagramPrompt();
+  populateInstagramTemplateSelect(prev ? prev.uid : '');
+  onInstagramTemplateChange();
+}
+
+function onInstagramTemplateChange() {
+  const prompt = getSelectedInstagramPrompt();
+  currentInstagramFields = prompt ? prompt.fields : [];
+  renderInstagramPromptInfo(prompt);
+  renderInstagramFields(currentInstagramFields);
+  const fieldSearch = document.getElementById('ig_field_search');
+  if (fieldSearch) fieldSearch.value = '';
+  filterInstagramFields();
+  lastInstagramMarkdown = '';
+  document.getElementById('ig-markdown-preview').textContent = prompt
+    ? 'Template dipilih. Isi field input lalu klik "Generate Markdown Prompt".'
+    : 'Template tidak ditemukan. Ubah filter kategori atau pencarian.';
+}
+
+function getInstagramFieldValues() {
+  const values = {};
+  currentInstagramFields.forEach((f) => {
+    const el = document.getElementById(`ig_${f.key}`);
+    if (!el) return;
+    const val = cleanText(el.value);
+    if (!val) return;
+    values[f.label] = val;
+  });
+  return values;
+}
+
+function replaceFirstLineByLabel(raw, label, value) {
+  const esc = escapeRegex(label);
+  const patterns = [
+    new RegExp(`(^\\s*[-*]\\s*${esc}\\s*:\\s*)(.*)$`, 'm'),
+    new RegExp(`(^\\s*${esc}\\s*:\\s*)(.*)$`, 'm')
+  ];
+  let out = raw;
+  for (const rx of patterns) {
+    if (rx.test(out)) {
+      out = out.replace(rx, (_, p1) => `${p1}${value}`);
+      break;
+    }
+  }
+  return out;
+}
+
+function buildInstagramMarkdown() {
+  const prompt = getSelectedInstagramPrompt();
+  if (!prompt) return '';
+  let out = prompt.raw;
+  const values = getInstagramFieldValues();
+  Object.keys(values).forEach((label) => {
+    out = replaceFirstLineByLabel(out, label, values[label]);
+  });
+  return out;
+}
+
+function generateInstagramMarkdown() {
+  const prompt = getSelectedInstagramPrompt();
+  if (!prompt) {
+    alert('Prompt tidak tersedia. Ubah filter kategori atau pencarian.');
+    return;
+  }
+  lastInstagramMarkdown = buildInstagramMarkdown();
+  document.getElementById('ig-markdown-preview').textContent = lastInstagramMarkdown || 'Template kosong.';
+}
+
+function copyInstagramMarkdown() {
+  if (!lastInstagramMarkdown) generateInstagramMarkdown();
+  if (!lastInstagramMarkdown) return;
+  navigator.clipboard.writeText(lastInstagramMarkdown).then(() => {
+    alert('Markdown Prompt Instagram berhasil disalin.');
+  }).catch(() => {
+    alert('Gagal menyalin otomatis. Silakan copy manual dari preview.');
+  });
+}
+
+function downloadInstagramMarkdown() {
+  if (!lastInstagramMarkdown) generateInstagramMarkdown();
+  if (!lastInstagramMarkdown) return;
+  const prompt = getSelectedInstagramPrompt();
+  const label = prompt ? `ig-prompt-${prompt.uid}-${slug(prompt.title)}` : 'instagram-prompt';
+  const fname = `${label}-${new Date().toISOString().slice(0, 10)}.md`;
+  const blob = new Blob([lastInstagramMarkdown], { type: 'text/markdown;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = fname;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
+}
+
+function resetInstagramForm() {
+  currentInstagramFields.forEach((f) => {
+    const el = document.getElementById(`ig_${f.key}`);
+    if (!el) return;
+    el.value = '';
+  });
+  lastInstagramMarkdown = '';
+  document.getElementById('ig-brand-header').textContent = 'Brand';
+  document.getElementById('ig-markdown-preview').textContent = 'Form direset. Isi ulang lalu klik "Generate Markdown Prompt".';
+}
+
+(function initInstagramPage() {
+  const source = document.getElementById('ig_source_raw').value || '';
+  instagramPrompts = parseInstagramPrompts(source).map((p, idx) => {
+    const normalizedSourceNo = (p.sourceNo === '24' && idx > 23 && p.title.toLowerCase().includes('properti')) ? '24B' : p.sourceNo;
+    return { ...p, sourceNo: normalizedSourceNo };
+  });
+  populateInstagramTemplateSelect('01');
+  onInstagramTemplateChange();
+})();
+</script>
+</body>
+</html>

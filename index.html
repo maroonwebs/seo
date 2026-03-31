@@ -65,6 +65,7 @@ body {
   position: sticky;
   top: 0;
   z-index: 50;
+  gap: 14px;
 }
 
 .app-logo {
@@ -77,6 +78,37 @@ body {
 .app-logo span {
   color: var(--gold2);
   font-style: italic;
+}
+
+.app-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+}
+
+.app-nav-link {
+  color: rgba(255,255,255,0.82);
+  text-decoration: none;
+  font-size: 12px;
+  font-family: var(--font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 1px solid rgba(255,255,255,0.24);
+  border-radius: 999px;
+  padding: 6px 12px;
+  transition: all 0.2s;
+}
+
+.app-nav-link:hover {
+  color: #fff;
+  border-color: rgba(255,255,255,0.5);
+  background: rgba(255,255,255,0.08);
+}
+
+.app-nav-btn {
+  background: transparent;
+  cursor: pointer;
 }
 
 .step-pills {
@@ -589,6 +621,111 @@ select {
   align-items: center;
 }
 
+.result-mobile-nav {
+  display: none;
+  width: 100%;
+}
+
+.result-mobile-nav label {
+  display: block;
+  font-size: 11px;
+  color: rgba(255,255,255,0.82);
+  margin-bottom: 6px;
+  font-family: var(--font-mono);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.result-mobile-nav select {
+  width: 100%;
+  min-height: 42px;
+  border-radius: 10px;
+  border: 1px solid rgba(212,160,23,0.45);
+  background: var(--paper2);
+  color: var(--ink);
+  padding: 8px 12px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: var(--font-body);
+  line-height: 1.35;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--ink3) 50%),
+    linear-gradient(135deg, var(--ink3) 50%, transparent 50%);
+  background-position:
+    calc(100% - 16px) calc(50% - 2px),
+    calc(100% - 10px) calc(50% - 2px);
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+}
+
+.result-mobile-nav select:focus {
+  outline: none;
+  border-color: var(--gold2);
+  box-shadow: 0 0 0 2px rgba(212,160,23,0.2);
+}
+
+.result-mobile-nav select option {
+  color: var(--ink2);
+  background: #ffffff;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+#app-prd { display: none; min-height: 100vh; background: var(--paper); }
+
+.prd-header {
+  background: var(--ink);
+  padding: 16px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.prd-logo {
+  font-family: var(--font-display);
+  font-size: 16px;
+  color: var(--paper);
+}
+
+.prd-logo span { color: var(--gold2); font-style: italic; }
+
+.prd-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.prd-main {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 34px 40px 70px;
+}
+
+.prd-preview {
+  background: #151411;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: var(--shadow-lg);
+  padding: 20px;
+}
+
+.prd-preview pre {
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: #efe8d7;
+  line-height: 1.72;
+}
+
 .result-layout {
   display: flex;
   min-height: 100vh;
@@ -990,11 +1127,100 @@ tr:hover td { background: var(--paper2); }
 
 @media (max-width: 700px) {
   .app-header, .form-body, .progress-wrap, .form-hero { padding-left: 20px; padding-right: 20px; }
+  .app-header { flex-wrap: wrap; gap: 10px; }
+  .app-nav-links {
+    width: 100%;
+    margin-left: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+  .app-nav-link {
+    width: 100%;
+    text-align: center;
+    padding: 8px 6px;
+    font-size: 11px;
+    line-height: 1.25;
+    letter-spacing: 0.04em;
+  }
+  .step-pills { width: 100%; justify-content: center; overflow-x: auto; padding-bottom: 2px; }
+  .step-pill { width: 24px; height: 24px; font-size: 10px; }
+  .step-connector { width: 10px; }
+  .step-nav { flex-direction: column; }
+  .step-nav .btn { width: 100%; justify-content: center; }
   .two-col { grid-template-columns: 1fr; }
   .check-grid, .radio-grid, .cards { grid-template-columns: 1fr; }
+  .result-header {
+    padding: 12px 20px;
+    flex-wrap: wrap;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .result-logo { width: 100%; }
+  .result-actions {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 8px;
+  }
+  .result-actions .btn {
+    width: 100%;
+    justify-content: center;
+    padding: 8px 6px !important;
+    font-size: 11px !important;
+    line-height: 1.2;
+    white-space: normal;
+    text-align: center;
+  }
+  .result-mobile-nav { display: block; }
   .result-sidebar { display: none; }
   .result-main { margin-left: 0; padding: 24px 20px 60px; }
   .rs-title { font-size: 22px; }
+  .prd-header, .prd-main { padding-left: 20px; padding-right: 20px; }
+  .prd-header {
+    flex-wrap: wrap;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .prd-logo { width: 100%; }
+  .prd-actions {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+.prd-actions .btn {
+  width: 100%;
+  justify-content: center;
+  padding: 9px 10px !important;
+  font-size: 12px !important;
+}
+}
+
+.site-credit {
+  margin: 16px auto 26px;
+  max-width: 1320px;
+  padding: 0 40px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--ink3);
+}
+
+.site-credit a {
+  color: var(--blue);
+  text-decoration: none;
+  border-bottom: 1px dashed rgba(26,58,107,0.35);
+}
+
+.site-credit a:hover {
+  border-bottom-color: rgba(26,58,107,0.65);
+}
+
+@media (max-width: 700px) {
+  .site-credit {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 }
 </style>
 </head>
@@ -1012,6 +1238,13 @@ tr:hover td { background: var(--paper2); }
 
   <header class="app-header">
     <div class="app-logo">SEO <em>Master</em> System</div>
+    <div class="app-nav-links">
+      <a class="app-nav-link" href="keyword-research.html">Research</a>
+      <a class="app-nav-link" href="instagram-prompts.html">Instagram</a>
+      <a class="app-nav-link" href="prd-generator.html">PRD Builder</a>
+      <a class="app-nav-link" href="prompt-advanced.html">Prompt Lanjutan</a>
+      <button type="button" class="app-nav-link app-nav-btn" onclick="resetGlobalHistoryFromIndex()">Reset Histori</button>
+    </div>
     <div class="step-pills" id="step-pills"></div>
   </header>
 
@@ -1343,9 +1576,36 @@ tr:hover td { background: var(--paper2); }
     <div class="result-logo">SEO <em>Master</em> System — <span id="res-brand-header">Brand</span></div>
     <div class="result-actions">
       <button class="btn btn-ghost" onclick="resetForm()" style="font-size:13px; padding:8px 16px;">← Buat Baru</button>
+      <button class="btn btn-ghost" onclick="resetGlobalHistoryFromIndex()" style="font-size:13px; padding:8px 16px;">♻ Reset Histori</button>
+      <button class="btn btn-ghost" onclick="goToKeywordPage()" style="font-size:13px; padding:8px 16px;">🔎 Keyword Research</button>
+      <a class="btn btn-ghost" href="instagram-prompts.html" style="font-size:13px; padding:8px 16px;">📱 Prompt Instagram</a>
+      <a class="btn btn-ghost" href="prd-generator.html" style="font-size:13px; padding:8px 16px;">🧾 PRD Builder</a>
+      <a class="btn btn-ghost" href="prompt-advanced.html" style="font-size:13px; padding:8px 16px;">🧩 Prompt Lanjutan</a>
+      <button class="btn btn-ghost" onclick="openPrdPage()" style="font-size:13px; padding:8px 16px;">📘 Halaman PRD</button>
       <button class="btn btn-ghost" onclick="printSectionPDF()" style="font-size:13px; padding:8px 16px;">🖨 PDF Section</button>
       <button class="btn btn-primary" onclick="printAllPDF()" style="font-size:13px; padding:8px 16px;">📄 PDF Semua</button>
       <button class="btn btn-ghost" onclick="exportMarkdownReport()" style="font-size:13px; padding:8px 16px;">⬇ Markdown</button>
+    </div>
+    <div class="result-mobile-nav">
+      <label for="mobile-section-nav">Pilih Bagian Hasil</label>
+      <select id="mobile-section-nav" onchange="jumpSectionFromSelect(this.value)">
+        <option value="r0">00 · Overview</option>
+        <option value="r1">01 · Audit Input</option>
+        <option value="r2">02 · Asumsi Kerja</option>
+        <option value="r3">03 · Strategic Foundation</option>
+        <option value="r4">04 · Search Market Model</option>
+        <option value="r5">05 · Content Architecture</option>
+        <option value="r6">06 · Framework 5 Tahap</option>
+        <option value="r7">07 · SEO Guardrails</option>
+        <option value="r8">08 · Content Guardrails</option>
+        <option value="r9">09 · AEO / SGE</option>
+        <option value="r10">10 · GEO / LLM</option>
+        <option value="r11">11 · AI Crawler</option>
+        <option value="r12">12 · Multi-Channel</option>
+        <option value="r13">13 · Workflow</option>
+        <option value="r14">14 · KPI & Tracking</option>
+        <option value="r15">15 · Acceptance Criteria</option>
+      </select>
     </div>
   </header>
 
@@ -1387,6 +1647,31 @@ tr:hover td { background: var(--paper2); }
   </div>
 </div>
 
+<!-- ═══════════════════════════════ PRD APP ═══════════════════════════════ -->
+<div id="app-prd">
+  <header class="prd-header">
+    <div class="prd-logo">PRD <em>Builder</em> — <span id="prd-brand-header">Brand</span></div>
+    <div class="prd-actions">
+      <button class="btn btn-ghost" onclick="backToResult()" style="font-size:13px; padding:8px 16px;">← Kembali ke Hasil</button>
+      <button class="btn btn-ghost" onclick="copyPrdMarkdown()" style="font-size:13px; padding:8px 16px;">Copy Markdown</button>
+      <button class="btn btn-primary" onclick="downloadPrdMarkdown()" style="font-size:13px; padding:8px 16px;">⬇ Download PRD .md</button>
+    </div>
+  </header>
+
+  <main class="prd-main">
+    <div class="callout c-blue"><p><strong>PRD Mode:</strong> Halaman ini mengubah hasil SEO System menjadi dokumen Product Requirements Document (PRD) dengan format Markdown yang siap dieksekusi tim desain, developer, SEO, dan konten.</p></div>
+    <div id="prd-summary"></div>
+    <section class="prd-preview">
+      <pre id="prd-markdown"></pre>
+    </section>
+  </main>
+</div>
+
+<footer class="site-credit">
+  Credit : Dikembangkan oleh PixxelPro Digital, Hubungi via WA
+  <a href="https://wa.me/62895639068080" target="_blank" rel="noopener">0895-6390-68080</a>
+</footer>
+
 <script>
 // ═══════════════════════ STATE ═══════════════════════
 let currentStep = 1;
@@ -1394,6 +1679,7 @@ const totalSteps = 5;
 let D = {}; // collected data
 let activeSectionId = 'r0';
 let formDefaults = [];
+let lastPrdMarkdown = '';
 
 // ═══════════════════════ STEP PILLS ═══════════════════════
 function renderPills() {
@@ -1670,9 +1956,15 @@ function restoreDefaultFormState() {
 function clearGeneratedOutput() {
   D = {};
   activeSectionId = 'r0';
+  lastPrdMarkdown = '';
   document.body.classList.remove('print-all-mode');
   document.getElementById('result-main').innerHTML = '';
   document.getElementById('res-brand-header').textContent = 'Brand';
+  document.getElementById('prd-brand-header').textContent = 'Brand';
+  document.getElementById('prd-markdown').textContent = '';
+  document.getElementById('prd-summary').innerHTML = '';
+  const mobileNav = document.getElementById('mobile-section-nav');
+  if (mobileNav) mobileNav.value = 'r0';
   document.querySelectorAll('.rsb-item').forEach(b => b.classList.remove('active'));
   const firstNav = document.querySelector('.rsb-item[onclick="showSection(\'r0\')"]');
   if (firstNav) firstNav.classList.add('active');
@@ -1843,6 +2135,492 @@ function exportMarkdownReport() {
   link.click();
   link.remove();
   URL.revokeObjectURL(url);
+}
+
+function inferPrdType() {
+  if ((D.web_type || '').toLowerCase().includes('landing')) return 'Landing Page Jasa';
+  if ((D.web_type || '').toLowerCase().includes('market')) return 'Website Toko Katalog';
+  if ((D.web_type || '').toLowerCase().includes('company')) return 'Website Company Profile';
+  if (D.multi_loc === 'Ya') return 'Website SEO Lokal';
+  return 'Website Bootstrap HTML Static';
+}
+
+function toBullets(items, fallback = '[Perlu data tambahan]') {
+  const arr = (items || []).map(s => (s || '').trim()).filter(Boolean);
+  if (!arr.length) return `- ${fallback}`;
+  return arr.map(s => `- ${s}`).join('\n');
+}
+
+function toCsv(items, fallback = '-') {
+  const arr = (items || []).map(s => (s || '').trim()).filter(Boolean);
+  return arr.length ? arr.join(', ') : fallback;
+}
+
+function buildPrdMarkdown() {
+  const prdType = inferPrdType();
+  const today = new Date().toLocaleDateString('id-ID', { dateStyle: 'full' });
+  const generatedAt = new Date().toLocaleString('id-ID', { dateStyle: 'full', timeStyle: 'short' });
+  const domain = D.domain || `${slug(D.brand || 'brand')}.id`;
+  const products = D.products?.length ? D.products : ['[Isi daftar produk/layanan]'];
+  const moneyPages = D.money_pages?.length ? D.money_pages : ['[Isi daftar money page prioritas]'];
+  const channels = D.platforms?.length ? D.platforms : ['Website / Blog'];
+  const conversions = D.conversions?.length ? D.conversions : ['WhatsApp / Chat'];
+  const cities = D.cities ? D.cities.split(',').map(s => s.trim()).filter(Boolean) : [];
+  const variantNote = D.multi_loc === 'Ya'
+    ? `Fokus local SEO multi-kota: ${cities.length ? cities.join(', ') : '[Isi kota target tambahan]'}.`
+    : `Fokus local SEO utama: ${D.city || '[Kota utama]'}, ${D.region || '[Wilayah]'}.`;
+  const sitemapItems = [
+    '/',
+    ...moneyPages.map(p => `/${slug(p)}/`),
+    ...products.slice(0, 8).map(p => `/produk/${slug(p)}/`),
+    '/blog/',
+    '/kontak/'
+  ];
+
+  return `# PRD — ${D.brand || '[Nama Brand]'}
+## Tipe PRD: ${prdType}
+
+Dokumen ini adalah Product Requirements Document (PRD) build-ready berbasis hasil SEO System Generator.
+
+## Metadata
+- Tanggal pembuatan: ${today}
+- Dibuat pada: ${generatedAt}
+- Nama project: ${D.brand || '[Nama Project]'}
+- Domain: ${domain}
+- Jenis website: ${D.web_type || '[Jenis website]'}
+- Industri: ${D.industry || '[Industri]'}
+- Seed keyword utama: ${D.seed || '[Seed keyword]'}
+- Target pasar utama: ${D.city || '[Kota]'}, ${D.region || '[Wilayah]'} (${D.national || '[Skala target]'})
+- Jalur konversi utama: ${toCsv(conversions)}
+- Kanal distribusi aktif: ${toCsv(channels)}
+
+## 1. Audit Input & Gap Analysis
+| Komponen | Data Saat Ini | Status | Catatan |
+| --- | --- | --- | --- |
+| Nama brand | ${D.brand || '-'} | ${D.brand ? 'Lengkap' : 'Gap'} | ${D.brand ? 'Sudah siap dipakai sebagai entity utama.' : 'Wajib diisi.'} |
+| Domain | ${domain} | ${D.domain ? 'Lengkap' : 'Asumsi'} | ${D.domain ? 'Gunakan domain ini sebagai canonical.' : 'Masih asumsi dari nama brand.'} |
+| Seed keyword | ${D.seed || '-'} | ${D.seed ? 'Lengkap' : 'Gap'} | Menjadi anchor strategi SEO/AEO/GEO. |
+| Produk/Layanan | ${products.length} item | ${products.length ? 'Lengkap' : 'Gap'} | Digunakan untuk arsitektur halaman dan konten. |
+| Money pages | ${moneyPages.length} halaman | ${moneyPages.length ? 'Lengkap' : 'Gap'} | Diprioritaskan untuk konversi. |
+| Konversi | ${toCsv(conversions)} | ${conversions.length ? 'Lengkap' : 'Gap'} | Tentukan CTA primer dan sekunder. |
+| Platform distribusi | ${toCsv(channels)} | ${channels.length ? 'Lengkap' : 'Gap'} | Menentukan distribusi konten pasca publish. |
+| Kompetitor | ${D.competitors || '-'} | ${D.competitors ? 'Lengkap' : 'Gap'} | Jika kosong, wajib riset SERP sebelum eksekusi tahap produksi. |
+
+## 2. Asumsi Kerja
+- Website akan dibangun sebagai stack static-first (Bootstrap HTML static friendly).
+- Entity utama harus konsisten di seluruh halaman: "${D.brand || '[Brand]'}".
+- Intent utama dari seed keyword "${D.seed || '[Seed]'}" dipetakan ke money page prioritas.
+- ${variantNote}
+- Tone konten utama: ${D.tone || '[Tone belum dipilih]'}.
+- Frekuensi konten target: ${D.content_freq || '[Frekuensi konten]'}.
+
+## 3. Ringkasan Eksekutif
+Project ini bertujuan membangun website ${D.web_type || '[Tipe website]'} untuk ${D.brand || '[Brand]'} agar mendapatkan visibilitas organik tinggi, dikutip mesin AI, dan menghasilkan konversi terukur melalui ${toCsv(conversions)}.
+
+Strategi menggabungkan SEO modern, AEO, GEO, dan guardrails performa agar website tetap cepat, jelas, dan mudah di-maintain.
+
+## 4. Tujuan Bisnis & KPI
+| Tujuan | KPI Utama | Target 90 Hari | Tools |
+| --- | --- | --- | --- |
+| Visibilitas organik | Ranking keyword prioritas | Top 10 untuk minimal 10 keyword | GSC, Ahrefs/Semrush |
+| Lead generation | Jumlah lead dari organic | 20+ lead/bulan | GA4, CRM/${conversions[0] || 'WA'} |
+| AI visibility | AI citation rate | Dikutip di >=30% prompt uji | Uji manual ChatGPT/Perplexity/Gemini |
+| Performa teknis | Core Web Vitals | LCP < 2.5s, INP < 200ms, CLS < 0.1 | PSI, Lighthouse, GTmetrix |
+
+## 5. User Persona
+### Persona 1 — Decision Maker
+- Profil: Pengambil keputusan yang butuh vendor terpercaya.
+- Kebutuhan: Informasi jelas, kredibilitas, CTA cepat.
+- Pain point: Sulit membandingkan kualitas dan kecepatan layanan.
+
+### Persona 2 — Operational Buyer
+- Profil: Tim operasional yang melakukan riset vendor.
+- Kebutuhan: Spesifikasi detail, harga indikatif, studi kasus.
+- Pain point: Banyak website tidak memberi jawaban teknis yang konkret.
+
+### Persona 3 — First-time Researcher
+- Profil: User baru di kategori ${D.industry || '[Industri]'}.
+- Kebutuhan: Edukasi dasar, FAQ, panduan pemesanan.
+- Pain point: Bingung istilah teknis dan proses order.
+
+## 6. Positioning, Value Proposition, dan Messaging
+- Positioning: ${D.brand || '[Brand]'} sebagai penyedia ${D.seed || '[Layanan utama]'} yang cepat, jelas, dan dapat dipercaya.
+- Value proposition utama: ${D.usp || '[Isi USP utama]'}.
+- Tagline operasional: ${D.tagline || `[Isi tagline untuk ${D.brand || 'brand'}]`}.
+- Messaging utama:
+${toBullets([
+  `Fokus solusi untuk ${D.audience || 'target audiens utama'}.`,
+  `Transparansi proses, timeline, dan kualitas output.`,
+  `Konversi diarahkan ke ${toCsv(conversions)}.`
+])}
+
+## 7. Alasan Pemilihan Bootstrap HTML Static
+- Kecepatan loading lebih mudah dikontrol.
+- Struktur file sederhana untuk deployment cepat.
+- Cocok untuk website informatif dan lead generation.
+- Risiko ketergantungan framework berat lebih rendah.
+
+## 8. Struktur & Arsitektur Website
+\`\`\`text
+/
+├─ index.html
+├─ tentang-kami/
+├─ layanan/
+${moneyPages.map(p => `├─ ${slug(p)}/`).join('\n')}
+├─ produk/
+${products.slice(0, 8).map(p => `│  ├─ ${slug(p)}/`).join('\n')}
+├─ blog/
+├─ faq/
+├─ kontak/
+└─ kebijakan-privasi/
+\`\`\`
+
+Sitemap prioritas:
+${toBullets(sitemapItems)}
+
+## 9. Arsitektur File & Folder (Bootstrap Static)
+\`\`\`text
+/project-root
+├─ index.html
+├─ pages/
+├─ assets/
+│  ├─ css/
+│  │  ├─ main.css
+│  │  └─ critical.css
+│  ├─ js/
+│  │  ├─ main.js
+│  │  └─ tracking.js
+│  ├─ img/
+│  └─ icons/
+├─ blog/
+├─ robots.txt
+├─ sitemap.xml
+├─ llms.txt
+└─ site.webmanifest
+\`\`\`
+
+## 10. Spesifikasi Fungsional
+${toBullets([
+  'Navigasi utama: Home, Tentang, Layanan/Produk, Blog, FAQ, Kontak.',
+  `CTA primer di seluruh halaman: ${conversions[0] || 'WhatsApp / Chat'}.`,
+  'Form lead dengan validasi dasar dan event tracking.',
+  'Komponen trust: testimoni, portfolio, logo klien, sertifikasi.',
+  'FAQ terstruktur dengan schema FAQPage.',
+  'Internal linking antar halaman layanan, blog, dan FAQ.'
+])}
+
+## 11. Design System & UI/UX
+- Pendekatan desain: clean professional, mobile-first.
+- Font: kombinasi display + body yang readable.
+- Skala spacing: 8px baseline system.
+- Komponen wajib: navbar sticky, hero CTA, card layanan, FAQ accordion, footer lengkap.
+- Tone visual mengikuti brand: ${D.tone || '[Tentukan tone brand]'}.
+
+## 12. PageSpeed, GTmetrix & Core Web Vitals Optimization
+Target:
+- Performance score mobile: >= 90
+- LCP < 2.5s
+- INP < 200ms
+- CLS < 0.1
+
+Guardrails:
+${toBullets([
+  'Gunakan AVIF/WebP untuk asset utama.',
+  'Inline critical CSS untuk above-the-fold.',
+  'Seluruh script non-kritis menggunakan defer.',
+  'Minifikasi CSS/JS dan aktifkan cache-control.',
+  'Preconnect ke origin penting (font/CDN).',
+  'Audit berkala dengan Lighthouse + GTmetrix.'
+])}
+
+## 13. SEO Modern (2025–2026)
+${toBullets([
+  `Primary keyword: ${D.seed || '[Seed keyword]'}.`,
+  'Setiap halaman memiliki title unik (<=60 karakter).',
+  'Meta description unik 150-160 karakter + CTA.',
+  'Struktur heading jelas H1 > H2 > H3.',
+  'URL slug pendek, bersih, dan semantik.',
+  'Internal link kontekstual minimal 2-3 per halaman.',
+  'Sitemap XML dan robots.txt wajib tersedia.',
+  'Optimasi local SEO untuk area target.'
+])}
+
+Template robots.txt:
+\`\`\`txt
+User-agent: *
+Allow: /
+Disallow: /wp-admin/
+Sitemap: https://${domain}/sitemap.xml
+\`\`\`
+
+## 14. Schema Markup / Structured Data
+Schema utama yang wajib:
+${toBullets(['Organization/LocalBusiness', 'WebSite', 'Service/Product', 'FAQPage', 'BreadcrumbList', 'Article'])}
+
+Contoh JSON-LD Organization (placeholder):
+\`\`\`json
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "${D.brand || '[Brand]'}",
+  "url": "https://${domain}"
+}
+\`\`\`
+
+## 15. AEO — Answer Engine Optimization
+${toBullets([
+  'Setiap section penting diawali answer capsule 20-25 kata.',
+  'Konten menjawab query secara langsung di 1-2 paragraf pertama.',
+  'Gunakan FAQ yang relevan dengan intent komersial + informasional.',
+  'Gunakan format list/tabel agar mudah diambil mesin jawaban.'
+])}
+
+## 16. GEO — Generative Engine Optimization
+${toBullets([
+  'Entity consistency: nama brand, produk, lokasi konsisten.',
+  'Gunakan data spesifik (angka, periode, benchmark).',
+  'Hindari kalimat ambigu dan pronoun tanpa referensi.',
+  'Bangun konten asli berbasis pengalaman operasional.'
+])}
+
+Template llms.txt:
+\`\`\`txt
+# ${D.brand || '[Brand]'}
+Site: https://${domain}
+Primary topic: ${D.seed || '[Seed keyword]'}
+Main pages:
+${sitemapItems.slice(0, 10).map(s => `- ${s}`).join('\n')}
+\`\`\`
+
+## 17. Open Graph & Social Meta Tags
+${toBullets([
+  'OG image standar 1200x630.',
+  'Setiap money page memiliki og:title dan og:description unik.',
+  'Tambahkan twitter:card = summary_large_image.',
+  'Pastikan fallback image tersedia.'
+])}
+
+## 18. Favicon System
+${toBullets([
+  'favicon.ico',
+  'favicon-16x16.png',
+  'favicon-32x32.png',
+  'apple-touch-icon.png',
+  'android-chrome-192x192.png',
+  'android-chrome-512x512.png',
+  'site.webmanifest'
+])}
+
+## 19. Analytics & Tracking
+- GA4: page_view, scroll_depth, form_submit, click_cta, whatsapp_click.
+- GSC: submit sitemap, monitor query coverage.
+- Event wajib:
+${toBullets([
+  `cta_primary_click (${conversions[0] || 'CTA primer'})`,
+  'form_submit_success',
+  'tel_click',
+  'email_click',
+  'outbound_click'
+])}
+
+## 20. Template Konten Per Halaman
+Struktur konten minimum:
+1. Hero (headline + CTA)
+2. Problem/Solution section
+3. Detail layanan/produk
+4. Bukti sosial (testimoni/case)
+5. FAQ + schema
+6. CTA penutup
+
+Money pages prioritas:
+${toBullets(moneyPages)}
+
+## 21. Persyaratan Non-Fungsional
+| Area | Requirement | Target |
+| --- | --- | --- |
+| Availability | Uptime | >= 99.9% |
+| Security | SSL/TLS aktif | Wajib |
+| Compatibility | Browser modern | 2 versi terakhir |
+| Accessibility | Kontras + alt text + semantic HTML | WCAG dasar terpenuhi |
+| Maintainability | Struktur file konsisten | Mudah handover |
+
+## 22. Deployment, Maintenance, dan Governance
+${toBullets([
+  'Deploy via hosting static + CDN.',
+  'Versi release menggunakan semantic versioning sederhana.',
+  'Checklist QA wajib sebelum publish.',
+  'Konten lama direview berkala setiap 90 hari.',
+  'Pemilik keputusan konten, teknis, dan SEO harus jelas.'
+])}
+
+## 23. Checklist Launch
+- [ ] Semua halaman utama publish dan bisa diakses
+- [ ] CTA utama berfungsi di mobile + desktop
+- [ ] robots.txt, sitemap.xml, llms.txt tersedia
+- [ ] Schema tervalidasi (Rich Results Test)
+- [ ] Meta OG lengkap per halaman prioritas
+- [ ] Tracking GA4 + event conversion aktif
+- [ ] Uji kecepatan Lighthouse/GTmetrix memenuhi baseline
+
+## 24. Acceptance Criteria Global
+${toBullets([
+  'Setiap halaman punya tujuan konversi jelas.',
+  'Tidak ada konten placeholder yang tersisa.',
+  'SEO on-page baseline terpenuhi 100% di halaman prioritas.',
+  'Semua elemen penting terbaca tanpa JS rendering kompleks.',
+  'Dokumentasi handover siap dipakai tim eksekusi.'
+])}
+
+## 25. Risiko, Dependency, dan Mitigasi
+| Risiko | Dampak | Mitigasi |
+| --- | --- | --- |
+| Konten telat siap | Jadwal launch mundur | Tetapkan owner konten + deadline mingguan |
+| Asset gambar terlalu berat | Skor performa turun | Kompresi batch + format WebP/AVIF |
+| Konsistensi SEO lemah | Ranking lambat naik | SOP on-page + QA checklist wajib |
+| Tracking tidak rapi | Data KPI tidak valid | Standardisasi naming event sebelum launch |
+
+## 26. Prioritas Eksekusi 30 Hari Pertama
+Minggu 1:
+${toBullets([
+  'Finalisasi arsitektur halaman dan keyword mapping.',
+  'Siapkan design system + komponen Bootstrap reusable.',
+  'Implementasi halaman inti: Home, Layanan, Kontak.'
+])}
+
+Minggu 2:
+${toBullets([
+  'Publish money page prioritas.',
+  'Pasang tracking GA4 + event conversion.',
+  'Implementasi schema utama.'
+])}
+
+Minggu 3:
+${toBullets([
+  'Publish 2-4 konten pendukung (FAQ/Blog).',
+  'Optimasi CWV berdasarkan audit Lighthouse.',
+  'Distribusi konten ke channel utama.'
+])}
+
+Minggu 4:
+${toBullets([
+  'Evaluasi ranking + traffic + conversion.',
+  'Perbaiki halaman dengan engagement rendah.',
+  'Susun backlog sprint bulan berikutnya.'
+])}
+
+## Build Guardrails Wajib
+### A. Guardrails Performa
+${toBullets([
+  'Tidak menambahkan library JS berat tanpa justifikasi bisnis.',
+  'Tidak menempatkan video autoplay besar di hero.',
+  'Semua gambar hero wajib compressed.'
+])}
+
+### B. Guardrails SEO
+${toBullets([
+  '1 halaman = 1 intent utama.',
+  'Title/H1 tidak boleh duplikat.',
+  'Internal link wajib antar halaman terkait.'
+])}
+
+### C. Guardrails AEO/GEO
+${toBullets([
+  'Konten wajib memiliki jawaban langsung untuk query utama.',
+  'Data numerik dan referensi internal harus jelas.',
+  'Entity consistency lintas halaman harus dijaga.'
+])}
+
+### D. Guardrails Maintenance
+${toBullets([
+  'Template komponen harus reusable.',
+  'Perubahan konten melalui checklist QA.',
+  'Audit teknis dan konten minimum bulanan.'
+])}
+`;
+}
+
+function renderPrdSummary(prdType) {
+  const rows = [
+    ['Nama Brand', D.brand || '-'],
+    ['Tipe PRD', prdType],
+    ['Jenis Website', D.web_type || '-'],
+    ['Seed Keyword', D.seed || '-'],
+    ['Target Lokasi', `${D.city || '-'}, ${D.region || '-'} (${D.national || '-'})`],
+    ['Konversi Utama', toCsv(D.conversions)],
+    ['Platform Distribusi', toCsv(D.platforms)],
+  ];
+  document.getElementById('prd-summary').innerHTML = `<div class="tbl-wrap"><table>
+    <thead><tr><th>Parameter</th><th>Nilai</th></tr></thead>
+    <tbody>${rows.map(([k,v]) => `<tr><td style="font-weight:500;color:var(--ink2);white-space:nowrap">${k}</td><td>${v}</td></tr>`).join('')}</tbody>
+  </table></div>`;
+}
+
+function openPrdPage() {
+  if (!D.brand) collectData();
+  const prdType = inferPrdType();
+  lastPrdMarkdown = buildPrdMarkdown();
+  document.getElementById('prd-brand-header').textContent = D.brand || 'Brand';
+  document.getElementById('prd-markdown').textContent = lastPrdMarkdown;
+  renderPrdSummary(prdType);
+  document.getElementById('app-result').style.display = 'none';
+  document.getElementById('app-prd').style.display = 'block';
+  window.scrollTo(0, 0);
+}
+
+function backToResult() {
+  document.getElementById('app-prd').style.display = 'none';
+  document.getElementById('app-result').style.display = 'block';
+  window.scrollTo(0, 0);
+}
+
+function downloadPrdMarkdown() {
+  if (!lastPrdMarkdown) {
+    lastPrdMarkdown = buildPrdMarkdown();
+  }
+  const fname = `prd-${slug(D.brand || 'brand')}-${slug(D.seed || 'project') || 'output'}.md`;
+  const blob = new Blob([lastPrdMarkdown], { type: 'text/markdown;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = fname;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
+}
+
+function copyPrdMarkdown() {
+  if (!lastPrdMarkdown) {
+    lastPrdMarkdown = buildPrdMarkdown();
+  }
+  navigator.clipboard.writeText(lastPrdMarkdown).then(() => {
+    alert('Markdown PRD berhasil disalin.');
+  }).catch(() => {
+    alert('Gagal menyalin otomatis. Silakan copy manual dari preview.');
+  });
+}
+
+function goToKeywordPage() {
+  if (!D.brand) {
+    try { collectData(); } catch (e) {}
+  }
+  const prefill = {
+    brand: D.brand || '',
+    industry: D.industry || '',
+    targetMarket: [D.city, D.region, D.national].filter(Boolean).join(', '),
+    products: D.products || [],
+    audience: D.audience || '',
+    conversion: (D.conversions || []).join(', '),
+    moneyPages: D.money_pages || [],
+    competitors: D.competitors || '',
+    seedKeywords: D.seed
+      ? [D.seed, ...(D.products || []).slice(0, 4).map(p => `${p} ${D.city || ''}`.trim())]
+      : [],
+    language: 'Bahasa Indonesia',
+    platforms: D.platforms || [],
+  };
+  sessionStorage.setItem('seo_generator_prefill', JSON.stringify(prefill));
+  window.location.href = 'keyword-research.html';
 }
 
 // ═══════════════════════ RENDER RESULT ═══════════════════════
@@ -2495,14 +3273,43 @@ function showSection(id) {
   section.classList.add('active');
   const navBtn = document.querySelector(`.rsb-item[onclick="showSection('${id}')"]`);
   if (navBtn) navBtn.classList.add('active');
+  const mobileNav = document.getElementById('mobile-section-nav');
+  if (mobileNav) mobileNav.value = id;
   document.getElementById('result-main').scrollTop = 0;
   window.scrollTo(0, 0);
+}
+
+function jumpSectionFromSelect(id) {
+  showSection(id);
+}
+
+function clearSharedGeneratorHistoryStorage() {
+  sessionStorage.removeItem('seo_generator_prefill');
+  localStorage.removeItem('adv_prompt_template_category');
+
+  const prefixes = ['adv_prompt_draft_', 'prd_builder_draft_'];
+  const keysToDelete = [];
+  for (let i = 0; i < localStorage.length; i += 1) {
+    const key = localStorage.key(i);
+    if (!key) continue;
+    if (prefixes.some((prefix) => key.startsWith(prefix))) keysToDelete.push(key);
+  }
+  keysToDelete.forEach((k) => localStorage.removeItem(k));
+}
+
+function resetGlobalHistoryFromIndex() {
+  const ok = confirm('Hapus semua histori generator (Index, Research, PRD, Prompt Lanjutan) dan reset form?');
+  if (!ok) return;
+  clearSharedGeneratorHistoryStorage();
+  resetForm();
+  alert('Histori berhasil dihapus. Form kembali ke kondisi awal terbaru.');
 }
 
 // ═══════════════════════ RESET ═══════════════════════
 function resetForm() {
   clearGeneratedOutput();
   restoreDefaultFormState();
+  document.getElementById('app-prd').style.display = 'none';
   document.getElementById('app-result').style.display = 'none';
   document.getElementById('app-form').style.display = 'block';
   currentStep = 1;
