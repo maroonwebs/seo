@@ -1,0 +1,2529 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SEO Master System Generator 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0e0d0b;
+  --ink2: #2a2825;
+  --ink3: #4a4845;
+  --muted: #8a8780;
+  --muted2: #b8b5af;
+  --paper: #faf8f4;
+  --paper2: #f3f0ea;
+  --paper3: #e8e4dc;
+  --gold: #b8860b;
+  --gold2: #d4a017;
+  --gold-light: #fdf4e3;
+  --gold-border: rgba(184,134,11,0.25);
+  --teal: #1a6b5a;
+  --teal-light: #e8f4f1;
+  --red: #8b2020;
+  --red-light: #fdf0f0;
+  --blue: #1a3a6b;
+  --blue-light: #e8edf8;
+  --border: rgba(14,13,11,0.1);
+  --border2: rgba(14,13,11,0.18);
+  --shadow: 0 1px 3px rgba(14,13,11,0.08), 0 4px 16px rgba(14,13,11,0.06);
+  --shadow-lg: 0 2px 8px rgba(14,13,11,0.1), 0 12px 40px rgba(14,13,11,0.12);
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'DM Sans', 'Helvetica Neue', sans-serif;
+  --font-mono: 'DM Mono', 'Courier New', monospace;
+  --radius: 10px;
+  --radius-lg: 16px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ─── FORM APP ─── */
+#app-form {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* HEADER */
+.app-header {
+  background: var(--ink);
+  padding: 20px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.app-logo {
+  font-family: var(--font-display);
+  font-size: 18px;
+  color: var(--paper);
+  letter-spacing: 0.01em;
+}
+
+.app-logo span {
+  color: var(--gold2);
+  font-style: italic;
+}
+
+.step-pills {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.step-pill {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255,255,255,0.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.4);
+  font-family: var(--font-mono);
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.step-pill.done {
+  background: var(--gold2);
+  border-color: var(--gold2);
+  color: var(--ink);
+}
+
+.step-pill.active {
+  background: transparent;
+  border-color: var(--gold2);
+  color: var(--gold2);
+}
+
+.step-connector {
+  width: 16px;
+  height: 1px;
+  background: rgba(255,255,255,0.15);
+}
+
+/* HERO SECTION */
+.form-hero {
+  background: var(--ink2);
+  padding: 60px 40px 50px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.form-hero::before {
+  content: '';
+  position: absolute;
+  top: -60px; left: 50%;
+  transform: translateX(-50%);
+  width: 400px; height: 300px;
+  background: radial-gradient(ellipse, rgba(184,134,11,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold2);
+  margin-bottom: 16px;
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: 36px;
+  font-weight: 400;
+  color: var(--paper);
+  line-height: 1.2;
+  margin-bottom: 14px;
+}
+
+.hero-title em { font-style: italic; color: var(--gold2); }
+
+.hero-sub {
+  font-size: 15px;
+  color: var(--muted2);
+  max-width: 520px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* PROGRESS BAR */
+.progress-wrap {
+  background: var(--ink);
+  padding: 0 40px 20px;
+}
+
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  margin-bottom: 8px;
+}
+
+.progress-track {
+  height: 3px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold), var(--gold2));
+  border-radius: 2px;
+  transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* FORM BODY */
+.form-body {
+  flex: 1;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 48px 40px 80px;
+  width: 100%;
+}
+
+/* STEP */
+.step-section { display: none; animation: fadeUp 0.4s ease; }
+.step-section.active { display: block; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.step-title {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 400;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+
+.step-title em { font-style: italic; color: var(--gold); }
+
+.step-desc {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 36px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* FIELD */
+.field-group {
+  margin-bottom: 28px;
+}
+
+.field-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink2);
+  margin-bottom: 8px;
+  letter-spacing: 0.01em;
+}
+
+.field-label span {
+  color: var(--gold);
+  font-size: 11px;
+  font-weight: 400;
+  font-family: var(--font-mono);
+  margin-left: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.field-label span.opt {
+  color: var(--muted2);
+}
+
+.field-hint {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+input[type="text"],
+input[type="url"],
+textarea,
+select {
+  width: 100%;
+  background: white;
+  border: 1.5px solid var(--border2);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--ink);
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+  appearance: none;
+}
+
+input[type="text"]:focus,
+input[type="url"]:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(184,134,11,0.1);
+}
+
+input[type="text"].invalid,
+textarea.invalid,
+select.invalid {
+  border-color: var(--red);
+  box-shadow: 0 0 0 3px rgba(139,32,32,0.08);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+  line-height: 1.6;
+}
+
+select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238a8780' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 40px;
+  cursor: pointer;
+}
+
+/* CHECKBOX GROUP */
+.check-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 10px;
+}
+
+.check-item {
+  position: relative;
+}
+
+.check-item input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.check-item label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 14px;
+  background: white;
+  border: 1.5px solid var(--border2);
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: 13.5px;
+  color: var(--ink2);
+  transition: all 0.15s;
+  user-select: none;
+}
+
+.check-item label:hover {
+  border-color: var(--gold);
+  background: var(--gold-light);
+}
+
+.check-item input:checked + label {
+  border-color: var(--gold);
+  background: var(--gold-light);
+  color: var(--gold);
+  font-weight: 500;
+}
+
+.check-box {
+  width: 16px; height: 16px;
+  border: 1.5px solid var(--border2);
+  border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.15s;
+  font-size: 10px;
+}
+
+.check-item input:checked + label .check-box {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: white;
+}
+
+/* RADIO CARDS */
+.radio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px;
+}
+
+.radio-card {
+  position: relative;
+}
+
+.radio-card input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.radio-card label {
+  display: block;
+  padding: 14px 16px;
+  background: white;
+  border: 1.5px solid var(--border2);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 0.15s;
+  user-select: none;
+}
+
+.radio-card label:hover {
+  border-color: var(--gold);
+  background: var(--gold-light);
+}
+
+.radio-card input:checked + label {
+  border-color: var(--gold);
+  background: var(--gold-light);
+}
+
+.radio-title {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 3px;
+}
+
+.radio-desc {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.radio-card input:checked + label .radio-title { color: var(--gold); }
+
+/* TAG INPUT */
+.tag-input-wrap {
+  background: white;
+  border: 1.5px solid var(--border2);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  min-height: 50px;
+  cursor: text;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.tag-input-wrap:focus-within {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(184,134,11,0.1);
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--gold-light);
+  border: 1px solid var(--gold-border);
+  color: var(--gold);
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.tag-remove {
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.15s;
+  font-size: 15px;
+  line-height: 1;
+}
+
+.tag-remove:hover { opacity: 1; }
+
+.tag-input {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent;
+  font-size: 14px;
+  padding: 4px 4px;
+  min-width: 120px;
+  flex: 1;
+  color: var(--ink);
+}
+
+/* TWO COL */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/* FIELD ROW SEPARATOR */
+.field-sep {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 32px 0;
+}
+
+/* STEP NAV */
+.step-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: var(--radius);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+  text-decoration: none;
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--muted);
+  border: 1.5px solid var(--border2);
+}
+
+.btn-ghost:hover {
+  background: var(--paper2);
+  color: var(--ink);
+  border-color: var(--border2);
+}
+
+.btn-primary {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.btn-primary:hover {
+  background: var(--ink2);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow);
+}
+
+.btn-gold {
+  background: var(--gold);
+  color: white;
+  font-size: 15px;
+  padding: 14px 32px;
+}
+
+.btn-gold:hover {
+  background: var(--gold2);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(184,134,11,0.3);
+}
+
+/* VALIDATION ERROR */
+.error-msg {
+  font-size: 12px;
+  color: var(--red);
+  margin-top: 6px;
+  display: none;
+}
+
+.error-msg.visible { display: block; }
+
+/* ─── RESULT PAGE ─── */
+#app-result { display: none; }
+
+.result-header {
+  background: var(--ink);
+  padding: 16px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.result-logo {
+  font-family: var(--font-display);
+  font-size: 16px;
+  color: var(--paper);
+}
+
+.result-logo span { color: var(--gold2); font-style: italic; }
+
+.result-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.result-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* RESULT SIDEBAR */
+.result-sidebar {
+  width: 240px;
+  background: #141412;
+  border-right: 1px solid rgba(255,255,255,0.06);
+  position: fixed;
+  left: 0; top: 57px; bottom: 0;
+  overflow-y: auto;
+  padding: 20px 0 40px;
+}
+
+.rsb-section { padding: 0 12px; margin-bottom: 8px; }
+
+.rsb-label {
+  font-size: 10px;
+  color: rgba(255,255,255,0.25);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 8px 8px 4px;
+  font-family: var(--font-mono);
+}
+
+.rsb-item {
+  display: block;
+  padding: 7px 10px;
+  border-radius: 6px;
+  color: rgba(255,255,255,0.45);
+  font-size: 12.5px;
+  cursor: pointer;
+  transition: all 0.15s;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  font-family: var(--font-body);
+}
+
+.rsb-item:hover {
+  background: rgba(255,255,255,0.06);
+  color: rgba(255,255,255,0.75);
+}
+
+.rsb-item.active {
+  background: rgba(184,134,11,0.15);
+  color: var(--gold2);
+  border: 1px solid rgba(184,134,11,0.2);
+}
+
+.rsb-num {
+  display: inline-block;
+  width: 18px;
+  font-size: 10px;
+  color: rgba(255,255,255,0.2);
+  font-family: var(--font-mono);
+}
+
+/* RESULT MAIN */
+.result-main {
+  margin-left: 240px;
+  flex: 1;
+  padding: 44px 52px 80px;
+  max-width: 980px;
+  background: var(--paper);
+}
+
+.result-section { display: none; animation: fadeUp 0.35s ease; }
+.result-section.active { display: block; }
+
+.rs-header {
+  margin-bottom: 32px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid var(--border);
+}
+
+.rs-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+
+.rs-title {
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-weight: 400;
+  color: var(--ink);
+  line-height: 1.25;
+}
+
+h2.rs {
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 400;
+  color: var(--ink);
+  margin: 32px 0 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+h3.rs {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--gold);
+  margin: 22px 0 10px;
+}
+
+p.rs {
+  color: var(--ink3);
+  line-height: 1.75;
+  margin-bottom: 14px;
+  font-size: 14px;
+}
+
+/* TABLE */
+.tbl-wrap { overflow-x: auto; margin: 16px 0 24px; border-radius: var(--radius); border: 1px solid var(--border2); }
+
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+
+th {
+  background: var(--paper2);
+  padding: 10px 14px;
+  text-align: left;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--muted);
+  border-bottom: 1px solid var(--border2);
+  font-family: var(--font-mono);
+  white-space: nowrap;
+}
+
+td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+  color: var(--ink3);
+  line-height: 1.55;
+}
+
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: var(--paper2); }
+
+/* BADGES */
+.badge {
+  display: inline-block;
+  padding: 2px 9px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  font-family: var(--font-mono);
+  white-space: nowrap;
+}
+
+.b-ok { background: #e8f5e8; color: #1a6b1a; border: 1px solid rgba(26,107,26,0.2); }
+.b-warn { background: var(--gold-light); color: var(--gold); border: 1px solid var(--gold-border); }
+.b-crit { background: var(--red-light); color: var(--red); border: 1px solid rgba(139,32,32,0.2); }
+.b-info { background: var(--blue-light); color: var(--blue); border: 1px solid rgba(26,58,107,0.2); }
+.b-purple { background: #f0ecfc; color: #5b3fa0; border: 1px solid rgba(91,63,160,0.2); }
+.b-teal { background: var(--teal-light); color: var(--teal); border: 1px solid rgba(26,107,90,0.2); }
+
+/* CALLOUT */
+.callout {
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  margin: 14px 0 22px;
+  border-left: 3px solid;
+  font-size: 13.5px;
+  line-height: 1.65;
+}
+
+.callout p { color: inherit; margin: 0; font-size: 13.5px; }
+.c-gold { background: var(--gold-light); border-color: var(--gold); color: #7a5800; }
+.c-teal { background: var(--teal-light); border-color: var(--teal); color: var(--teal); }
+.c-red { background: var(--red-light); border-color: var(--red); color: var(--red); }
+.c-blue { background: var(--blue-light); border-color: var(--blue); color: var(--blue); }
+
+/* STAT BAR */
+.stat-bar { display: flex; align-items: center; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+.stat-label { color: var(--ink3); flex: 1; }
+.stat-val { color: var(--gold); font-weight: 600; font-family: var(--font-mono); font-size: 12px; min-width: 80px; text-align: right; }
+.stat-track { flex: 2; background: var(--paper3); border-radius: 4px; height: 4px; overflow: hidden; }
+.stat-fill { height: 100%; border-radius: 4px; background: var(--gold); }
+
+/* CARDS GRID */
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 12px; margin: 16px 0 24px; }
+
+.card {
+  background: white;
+  border: 1px solid var(--border2);
+  border-radius: var(--radius);
+  padding: 16px;
+  transition: border-color 0.15s, transform 0.15s;
+}
+
+.card:hover { border-color: var(--gold-border); transform: translateY(-1px); }
+.card-icon { font-size: 20px; margin-bottom: 8px; }
+.card-title { font-size: 13px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+.card-desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+/* PHASE */
+.phase { background: white; border: 1px solid var(--border2); border-radius: var(--radius); padding: 20px; margin: 14px 0; }
+.phase-hdr { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+
+.phase-num {
+  width: 34px; height: 34px;
+  background: var(--gold-light);
+  border: 1.5px solid var(--gold-border);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700;
+  color: var(--gold);
+  font-family: var(--font-mono);
+  flex-shrink: 0;
+}
+
+.phase-title { font-size: 15px; font-weight: 600; color: var(--ink); }
+.phase-sub { font-size: 12px; color: var(--muted); }
+
+/* CHECKLIST */
+.checklist { list-style: none; padding: 0; margin: 12px 0; }
+
+.checklist li {
+  padding: 7px 0 7px 26px;
+  position: relative;
+  font-size: 13px;
+  color: var(--ink3);
+  border-bottom: 1px solid var(--border);
+  line-height: 1.5;
+}
+
+.checklist li::before { content: '□'; position: absolute; left: 0; color: var(--muted2); font-size: 14px; }
+.checklist li.done::before { content: '✓'; color: var(--teal); }
+
+/* RULE */
+.rule { display: flex; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
+
+.rule-num {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700;
+  flex-shrink: 0; margin-top: 1px;
+  font-family: var(--font-mono);
+}
+
+.rn-seo { background: var(--blue-light); color: var(--blue); border: 1px solid rgba(26,58,107,0.2); }
+.rn-con { background: var(--teal-light); color: var(--teal); border: 1px solid rgba(26,107,90,0.2); }
+.rn-aeo { background: #f0ecfc; color: #5b3fa0; border: 1px solid rgba(91,63,160,0.2); }
+.rn-geo { background: var(--gold-light); color: var(--gold); border: 1px solid var(--gold-border); }
+
+.rule-text { font-size: 13px; color: var(--ink3); line-height: 1.65; }
+.rule-text strong { color: var(--ink); }
+
+/* CODE */
+.code-block {
+  background: #1a1a17;
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  color: #b8c5a8;
+  line-height: 1.8;
+  overflow-x: auto;
+  margin: 12px 0;
+}
+
+.code-block .cmt { color: #5a5a50; }
+.code-block .key { color: #d4a017; }
+
+/* FLOW */
+.flow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0;
+  padding: 18px;
+  background: white;
+  border: 1px solid var(--border2);
+  border-radius: var(--radius);
+  margin: 14px 0;
+}
+
+.flow-step {
+  background: var(--paper2);
+  border: 1px solid var(--border2);
+  border-radius: 6px;
+  padding: 7px 12px;
+  font-size: 12px;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+.flow-arr { color: var(--muted2); font-size: 14px; padding: 0 6px; flex-shrink: 0; }
+
+/* KPI */
+.kpi-row td:first-child { font-weight: 500; color: var(--ink2); }
+
+/* SCROLLBAR */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--paper3); border-radius: 3px; }
+
+/* LOADING OVERLAY */
+#loading {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(14,13,11,0.85);
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+}
+
+#loading.show { display: flex; }
+
+.loading-spinner {
+  width: 48px; height: 48px;
+  border: 3px solid rgba(255,255,255,0.1);
+  border-top-color: var(--gold2);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.loading-text {
+  font-family: var(--font-display);
+  font-size: 18px;
+  color: var(--paper);
+  font-style: italic;
+}
+
+.loading-sub {
+  font-size: 13px;
+  color: var(--muted2);
+  font-family: var(--font-mono);
+  text-align: center;
+}
+
+/* TOOLTIP */
+.tooltip-wrap { position: relative; display: inline-block; }
+
+.tooltip-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  background: var(--paper3);
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 700;
+  cursor: help;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
+/* SECTION COMPLETE INDICATOR */
+.section-complete {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--teal);
+  font-family: var(--font-mono);
+  margin-bottom: 8px;
+}
+
+@media print {
+  body { background: #fff; }
+  #loading, #app-form, .result-header, .result-sidebar { display: none !important; }
+  #app-result { display: block !important; }
+  .result-layout { display: block; min-height: auto; }
+  .result-main { margin-left: 0; max-width: none; padding: 0; background: #fff; }
+  .result-section { display: none !important; animation: none; }
+  .result-section.active { display: block !important; }
+  body.print-all-mode .result-section {
+    display: block !important;
+    page-break-after: always;
+    break-after: page;
+  }
+  body.print-all-mode .result-section:last-child {
+    page-break-after: auto;
+    break-after: auto;
+  }
+  .tbl-wrap { overflow: visible; }
+  tr:hover td { background: transparent; }
+}
+
+@media (max-width: 700px) {
+  .app-header, .form-body, .progress-wrap, .form-hero { padding-left: 20px; padding-right: 20px; }
+  .two-col { grid-template-columns: 1fr; }
+  .check-grid, .radio-grid, .cards { grid-template-columns: 1fr; }
+  .result-sidebar { display: none; }
+  .result-main { margin-left: 0; padding: 24px 20px 60px; }
+  .rs-title { font-size: 22px; }
+}
+</style>
+</head>
+<body>
+
+<!-- LOADING -->
+<div id="loading">
+  <div class="loading-spinner"></div>
+  <div class="loading-text">Membangun sistem SEO Anda…</div>
+  <div class="loading-sub" id="loading-msg">Menganalisis data bisnis…</div>
+</div>
+
+<!-- ═══════════════════════════════ FORM APP ═══════════════════════════════ -->
+<div id="app-form">
+
+  <header class="app-header">
+    <div class="app-logo">SEO <em>Master</em> System</div>
+    <div class="step-pills" id="step-pills"></div>
+  </header>
+
+  <div class="form-hero">
+    <div class="hero-tag">Generator · Versi 2026</div>
+    <h1 class="hero-title">Bangun Sistem SEO, AEO, GEO &<br><em>LLM Optimization</em> Anda</h1>
+    <p class="hero-sub">Isi form berikut, klik submit — dan dapatkan sistem strategi lengkap yang dipersonalisasi untuk bisnis Anda.</p>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-label">
+      <span id="progress-text">Langkah 1 dari 5</span>
+      <span id="progress-pct">20%</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="progress-fill" style="width:20%"></div>
+    </div>
+  </div>
+
+  <div class="form-body">
+
+    <!-- ── STEP 1: IDENTITAS BISNIS ── -->
+    <div class="step-section active" id="step-1">
+      <h2 class="step-title">Identitas <em>Bisnis</em></h2>
+      <p class="step-desc">Informasi dasar tentang brand dan website Anda. Data ini digunakan untuk membangun entity consistency di seluruh strategi.</p>
+
+      <div class="field-group">
+        <label class="field-label" for="brand_name">Nama Brand / Website <span>Wajib</span></label>
+        <p class="field-hint">Nama yang akan digunakan konsisten di semua platform dan konten.</p>
+        <input type="text" id="brand_name" placeholder="Contoh: SouvenirKu, GiftKorpindo, MerchandisePro" required>
+        <div class="error-msg" id="err-brand_name">Nama brand wajib diisi.</div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label" for="domain">Domain Website <span class="opt">Opsional</span></label>
+        <input type="text" id="domain" placeholder="Contoh: souvenirku.id atau www.giftkorpindo.com">
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Jenis Website <span>Wajib</span></label>
+        <div class="radio-grid">
+          <div class="radio-card">
+            <input type="radio" name="web_type" id="wt1" value="Company Profile + Lead Gen" checked>
+            <label for="wt1"><div class="radio-title">Company Profile + Lead Gen</div><div class="radio-desc">Tampilkan bisnis, generate inquiry</div></label>
+          </div>
+          <div class="radio-card">
+            <input type="radio" name="web_type" id="wt2" value="E-Commerce / Toko Online">
+            <label for="wt2"><div class="radio-title">E-Commerce / Toko Online</div><div class="radio-desc">Penjualan langsung via website</div></label>
+          </div>
+          <div class="radio-card">
+            <input type="radio" name="web_type" id="wt3" value="Company Profile + Blog Edukasi">
+            <label for="wt3"><div class="radio-title">Company Profile + Blog</div><div class="radio-desc">Profil bisnis + konten edukasi</div></label>
+          </div>
+          <div class="radio-card">
+            <input type="radio" name="web_type" id="wt4" value="Marketplace / Platform">
+            <label for="wt4"><div class="radio-title">Marketplace / Platform</div><div class="radio-desc">Menghubungkan buyer dan seller</div></label>
+          </div>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label" for="industry">Industri / Niche <span>Wajib</span></label>
+        <input type="text" id="industry" placeholder="Contoh: Souvenir Kantor, Merchandise Korporat, Percetakan, Catering, dll." required>
+        <div class="error-msg" id="err-industry">Industri wajib diisi.</div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label" for="tagline">Tagline / Deskripsi Singkat Brand <span class="opt">Opsional</span></label>
+        <p class="field-hint">Satu kalimat yang mendeskripsikan bisnis Anda. Akan digunakan di schema markup dan llms.txt.</p>
+        <input type="text" id="tagline" placeholder="Contoh: Vendor souvenir kantor custom terpercaya, pengiriman ke seluruh Indonesia">
+      </div>
+
+      <div class="step-nav">
+        <div></div>
+        <button class="btn btn-primary" onclick="nextStep(2)">Lanjut → Produk & Layanan</button>
+      </div>
+    </div>
+
+    <!-- ── STEP 2: PRODUK & TARGET ── -->
+    <div class="step-section" id="step-2">
+      <h2 class="step-title">Produk, Layanan &amp; <em>Target Pasar</em></h2>
+      <p class="step-desc">Detail produk dan siapa yang Anda layani. Ini menentukan keyword cluster, content plan, dan tone komunikasi.</p>
+
+      <div class="field-group">
+        <label class="field-label" for="seed_keyword">Seed Keyword Utama <span>Wajib</span></label>
+        <p class="field-hint">Kata kunci paling inti yang mendeskripsikan bisnis Anda.</p>
+        <input type="text" id="seed_keyword" placeholder="Contoh: souvenir kantor, merchandise perusahaan, percetakan custom" required>
+        <div class="error-msg" id="err-seed_keyword">Seed keyword wajib diisi.</div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label" for="products">Produk / Layanan Utama <span>Wajib</span></label>
+        <p class="field-hint">Daftar produk atau layanan yang Anda tawarkan, pisahkan dengan koma atau Enter.</p>
+        <textarea id="products" rows="4" placeholder="Contoh:&#10;Souvenir tas kantor custom&#10;Mug dan tumbler branded&#10;Lanyard custom&#10;Tote bag kantor&#10;Plakat penghargaan karyawan&#10;Payung kantor custom" required></textarea>
+        <div class="error-msg" id="err-products">Produk/layanan wajib diisi.</div>
+      </div>
+
+      <div class="two-col">
+        <div class="field-group">
+          <label class="field-label" for="location_primary">Kota / Lokasi Utama <span>Wajib</span></label>
+          <input type="text" id="location_primary" placeholder="Contoh: Surabaya" required>
+          <div class="error-msg" id="err-location_primary">Lokasi wajib diisi.</div>
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="location_region">Provinsi / Region <span>Wajib</span></label>
+          <input type="text" id="location_region" placeholder="Contoh: Jawa Timur" required>
+          <div class="error-msg" id="err-location_region">Region wajib diisi.</div>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label" for="target_national">Coverage Nasional?</label>
+        <select id="target_national">
+          <option value="Nasional (seluruh Indonesia)">Ya — melayani seluruh Indonesia</option>
+          <option value="Regional (Jawa)">Regional — Pulau Jawa</option>
+          <option value="Lokal (satu kota)">Lokal — satu kota saja</option>
+          <option value="Lokal + beberapa kota sekitar">Lokal + beberapa kota sekitar</option>
+        </select>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label" for="audience">Target Audience / Buyer Persona <span>Wajib</span></label>
+        <p class="field-hint">Siapa pelanggan ideal Anda? Deskripsikan jabatan, ukuran perusahaan, masalah yang mereka hadapi.</p>
+        <textarea id="audience" rows="3" placeholder="Contoh: HRD Manager, Marketing Manager, dan Procurement Officer di perusahaan swasta dan BUMN. Biasanya mencari souvenir untuk event, ulang tahun perusahaan, atau penghargaan karyawan. Budget 5–50 juta per event." required></textarea>
+        <div class="error-msg" id="err-audience">Audience wajib diisi.</div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label" for="competitors">Kompetitor Referensi <span class="opt">Opsional</span></label>
+        <p class="field-hint">Domain atau nama brand pesaing. Pisahkan dengan koma.</p>
+        <input type="text" id="competitors" placeholder="Contoh: kompetitor1.com, NamaBrandPesaing, souvenirxyz.co.id">
+      </div>
+
+      <div class="step-nav">
+        <button class="btn btn-ghost" onclick="prevStep(1)">← Kembali</button>
+        <button class="btn btn-primary" onclick="nextStep(3)">Lanjut → Konversi & Tujuan</button>
+      </div>
+    </div>
+
+    <!-- ── STEP 3: KONVERSI & TUJUAN ── -->
+    <div class="step-section" id="step-3">
+      <h2 class="step-title">Konversi, Tujuan &amp; <em>Money Pages</em></h2>
+      <p class="step-desc">Bagaimana website Anda menghasilkan bisnis. Data ini menentukan struktur halaman dan CTA strategy.</p>
+
+      <div class="field-group">
+        <label class="field-label">Metode Konversi Utama <span>Wajib</span></label>
+        <p class="field-hint">Pilih semua yang relevan.</p>
+        <div class="check-grid">
+          <div class="check-item">
+            <input type="checkbox" id="cv1" name="conversion" value="WhatsApp / Chat">
+            <label for="cv1"><span class="check-box">✓</span>WhatsApp / Chat</label>
+          </div>
+          <div class="check-item">
+            <input type="checkbox" id="cv2" name="conversion" value="Form Inquiry">
+            <label for="cv2"><span class="check-box">✓</span>Form Inquiry</label>
+          </div>
+          <div class="check-item">
+            <input type="checkbox" id="cv3" name="conversion" value="Telepon">
+            <label for="cv3"><span class="check-box">✓</span>Telepon</label>
+          </div>
+          <div class="check-item">
+            <input type="checkbox" id="cv4" name="conversion" value="Email">
+            <label for="cv4"><span class="check-box">✓</span>Email</label>
+          </div>
+          <div class="check-item">
+            <input type="checkbox" id="cv5" name="conversion" value="Checkout Online">
+            <label for="cv5"><span class="check-box">✓</span>Checkout Online</label>
+          </div>
+          <div class="check-item">
+            <input type="checkbox" id="cv6" name="conversion" value="Kunjungan / Demo">
+            <label for="cv6"><span class="check-box">✓</span>Kunjungan / Demo</label>
+          </div>
+        </div>
+        <div class="error-msg" id="err-conversion">Pilih minimal satu metode konversi.</div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label" for="money_pages">Money Pages yang Akan Dibuat <span>Wajib</span></label>
+        <p class="field-hint">Halaman-halaman utama penghasil konversi. Satu per baris.</p>
+        <textarea id="money_pages" rows="6" placeholder="Contoh:&#10;Homepage&#10;Halaman Souvenir Tas Kantor Custom&#10;Halaman Souvenir Mug Kantor&#10;Halaman Souvenir Tumbler Custom&#10;Halaman Souvenir Lanyard&#10;Halaman Souvenir Tote Bag&#10;Halaman Portofolio / Klien&#10;Halaman Kontak / Hubungi Kami" required></textarea>
+        <div class="error-msg" id="err-money_pages">Money pages wajib diisi.</div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label" for="usp">Keunggulan / USP Utama <span>Wajib</span></label>
+        <p class="field-hint">Apa yang membuat bisnis Anda berbeda dari kompetitor?</p>
+        <textarea id="usp" rows="3" placeholder="Contoh: Custom logo/sablon gratis untuk order 100+ pcs, pengiriman ke seluruh Indonesia, proses produksi 7–14 hari, sudah melayani 200+ perusahaan" required></textarea>
+        <div class="error-msg" id="err-usp">USP wajib diisi.</div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label" for="tone">Tone of Voice Brand <span>Wajib</span></label>
+        <select id="tone" required>
+          <option value="">-- Pilih tone --</option>
+          <option value="Profesional dan kredibel">Profesional dan kredibel</option>
+          <option value="Ramah dan santai tapi tetap profesional">Ramah dan santai tapi tetap profesional</option>
+          <option value="Premium dan eksklusif">Premium dan eksklusif</option>
+          <option value="Edukatif dan informatif">Edukatif dan informatif</option>
+          <option value="Energik dan meyakinkan">Energik dan meyakinkan</option>
+        </select>
+        <div class="error-msg" id="err-tone">Tone of voice wajib dipilih.</div>
+      </div>
+
+      <div class="step-nav">
+        <button class="btn btn-ghost" onclick="prevStep(2)">← Kembali</button>
+        <button class="btn btn-primary" onclick="nextStep(4)">Lanjut → Konten & Distribusi</button>
+      </div>
+    </div>
+
+    <!-- ── STEP 4: KONTEN & DISTRIBUSI ── -->
+    <div class="step-section" id="step-4">
+      <h2 class="step-title">Strategi Konten &amp; <em>Distribusi</em></h2>
+      <p class="step-desc">Rencana konten dan platform distribusi. Ini menentukan multi-channel strategy dan GEO/LLM visibility plan.</p>
+
+      <div class="field-group">
+        <label class="field-label">Blog / Resource Center?</label>
+        <div class="radio-grid" style="grid-template-columns: 1fr 1fr;">
+          <div class="radio-card">
+            <input type="radio" name="has_blog" id="bl1" value="Ya" checked>
+            <label for="bl1"><div class="radio-title">Ya, ada blog</div><div class="radio-desc">Produksi konten edukasi rutin</div></label>
+          </div>
+          <div class="radio-card">
+            <input type="radio" name="has_blog" id="bl2" value="Tidak">
+            <label for="bl2"><div class="radio-title">Tidak ada blog</div><div class="radio-desc">Fokus hanya di halaman produk</div></label>
+          </div>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Platform Distribusi Konten <span>Wajib</span></label>
+        <p class="field-hint">Pilih semua platform yang akan digunakan.</p>
+        <div class="check-grid">
+          <div class="check-item">
+            <input type="checkbox" id="pl1" name="platform" value="Website / Blog" checked>
+            <label for="pl1"><span class="check-box">✓</span>Website / Blog</label>
+          </div>
+          <div class="check-item">
+            <input type="checkbox" id="pl2" name="platform" value="Instagram">
+            <label for="pl2"><span class="check-box">✓</span>Instagram</label>
+          </div>
+          <div class="check-item">
+            <input type="checkbox" id="pl3" name="platform" value="TikTok">
+            <label for="pl3"><span class="check-box">✓</span>TikTok</label>
+          </div>
+          <div class="check-item">
+            <input type="checkbox" id="pl4" name="platform" value="YouTube">
+            <label for="pl4"><span class="check-box">✓</span>YouTube</label>
+          </div>
+          <div class="check-item">
+            <input type="checkbox" id="pl5" name="platform" value="LinkedIn">
+            <label for="pl5"><span class="check-box">✓</span>LinkedIn</label>
+          </div>
+          <div class="check-item">
+            <input type="checkbox" id="pl6" name="platform" value="Threads">
+            <label for="pl6"><span class="check-box">✓</span>Threads</label>
+          </div>
+          <div class="check-item">
+            <input type="checkbox" id="pl7" name="platform" value="Twitter / X">
+            <label for="pl7"><span class="check-box">✓</span>Twitter / X</label>
+          </div>
+          <div class="check-item">
+            <input type="checkbox" id="pl8" name="platform" value="Facebook">
+            <label for="pl8"><span class="check-box">✓</span>Facebook</label>
+          </div>
+        </div>
+        <div class="error-msg" id="err-platform">Pilih minimal satu platform.</div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Ada area layanan multi-lokasi?</label>
+        <div class="radio-grid" style="grid-template-columns: 1fr 1fr;">
+          <div class="radio-card">
+            <input type="radio" name="multi_loc" id="ml1" value="Ya" checked>
+            <label for="ml1"><div class="radio-title">Ya</div><div class="radio-desc">Butuh local SEO pages per kota</div></label>
+          </div>
+          <div class="radio-card">
+            <input type="radio" name="multi_loc" id="ml2" value="Tidak">
+            <label for="ml2"><div class="radio-title">Tidak</div><div class="radio-desc">Satu lokasi / layanan online saja</div></label>
+          </div>
+        </div>
+      </div>
+
+      <div class="field-group" id="field-cities">
+        <label class="field-label" for="cities">Kota-Kota Target Local SEO <span class="opt">Opsional</span></label>
+        <p class="field-hint">Kota yang akan dibuatkan halaman local SEO. Pisahkan dengan koma.</p>
+        <input type="text" id="cities" placeholder="Contoh: Surabaya, Malang, Sidoarjo, Gresik, Mojokerto">
+      </div>
+
+      <div class="field-group">
+        <label class="field-label" for="content_freq">Frekuensi Produksi Konten Blog</label>
+        <select id="content_freq">
+          <option value="1–2 artikel per bulan">1–2 artikel per bulan (minimal)</option>
+          <option value="2–4 artikel per bulan" selected>2–4 artikel per bulan (direkomendasikan)</option>
+          <option value="4–8 artikel per bulan">4–8 artikel per bulan (intensif)</option>
+          <option value="8+ artikel per bulan">8+ artikel per bulan (agresif)</option>
+        </select>
+      </div>
+
+      <div class="step-nav">
+        <button class="btn btn-ghost" onclick="prevStep(3)">← Kembali</button>
+        <button class="btn btn-primary" onclick="nextStep(5)">Lanjut → Review & Submit</button>
+      </div>
+    </div>
+
+    <!-- ── STEP 5: REVIEW ── -->
+    <div class="step-section" id="step-5">
+      <h2 class="step-title">Review &amp; <em>Submit</em></h2>
+      <p class="step-desc">Periksa kembali data Anda sebelum sistem dibangun. Setelah submit, sistem SEO lengkap akan di-generate secara otomatis.</p>
+
+      <div id="review-summary"></div>
+
+      <div class="callout c-gold" style="margin-top: 28px;">
+        <p><strong>Siap?</strong> Klik "Generate Sistem SEO" untuk membangun strategi SEO, AEO, GEO, dan LLM Optimization yang dipersonalisasi untuk bisnis Anda.</p>
+      </div>
+
+      <div class="step-nav" style="justify-content: space-between;">
+        <button class="btn btn-ghost" onclick="prevStep(4)">← Kembali</button>
+        <button class="btn btn-gold" onclick="generateSystem()">✦ Generate Sistem SEO</button>
+      </div>
+    </div>
+
+  </div><!-- /form-body -->
+</div><!-- /app-form -->
+
+<!-- ═══════════════════════════════ RESULT APP ═══════════════════════════════ -->
+<div id="app-result">
+
+  <header class="result-header">
+    <div class="result-logo">SEO <em>Master</em> System — <span id="res-brand-header">Brand</span></div>
+    <div class="result-actions">
+      <button class="btn btn-ghost" onclick="resetForm()" style="font-size:13px; padding:8px 16px;">← Buat Baru</button>
+      <button class="btn btn-ghost" onclick="printSectionPDF()" style="font-size:13px; padding:8px 16px;">🖨 PDF Section</button>
+      <button class="btn btn-primary" onclick="printAllPDF()" style="font-size:13px; padding:8px 16px;">📄 PDF Semua</button>
+      <button class="btn btn-ghost" onclick="exportMarkdownReport()" style="font-size:13px; padding:8px 16px;">⬇ Markdown</button>
+    </div>
+  </header>
+
+  <div class="result-layout">
+    <nav class="result-sidebar">
+      <div class="rsb-section">
+        <div class="rsb-label">Fondasi</div>
+        <button class="rsb-item active" onclick="showSection('r0')"><span class="rsb-num">00</span> Overview</button>
+        <button class="rsb-item" onclick="showSection('r1')"><span class="rsb-num">01</span> Audit Input</button>
+        <button class="rsb-item" onclick="showSection('r2')"><span class="rsb-num">02</span> Asumsi Kerja</button>
+        <button class="rsb-item" onclick="showSection('r3')"><span class="rsb-num">03</span> Strategic Foundation</button>
+      </div>
+      <div class="rsb-section">
+        <div class="rsb-label">Analisis</div>
+        <button class="rsb-item" onclick="showSection('r4')"><span class="rsb-num">04</span> Search Market Model</button>
+        <button class="rsb-item" onclick="showSection('r5')"><span class="rsb-num">05</span> Content Architecture</button>
+        <button class="rsb-item" onclick="showSection('r6')"><span class="rsb-num">06</span> Framework 5 Tahap</button>
+      </div>
+      <div class="rsb-section">
+        <div class="rsb-label">Guardrails</div>
+        <button class="rsb-item" onclick="showSection('r7')"><span class="rsb-num">07</span> SEO Guardrails</button>
+        <button class="rsb-item" onclick="showSection('r8')"><span class="rsb-num">08</span> Content Guardrails</button>
+        <button class="rsb-item" onclick="showSection('r9')"><span class="rsb-num">09</span> AEO / SGE</button>
+        <button class="rsb-item" onclick="showSection('r10')"><span class="rsb-num">10</span> GEO / LLM</button>
+      </div>
+      <div class="rsb-section">
+        <div class="rsb-label">Eksekusi</div>
+        <button class="rsb-item" onclick="showSection('r11')"><span class="rsb-num">11</span> AI Crawler</button>
+        <button class="rsb-item" onclick="showSection('r12')"><span class="rsb-num">12</span> Multi-Channel</button>
+        <button class="rsb-item" onclick="showSection('r13')"><span class="rsb-num">13</span> Workflow</button>
+        <button class="rsb-item" onclick="showSection('r14')"><span class="rsb-num">14</span> KPI & Tracking</button>
+        <button class="rsb-item" onclick="showSection('r15')"><span class="rsb-num">15</span> Acceptance Criteria</button>
+      </div>
+    </nav>
+
+    <main class="result-main" id="result-main">
+      <!-- Content injected by JS -->
+    </main>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════ STATE ═══════════════════════
+let currentStep = 1;
+const totalSteps = 5;
+let D = {}; // collected data
+let activeSectionId = 'r0';
+let formDefaults = [];
+
+// ═══════════════════════ STEP PILLS ═══════════════════════
+function renderPills() {
+  const wrap = document.getElementById('step-pills');
+  wrap.innerHTML = '';
+  for (let i = 1; i <= totalSteps; i++) {
+    if (i > 1) {
+      const c = document.createElement('div');
+      c.className = 'step-connector';
+      wrap.appendChild(c);
+    }
+    const p = document.createElement('div');
+    p.className = 'step-pill' + (i < currentStep ? ' done' : i === currentStep ? ' active' : '');
+    p.textContent = i < currentStep ? '✓' : i;
+    p.onclick = () => { if (i < currentStep) goStep(i); };
+    wrap.appendChild(p);
+  }
+}
+
+function updateProgress() {
+  const pct = Math.round((currentStep / totalSteps) * 100);
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-pct').textContent = pct + '%';
+  document.getElementById('progress-text').textContent = `Langkah ${currentStep} dari ${totalSteps}`;
+}
+
+// ═══════════════════════ NAVIGATION ═══════════════════════
+function nextStep(n) {
+  if (!validateStep(currentStep)) return;
+  goStep(n);
+  if (n === 5) buildReview();
+}
+
+function prevStep(n) { goStep(n); }
+
+function goStep(n) {
+  document.getElementById('step-' + currentStep).classList.remove('active');
+  currentStep = n;
+  document.getElementById('step-' + currentStep).classList.add('active');
+  renderPills();
+  updateProgress();
+  window.scrollTo(0, 0);
+}
+
+// ═══════════════════════ VALIDATION ═══════════════════════
+function validateStep(step) {
+  let ok = true;
+
+  const required_1 = ['brand_name', 'industry'];
+  const required_2 = ['seed_keyword', 'products', 'location_primary', 'location_region', 'audience'];
+  const required_3 = ['money_pages', 'usp'];
+
+  const clearErrors = (ids) => ids.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.classList.remove('invalid');
+    const err = document.getElementById('err-' + id);
+    if (err) err.classList.remove('visible');
+  });
+
+  if (step === 1) {
+    clearErrors(required_1);
+    required_1.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el.value.trim()) {
+        el.classList.add('invalid');
+        document.getElementById('err-' + id).classList.add('visible');
+        ok = false;
+      }
+    });
+  }
+
+  if (step === 2) {
+    clearErrors(required_2);
+    required_2.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el.value.trim()) {
+        el.classList.add('invalid');
+        document.getElementById('err-' + id).classList.add('visible');
+        ok = false;
+      }
+    });
+  }
+
+  if (step === 3) {
+    clearErrors(required_3);
+    required_3.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el.value.trim()) {
+        el.classList.add('invalid');
+        document.getElementById('err-' + id).classList.add('visible');
+        ok = false;
+      }
+    });
+    // conversions
+    const cvs = document.querySelectorAll('input[name="conversion"]:checked');
+    if (cvs.length === 0) {
+      document.getElementById('err-conversion').classList.add('visible');
+      ok = false;
+    } else {
+      document.getElementById('err-conversion').classList.remove('visible');
+    }
+    // tone
+    const tone = document.getElementById('tone');
+    if (!tone.value) {
+      tone.classList.add('invalid');
+      document.getElementById('err-tone').classList.add('visible');
+      ok = false;
+    } else {
+      tone.classList.remove('invalid');
+      document.getElementById('err-tone').classList.remove('visible');
+    }
+  }
+
+  if (step === 4) {
+    const plats = document.querySelectorAll('input[name="platform"]:checked');
+    if (plats.length === 0) {
+      document.getElementById('err-platform').classList.add('visible');
+      ok = false;
+    } else {
+      document.getElementById('err-platform').classList.remove('visible');
+    }
+  }
+
+  if (!ok) {
+    const firstErr = document.querySelector('.invalid, .error-msg.visible');
+    if (firstErr) firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  return ok;
+}
+
+// ═══════════════════════ COLLECT DATA ═══════════════════════
+function collectData() {
+  D.brand = document.getElementById('brand_name').value.trim();
+  D.domain = document.getElementById('domain').value.trim() || D.brand.toLowerCase().replace(/\s+/g, '') + '.id';
+  D.web_type = document.querySelector('input[name="web_type"]:checked')?.value || 'Company Profile + Lead Gen';
+  D.industry = document.getElementById('industry').value.trim();
+  D.tagline = document.getElementById('tagline').value.trim() || `Solusi ${D.industry} terpercaya di Indonesia`;
+  D.seed = document.getElementById('seed_keyword').value.trim();
+  D.products = document.getElementById('products').value.trim().split('\n').filter(s => s.trim()).map(s => s.trim().replace(/^[-•]\s*/, ''));
+  D.city = document.getElementById('location_primary').value.trim();
+  D.region = document.getElementById('location_region').value.trim();
+  D.national = document.getElementById('target_national').value;
+  D.audience = document.getElementById('audience').value.trim();
+  D.competitors = document.getElementById('competitors').value.trim();
+  D.conversions = [...document.querySelectorAll('input[name="conversion"]:checked')].map(c => c.value);
+  D.money_pages = document.getElementById('money_pages').value.trim().split('\n').filter(s => s.trim()).map(s => s.trim().replace(/^[-•\d.]\s*/, ''));
+  D.usp = document.getElementById('usp').value.trim();
+  D.tone = document.getElementById('tone').value;
+  D.has_blog = document.querySelector('input[name="has_blog"]:checked')?.value || 'Ya';
+  D.platforms = [...document.querySelectorAll('input[name="platform"]:checked')].map(c => c.value);
+  D.multi_loc = document.querySelector('input[name="multi_loc"]:checked')?.value || 'Ya';
+  D.cities = document.getElementById('cities').value.trim();
+  D.content_freq = document.getElementById('content_freq').value;
+}
+
+// ═══════════════════════ BUILD REVIEW ═══════════════════════
+function buildReview() {
+  collectData();
+  const el = document.getElementById('review-summary');
+
+  const rows = [
+    ['Nama Brand', D.brand],
+    ['Domain', D.domain],
+    ['Jenis Website', D.web_type],
+    ['Industri', D.industry],
+    ['Seed Keyword', D.seed],
+    ['Lokasi', `${D.city}, ${D.region} — ${D.national}`],
+    ['Target Audience', D.audience.substring(0, 80) + (D.audience.length > 80 ? '…' : '')],
+    ['Produk', D.products.slice(0, 4).join(', ') + (D.products.length > 4 ? ` +${D.products.length - 4} lainnya` : '')],
+    ['Konversi', D.conversions.join(', ')],
+    ['Money Pages', D.money_pages.length + ' halaman'],
+    ['Platform', D.platforms.join(', ')],
+    ['Tone', D.tone],
+    ['Blog', D.has_blog],
+    ['Frekuensi Konten', D.content_freq],
+  ];
+
+  el.innerHTML = `<div class="tbl-wrap"><table>
+    <thead><tr><th>Item</th><th>Nilai</th></tr></thead>
+    <tbody>${rows.map(([k,v]) => `<tr><td style="font-weight:500;color:var(--ink2);white-space:nowrap">${k}</td><td>${v}</td></tr>`).join('')}</tbody>
+  </table></div>`;
+}
+
+// ═══════════════════════ GENERATE ═══════════════════════
+function generateSystem() {
+  clearGeneratedOutput();
+  collectData();
+
+  // Show loading
+  const loading = document.getElementById('loading');
+  loading.classList.add('show');
+  const msgs = [
+    'Menganalisis data bisnis…',
+    'Membangun keyword strategy…',
+    'Merancang content architecture…',
+    'Menyusun guardrails SEO + GEO…',
+    'Mengoptimalkan AI visibility…',
+    'Menyelesaikan sistem…'
+  ];
+  let mi = 0;
+  const interval = setInterval(() => {
+    document.getElementById('loading-msg').textContent = msgs[Math.min(mi++, msgs.length - 1)];
+  }, 600);
+
+  setTimeout(() => {
+    clearInterval(interval);
+    loading.classList.remove('show');
+    renderResult();
+  }, 3500);
+}
+
+// ═══════════════════════ HELPERS ═══════════════════════
+const h = s => s; // passthrough (no XSS risk, user's own data)
+const slug = s => s.toLowerCase().replace(/[^a-z0-9\s]/g,'').replace(/\s+/g,'-').replace(/--+/g,'-').substring(0,40);
+
+function productToSlug(p) {
+  return slug(p.replace(/souvenir\s*/i,'').replace(/kantor\s*/i,'').replace(/custom\s*/i,'').trim() || p);
+}
+
+function productToKeyword(p) {
+  return p.toLowerCase();
+}
+
+function cleanText(s) {
+  return (s || '')
+    .replace(/\u00a0/g, ' ')
+    .replace(/[ \t]+\n/g, '\n')
+    .replace(/\n[ \t]+/g, '\n')
+    .replace(/[ \t]{2,}/g, ' ')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
+}
+
+function syncCityFieldVisibility() {
+  const val = document.querySelector('input[name="multi_loc"]:checked')?.value || 'Ya';
+  document.getElementById('field-cities').style.display = val === 'Ya' ? 'block' : 'none';
+}
+
+function disableInputHistory() {
+  document.querySelectorAll('#app-form input[type="text"], #app-form input[type="url"], #app-form textarea').forEach(el => {
+    el.setAttribute('autocomplete', 'off');
+    el.setAttribute('autocorrect', 'off');
+    el.setAttribute('autocapitalize', 'off');
+    el.setAttribute('spellcheck', 'false');
+  });
+}
+
+function captureDefaultFormState() {
+  return [...document.querySelectorAll('#app-form input, #app-form textarea, #app-form select')].map(el => ({
+    type: el.type,
+    value: el.value,
+    checked: !!el.checked,
+  }));
+}
+
+function restoreDefaultFormState() {
+  const controls = [...document.querySelectorAll('#app-form input, #app-form textarea, #app-form select')];
+  controls.forEach((el, idx) => {
+    const def = formDefaults[idx];
+    if (!def) return;
+    if (def.type === 'checkbox' || def.type === 'radio') {
+      el.checked = def.checked;
+    } else {
+      el.value = def.value;
+    }
+    el.classList.remove('invalid');
+  });
+  document.querySelectorAll('.error-msg.visible').forEach(e => e.classList.remove('visible'));
+  document.getElementById('review-summary').innerHTML = '';
+  syncCityFieldVisibility();
+}
+
+function clearGeneratedOutput() {
+  D = {};
+  activeSectionId = 'r0';
+  document.body.classList.remove('print-all-mode');
+  document.getElementById('result-main').innerHTML = '';
+  document.getElementById('res-brand-header').textContent = 'Brand';
+  document.querySelectorAll('.rsb-item').forEach(b => b.classList.remove('active'));
+  const firstNav = document.querySelector('.rsb-item[onclick="showSection(\'r0\')"]');
+  if (firstNav) firstNav.classList.add('active');
+}
+
+function printSectionPDF() {
+  document.body.classList.remove('print-all-mode');
+  window.print();
+}
+
+function printAllPDF() {
+  document.body.classList.add('print-all-mode');
+  let restored = false;
+  const restore = () => {
+    if (restored) return;
+    restored = true;
+    document.body.classList.remove('print-all-mode');
+    showSection(activeSectionId || 'r0');
+  };
+  window.addEventListener('afterprint', restore, { once: true });
+  window.print();
+  setTimeout(restore, 1600);
+}
+
+function tableToMarkdown(table) {
+  const rows = [...table.querySelectorAll('tr')]
+    .map(tr => [...tr.children].map(cell => cleanText(cell.textContent).replace(/\|/g, '\\|')));
+  if (!rows.length) return '';
+  const headers = rows[0];
+  const sep = headers.map(() => '---');
+  const body = rows.slice(1);
+  return [
+    `| ${headers.join(' | ')} |`,
+    `| ${sep.join(' | ')} |`,
+    ...body.map(r => `| ${headers.map((_, i) => r[i] || '').join(' | ')} |`)
+  ].join('\n');
+}
+
+function appendNodeMarkdown(node, lines, level = 3) {
+  if (!node) return;
+  if (node.matches?.('.rs-header')) return;
+
+  if (node.matches?.('h2.rs, h2')) {
+    lines.push(`${'#'.repeat(level)} ${cleanText(node.textContent)}`, '');
+    return;
+  }
+  if (node.matches?.('h3.rs, h3')) {
+    lines.push(`${'#'.repeat(level + 1)} ${cleanText(node.textContent)}`, '');
+    return;
+  }
+  if (node.matches?.('p.rs, p')) {
+    const t = cleanText(node.textContent);
+    if (t) lines.push(t, '');
+    return;
+  }
+  if (node.classList?.contains('callout')) {
+    const t = cleanText(node.textContent);
+    if (t) lines.push(`> ${t}`, '');
+    return;
+  }
+  if (node.classList?.contains('code-block')) {
+    const t = cleanText(node.textContent);
+    if (t) lines.push('```text', t, '```', '');
+    return;
+  }
+  if (node.matches?.('ul, ol')) {
+    [...node.querySelectorAll(':scope > li')].forEach(li => {
+      const t = cleanText(li.textContent);
+      if (t) lines.push(`- ${t}`);
+    });
+    lines.push('');
+    return;
+  }
+  if (node.classList?.contains('tbl-wrap')) {
+    const table = node.querySelector('table');
+    if (table) lines.push(tableToMarkdown(table), '');
+    return;
+  }
+  if (node.classList?.contains('cards')) {
+    [...node.querySelectorAll('.card')].forEach(card => {
+      const title = cleanText(card.querySelector('.card-title')?.textContent || '');
+      const desc = cleanText(card.querySelector('.card-desc')?.textContent || '');
+      lines.push(`- **${title}**: ${desc}`);
+    });
+    lines.push('');
+    return;
+  }
+  if (node.classList?.contains('flow')) {
+    const steps = [...node.querySelectorAll('.flow-step')].map(s => cleanText(s.textContent)).filter(Boolean);
+    if (steps.length) lines.push(`Alur: ${steps.join(' -> ')}`, '');
+    return;
+  }
+  if (node.classList?.contains('phase')) {
+    const title = cleanText(node.querySelector('.phase-title')?.textContent || '');
+    const sub = cleanText(node.querySelector('.phase-sub')?.textContent || '');
+    if (title) lines.push(`${'#'.repeat(level)} ${title}`);
+    if (sub) lines.push(`_${sub}_`);
+    lines.push('');
+    [...node.children].forEach(ch => {
+      if (ch.classList?.contains('phase-hdr')) return;
+      appendNodeMarkdown(ch, lines, level + 1);
+    });
+    return;
+  }
+  if (node.classList?.contains('rule')) {
+    const t = cleanText(node.textContent);
+    if (t) lines.push(`- ${t}`);
+    return;
+  }
+  if (node.classList?.contains('stat-bar')) {
+    const label = cleanText(node.querySelector('.stat-label')?.textContent || '');
+    const val = cleanText(node.querySelector('.stat-val')?.textContent || '');
+    if (label || val) lines.push(`- ${label}${val ? `: ${val}` : ''}`);
+    return;
+  }
+
+  if (node.children?.length) {
+    [...node.children].forEach(ch => appendNodeMarkdown(ch, lines, level));
+    return;
+  }
+  const t = cleanText(node.textContent);
+  if (t) lines.push(t, '');
+}
+
+function sectionToMarkdown(section, idx) {
+  const title = cleanText(section.querySelector('.rs-title')?.textContent || `Section ${idx + 1}`);
+  const tag = cleanText(section.querySelector('.rs-tag')?.textContent || '');
+  const lines = [`## ${String(idx).padStart(2, '0')} ${title}`];
+  if (tag) lines.push(`_${tag}_`);
+  lines.push('');
+
+  [...section.children].forEach(node => appendNodeMarkdown(node, lines, 3));
+  return lines.join('\n').replace(/\n{3,}/g, '\n\n').trim();
+}
+
+function buildMarkdownReport() {
+  const generatedAt = new Date().toLocaleString('id-ID', {
+    dateStyle: 'full',
+    timeStyle: 'short',
+  });
+  const sections = [...document.querySelectorAll('.result-section')];
+  const header = [
+    '# SEO Master System Generator Output',
+    '',
+    `- Brand: ${D.brand || '-'}`,
+    `- Seed Keyword: ${D.seed || '-'}`,
+    `- Generated: ${generatedAt}`,
+    '',
+    '---',
+    ''
+  ].join('\n');
+
+  const body = sections.map((s, i) => sectionToMarkdown(s, i)).join('\n\n---\n\n');
+  return `${header}${body}\n`.replace(/\n{3,}/g, '\n\n');
+}
+
+function exportMarkdownReport() {
+  const sections = document.querySelectorAll('.result-section');
+  if (!sections.length) return;
+  const md = buildMarkdownReport();
+  const fname = `seo-system-${slug(D.brand || 'brand')}-${slug(D.seed || 'keyword') || 'result'}.md`;
+  const blob = new Blob([md], { type: 'text/markdown;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = fname;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
+}
+
+// ═══════════════════════ RENDER RESULT ═══════════════════════
+function renderResult() {
+  document.getElementById('app-form').style.display = 'none';
+  document.getElementById('app-result').style.display = 'block';
+  document.getElementById('res-brand-header').textContent = D.brand;
+
+  const main = document.getElementById('result-main');
+
+  // Generate all 16 sections
+  main.innerHTML = [
+    genR0(), genR1(), genR2(), genR3(), genR4(), genR5(), genR6(),
+    genR7(), genR8(), genR9(), genR10(), genR11(), genR12(), genR13(), genR14(), genR15()
+  ].join('');
+
+  showSection('r0');
+  window.scrollTo(0, 0);
+}
+
+// ─── SECTION 0: OVERVIEW ───
+function genR0() {
+  const plat_geo = D.platforms.filter(p => ['LinkedIn','YouTube','Reddit','Threads'].includes(p));
+  return `<div class="result-section" id="r0">
+  <div class="rs-header">
+    <div class="rs-tag">Master SEO System · 2026</div>
+    <h1 class="rs-title">${D.brand}<br><span style="font-style:italic;color:var(--gold)">SEO, AEO, GEO &amp; LLM Optimization</span></h1>
+  </div>
+  <p class="rs">${D.tagline}</p>
+  <div class="callout c-gold"><p><strong>Konteks:</strong> ${D.web_type} · Target ${D.city} &amp; ${D.region} + ${D.national} · Distribusi: ${D.platforms.join(', ')}</p></div>
+  <h2 class="rs">Landscape AI Search 2026</h2>
+  <div class="stat-bar"><span class="stat-label">Pertumbuhan AI traffic YoY</span><div class="stat-track"><div class="stat-fill" style="width:100%"></div></div><span class="stat-val">+527%</span></div>
+  <div class="stat-bar"><span class="stat-label">Konversi AI visitor vs organic biasa</span><div class="stat-track"><div class="stat-fill" style="width:88%"></div></div><span class="stat-val">4.4× lebih baik</span></div>
+  <div class="stat-bar"><span class="stat-label">Citasi LLM dari 30% pertama artikel</span><div class="stat-track"><div class="stat-fill" style="width:88.4%"></div></div><span class="stat-val">44.2%</span></div>
+  <div class="stat-bar"><span class="stat-label">Konten dikutip ChatGPT punya answer capsule</span><div class="stat-track"><div class="stat-fill" style="width:72.4%"></div></div><span class="stat-val">72.4%</span></div>
+  <div class="stat-bar"><span class="stat-label">Citasi AI dari brand-managed sources</span><div class="stat-track"><div class="stat-fill" style="width:86%"></div></div><span class="stat-val">86%</span></div>
+  <h2 class="rs">5 Dimensi Optimasi</h2>
+  <div class="cards">
+    <div class="card"><div class="card-icon">🔍</div><div class="card-title">SEO Tradisional</div><div class="card-desc">Ranking Google SERP untuk "${D.seed}" + local SEO ${D.city}</div></div>
+    <div class="card"><div class="card-icon">💬</div><div class="card-title">AEO</div><div class="card-desc">Featured snippet, PAA, voice search untuk query ${D.industry}</div></div>
+    <div class="card"><div class="card-icon">🤖</div><div class="card-title">GEO / LLMO</div><div class="card-desc">Dikutip ChatGPT, Perplexity, Gemini untuk ${D.seed}</div></div>
+    <div class="card"><div class="card-icon">✨</div><div class="card-title">SGE</div><div class="card-desc">Google AI Overviews untuk query ${D.industry}</div></div>
+    <div class="card"><div class="card-icon">💰</div><div class="card-title">Konversi</div><div class="card-desc">Lead via ${D.conversions.slice(0,2).join(' &amp; ')} dari semua channel</div></div>
+  </div>
+  ${plat_geo.length > 0 ? `<div class="callout c-teal"><p><strong>GEO Advantage:</strong> ${D.brand} akan aktif di ${plat_geo.join(', ')} — platform yang paling sering dikutip LLM untuk query profesional Indonesia.</p></div>` : ''}
+  </div>`;
+}
+
+// ─── SECTION 1: AUDIT INPUT ───
+function genR1() {
+  const items = [
+    ['Nama Brand', D.brand ? 'Lengkap' : 'Kosong', D.brand || '—', D.brand ? 'b-ok' : 'b-crit'],
+    ['Jenis Website', 'Lengkap', D.web_type, 'b-ok'],
+    ['Industri / Niche', D.industry ? 'Lengkap' : 'Kosong', D.industry, 'b-ok'],
+    ['Seed Keyword', D.seed ? 'Lengkap' : 'Kosong', D.seed, 'b-ok'],
+    ['Lokasi Target', 'Lengkap', `${D.city}, ${D.region}`, 'b-ok'],
+    ['Target Market', D.national, D.national, 'b-ok'],
+    ['Produk Utama', D.products.length > 0 ? 'Lengkap' : 'Kosong', D.products.length + ' produk', 'b-ok'],
+    ['Target Audience', D.audience ? 'Lengkap' : 'Parsial', D.audience.substring(0,60) + '…', 'b-ok'],
+    ['Metode Konversi', D.conversions.length > 0 ? 'Lengkap' : 'Kosong', D.conversions.join(', '), 'b-ok'],
+    ['Money Pages', D.money_pages.length > 0 ? 'Lengkap' : 'Kosong', D.money_pages.length + ' halaman', 'b-ok'],
+    ['USP Bisnis', D.usp ? 'Lengkap' : 'Kosong', D.usp.substring(0,60) + '…', 'b-ok'],
+    ['Blog / Resource', D.has_blog, D.has_blog, D.has_blog === 'Ya' ? 'b-ok' : 'b-warn'],
+    ['Kompetitor', D.competitors ? 'Tersedia' : 'Belum diisi', D.competitors || 'Perlu di-research', D.competitors ? 'b-ok' : 'b-warn'],
+    ['Platform Distribusi', 'Lengkap', D.platforms.join(', '), 'b-ok'],
+    ['Tone of Voice', D.tone ? 'Lengkap' : 'Kosong', D.tone, 'b-ok'],
+    ['Domain', D.domain ? 'Tersedia' : 'Placeholder', D.domain, D.domain ? 'b-ok' : 'b-warn'],
+  ];
+  return `<div class="result-section" id="r1">
+  <div class="rs-header"><div class="rs-tag">Bagian 01</div><h1 class="rs-title">Audit Input &amp; Gap Analysis</h1></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Item</th><th>Status</th><th>Nilai / Asumsi</th></tr></thead>
+    <tbody>${items.map(([item,status,val,badge]) => `<tr><td><strong>${item}</strong></td><td><span class="badge ${badge}">${status}</span></td><td>${val}</td></tr>`).join('')}</tbody>
+  </table></div>
+  ${!D.competitors ? `<div class="callout c-gold"><p><strong>Action Required:</strong> Data kompetitor belum diisi. Lakukan riset kompetitor untuk ${D.seed} di Google dan Ahrefs sebelum memulai keyword research.</p></div>` : ''}
+  </div>`;
+}
+
+// ─── SECTION 2: ASUMSI ───
+function genR2() {
+  return `<div class="result-section" id="r2">
+  <div class="rs-header"><div class="rs-tag">Bagian 02</div><h1 class="rs-title">Asumsi Kerja</h1></div>
+  <h2 class="rs">Asumsi Bisnis</h2>
+  <ul class="checklist">
+    <li class="done">Website adalah ${D.web_type} — bukan toko online dengan cart/checkout</li>
+    <li class="done">Revenue model: ${D.conversions.includes('Checkout Online') ? 'B2C/B2B direct via website' : 'B2B inquiry-based — konversi via ' + D.conversions.join(', ')}</li>
+    <li class="done">Target buyer: ${D.audience.substring(0, 100)}…</li>
+    <li class="done">USP utama: ${D.usp.substring(0, 100)}…</li>
+    <li class="done">Kompetitor di niche ${D.industry} kemungkinan besar belum memiliki strategi SEO yang matang — peluang dominasi besar</li>
+  </ul>
+  <h2 class="rs">Asumsi SEO</h2>
+  <ul class="checklist">
+    <li class="done">Target awal: ranking halaman 1 untuk long-tail keywords ${D.city}/${D.region} terlebih dahulu</li>
+    <li class="done">Keyword nasional ("${D.seed}") lebih besar tapi lebih kompetitif — dijadikan target jangka menengah (90–180 hari)</li>
+    <li class="done">Local SEO (Google Business Profile) wajib diaktifkan untuk ${D.city}</li>
+    <li class="done">Struktur URL: ${D.domain}/${slug(D.products[0] || D.seed)}/, ${D.domain}/blog/, ${D.domain}/${slug(D.seed)}-${slug(D.city)}/</li>
+    ${D.multi_loc === 'Ya' ? `<li class="done">Local landing pages dibutuhkan untuk: ${D.cities || D.city + ' + kota sekitar'}</li>` : ''}
+  </ul>
+  <h2 class="rs">Asumsi Konten</h2>
+  <ul class="checklist">
+    <li class="done">Blog berfokus edukasi buyer: cara memilih ${D.seed}, tips ${D.industry}, panduan pembelian</li>
+    <li class="done">Tone: ${D.tone} — konsisten di semua halaman dan platform</li>
+    <li class="done">Frekuensi produksi: ${D.content_freq}</li>
+    <li class="done">Setiap produk mendapat halaman dedicated (money page) + minimal 2 artikel blog pendukung</li>
+  </ul>
+  <h2 class="rs">Asumsi Konversi</h2>
+  <ul class="checklist">
+    <li class="done">CTA utama di setiap halaman: ${D.conversions.join(' + ')}</li>
+    <li class="done">${D.conversions.includes('WhatsApp / Chat') ? 'Tombol WhatsApp floating di semua halaman' : 'Form inquiry di semua money pages'}</li>
+    <li class="done">Buyer B2B membutuhkan lebih banyak trust signal: portofolio klien, testimoni, logo perusahaan yang dilayani</li>
+    <li class="done">Cycle penjualan panjang (1–3 minggu) — konten edukasi penting untuk nurturing buyer</li>
+  </ul>
+  <h2 class="rs">Asumsi AI Visibility (GEO / AEO / SGE)</h2>
+  <ul class="checklist">
+    <li class="done">Query AI untuk ${D.industry}: "rekomendasi ${D.seed} untuk [jumlah] orang" / "vendor ${D.seed} terpercaya di ${D.city}"</li>
+    <li class="done">Original data (survei harga, tren ${D.industry}) meningkatkan peluang dikutip AI hingga 40%+</li>
+    <li class="done">Schema markup Organization, LocalBusiness, Product, FAQ wajib diimplementasikan</li>
+    <li class="done">Robots.txt harus izinkan semua AI crawler: GPTBot, ClaudeBot, PerplexityBot, Google-Extended</li>
+    ${D.platforms.includes('LinkedIn') ? '<li class="done">LinkedIn company page wajib aktif — top cited platform LLM untuk B2B queries</li>' : ''}
+    ${D.platforms.includes('YouTube') ? '<li class="done">Setiap video YouTube wajib ada transcript manual + VideoObject schema di artikel blog</li>' : ''}
+  </ul>
+  </div>`;
+}
+
+// ─── SECTION 3: STRATEGIC FOUNDATION ───
+function genR3() {
+  const mpRows = D.money_pages.map(p => {
+    const kw = productToKeyword(p);
+    const sl = slug(p);
+    return `<tr><td><strong>${p}</strong></td><td>/${sl}/</td><td>${kw}, ${kw} ${D.city.toLowerCase()}</td><td>Top 3</td><td>60 hari</td></tr>`;
+  }).join('');
+
+  return `<div class="result-section" id="r3">
+  <div class="rs-header"><div class="rs-tag">Bagian 03</div><h1 class="rs-title">Strategic Foundation</h1></div>
+  <h2 class="rs">Tujuan SEO Tradisional</h2>
+  <div class="callout c-blue"><p>Mendominasi SERP Google untuk query ${D.seed} + lokasi (${D.city}, ${D.region}) dalam 90 hari pertama, lalu ekspansi ${D.national}.</p></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Horizon</th><th>Target Keyword</th><th>Posisi</th><th>Timeframe</th></tr></thead>
+    <tbody>
+      <tr><td>Lokal</td><td>${D.seed} ${D.city.toLowerCase()}, ${D.industry.toLowerCase()} ${D.city.toLowerCase()}</td><td>Top 3</td><td>30–60 hari</td></tr>
+      <tr><td>Regional</td><td>${D.seed} ${D.region.toLowerCase()}, vendor ${D.seed} ${D.region.toLowerCase()}</td><td>Top 5</td><td>60–90 hari</td></tr>
+      <tr><td>Nasional Long-tail</td><td>${D.seed} murah berkualitas, jual ${D.seed} custom</td><td>Top 10</td><td>90–120 hari</td></tr>
+      <tr><td>Nasional Head</td><td>${D.seed}, ${D.industry.toLowerCase()}</td><td>Top 5</td><td>6–12 bulan</td></tr>
+    </tbody>
+  </table></div>
+  <h2 class="rs">Tujuan AEO (Answer Engine)</h2>
+  <div class="cards">
+    <div class="card"><div class="card-title">Featured Snippet</div><div class="card-desc">"cara memilih ${D.seed}", "${D.seed} untuk [jumlah] orang", "berapa harga ${D.seed}"</div></div>
+    <div class="card"><div class="card-title">People Also Ask</div><div class="card-desc">Masuk minimal 3 PAA per money page untuk topik ${D.industry}</div></div>
+    <div class="card"><div class="card-title">Voice / AI Search</div><div class="card-desc">"di mana beli ${D.seed} di ${D.city} yang bisa custom logo"</div></div>
+  </div>
+  <h2 class="rs">Tujuan GEO — Dikutip AI</h2>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Platform AI</th><th>Target Query</th><th>Indikator Sukses</th></tr></thead>
+    <tbody>
+      <tr><td>ChatGPT / Claude</td><td>"rekomendasi vendor ${D.seed} Indonesia"</td><td>${D.brand} muncul di rekomendasi</td></tr>
+      <tr><td>Perplexity</td><td>"${D.seed} custom ${D.city.toLowerCase()} terpercaya"</td><td>${D.domain} dikutip sebagai sumber</td></tr>
+      <tr><td>Google Gemini</td><td>"supplier ${D.industry.toLowerCase()} Indonesia"</td><td>Muncul di AI Overview dengan citasi</td></tr>
+    </tbody>
+  </table></div>
+  <h2 class="rs">Peran Setiap Jenis Halaman</h2>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Jenis</th><th>Fungsi SEO</th><th>Fungsi Konversi</th><th>Fungsi AI/GEO</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Money Pages</strong></td><td>Ranking transaksional</td><td>${D.conversions.slice(0,2).join(' / ')} langsung</td><td>Dikutip untuk "beli/pesan X"</td></tr>
+      <tr><td><strong>Pillar Content</strong></td><td>Ranking informasional kompetitif</td><td>Nurturing → redirect money page</td><td>Sumber utama citasi AI</td></tr>
+      <tr><td><strong>FAQ Pages</strong></td><td>Featured snippet + PAA</td><td>Hilangkan hambatan pembelian</td><td>Answer capsule — mudah dikutip LLM</td></tr>
+      <tr><td><strong>Glossary</strong></td><td>Definitional queries</td><td>Top of funnel awareness</td><td>Definisi dikutip AI</td></tr>
+      <tr><td><strong>Comparison</strong></td><td>"X vs Y" queries</td><td>Bantu decision buyer</td><td>AI gunakan untuk jawab evaluatif</td></tr>
+      <tr><td><strong>Local Pages</strong></td><td>Local SEO per kota</td><td>Proximity conversion</td><td>Dikutip untuk query lokal</td></tr>
+      <tr><td><strong>Case Study</strong></td><td>Trust signal + branded</td><td>Social proof → konversi</td><td>Data original → GEO citation ++</td></tr>
+    </tbody>
+  </table></div>
+  ${D.money_pages.length > 0 ? `<h2 class="rs">Money Pages Plan</h2>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Halaman</th><th>URL</th><th>Keyword Target</th><th>Target Posisi</th><th>Timeline</th></tr></thead>
+    <tbody>${mpRows}</tbody>
+  </table></div>` : ''}
+  </div>`;
+}
+
+// ─── SECTION 4: SEARCH MARKET ───
+function genR4() {
+  const aiQueries = [
+    `apa rekomendasi ${D.seed} untuk acara perusahaan 200 karyawan dengan budget terbatas`,
+    `bagaimana cara mencari vendor ${D.seed} yang terpercaya dan bisa custom logo di ${D.city}`,
+    `berapa budget yang dibutuhkan untuk memesan ${D.seed} 500 pcs dengan kualitas premium`,
+    `${D.products[0] ? `apa perbedaan antara ${D.products.slice(0,3).join(', ')} sebagai ${D.seed}` : `perbandingan produk ${D.seed} terbaik untuk perusahaan`}`,
+    `tips memilih ${D.seed} yang berkesan dan tidak cepat dibuang untuk meningkatkan brand awareness`,
+    `vendor ${D.seed} yang bisa kirim ke seluruh Indonesia dengan minimum order terjangkau`,
+  ];
+
+  const fanout = [
+    `vendor ${D.seed} terpercaya ${D.city.toLowerCase()}`, `jenis ${D.seed} populer 2026`,
+    `harga ${D.seed} custom per pcs`, `minimum order ${D.seed}`,
+    `cara pesan ${D.seed} dengan logo perusahaan`, `contoh ${D.seed} untuk event`,
+    `${D.seed} berkualitas tidak cepat rusak`
+  ];
+
+  return `<div class="result-section" id="r4">
+  <div class="rs-header"><div class="rs-tag">Bagian 04</div><h1 class="rs-title">Search Market Model &amp; AI Query Analysis</h1></div>
+  <h2 class="rs">Pola Pencarian Google (Tradisional)</h2>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Intent</th><th>Contoh Query</th><th>Volume Est.</th><th>Kompetisi</th></tr></thead>
+    <tbody>
+      <tr><td><span class="badge b-info">Transaksional</span></td><td>beli ${D.seed}, pesan ${D.seed} custom, vendor ${D.seed} ${D.city.toLowerCase()}</td><td>Sedang–Tinggi</td><td>Tinggi</td></tr>
+      <tr><td><span class="badge b-purple">Komersial</span></td><td>${D.seed} terbaik, rekomendasi ${D.seed} murah, ${D.seed} 2026</td><td>Sedang</td><td>Sedang</td></tr>
+      <tr><td><span class="badge b-ok">Informasional</span></td><td>cara memilih ${D.seed}, ${D.seed} untuk ulang tahun perusahaan, berapa harga ${D.seed}</td><td>Sedang</td><td>Rendah–Sedang</td></tr>
+      <tr><td><span class="badge b-warn">Lokal</span></td><td>${D.seed} ${D.city.toLowerCase()}, ${D.industry.toLowerCase()} ${D.region.toLowerCase()}</td><td>Rendah–Sedang</td><td>Rendah</td></tr>
+    </tbody>
+  </table></div>
+  <h2 class="rs">Pola Pencarian AI Chat (Query 15–23 Kata)</h2>
+  <div class="callout c-gold"><p>AI search users menggunakan query jauh lebih spesifik. Ini peluang besar karena lebih mudah dimenangkan dengan konten yang menjawab konteks lengkap.</p></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Kategori</th><th>Contoh AI Query</th></tr></thead>
+    <tbody>${aiQueries.map((q,i) => `<tr><td><span class="badge b-info">${['B2B Planning','Vendor Evaluation','Budget Planning','Comparison','Problem Solving','Logistics'][i]}</span></td><td>"${q}"</td></tr>`).join('')}</tbody>
+  </table></div>
+  <h2 class="rs">Query Fan-Out — Sub-Query yang Di-generate AI</h2>
+  <div class="phase">
+    <div class="phase-hdr"><div class="phase-num">Q</div><div><div class="phase-title">"rekomendasi ${D.seed} custom ${D.city.toLowerCase()}"</div></div></div>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th>Sub-Query yang Di-generate AI</th><th>Jenis Konten yang Diperlukan</th></tr></thead>
+      <tbody>
+        ${fanout.map((q,i) => `<tr><td>${q}</td><td>${['Local page + review','Pillar content / listicle','FAQ / price page','FAQ page','How-to article','Gallery / portfolio','Comparison / buying guide'][i]}</td></tr>`).join('')}
+      </tbody>
+    </table></div>
+  </div>
+  <h2 class="rs">Peta Peluang</h2>
+  <div class="cards">
+    <div class="card"><div class="card-icon">📍</div><div class="card-title">Local SEO</div><div class="card-desc">${D.city} + ${D.cities || 'kota sekitar ' + D.region}. Landing page per kota + Google Business Profile.</div></div>
+    <div class="card"><div class="card-icon">🏆</div><div class="card-title">Topical Authority</div><div class="card-desc">Kuasai semua topik "${D.industry}". Jadilah sumber #1 untuk semua pertanyaan terkait.</div></div>
+    <div class="card"><div class="card-icon">🤖</div><div class="card-title">AI Citation</div><div class="card-desc">Original data (survei harga, tren ${D.seed}) akan dikutip AI. 52% konten dikutip ChatGPT punya data original.</div></div>
+    <div class="card"><div class="card-icon">📊</div><div class="card-title">Low Competition</div><div class="card-desc">Mayoritas kompetitor ${D.industry} belum punya blog berkualitas — peluang topical authority sangat besar.</div></div>
+  </div>
+  </div>`;
+}
+
+// ─── SECTION 5: CONTENT ARCHITECTURE ───
+function genR5() {
+  const prodRows = D.products.map(p => {
+    const sl = slug(p);
+    const kw = productToKeyword(p);
+    return `<tr><td>${p}</td><td>/${sl}/</td><td>${kw}, ${kw} custom logo</td></tr>`;
+  }).join('');
+
+  const blogTopics = [
+    `${D.products.length > 0 ? D.products.length : 10} Rekomendasi ${D.seed} Terbaik untuk Ulang Tahun Perusahaan`,
+    `${D.seed} untuk 100 Orang: Panduan Lengkap Budget dan Pilihan`,
+    `Cara Order ${D.seed} Custom dengan Logo Perusahaan (Step by Step)`,
+    `Tren ${D.seed} ${new Date().getFullYear()}: Apa yang Sedang Populer`,
+    `Vendor ${D.seed} ${D.city}: Cara Memilih yang Tepat`,
+    `Harga ${D.seed}: Panduan Budget Lengkap`,
+    `${D.seed} untuk Klien vs Karyawan: Apa Bedanya?`,
+    `Perbedaan ${D.products.slice(0,3).join(', ')} sebagai ${D.seed}`,
+  ];
+
+  return `<div class="result-section" id="r5">
+  <div class="rs-header"><div class="rs-tag">Bagian 05</div><h1 class="rs-title">Content System Architecture</h1></div>
+  <h3 class="rs">Tier 1 — Pillar Content (3.000+ kata)</h3>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Topik Pillar</th><th>Target Keyword Utama</th><th>Cluster</th></tr></thead>
+    <tbody>
+      <tr><td>Panduan Lengkap ${D.industry}</td><td>${D.seed}, panduan ${D.seed}</td><td>Semua halaman produk + edukasi</td></tr>
+      <tr><td>Cara Memilih ${D.seed} untuk Event Perusahaan</td><td>cara memilih ${D.seed}, ${D.seed} event perusahaan</td><td>Konten event-related</td></tr>
+      <tr><td>Harga &amp; Budget ${D.seed} ${new Date().getFullYear()}</td><td>harga ${D.seed}, budget ${D.seed}</td><td>FAQ harga, price range</td></tr>
+    </tbody>
+  </table></div>
+  <h3 class="rs">Tier 2 — Money Pages (${D.products.length} halaman produk)</h3>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Halaman Produk</th><th>URL</th><th>Keyword Target</th></tr></thead>
+    <tbody>${prodRows}</tbody>
+  </table></div>
+  <h3 class="rs">Tier 3 — Blog Cluster</h3>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Topik Artikel</th><th>Intent</th><th>Min. Kata</th></tr></thead>
+    <tbody>${blogTopics.map((t,i) => `<tr><td>${t}</td><td>${['Informasional','Informasional','How-to','Informasional','Komersial Lokal','Informasional','Comparison','Comparison'][i]}</td><td>${[3000,2000,1800,1800,2000,1500,1500,1500][i].toLocaleString()}</td></tr>`).join('')}</tbody>
+  </table></div>
+  <h3 class="rs">Tier 4 — FAQ, Glossary &amp; Comparison</h3>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Jenis</th><th>Halaman</th><th>Tujuan AI/GEO</th></tr></thead>
+    <tbody>
+      <tr><td>FAQ Page</td><td>/faq-${slug(D.seed)}/ — 30+ pertanyaan dengan answer capsule</td><td>Featured snippet + PAA + LLM citation</td></tr>
+      <tr><td>Glossary</td><td>/glossary/ — definisi ${D.seed}, MOQ, corporate gift, dll.</td><td>Definitional query + LLM entity recognition</td></tr>
+      <tr><td>Comparison</td><td>${D.products.slice(0,3).join(' vs ')} sebagai ${D.seed}</td><td>Evaluative query + ChatGPT recommendation</td></tr>
+    </tbody>
+  </table></div>
+  <h3 class="rs">Tier 5 — Trust Content &amp; Local Pages</h3>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Jenis</th><th>Halaman</th><th>Fungsi</th></tr></thead>
+    <tbody>
+      <tr><td>Case Study</td><td>Studi kasus klien (nama, jumlah pcs, hasil)</td><td>Trust + data original → GEO citation</td></tr>
+      <tr><td>Portofolio</td><td>Galeri foto produk yang sudah dikerjakan</td><td>Visual proof + backlink magnet</td></tr>
+      ${D.multi_loc === 'Ya' ? `<tr><td>Local Pages</td><td>${(D.cities || D.city).split(',').map(c => `/${slug(D.seed)}-${slug(c.trim())}/`).join(', ')}</td><td>Local SEO + lokal AI query</td></tr>` : ''}
+      <tr><td>About / Tim</td><td>Tentang perusahaan + profil tim</td><td>E-E-A-T signal + brand trust</td></tr>
+    </tbody>
+  </table></div>
+  </div>`;
+}
+
+// ─── SECTION 6: FRAMEWORK 5 TAHAP ───
+function genR6() {
+  return `<div class="result-section" id="r6">
+  <div class="rs-header"><div class="rs-tag">Bagian 06</div><h1 class="rs-title">Framework 5 Tahap Operasional</h1></div>
+  ${[
+    ['Keyword Research & Search Landscape','Minggu 1–2',`Peta keyword lengkap: head → long-tail → local → AI conversational`,`Seed keyword "${D.seed}", Google Suggest, PAA, AnswerThePublic`,`Spreadsheet 100+ keyword dengan volume, difficulty, intent, priority`],
+    ['Keyword Mapping + Content Plan','Minggu 2–3',`Setiap keyword dipetakan ke 1 halaman. Tidak ada cannibalization.`,`Spreadsheet keyword dari Tahap 1 + site architecture`,`Content calendar 3 bulan: URL, keyword target, jenis konten, deadline`],
+    ['Article Production (SEO + AEO + GEO)','Minggu 3–ongoing',`Setiap artikel memenuhi standar SEO klasik + AEO (answer capsule) + GEO`,`Content brief per artikel`,`Artikel final dengan title tag, meta, heading hierarchy, answer capsule, FAQ, schema`],
+    ['Multi-Channel Distribution','Setelah publish',`Distribusi ke ${D.platforms.join(', ')}`,`Artikel yang sudah publish`,`${D.platforms.length} versi adaptasi konten per artikel`],
+    ['Audit + Refresh + Optimization','Bulanan',`Konten tetap relevan, teroptimasi, dan dikutip AI`,`GSC, Ahrefs, AI citation test manual`,`Daftar konten refresh + artikel baru yang dibutuhkan`]
+  ].map(([title, time, goal, input, output], i) => `
+  <div class="phase">
+    <div class="phase-hdr"><div class="phase-num">${i+1}</div><div><div class="phase-title">${title}</div><div class="phase-sub">${time}</div></div></div>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th>Item</th><th>Detail</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Tujuan</strong></td><td>${goal}</td></tr>
+        <tr><td><strong>Input</strong></td><td>${input}</td></tr>
+        <tr><td><strong>Output</strong></td><td>${output}</td></tr>
+      </tbody>
+    </table></div>
+  </div>`).join('')}
+  </div>`;
+}
+
+// ─── SECTION 7: SEO GUARDRAILS ───
+function genR7() {
+  const rules = [
+    ['1 halaman = 1 intent utama.', `Jangan gabungkan intent "beli ${D.seed}" dengan "cara memilih ${D.seed}" dalam 1 halaman.`],
+    ['1 halaman = 1 cluster keyword utama.', 'Hindari cannibalization — gunakan spreadsheet mapping untuk memastikan tidak ada 2 halaman yang target keyword sama.'],
+    ['Title tag unik, max 60 karakter.', `Primary keyword harus ada di 40 karakter pertama. Contoh: "${D.seed} ${D.city} Custom | ${D.brand}"`],
+    ['Slug bersih.', `Lowercase, gunakan hyphen, tanpa stopword tidak penting. Benar: /${slug(D.products[0]||D.seed)}/ — Salah: /jual-${slug(D.products[0]||D.seed)}-custom-murah-berkualitas/`],
+    ['Heading hierarkis wajib: H1 > H2 > H3.', 'Hanya 1 H1 per halaman. H2 untuk section utama, H3 untuk sub-section. Tidak boleh skip level.'],
+    ['Internal linking terencana.', `Setiap artikel harus link ke minimal 2–3 halaman relevan dengan anchor text deskriptif (bukan "klik di sini").`],
+    ['Schema markup wajib sesuai jenis halaman.', 'Product schema (money pages), Article schema (blog), FAQ schema, LocalBusiness schema, Organization schema.'],
+    ['Meta description 150–160 karakter.', 'Cantumkan keyword dan CTA singkat. Setiap halaman berbeda — jangan duplikat.'],
+    ['Keyword digunakan natural.', 'Density ideal 1–2%. Tidak ada pengulangan berlebihan. Gunakan sinonim dan LSI keyword.'],
+    ['Alt text pada semua gambar.', `Deskriptif dan mengandung keyword relevan. Contoh: "${D.seed} custom logo perusahaan"`],
+  ];
+  return `<div class="result-section" id="r7">
+  <div class="rs-header"><div class="rs-tag">Bagian 07</div><h1 class="rs-title">Guardrails Global SEO</h1></div>
+  <p class="rs">Aturan ini berlaku untuk <strong>semua halaman</strong> di website ${D.brand} tanpa pengecualian.</p>
+  ${rules.map(([title,desc],i) => `<div class="rule"><div class="rule-num rn-seo">${i+1}</div><div class="rule-text"><strong>${title}</strong> ${desc}</div></div>`).join('')}
+  <div class="callout c-gold"><p><strong>Catatan Local SEO ${D.city}:</strong> Untuk halaman lokal (/${slug(D.seed)}-${slug(D.city)}/), wajib cantumkan nama kota di title tag, H1, dan paragraf pertama. Tambahkan Google Maps embed dan NAP yang konsisten dengan Google Business Profile.</p></div>
+  </div>`;
+}
+
+// ─── SECTION 8: CONTENT GUARDRAILS ───
+function genR8() {
+  const rules = [
+    ['People-first content.', `Tulis untuk pembaca (${D.audience.split(',')[0].trim() || 'buyer'}) bukan untuk algoritma.`],
+    ['Tidak ada keyword stuffing, filler, atau konten generik.', 'Setiap paragraf harus menambah nilai. Kalau kalimat bisa dihapus tanpa kehilangan info penting — hapus.'],
+    ['Jawab intent dengan cepat.', 'Di 100 kata pertama, pembaca harus tahu: (1) apa yang dibahas, (2) apa yang mereka dapatkan.'],
+    ['Bedakan fungsi konten.', `Konten untuk ranking (blog) vs konversi (money pages) punya struktur dan CTA berbeda. Jangan campur aduk.`],
+    ['Minimum 1.500 kata untuk topik kompetitif.', 'Money pages: 800–1.200 kata. Pillar content: minimal 3.000 kata.'],
+    ['Paragraf pendek: maksimal 2–3 baris.', 'Reader di mobile lebih nyaman dengan paragraf pendek. Gunakan bullet/list untuk lebih dari 3 item berurutan.'],
+    ['Sertakan tanggal publish dan update terakhir.', 'Sinyal freshness untuk Google dan AI. Format: "Diterbitkan: [tanggal] | Diperbarui: [tanggal]"'],
+    ['Author bio wajib di setiap artikel.', 'Cantumkan: nama, jabatan, keahlian, dan foto. Sinyal E-E-A-T yang semakin penting.'],
+    ['CTA relevan di setiap artikel blog.', `1–2 CTA natural ke money page atau kontak ${D.conversions[0] || 'WhatsApp'}. Jangan terlalu agresif.`],
+    ['Visual pendukung wajib.', 'Minimal 2–3 gambar produk atau infografis per artikel. Meningkatkan engagement dan dwell time.'],
+  ];
+  return `<div class="result-section" id="r8">
+  <div class="rs-header"><div class="rs-tag">Bagian 08</div><h1 class="rs-title">Guardrails Global Content</h1></div>
+  ${rules.map(([t,d],i) => `<div class="rule"><div class="rule-num rn-con">${i+1}</div><div class="rule-text"><strong>${t}</strong> ${d}</div></div>`).join('')}
+  </div>`;
+}
+
+// ─── SECTION 9: AEO GUARDRAILS ───
+function genR9() {
+  const rules = [
+    ['Answer capsule 20–25 kata', `tepat setelah setiap heading H2. Jawaban harus bisa berdiri sendiri.`],
+    ['H2 = pertanyaan, H3 = sub-jawaban.', `Contoh H2: "Bagaimana Cara Memesan ${D.seed} Custom?" | H3: "Langkah 1: Tentukan Jenis Produk"`],
+    ['Definisi jelas untuk setiap istilah penting.', `Contoh: "MOQ (Minimum Order Quantity) adalah jumlah minimum pesanan yang biasanya ditetapkan vendor ${D.industry}."`],
+    ['FAQ section wajib', 'di setiap artikel dan money page, minimal 5 pertanyaan. Gunakan FAQ schema (JSON-LD).'],
+    ['Tabel dan list untuk klarifikasi.', 'Perbandingan produk wajib dalam tabel. Daftar lebih dari 3 item wajib dalam bullet/numbered list.'],
+    ['Hindari intro panjang.', `Paragraf pembuka maksimal 2–3 kalimat. Jangan mulai dengan "Dalam dunia bisnis yang semakin kompetitif…"`],
+    ['Summary box di akhir pillar article.', 'Ringkasan 3–5 poin kunci. AI sering mengekstrak summary box untuk AI Overview.'],
+    ['Setiap section H2 harus standalone.', 'Pembaca yang langsung lompat ke section tersebut harus mendapat konteks cukup tanpa membaca seluruh artikel.'],
+  ];
+  return `<div class="result-section" id="r9">
+  <div class="rs-header"><div class="rs-tag">Bagian 09</div><h1 class="rs-title">Guardrails AEO / SGE / AI Overview</h1></div>
+  <div class="callout c-gold"><p><strong>Dasar Riset:</strong> 72.4% konten yang dikutip ChatGPT memiliki answer capsule langsung setelah heading. 44.2% citasi LLM berasal dari 30% pertama artikel.</p></div>
+  <h2 class="rs">Contoh Answer Capsule untuk ${D.brand}</h2>
+  <div class="code-block"><span class="cmt">## Berapa Harga ${D.seed} Custom?</span>\n\n<span class="key">Harga ${D.seed} custom berkisar antara Rp5.000 hingga Rp500.000 per pcs,\ntergantung jenis produk, bahan, dan jumlah pesanan minimum.</span>\n\nPenjelasan lebih detail: Untuk pesanan bulk di atas 100 pcs…</div>
+  ${rules.map(([t,d],i) => `<div class="rule"><div class="rule-num rn-aeo">${i+1}</div><div class="rule-text"><strong>${t}</strong> ${d}</div></div>`).join('')}
+  </div>`;
+}
+
+// ─── SECTION 10: GEO GUARDRAILS ───
+function genR10() {
+  const rules = [
+    ['Entity consistency wajib.', `Nama ${D.brand}, produk, lokasi, dan layanan harus konsisten di SEMUA halaman, semua platform sosial, dan semua profil direktori.`],
+    ['Fakta dengan angka spesifik.', `Tulis "tersedia dalam 7 warna pilihan" bukan "tersedia banyak warna". Tulis "pengiriman 7–14 hari kerja" bukan "pengiriman cepat".`],
+    ['Tambahkan periode data.', `Contoh: "Berdasarkan data pesanan ${D.brand} Q1 ${new Date().getFullYear()}…" atau "Tren ${D.seed} Indonesia per Januari ${new Date().getFullYear()} menunjukkan…"`],
+    ['Subheading deskriptif.', `Salah: "Penjelasan" | Benar: "Cara Kerja Custom Printing pada ${D.products[0]||D.seed}"`],
+    ['Format citation-friendly.', 'Setiap paragraf penting harus bisa dikutip AI tanpa konteks tambahan. Hindari referensi seperti "seperti disebutkan di atas".'],
+    ['Hindari pronoun ambigu.', `Jangan tulis "mereka menawarkan" — tulis "vendor ${D.seed} terpercaya menawarkan". Selalu sebutkan entitas spesifik.`],
+    ['Definisikan istilah teknis saat pertama disebutkan.', `Contoh: "MOQ (Minimum Order Quantity) — jumlah minimum pesanan yang ditetapkan vendor ${D.industry}".`],
+    ['Clarity di atas creativity.', 'Kalimat sederhana yang jelas lebih baik dari kalimat elegan yang ambigu. LLM mengutip konten yang mudah dipahami mesinnya.'],
+    ['Original data wajib.', `Survei internal, data pesanan, tren harga, atau benchmark ${D.industry}. Data original = 40%+ peningkatan peluang dikutip LLM.`],
+    ['Bangun topical depth.', `Lebih baik 20 artikel mendalam tentang ${D.seed} daripada 100 artikel tipis tentang berbagai topik.`],
+  ];
+  return `<div class="result-section" id="r10">
+  <div class="rs-header"><div class="rs-tag">Bagian 10</div><h1 class="rs-title">Guardrails GEO / LLM Optimization</h1></div>
+  <div class="callout c-gold"><p><strong>Dasar Riset:</strong> Princeton, Georgia Tech &amp; Yext (2025). Original data meningkatkan citasi AI hingga 40%+.</p></div>
+  ${rules.map(([t,d],i) => `<div class="rule"><div class="rule-num rn-geo">${i+1}</div><div class="rule-text"><strong>${t}</strong> ${d}</div></div>`).join('')}
+  </div>`;
+}
+
+// ─── SECTION 11: AI CRAWLER ───
+function genR11() {
+  return `<div class="result-section" id="r11">
+  <div class="rs-header"><div class="rs-tag">Bagian 11</div><h1 class="rs-title">AI Crawler Access Strategy</h1></div>
+  <div class="callout c-red"><p><strong>Critical:</strong> Mayoritas AI crawler (GPTBot, ClaudeBot, PerplexityBot) TIDAK dapat merender JavaScript. Konten kritis yang dirender via JS tidak akan diindeks AI.</p></div>
+  <h2 class="rs">robots.txt — Konfigurasi Wajib</h2>
+  <div class="code-block"><span class="cmt"># robots.txt — ${D.brand} (${D.domain})</span>
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+<span class="cmt"># Block halaman admin dan internal</span>
+User-agent: *
+Disallow: /wp-admin/
+Disallow: /checkout/
+
+Sitemap: https://${D.domain}/sitemap.xml</div>
+  <h2 class="rs">llms.txt — Template untuk ${D.brand}</h2>
+  <div class="code-block"><span class="cmt"># llms.txt — Panduan untuk AI Models</span>
+<span class="key"># ${D.brand} — ${D.tagline}</span>
+
+## Tentang Kami
+${D.tagline}. Berbasis di ${D.city}, melayani ${D.national}.
+
+## Halaman Utama
+- /: Homepage — overview layanan dan produk
+${D.products.slice(0,5).map(p => `- /${slug(p)}/: ${p}`).join('\n')}
+- /faq-${slug(D.seed)}/: FAQ lengkap ${D.seed}
+- /blog/: Artikel edukasi ${D.industry}
+
+## Konten Edukatif Terpenting
+- /blog/panduan-${slug(D.seed)}/: Panduan komprehensif
+- /blog/harga-${slug(D.seed)}/: Panduan harga dan budget
+- /blog/cara-order-${slug(D.seed)}-custom/: Panduan pemesanan</div>
+  <h2 class="rs">Technical Checklist</h2>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Item</th><th>Requirement</th><th>Prioritas</th></tr></thead>
+    <tbody>
+      <tr><td>Server-Side Rendering</td><td>Konten kritis (nama produk, deskripsi) harus dirender di server, BUKAN via JavaScript</td><td><span class="badge b-crit">Kritis</span></td></tr>
+      <tr><td>HTML5 Semantik</td><td>Gunakan &lt;article&gt;, &lt;section&gt;, &lt;header&gt;, &lt;main&gt; — bukan div soup</td><td><span class="badge b-crit">Kritis</span></td></tr>
+      <tr><td>Core Web Vitals</td><td>LCP &lt; 2.5 detik, CLS &lt; 0.1</td><td><span class="badge b-crit">Kritis</span></td></tr>
+      <tr><td>Sitemap XML</td><td>Auto-generated, di-submit ke GSC, update otomatis</td><td><span class="badge b-crit">Kritis</span></td></tr>
+      <tr><td>Schema Markup</td><td>JSON-LD untuk Organization, LocalBusiness, Product, FAQ, Article</td><td><span class="badge b-crit">Kritis</span></td></tr>
+      <tr><td>robots.txt + llms.txt</td><td>File di atas sudah terpasang di root domain</td><td><span class="badge b-warn">Penting</span></td></tr>
+    </tbody>
+  </table></div>
+  </div>`;
+}
+
+// ─── SECTION 12: MULTI-CHANNEL ───
+function genR12() {
+  const allPlatforms = [
+    ['Website / Blog','Sumber utama citasi AI — kontrol penuh','Pillar content, FAQ, glossary, case study',`${D.content_freq}`,'b-crit'],
+    ['LinkedIn','Top cited LLM untuk B2B & professional queries','Artikel opini B2B, tips procurement, thought leadership','3x/minggu','b-crit'],
+    ['YouTube','Transcript + VideoObject schema → GEO citation','Review produk, tutorial custom branding, vlog produksi','1–2x/minggu','b-warn'],
+    ['Instagram','Brand awareness + social proof','Carousel edukasi, Reels produksi, portfolio klien','5x/minggu','b-warn'],
+    ['TikTok','Viral reach → brand mentions → indirect AI','Behind the scenes, before-after custom printing','5x/minggu','b-warn'],
+    ['Threads','Brand presence + link back → indirect LLM','Thread edukasi, opini trend, soft selling','3–5x/minggu','b-info'],
+    ['Twitter / X','Sinyal sosial + brand mentions','Thread edukatif, quick tips, link ke artikel','3x/minggu','b-info'],
+    ['Facebook','Reach ke segmen 35+, retargeting','Post produk, testimoni, promo event','3x/minggu','b-info'],
+  ];
+  const activePlatforms = allPlatforms.filter(([name]) => D.platforms.includes(name));
+  return `<div class="result-section" id="r12">
+  <div class="rs-header"><div class="rs-tag">Bagian 12</div><h1 class="rs-title">Multi-Channel Presence Plan</h1></div>
+  <div class="callout c-gold"><p><strong>Dasar Riset:</strong> Reddit, LinkedIn, dan YouTube adalah top cited sources oleh LLM terkemuka. 86% citasi AI berasal dari brand-managed sources.</p></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Platform</th><th>Fungsi AI/GEO</th><th>Strategi Konten</th><th>Frekuensi</th><th>Prioritas</th></tr></thead>
+    <tbody>${activePlatforms.map(([name,geo,strategy,freq,badge]) => `<tr><td><strong>${name}</strong></td><td>${geo}</td><td>${strategy}</td><td>${freq}</td><td><span class="badge ${badge}">${badge==='b-crit'?'Utama':badge==='b-warn'?'Penting':'Pendukung'}</span></td></tr>`).join('')}</tbody>
+  </table></div>
+  ${D.platforms.includes('YouTube') ? `<h2 class="rs">YouTube — Strategi Khusus GEO</h2>
+  <ul class="checklist">
+    <li class="done">Upload transcript Indonesia manual di setiap video — bukan auto-generated</li>
+    <li class="done">Tambahkan chapters/timestamps yang deskriptif di setiap video</li>
+    <li class="done">Embed video di artikel blog + VideoObject schema dengan description lengkap</li>
+    <li class="done">Setiap deskripsi video link ke halaman relevan di ${D.domain}</li>
+  </ul>` : ''}
+  ${D.platforms.includes('LinkedIn') ? `<h2 class="rs">LinkedIn — Strategi Khusus B2B GEO</h2>
+  <ul class="checklist">
+    <li class="done">LinkedIn Company Page dengan keyword: "vendor ${D.seed}", "${D.industry} Indonesia"</li>
+    <li class="done">LinkedIn Articles (bukan hanya post) minimal 2x/bulan</li>
+    <li class="done">Gunakan data/angka spesifik: "Dari [X] klien ${D.brand}, [Y]% memilih [produk]"</li>
+    <li class="done">Selalu sertakan link ke artikel/halaman di ${D.domain}</li>
+  </ul>` : ''}
+  </div>`;
+}
+
+// ─── SECTION 13: WORKFLOW ───
+function genR13() {
+  const qaRows = [
+    ['Title tag unik, max 60 karakter, keyword di 40 karakter pertama','SEO','b-info'],
+    ['Meta description 150–160 karakter, ada keyword + CTA','SEO','b-info'],
+    ['URL slug bersih (lowercase, hyphen)','SEO','b-info'],
+    ['H1 unik, mengandung keyword utama','SEO','b-info'],
+    ['Heading hierarchy benar: H1 → H2 → H3','SEO','b-info'],
+    ['Semua gambar punya alt text deskriptif','SEO','b-info'],
+    ['Internal link ke 2–3 halaman relevan dengan anchor text deskriptif','SEO','b-info'],
+    ['Schema markup yang relevan diimplementasikan (JSON-LD)','SEO','b-info'],
+    ['Answer capsule 20–25 kata di setiap H2','AEO','b-purple'],
+    ['FAQ section minimal 5 pertanyaan + FAQ schema','AEO','b-purple'],
+    ['Data/angka spesifik minimal 3 buah di artikel','GEO','b-warn'],
+    ['Periode data disebut (misal: "per Q1 ' + new Date().getFullYear() + '")','GEO','b-warn'],
+    ['Tidak ada pronoun ambigu — semua entitas disebut eksplisit','GEO','b-warn'],
+    ['Author bio lengkap','E-E-A-T','b-teal'],
+    ['Tanggal publish dan update terakhir tercantum','E-E-A-T','b-teal'],
+    [`CTA ${D.conversions[0]||'WhatsApp'} ada di artikel`,'Konversi','b-ok'],
+    ['Mobile preview dicek — tidak ada elemen yang rusak','UX','b-ok'],
+  ];
+  return `<div class="result-section" id="r13">
+  <div class="rs-header"><div class="rs-tag">Bagian 13</div><h1 class="rs-title">Workflow &amp; On-Page QA</h1></div>
+  <h2 class="rs">Alur Kerja Produksi Konten</h2>
+  <div class="flow">
+    ${['Keyword Research','Mapping','Content Brief','SERP Analysis','Penulisan','On-Page QA','Publish','Distribusi','Monitor','Refresh'].map((s,i,a) => `<div class="flow-step">${s}</div>${i<a.length-1?'<div class="flow-arr">→</div>':''}`).join('')}
+  </div>
+  <h2 class="rs">On-Page QA Checklist — Wajib Sebelum Publish</h2>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Checklist Item</th><th>Kategori</th></tr></thead>
+    <tbody>${qaRows.map(([item,cat,badge]) => `<tr><td>${item}</td><td><span class="badge ${badge}">${cat}</span></td></tr>`).join('')}</tbody>
+  </table></div>
+  <h2 class="rs">Post-Publish Distribution Checklist</h2>
+  <ul class="checklist">
+    <li>Submit URL ke Google Search Console (Request Indexing)</li>
+    ${D.platforms.includes('LinkedIn') ? '<li>Share ke LinkedIn dengan angle B2B</li>' : ''}
+    ${D.platforms.includes('Instagram') ? '<li>Buat carousel Instagram dari 5 poin utama artikel</li>' : ''}
+    ${D.platforms.includes('Threads') ? '<li>Buat Threads thread dari 3 insight utama + link artikel</li>' : ''}
+    ${D.platforms.includes('TikTok') || D.platforms.includes('Instagram') ? '<li>Jadwalkan Reels yang terinspirasi topik artikel</li>' : ''}
+    ${D.platforms.includes('YouTube') ? '<li>Tambahkan link artikel ke konten YouTube terkait</li>' : ''}
+    <li>Update internal link dari artikel lama yang relevan ke artikel baru</li>
+  </ul>
+  </div>`;
+}
+
+// ─── SECTION 14: KPI ───
+function genR14() {
+  const kpis = [
+    ['SEO','Posisi ranking 10 keyword prioritas','Ahrefs / Semrush','Top 5 untuk 3+ keyword lokal','Mingguan','b-info'],
+    ['SEO','Organic traffic (sessions, users)','GA4 + GSC','+300% vs baseline 90 hari','Mingguan','b-info'],
+    ['SEO','Click-Through Rate dari SERP','Google Search Console','> 3% rata-rata','Mingguan','b-info'],
+    ['AEO','Featured snippet yang dimiliki','Semrush / manual','3+ featured snippets','Mingguan','b-purple'],
+    ['AEO','Inclusion di People Also Ask','Semrush / manual','Muncul di PAA untuk 5+ query','Mingguan','b-purple'],
+    ['GEO','AI citation rate — seberapa sering dikutip AI','Semrush AI / manual test','Dikutip di 30%+ dari 20 prompt test','2x/bulan','b-warn'],
+    ['GEO','AI Share of Voice vs kompetitor','Manual prompt + Semrush','Lebih sering dari 2 kompetitor utama','Bulanan','b-warn'],
+    ['SGE','Google AI Overview inclusion','GSC + manual','Muncul di AI Overview untuk 5+ query','Mingguan','b-teal'],
+    ['Konversi','AI referral traffic (chatgpt.com, perplexity.ai)','GA4 Traffic Source','50+ sessions/bulan','Mingguan','b-ok'],
+    ['Konversi',`Lead dari organic (${D.conversions.join(' + ')})`,`GA4 + ${D.conversions.includes('WhatsApp / Chat') ? 'WhatsApp stats' : 'CRM'}`,`20+ leads/bulan dari organic`,'Mingguan','b-ok'],
+    D.platforms.includes('YouTube') ? ['YouTube','Watch time, AVD, CTR thumbnail','YouTube Studio','AVD > 50%, CTR > 4%','Mingguan','b-info'] : null,
+  ].filter(Boolean);
+
+  const aiPrompts = [
+    `rekomendasi vendor ${D.seed} terpercaya di ${D.city}`,
+    `di mana bisa pesan ${D.seed} custom logo di Indonesia`,
+    `berapa harga ${D.seed} custom untuk 100 orang`,
+    `${D.seed} terbaik untuk acara ulang tahun perusahaan`,
+    `cara memilih vendor ${D.seed} yang berkualitas`,
+  ];
+
+  return `<div class="result-section" id="r14">
+  <div class="rs-header"><div class="rs-tag">Bagian 14</div><h1 class="rs-title">KPI &amp; Metrik Tracking</h1></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Kategori</th><th>Metrik</th><th>Tools</th><th>Target 90 Hari</th><th>Review</th></tr></thead>
+    <tbody>${kpis.map(([cat,metric,tools,target,freq,badge]) => `<tr class="kpi-row"><td><span class="badge ${badge}">${cat}</span></td><td>${metric}</td><td>${tools}</td><td>${target}</td><td>${freq}</td></tr>`).join('')}</tbody>
+  </table></div>
+  <h2 class="rs">Manual AI Citation Test Protocol</h2>
+  <p class="rs">Jalankan prompt berikut di ChatGPT, Perplexity, dan Gemini setiap 2 minggu. Catat apakah ${D.brand} dikutip.</p>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Prompt Test</th><th>Ekspektasi Ideal</th></tr></thead>
+    <tbody>${aiPrompts.map(p => `<tr><td>"${p}"</td><td>${D.brand} muncul sebagai rekomendasi / ${D.domain} dikutip</td></tr>`).join('')}</tbody>
+  </table></div>
+  </div>`;
+}
+
+// ─── SECTION 15: ACCEPTANCE CRITERIA ───
+function genR15() {
+  return `<div class="result-section" id="r15">
+  <div class="rs-header"><div class="rs-tag">Bagian 15</div><h1 class="rs-title">Acceptance Criteria Global</h1></div>
+  <h2 class="rs">Fondasi Strategi</h2>
+  <ul class="checklist">
+    <li>Fondasi strategi mencakup SEO + AEO + GEO + SGE + LLMO secara terintegrasi</li>
+    <li>Ada pemisahan: money page vs support content vs FAQ vs glossary vs local pages</li>
+    <li>Framework keyword research mempertimbangkan query fan-out (3–7 sub-query per topik)</li>
+    <li>Framework content plan dengan topical authority model (pillar + cluster)</li>
+    <li>Framework penulisan dengan answer capsule standard (20–25 kata per H2)</li>
+    <li>Framework audit mencakup AI citation tracking (manual prompt test setiap 2 minggu)</li>
+  </ul>
+  <h2 class="rs">Guardrails</h2>
+  <ul class="checklist">
+    <li>Guardrails SEO: 1 halaman = 1 intent = 1 cluster keyword</li>
+    <li>Guardrails AEO: answer capsule + FAQ schema + standalone passage</li>
+    <li>Guardrails GEO: entity consistency + angka spesifik + periode data</li>
+    <li>Guardrails LLM: no pronoun ambigu + definisi istilah + topical depth</li>
+    <li>Tidak ada guardrails yang saling tumpang tindih</li>
+  </ul>
+  <h2 class="rs">Teknis &amp; Infrastruktur</h2>
+  <ul class="checklist">
+    <li>AI crawler access strategy: robots.txt + llms.txt + schema markup</li>
+    <li>Konten kritis tidak bergantung pada JavaScript rendering</li>
+    <li>HTML5 semantik: article, section, header, main</li>
+    <li>Google Business Profile ${D.city} sudah atau akan segera diaktifkan</li>
+    <li>Schema markup plan untuk semua jenis halaman</li>
+  </ul>
+  <h2 class="rs">Distribusi &amp; Tracking</h2>
+  <ul class="checklist">
+    <li>Multi-channel plan untuk ${D.platforms.join(', ')} sudah didefinisikan</li>
+    ${D.platforms.includes('LinkedIn') ? '<li>LinkedIn diprioritaskan sebagai top cited platform LLM untuk B2B</li>' : ''}
+    ${D.platforms.includes('YouTube') ? '<li>YouTube: transcript manual + VideoObject schema per video</li>' : ''}
+    <li>KPI dan metrik tracking dengan target numerik sudah didefinisikan</li>
+    <li>Manual AI citation test protocol: 5 prompt, 3 platform, setiap 2 minggu</li>
+    <li>Workflow produksi konten end-to-end terdokumentasi</li>
+    <li>On-page QA checklist siap digunakan untuk setiap konten baru</li>
+  </ul>
+  <h2 class="rs">Kesiapan Eksekusi</h2>
+  <ul class="checklist">
+    <li>Sistem siap digunakan berulang untuk setiap artikel baru tanpa membuat ulang framework</li>
+    <li>Entity consistency: nama ${D.brand}, produk (${D.products.slice(0,3).join(', ')}…), lokasi (${D.city}, ${D.region}) sudah dikonfirmasi</li>
+    <li>Domain: ${D.domain} — pastikan sudah live dan SSL aktif</li>
+    <li>Prompt turunan tersedia untuk: keyword research, content brief, article production, audit</li>
+  </ul>
+  <div class="callout c-teal"><p><strong>Next Step:</strong> Sistem sudah siap. Mulai eksekusi Tahap 1 — Keyword Research untuk seed keyword "${D.seed}" menggunakan framework di Bagian 06. Target pertama: dominasi SERP lokal ${D.city} dalam 30–60 hari.</p></div>
+  </div>`;
+}
+
+// ═══════════════════════ SHOW SECTION ═══════════════════════
+function showSection(id) {
+  const section = document.getElementById(id);
+  if (!section) return;
+  activeSectionId = id;
+  document.querySelectorAll('.result-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.rsb-item').forEach(b => b.classList.remove('active'));
+  section.classList.add('active');
+  const navBtn = document.querySelector(`.rsb-item[onclick="showSection('${id}')"]`);
+  if (navBtn) navBtn.classList.add('active');
+  document.getElementById('result-main').scrollTop = 0;
+  window.scrollTo(0, 0);
+}
+
+// ═══════════════════════ RESET ═══════════════════════
+function resetForm() {
+  clearGeneratedOutput();
+  restoreDefaultFormState();
+  document.getElementById('app-result').style.display = 'none';
+  document.getElementById('app-form').style.display = 'block';
+  currentStep = 1;
+  document.querySelectorAll('.step-section').forEach(s => s.classList.remove('active'));
+  document.getElementById('step-1').classList.add('active');
+  renderPills();
+  updateProgress();
+  window.scrollTo(0, 0);
+}
+
+// ═══════════════════════ INIT ═══════════════════════
+disableInputHistory();
+formDefaults = captureDefaultFormState();
+renderPills();
+updateProgress();
+
+// Multi-loc toggle
+document.querySelectorAll('input[name="multi_loc"]').forEach(r => {
+  r.addEventListener('change', syncCityFieldVisibility);
+});
+syncCityFieldVisibility();
+</script>
+</body>
+</html>
