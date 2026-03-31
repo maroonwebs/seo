@@ -227,12 +227,15 @@ input:focus, textarea:focus, select:focus {
   .adv-actions { width: 100%; display: grid; grid-template-columns: 1fr; gap: 8px; }
   .adv-actions .btn { width: 100%; }
   .adv-grid, .field-grid { grid-template-columns: 1fr; }
-  .adv-card { padding: 14px; }
+  .adv-card { padding: 14px 14px 34px; }
   .adv-card h3 { font-size: 19px; }
   .adv-preview { min-height: 440px; }
   .adv-form-actions .btn { width: 100%; }
   .adv-preview-actions .btn { width: 100%; }
   .site-credit { padding-left: 20px; padding-right: 20px; }
+  input[type="text"], textarea, select { font-size: 16px; }
+  .field-group { scroll-margin-top: 88px; scroll-margin-bottom: 190px; }
+  #adv-dynamic-fields { padding-bottom: 28px; }
 }
 </style>
 </head>
@@ -14738,6 +14741,36 @@ function resetTemplateFiltersAndHistory() {
   setDraftStatus(`Reset selesai. ${draftKeys.length} draft template dihapus.`);
 }
 
+function keepFocusedFieldVisible(containerSelector, maxWidth = 900) {
+  const container = document.querySelector(containerSelector);
+  if (!container) return;
+
+  container.addEventListener('focusin', (event) => {
+    const field = event.target;
+    if (!field || !/^(INPUT|TEXTAREA|SELECT)$/.test(field.tagName)) return;
+    if (!window.matchMedia(`(max-width: ${maxWidth}px)`).matches) return;
+
+    const ensureVisible = () => {
+      const viewportHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+      const rect = field.getBoundingClientRect();
+      const topLimit = 88;
+      const bottomLimit = Math.max(120, viewportHeight - 180);
+      let delta = 0;
+
+      if (rect.top < topLimit) {
+        delta = rect.top - topLimit - 12;
+      } else if (rect.bottom > bottomLimit) {
+        delta = rect.bottom - bottomLimit + 12;
+      }
+
+      if (delta) window.scrollBy({ top: delta, behavior: 'auto' });
+    };
+
+    window.setTimeout(ensureVisible, 80);
+    window.setTimeout(ensureVisible, 260);
+  });
+}
+
 const categoryEl = document.getElementById('adv_template_category');
 if (categoryEl) {
   const savedCategory = localStorage.getItem(ADV_TEMPLATE_CATEGORY_STORAGE_KEY);
@@ -14748,6 +14781,7 @@ if (categoryEl) {
 }
 populateTemplateSelect('04');
 onTemplateChange();
+keepFocusedFieldVisible('.adv-card', 900);
 </script>
 </body>
 </html>

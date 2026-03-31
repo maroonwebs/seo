@@ -226,12 +226,15 @@ input:focus, textarea:focus, select:focus {
   .ig-actions { width: 100%; display: grid; grid-template-columns: 1fr; gap: 8px; }
   .ig-actions .btn { width: 100%; }
   .ig-grid { grid-template-columns: 1fr; }
-  .ig-card { padding: 14px; }
+  .ig-card { padding: 14px 14px 34px; }
   .ig-card h3 { font-size: 19px; }
   .ig-preview { min-height: 440px; }
   .ig-form-actions .btn,
   .ig-preview-actions .btn { width: 100%; }
   .site-credit { padding-left: 20px; padding-right: 20px; }
+  input[type="text"], textarea, select { font-size: 16px; }
+  .field-group { scroll-margin-top: 88px; scroll-margin-bottom: 190px; }
+  #ig-dynamic-fields { padding-bottom: 28px; }
 }
 </style>
 </head>
@@ -2002,6 +2005,36 @@ function resetInstagramForm() {
   document.getElementById('ig-markdown-preview').textContent = 'Form direset. Isi ulang lalu klik "Generate Markdown Prompt".';
 }
 
+function keepFocusedFieldVisible(containerSelector, maxWidth = 900) {
+  const container = document.querySelector(containerSelector);
+  if (!container) return;
+
+  container.addEventListener('focusin', (event) => {
+    const field = event.target;
+    if (!field || !/^(INPUT|TEXTAREA|SELECT)$/.test(field.tagName)) return;
+    if (!window.matchMedia(`(max-width: ${maxWidth}px)`).matches) return;
+
+    const ensureVisible = () => {
+      const viewportHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+      const rect = field.getBoundingClientRect();
+      const topLimit = 88;
+      const bottomLimit = Math.max(120, viewportHeight - 180);
+      let delta = 0;
+
+      if (rect.top < topLimit) {
+        delta = rect.top - topLimit - 12;
+      } else if (rect.bottom > bottomLimit) {
+        delta = rect.bottom - bottomLimit + 12;
+      }
+
+      if (delta) window.scrollBy({ top: delta, behavior: 'auto' });
+    };
+
+    window.setTimeout(ensureVisible, 80);
+    window.setTimeout(ensureVisible, 260);
+  });
+}
+
 (function initInstagramPage() {
   const source = document.getElementById('ig_source_raw').value || '';
   instagramPrompts = parseInstagramPrompts(source).map((p, idx) => {
@@ -2011,6 +2044,7 @@ function resetInstagramForm() {
   populateInstagramTemplateSelect('01');
   onInstagramTemplateChange();
 })();
+keepFocusedFieldVisible('.ig-card', 900);
 </script>
 </body>
 </html>

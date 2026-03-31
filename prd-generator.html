@@ -229,11 +229,14 @@ input:focus, select:focus, textarea:focus {
   .prd-actions .btn { width: 100%; }
   .prd-grid { grid-template-columns: 1fr; }
   .two-col { grid-template-columns: 1fr; }
-  .card { padding: 14px; }
+  .card { padding: 14px 14px 34px; }
   .card h3 { font-size: 19px; }
   .prd-preview { min-height: 440px; }
   .form-actions .btn { width: 100%; }
   .site-credit { padding-left: 20px; padding-right: 20px; }
+  input[type="text"], select, textarea { font-size: 16px; }
+  .field-group { scroll-margin-top: 88px; scroll-margin-bottom: 190px; }
+  #prd-dynamic-fields { padding-bottom: 28px; }
 }
 </style>
 </head>
@@ -6896,10 +6899,41 @@ function onPrdTemplateChange() {
   document.getElementById('prd-markdown-preview').textContent = 'Template dipilih. Isi field lalu klik "Generate PRD Markdown".';
 }
 
+function keepFocusedFieldVisible(containerSelector, maxWidth = 920) {
+  const container = document.querySelector(containerSelector);
+  if (!container) return;
+
+  container.addEventListener('focusin', (event) => {
+    const field = event.target;
+    if (!field || !/^(INPUT|TEXTAREA|SELECT)$/.test(field.tagName)) return;
+    if (!window.matchMedia(`(max-width: ${maxWidth}px)`).matches) return;
+
+    const ensureVisible = () => {
+      const viewportHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+      const rect = field.getBoundingClientRect();
+      const topLimit = 88;
+      const bottomLimit = Math.max(120, viewportHeight - 180);
+      let delta = 0;
+
+      if (rect.top < topLimit) {
+        delta = rect.top - topLimit - 12;
+      } else if (rect.bottom > bottomLimit) {
+        delta = rect.bottom - bottomLimit + 12;
+      }
+
+      if (delta) window.scrollBy({ top: delta, behavior: 'auto' });
+    };
+
+    window.setTimeout(ensureVisible, 80);
+    window.setTimeout(ensureVisible, 260);
+  });
+}
+
 populatePrdTemplateSelect();
 initCoreInputBindings();
 document.getElementById('prd_template').value = '01';
 onPrdTemplateChange();
+keepFocusedFieldVisible('.card', 920);
 </script>
 </body>
 </html>

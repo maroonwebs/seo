@@ -174,11 +174,13 @@ input:focus, textarea:focus, select:focus { outline: none; border-color: var(--g
   .kw-actions { width: 100%; display: grid; grid-template-columns: 1fr; gap: 8px; }
   .kw-actions .btn { width: 100%; }
   .kw-grid, .two-col { grid-template-columns: 1fr; }
-  .kw-card { padding: 14px; }
+  .kw-card { padding: 14px 14px 34px; }
   .kw-card h3 { font-size: 19px; }
   .kw-preview { min-height: 430px; }
   .kw-form-actions .btn { width: 100%; }
   .site-credit { padding-left: 20px; padding-right: 20px; }
+  input[type="text"], textarea, select { font-size: 16px; }
+  .field-group { scroll-margin-top: 88px; scroll-margin-bottom: 190px; }
 }
 </style>
 </head>
@@ -1326,6 +1328,36 @@ function resetKeywordHistory() {
   alert('Histori berhasil dihapus. Form keyword kembali ke kondisi awal.');
 }
 
+function keepFocusedFieldVisible(containerSelector, maxWidth = 760) {
+  const container = document.querySelector(containerSelector);
+  if (!container) return;
+
+  container.addEventListener('focusin', (event) => {
+    const field = event.target;
+    if (!field || !/^(INPUT|TEXTAREA|SELECT)$/.test(field.tagName)) return;
+    if (!window.matchMedia(`(max-width: ${maxWidth}px)`).matches) return;
+
+    const ensureVisible = () => {
+      const viewportHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+      const rect = field.getBoundingClientRect();
+      const topLimit = 88;
+      const bottomLimit = Math.max(120, viewportHeight - 180);
+      let delta = 0;
+
+      if (rect.top < topLimit) {
+        delta = rect.top - topLimit - 12;
+      } else if (rect.bottom > bottomLimit) {
+        delta = rect.bottom - bottomLimit + 12;
+      }
+
+      if (delta) window.scrollBy({ top: delta, behavior: 'auto' });
+    };
+
+    window.setTimeout(ensureVisible, 80);
+    window.setTimeout(ensureVisible, 260);
+  });
+}
+
 document.querySelectorAll('input[type="text"], textarea').forEach(el => {
   el.setAttribute('autocomplete', 'off');
   el.setAttribute('autocorrect', 'off');
@@ -1335,6 +1367,7 @@ document.querySelectorAll('input[type="text"], textarea').forEach(el => {
 
 toggleKeywordTemplateFields();
 fillFromSessionPrefill();
+keepFocusedFieldVisible('.kw-card', 760);
 </script>
 </body>
 </html>
