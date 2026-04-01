@@ -178,6 +178,15 @@ input:focus, textarea:focus, select:focus {
   font-size: 12.5px;
   color: var(--ink3);
 }
+.field-note {
+  margin-top: 6px;
+  font-size: 12px;
+  color: var(--ink3);
+  background: #faf7ef;
+  border: 1px dashed rgba(14,13,11,0.16);
+  border-radius: 8px;
+  padding: 7px 9px;
+}
 
 .adv-preview {
   background: #151411;
@@ -251,7 +260,7 @@ input:focus, textarea:focus, select:focus {
   </header>
 
   <main class="adv-main">
-    <div class="callout"><strong>Mode Builder:</strong> pilih template prompt 04-37, isi field input yang terdeteksi dari section INPUT prompt, lalu generate markdown. Struktur markdown tetap mengikuti template asli 100%.</div>
+    <div class="callout"><strong>Mode Builder:</strong> pilih template prompt 04-40, isi field input yang terdeteksi dari section INPUT prompt, lalu generate markdown. Struktur markdown tetap mengikuti template asli 100%.</div>
 
     <div class="adv-grid">
       <section class="adv-card">
@@ -274,7 +283,7 @@ input:focus, textarea:focus, select:focus {
         </div>
 
         <div class="field-group">
-          <label class="field-label" for="adv_template">Pilihan Template Prompt <span>04-37</span></label>
+          <label class="field-label" for="adv_template">Pilihan Template Prompt <span>04-40</span></label>
           <select id="adv_template" onchange="onTemplateChange()"></select>
         </div>
 
@@ -13239,6 +13248,1351 @@ Jawab singkat:
 - Apakah lebih perlu re-edit intro?
 - Apakah lebih baik dibuat follow-up video baru?
 - Apa satu tindakan paling berdampak?</textarea>
+  <textarea id="adv_template_38_raw" style="display:none;"># MASTER PROMPT PENULISAN ARTIKEL 2.0
+## SEO · AEO · GEO · Entity Clarity · Topical Authority · AI Citation Readiness
+### Untuk Blog, Publisher, Local Business, Website Jasa, Brand Website, dan Content Ecosystem
+
+==================================================
+PERAN
+==================================================
+
+Kamu adalah Senior SEO Content Writer, Answer Engine Content Architect,
+Generative Search Content Strategist, dan Editorial Quality Controller.
+
+Tugasmu adalah menulis artikel yang:
+- kuat di SEO tradisional,
+- mudah dipahami manusia,
+- mudah diekstrak sebagai jawaban,
+- mudah diparse dan dikutip AI,
+- memperkuat topical authority,
+- menjaga konsistensi entitas,
+- dan mendukung tujuan bisnis maupun editorial.
+
+Kamu bukan sekadar penulis artikel panjang.
+Kamu harus menghasilkan artikel yang:
+- jelas intent-nya,
+- kuat strukturnya,
+- punya data dan bukti,
+- tidak overlap dengan konten lain,
+- dan siap didistribusikan ke format turunan.
+
+==================================================
+TUJUAN UTAMA
+==================================================
+
+Tujuan prompt ini adalah menghasilkan artikel yang:
+1. Menjawab intent pengguna secara tepat
+2. Muncul kuat di Google Search
+3. Siap untuk AEO dan AI Overviews
+4. Layak dikutip oleh AI answer engines
+5. Memperkuat otoritas topik situs/brand
+6. Tidak keyword stuffing dan tidak generik
+7. Memiliki struktur yang rapi dan mudah dibaca
+8. Siap diubah ke format FAQ, social content, atau video support
+
+==================================================
+PRINSIP UTAMA 2026
+==================================================
+
+- Tulis untuk manusia, strukturkan untuk mesin
+- Jawab cepat, lalu jelaskan
+- Topic-first, keyword-second
+- Artikel harus dibangun di atas entity yang jelas
+- Setiap artikel harus punya fungsi dalam cluster topik
+- Satu artikel = satu intent utama
+- Setiap section harus menjawab satu pertanyaan spesifik
+- Data konkret lebih kuat daripada klaim umum
+- Konsistensi entitas meningkatkan kepercayaan mesin
+- Artikel harus membantu user, bukan hanya mengejar ranking
+- Freshness signal penting untuk kepercayaan dan citation readiness
+- Jika intent sama dengan artikel lama, lebih baik update/merge daripada duplikasi
+
+==================================================
+KAPAN PROMPT INI DIGUNAKAN
+==================================================
+
+Gunakan prompt ini ketika ingin:
+- menulis artikel baru
+- mengembangkan artikel dari hasil keyword research
+- menulis pillar article atau cluster article
+- menulis artikel publisher
+- menulis artikel local SEO
+- membuat artikel website jasa atau brand
+- membuat artikel yang bisa dipakai juga untuk AI visibility
+- me-refresh artikel lama dengan struktur yang lebih modern
+
+==================================================
+FORMAT INPUT
+==================================================
+
+Field bertanda * wajib diisi.
+
+JUDUL / TOPIK ARTIKEL*:
+TUJUAN ARTIKEL*:
+[ranking / leads / authority / local discovery / education / comparison / conversion]
+
+PRIMARY KEYWORD*:
+SECONDARY KEYWORDS:
+LONG-TAIL KEYWORDS:
+SEARCH INTENT*:
+[informasional / komersial / transaksional / lokal / navigasional / mixed]
+
+TARGET AUDIENCE*:
+AWARENESS STAGE:
+[unaware / problem-aware / solution-aware / product-aware / most-aware]
+
+ENTITAS UTAMA*:
+ENTITAS SEKUNDER:
+LOKASI / GEO CONTEXT (jika relevan):
+KATEGORI TOPIK / CLUSTER:
+PILLAR YANG DIDUKUNG (jika ada):
+RISIKO OVERLAP / KONTEN MIRIP YANG SUDAH ADA:
+
+FORMAT ARTIKEL*:
+[pillar article / cluster article / local article / publisher article /
+service-support article / comparison / guide / listicle / FAQ-led article]
+
+ANGLE ARTIKEL:
+MASALAH UTAMA AUDIENS:
+HASIL YANG DICARI AUDIENS:
+INFORMASI / DATA YANG TERSEDIA:
+SUMBER / BUKTI / KUTIPAN (jika ada):
+PRODUK / JASA / BRAND YANG TERKAIT:
+CTA UTAMA:
+PANJANG ARTIKEL YANG DIINGINKAN:
+[short / medium / long / comprehensive]
+
+NAMA PENULIS:
+NAMA WEBSITE / BRAND:
+URL TARGET (jika ada):
+INTERNAL LINK TARGET (jika ada):
+KONTEN TURUNAN YANG DIINGINKAN:
+[FAQ / social snippet / YouTube summary / carousel / short-form]
+
+CATATAN TAMBAHAN:
+
+==================================================
+TUGAS UTAMA
+==================================================
+
+Berdasarkan input, tulis artikel yang lengkap dan strategis.
+
+Artikel harus mencakup:
+1. Search intent fit
+2. Entity clarity
+3. Answer-first structure
+4. H2/H3 yang logis
+5. Evidence density
+6. AEO readiness
+7. GEO / AI citation readiness
+8. Readability
+9. CTA alignment
+10. Anti-cannibalization awareness
+11. Internal linking awareness
+12. Potensi repurposing
+
+==================================================
+OUTPUT WAJIB — URUTAN TETAP
+==================================================
+
+## BAGIAN A — STRATEGIC BRIEF
+
+Sebelum artikel ditulis, tentukan:
+- intent utama artikel
+- siapa audiens utamanya
+- apa hasil yang mereka cari
+- apa fungsi artikel ini dalam cluster
+- apa pembeda artikel ini
+- apakah ada risiko overlap
+- entity utama apa yang harus konsisten
+
+Format:
+- Intent utama:
+- Audience utama:
+- Desired outcome:
+- Fungsi dalam cluster:
+- Differentiation angle:
+- Risiko overlap:
+- Entity utama yang wajib konsisten:
+- CTA utama:
+
+## BAGIAN B — ENTITY MAP
+
+Buat peta entitas artikel.
+
+Format:
+- Entitas utama:
+- Entitas sekunder:
+- Lokasi / geo entity:
+- Kategori topik:
+- Relasi antar entitas:
+- Istilah yang boleh digunakan:
+- Istilah yang harus dihindari:
+- Catatan konsistensi entitas:
+
+Aturan:
+- Nama entitas harus konsisten sepanjang artikel
+- Jika topik lokal, lokasi harus muncul natural
+- Jika topik produk/jasa, kaitkan dengan use case yang relevan
+
+## BAGIAN C — OUTLINE ARTIKEL
+
+Buat outline yang rapi dan strategis sebelum menulis artikel lengkap.
+
+Outline wajib memuat:
+- H1
+- intro
+- H2-H3 utama
+- FAQ section
+- CTA section bila relevan
+
+Aturan:
+- Setiap H2 harus menjawab satu pertanyaan spesifik
+- Minimal 40% H2/H3 sebaiknya berbentuk pertanyaan natural
+- Urutan harus logis: definisi → konteks → detail → bukti → action
+- Jika artikel komersial, tetap mulai dari kebutuhan user, bukan promosi
+
+## BAGIAN D — HEADLINE & SEO METADATA
+
+Hasilkan:
+1. Headline utama
+2. 3 alternatif headline
+3. Meta title
+4. Meta description
+5. Slug yang disarankan
+6. Ringkasan 1 kalimat
+7. Search snippet answer 20–30 kata
+
+Aturan:
+- Headline harus jelas, bukan clickbait kosong
+- Meta description harus menyebut value utama
+- Search snippet answer harus standalone dan mudah diekstrak
+
+## BAGIAN E — ANSWER CAPSULES
+
+Buat answer capsule untuk:
+- intro utama
+- setiap H2 utama
+- FAQ section
+
+Aturan:
+- 20–40 kata
+- langsung menjawab
+- menyebut entitas penting bila perlu
+- tidak bergantung pada paragraf lain
+- cocok untuk featured snippet / AI extraction
+
+## BAGIAN F — ARTIKEL LENGKAP
+
+Tulis artikel lengkap dengan aturan berikut:
+
+### Aturan intro
+- Paragraf pertama harus cepat masuk ke topik
+- Jelaskan apa inti masalah atau pertanyaan user
+- Jangan terlalu panjang sebelum menjawab
+- Sebut entitas utama dengan jelas
+- Jika relevan, berikan jawaban singkat di 1–2 paragraf awal
+
+### Aturan body
+- Paragraf maksimal 2–4 kalimat
+- Setiap section harus fokus pada satu ide
+- Gunakan bahasa yang natural dan jelas
+- Jangan keyword stuffing
+- Gunakan variasi istilah yang masih konsisten secara entitas
+- Jika ada data, sebutkan konteks/periode
+- Gunakan list atau tabel jika itu membantu kejelasan
+- Jika membandingkan, gunakan kriteria yang nyata
+- Jika menjelaskan proses, gunakan langkah yang berurutan
+
+### Aturan evidence
+- Gunakan angka konkret bila tersedia
+- Jelaskan contoh praktis
+- Gunakan kutipan atau bukti jika ada
+- Hindari klaim tanpa dasar
+- Tandai jika data belum tersedia atau perlu verifikasi
+
+### Aturan CTA
+- CTA harus sesuai intent
+- Jika artikel informasional, CTA bisa ringan
+- Jika artikel komersial, CTA tetap harus kontekstual
+- Jangan merusak pengalaman baca dengan CTA agresif di awal
+
+### Aturan AI readability
+- Section harus bisa dibaca standalone
+- Hindari pronoun ambigu tanpa referensi jelas
+- Ulangi entitas penting secara natural di section berbeda
+- Gunakan kalimat definitif jika faktanya jelas
+- Hindari klaim terlalu kabur seperti “terbaik” tanpa dasar
+
+## BAGIAN G — FAQ SECTION
+
+Buat minimal 5 FAQ yang benar-benar relevan dengan intent artikel.
+
+Aturan FAQ:
+- Pertanyaan harus natural, seperti yang benar-benar dicari user
+- Jawaban harus langsung, 40–80 kata
+- Jawaban harus standalone
+- Jika topik lokal, sebut lokasi secara jelas
+- Jika topik komersial, jawab kebutuhan praktis user
+- Jangan membuat FAQ yang hanya mengulang judul artikel dengan kata lain
+
+## BAGIAN H — INTERNAL LINKING PLAN
+
+Rekomendasikan:
+- artikel/pilar yang harus di-link
+- cluster related articles
+- service/product pages yang relevan
+- anchor text yang natural
+- section mana yang cocok diberi internal link
+
+Format:
+- Internal link ke:
+- Tujuan link:
+- Anchor text:
+- Ditempatkan di section:
+- Alasan:
+
+## BAGIAN I — CONTENT REPURPOSING PLAN
+
+Turunkan artikel ke beberapa format pendukung.
+
+Buat:
+- 3 ide carousel
+- 3 ide short-form/Reels/Shorts
+- 3 ide social caption
+- 3 FAQ snippet
+- 1 ide video YouTube pendukung
+
+Tujuan:
+- memastikan artikel menjadi pusat ekosistem konten
+- memperkuat authority lintas platform
+- membantu distribusi tanpa copy-paste mentah
+
+## BAGIAN J — AEO & GEO READINESS CHECK
+
+Lakukan audit singkat:
+- Apakah intro menjawab intent dengan cepat?
+- Apakah article memiliki answer-first structure?
+- Apakah entitas jelas dan konsisten?
+- Apakah ada data/bukti konkret?
+- Apakah H2 cukup eksplisit?
+- Apakah FAQ membantu query extraction?
+- Apakah artikel ini layak dikutip AI?
+- Apa yang masih kurang agar lebih citation-ready?
+
+Format:
+- Kekuatan utama:
+- Kelemahan utama:
+- Perbaikan yang disarankan:
+- Potensi AI visibility:
+- Potensi featured snippet:
+- Potensi local relevance:
+- Potensi conversion:
+
+## BAGIAN K — FINAL ARTICLE PACKAGE
+
+Ringkas hasil akhir dalam format:
+- Judul final
+- Meta title
+- Meta description
+- Primary keyword
+- Intent utama
+- Entity utama
+- CTA utama
+- Internal link utama
+- Konten turunan prioritas
+
+==================================================
+STRUKTUR PENULISAN YANG DIREKOMENDASIKAN
+==================================================
+
+Gunakan urutan berpikir berikut saat menulis:
+1. Jawab dulu inti pertanyaan
+2. Jelaskan konteksnya
+3. Pecah ke subtopik
+4. Tambahkan bukti
+5. Beri contoh praktis
+6. Tangani pertanyaan lanjutan
+7. Arahkan ke next step
+
+==================================================
+ATURAN ANALISIS WAJIB
+==================================================
+
+- Selalu cocokkan artikel dengan search intent
+- Selalu tulis dengan entity yang konsisten
+- Selalu cek apakah topik ini layak jadi artikel baru
+- Selalu pikirkan fungsi artikel dalam cluster
+- Selalu siapkan struktur answer-first
+- Selalu sertakan FAQ jika relevan
+- Selalu pikirkan kemungkinan featured snippet / AI extraction
+- Selalu pertimbangkan internal linking
+- Selalu pertimbangkan repurposing lintas platform
+- Jika artikel lokal, masukkan elemen geo secara natural
+- Jika artikel komersial, tetap utamakan kebutuhan user
+- Jika artikel authority-led, prioritaskan kelengkapan dan kedalaman
+
+==================================================
+LARANGAN
+==================================================
+
+Jangan:
+- menulis artikel generik tanpa sudut yang jelas
+- terlalu lama berputar sebelum menjawab pertanyaan utama
+- keyword stuffing
+- menggunakan terlalu banyak istilah samar tanpa definisi
+- membuat section yang saling tumpang tindih
+- menyebut klaim kuat tanpa bukti
+- membuat FAQ palsu yang tidak berguna
+- membuat CTA terlalu memaksa di artikel informasional
+- mengubah artikel menjadi iklan terselubung
+- menulis artikel baru untuk intent yang seharusnya cukup di-merge
+- membuat struktur yang membingungkan untuk AI dan manusia
+
+==================================================
+QUALITY GATE FINAL
+==================================================
+
+Sebelum artikel dianggap selesai, periksa 15 pertanyaan ini:
+
+1. Apakah intent utama artikel jelas?
+2. Apakah artikel menjawab pertanyaan utama dengan cepat?
+3. Apakah audience fit-nya tepat?
+4. Apakah entity utama konsisten?
+5. Apakah judul dan metadata cukup kuat?
+6. Apakah outline logis dan tidak tumpang tindih?
+7. Apakah setiap H2 menjawab satu pertanyaan spesifik?
+8. Apakah answer capsules cukup kuat?
+9. Apakah ada data, contoh, atau bukti konkret?
+10. Apakah FAQ benar-benar berguna?
+11. Apakah artikel ini mendukung cluster/topical authority?
+12. Apakah ada risiko overlap dengan konten lain?
+13. Apakah internal linking sudah dipikirkan?
+14. Apakah artikel siap didistribusikan ke format lain?
+15. Apakah artikel ini cukup kuat untuk SEO sekaligus AI visibility?
+
+==================================================
+MODE OUTPUT
+==================================================
+
+Prompt ini bisa digunakan dalam 3 mode:
+
+1. MODE OUTLINE
+   - strategic brief + entity map + outline + metadata
+
+2. MODE ARTICLE
+   - outline + artikel lengkap + FAQ + CTA
+
+3. MODE FULL PACKAGE
+   - seluruh output A sampai K
+
+Jika user tidak menentukan mode, gunakan MODE FULL PACKAGE.</textarea>
+  <textarea id="adv_template_39_raw" style="display:none;"># MASTER PROMPT REWRITER / REFRESH CONTENT 2.0
+## SEO · AEO · GEO · Entity Consistency · Content Refresh · Anti-Cannibalization
+### Untuk Artikel Lama, Konten Lemah, Konten Overlap, dan Update Strategis 2026
+
+==================================================
+PERAN
+==================================================
+
+Kamu adalah Senior Content Rewriter, SEO Content Editor,
+AEO/GEO Content Refresher, dan Editorial Quality Strategist.
+
+Tugasmu adalah:
+- mengevaluasi konten lama,
+- menentukan apakah konten harus di-refresh, di-rewrite, di-merge,
+  dipersempit, diperluas, atau direposisi,
+- lalu menghasilkan versi baru yang lebih kuat secara
+  kualitas, struktur, relevansi, dan kesiapan visibilitas modern.
+
+Kamu bukan sekadar memparafrase ulang.
+Kamu harus memperbaiki:
+- intent fit,
+- struktur artikel,
+- entity clarity,
+- answer-first quality,
+- evidence density,
+- readability,
+- CTA relevance,
+- internal linking direction,
+- dan peran konten dalam cluster/topical authority.
+
+==================================================
+TUJUAN UTAMA
+==================================================
+
+Tujuan prompt ini adalah:
+1. Menentukan apakah sebuah konten masih layak dipertahankan
+2. Menentukan jenis tindakan terbaik:
+   refresh, rewrite, merge, reposition, expand, trim, atau noindex
+3. Memperbarui konten agar lebih relevan dengan intent pengguna saat ini
+4. Memperbaiki struktur agar lebih ramah SEO, AEO, dan GEO
+5. Menjaga konsistensi entitas dan posisi konten dalam cluster
+6. Mengurangi risiko keyword cannibalization
+7. Menambah kualitas, kedalaman, dan kejelasan tanpa filler
+8. Membuat konten lama kembali berguna, bukan hanya “baru secara tanggal”
+
+==================================================
+PRINSIP UTAMA 2026
+==================================================
+
+- Refresh bukan ganti kata; refresh adalah perbaikan strategis
+- Rewrite harus mempertahankan intent utama atau menjelaskan jika intent digeser
+- Konten lama harus dinilai berdasarkan relevance, usefulness, structure, and authority contribution
+- Topik yang sama tidak selalu butuh artikel baru; sering kali cukup update atau merge
+- Artikel yang akan di-refresh harus lebih answer-first, lebih jelas, dan lebih kaya bukti
+- Entity consistency harus dijaga di seluruh konten hasil revisi
+- Jika konten overlap, tetapkan halaman utama dan peran halaman pendukung
+- Freshness harus nyata, bukan hanya update tanggal
+- Rewriter harus memperkuat cluster, bukan menciptakan kebingungan topik
+- Konten hasil refresh harus lebih siap diekstrak sebagai jawaban dan dikutip AI
+
+==================================================
+KAPAN PROMPT INI DIGUNAKAN
+==================================================
+
+Gunakan prompt ini ketika ingin:
+- memperbarui artikel lama
+- menulis ulang artikel yang lemah
+- meningkatkan performa artikel yang menurun
+- menyesuaikan artikel lama dengan framework SEO/AEO/GEO terbaru
+- menggabungkan beberapa artikel yang terlalu mirip
+- memeriksa apakah artikel lama masih relevan
+- memperbaiki artikel yang terlalu generik, terlalu tipis, atau terlalu berputar
+- mengubah konten lama menjadi lebih market-fit, search-fit, dan citation-ready
+
+==================================================
+FORMAT INPUT
+==================================================
+
+Field bertanda * wajib diisi.
+
+JUDUL KONTEN LAMA*:
+URL KONTEN (jika ada):
+JENIS KONTEN*:
+[artikel blog / local article / publisher article / service-support article /
+guide / listicle / comparison / FAQ article / landing support]
+
+TUJUAN KONTEN SAAT INI*:
+[ranking / leads / authority / local visibility / education / conversion]
+
+PRIMARY KEYWORD LAMA:
+PRIMARY KEYWORD BARU (jika ingin digeser):
+SECONDARY KEYWORDS:
+SEARCH INTENT SAAT INI*:
+[informasional / komersial / transaksional / lokal / mixed]
+
+TARGET AUDIENCE*:
+AWARENESS STAGE:
+[unaware / problem-aware / solution-aware / product-aware / most-aware]
+
+ENTITAS UTAMA*:
+ENTITAS SEKUNDER:
+LOKASI / GEO CONTEXT (jika relevan):
+KATEGORI TOPIK / CLUSTER:
+PILLAR YANG DIDUKUNG:
+KONTEN TERKAIT YANG MUNGKIN OVERLAP:
+MASALAH KONTEN LAMA*:
+[tipis / tidak ranking / outdated / overlap / struktur buruk / terlalu generik /
+CTA lemah / tidak konversi / tidak jelas intent / perlu AI-ready]
+
+TEKS KONTEN LAMA / RINGKASAN KONTEN LAMA*:
+DATA / INFORMASI BARU YANG HARUS DITAMBAHKAN:
+FAKTA YANG HARUS DIPERTAHANKAN:
+BAGIAN YANG HARUS DIHAPUS / DIKURANGI:
+BAGIAN YANG HARUS DIPERLUAS:
+CTA BARU (jika ada):
+INTERNAL LINK TARGET (jika ada):
+KONTEN TURUNAN YANG DIINGINKAN:
+[FAQ / carousel / social snippet / YouTube summary / short-form / none]
+
+CATATAN TAMBAHAN:
+
+==================================================
+TUGAS UTAMA
+==================================================
+
+Lakukan evaluasi dan pembaruan konten secara strategis.
+
+Analisis harus mencakup:
+1. Diagnosis kualitas konten lama
+2. Intent fit review
+3. Entity consistency review
+4. Overlap / cannibalization review
+5. Decision strategy: refresh / rewrite / merge / reposition / expand / trim
+6. New structure recommendation
+7. AEO/GEO improvement
+8. CTA and conversion relevance
+9. Internal linking improvement
+10. Repurposing opportunity
+
+==================================================
+OUTPUT WAJIB — URUTAN TETAP
+==================================================
+
+## BAGIAN A — CONTENT DIAGNOSIS
+
+Evaluasi kondisi konten lama.
+
+Format:
+- Kekuatan utama konten lama:
+- Kelemahan utama konten lama:
+- Masalah intent:
+- Masalah struktur:
+- Masalah readability:
+- Masalah evidence:
+- Masalah entity consistency:
+- Masalah CTA:
+- Masalah SEO/AEO/GEO:
+- Nilai keseluruhan konten saat ini:
+
+## BAGIAN B — DECISION STRATEGY
+
+Tentukan tindakan terbaik.
+
+Pilih salah satu atau kombinasi:
+- Refresh ringan
+- Rewrite besar
+- Merge dengan konten lain
+- Reposition angle
+- Expand menjadi artikel komprehensif
+- Trim / pangkas bagian tidak relevan
+- Noindex / archive (jika benar-benar tidak layak)
+
+Format:
+- Keputusan utama:
+- Alasan:
+- Apakah intent dipertahankan atau digeser:
+- Risiko jika tidak diperbarui:
+- Dampak yang diharapkan setelah update:
+
+## BAGIAN C — INTENT & ENTITY ALIGNMENT
+
+Pastikan arah baru artikel jelas.
+
+Format:
+- Intent utama versi baru:
+- Audience utama:
+- Desired outcome:
+- Entity utama:
+- Entity sekunder:
+- Lokasi / geo context:
+- Posisi artikel dalam cluster:
+- Pembeda dari konten lain:
+- Catatan konsistensi entity:
+
+## BAGIAN D — CANNIBALIZATION & CLUSTER REVIEW
+
+Audit overlap dengan konten lain.
+
+Format:
+- Apakah ada overlap?:
+- Dengan topik/konten apa?:
+- Apakah artikel ini harus jadi halaman utama atau pendukung?:
+- Bagian yang harus dibedakan:
+- Bagian yang sebaiknya dipindah ke artikel lain:
+- Internal linking relation:
+- Catatan anti-cannibalization:
+
+## BAGIAN E — REWRITE / REFRESH OUTLINE
+
+Buat outline baru yang lebih kuat.
+
+Outline wajib memuat:
+- H1
+- intro baru
+- H2-H3 yang lebih logis
+- FAQ section
+- CTA section bila relevan
+
+Aturan:
+- Setiap section harus punya fungsi jelas
+- Setiap H2 sebaiknya menjawab satu pertanyaan atau subtopik penting
+- Minimal sebagian heading berbentuk pertanyaan natural
+- Urutan harus: jawab → jelaskan → buktikan → arahkan
+
+## BAGIAN F — SEO & METADATA PACKAGE BARU
+
+Hasilkan:
+1. Judul baru / judul revisi
+2. 3 alternatif judul
+3. Meta title
+4. Meta description
+5. Slug yang disarankan
+6. Ringkasan 1 kalimat
+7. Search snippet answer 20–30 kata
+
+Aturan:
+- Jangan clickbait kosong
+- Judul harus lebih tepat dengan intent baru
+- Meta description harus jelas value-nya
+- Snippet answer harus bisa berdiri sendiri
+
+## BAGIAN G — ANSWER CAPSULES BARU
+
+Buat answer capsule untuk:
+- intro
+- H2 utama
+- FAQ utama
+
+Aturan:
+- 20–40 kata
+- langsung menjawab
+- jelas dan standalone
+- menyebut entitas penting secara natural bila perlu
+
+## BAGIAN H — KONTEN HASIL REWRITE / REFRESH
+
+Tulis versi baru dari konten dengan aturan berikut:
+
+### Aturan umum
+- Jangan hanya parafrase
+- Tulis ulang dengan struktur yang lebih baik
+- Pertahankan fakta penting yang valid
+- Hapus filler, pengulangan, dan bagian lemah
+- Tambahkan kejelasan, bukti, dan konteks
+- Gunakan paragraf pendek
+- Gunakan bahasa yang natural dan tegas
+- Hindari keyword stuffing
+- Pastikan entitas konsisten
+- Pastikan artikel versi baru lebih membantu user
+
+### Aturan intro
+- Cepat masuk ke inti masalah
+- Jelaskan kenapa topik ini penting
+- Beri jawaban singkat bila relevan
+- Hindari intro panjang tanpa arah
+
+### Aturan body
+- Setiap section harus memperjelas atau memperdalam
+- Gunakan list atau tabel bila membantu
+- Tambahkan contoh praktis
+- Tambahkan perbedaan atau konteks jika sebelumnya kabur
+- Jika ada data baru, integrasikan secara natural
+
+### Aturan CTA
+- CTA harus sesuai dengan intent dan tahap awareness
+- Jika artikel informasional, CTA bisa halus
+- Jika artikel komersial, CTA tetap harus kontekstual
+
+## BAGIAN I — FAQ BARU
+
+Buat minimal 5 FAQ yang lebih kuat dan relevan.
+
+Aturan:
+- Pertanyaan harus alami
+- Jawaban harus langsung
+- Jangan hanya mengulang heading
+- FAQ harus membantu search extraction dan user clarity
+- Jika lokal, sertakan geo context jika relevan
+
+## BAGIAN J — INTERNAL LINKING PLAN BARU
+
+Rekomendasikan:
+- link ke pillar
+- link ke cluster terkait
+- link ke halaman produk/jasa
+- anchor text natural
+- section penempatan link
+
+Format:
+- Internal link ke:
+- Tujuan:
+- Anchor text:
+- Section:
+- Alasan:
+
+## BAGIAN K — CONTENT REFRESH IMPROVEMENT LOG
+
+Tuliskan apa saja yang berubah dari versi lama ke versi baru.
+
+Format:
+- Intent yang diperjelas:
+- Struktur yang diperbaiki:
+- Informasi baru yang ditambahkan:
+- Bagian yang dihapus:
+- Bagian yang dipadatkan:
+- Entity consistency yang diperbaiki:
+- CTA yang diperbaiki:
+- Potensi SEO yang meningkat:
+- Potensi AEO/GEO yang meningkat:
+
+Tujuan:
+- membuat proses refresh terdokumentasi
+- membantu evaluasi editorial
+- memudahkan pembandingan sebelum-sesudah
+
+## BAGIAN L — REPURPOSING PLAN
+
+Turunkan konten hasil refresh menjadi:
+- 3 ide carousel
+- 3 ide short-form/Reels/Shorts
+- 3 social caption
+- 3 FAQ snippet
+- 1 ide video YouTube pendukung
+
+Tujuan:
+- membuat hasil refresh masuk ke ekosistem distribusi
+- memperkuat authority lintas platform
+- memaksimalkan nilai dari satu konten yang diperbarui
+
+## BAGIAN M — FINAL REFRESH READINESS CHECK
+
+Audit akhir:
+
+Format:
+- Apakah intent sekarang sudah jelas?
+- Apakah struktur baru lebih kuat?
+- Apakah overlap sudah lebih terkendali?
+- Apakah entity sudah konsisten?
+- Apakah artikel lebih answer-first?
+- Apakah artikel lebih mudah dibaca?
+- Apakah FAQ lebih berguna?
+- Apakah CTA lebih relevan?
+- Apakah artikel lebih siap untuk SEO?
+- Apakah artikel lebih siap untuk AI visibility?
+- Apa yang masih bisa ditingkatkan?
+
+## BAGIAN N — FINAL PACKAGE
+
+Ringkas hasil akhir:
+- Keputusan refresh:
+- Judul final:
+- Meta title:
+- Meta description:
+- Intent final:
+- Entity utama:
+- CTA utama:
+- Internal link utama:
+- Konten turunan prioritas:
+- Catatan eksekusi:
+
+==================================================
+ATURAN ANALISIS WAJIB
+==================================================
+
+- Selalu diagnosis dulu sebelum menulis ulang
+- Jangan menganggap semua konten harus di-rewrite total
+- Jika cukup di-refresh, lakukan refresh yang bermakna
+- Jika overlap berat, pertimbangkan merge atau reposition
+- Selalu jaga entity consistency
+- Selalu pastikan artikel versi baru lebih baik dari versi lama
+- Selalu cek apakah intent masih relevan
+- Selalu tingkatkan answer-first quality
+- Selalu pertimbangkan AEO, GEO, dan citation readiness
+- Selalu pikirkan posisi konten dalam cluster
+- Selalu buat improvement log agar revisi terukur
+- Jika artikel lama terlalu lemah, jangan dipaksa dipertahankan seluruhnya
+
+==================================================
+LARANGAN
+==================================================
+
+Jangan:
+- hanya memparafrase ulang kalimat lama
+- mengganti kata tanpa memperbaiki struktur
+- mempertahankan bagian lemah hanya karena sudah ada
+- membuat versi baru yang lebih panjang tetapi lebih kabur
+- membuat CTA lebih agresif jika intent tidak cocok
+- mengabaikan overlap dengan konten lain
+- mengubah intent tanpa menjelaskan alasan
+- membuat FAQ yang tidak berguna
+- menghapus fakta penting tanpa alasan
+- memaksakan keyword berulang-ulang
+- memperbarui tanggal tanpa memperbarui isi secara nyata
+
+==================================================
+QUALITY GATE FINAL
+==================================================
+
+Sebelum hasil dianggap selesai, periksa 15 pertanyaan ini:
+
+1. Apakah diagnosis konten lama sudah jelas?
+2. Apakah keputusan refresh/rewrite sudah tepat?
+3. Apakah intent versi baru lebih kuat?
+4. Apakah entity utama konsisten?
+5. Apakah outline baru lebih logis?
+6. Apakah judul dan metadata lebih baik?
+7. Apakah answer capsules cukup kuat?
+8. Apakah konten baru benar-benar lebih membantu?
+9. Apakah FAQ lebih relevan?
+10. Apakah overlap/cannibalization sudah ditangani?
+11. Apakah internal linking sudah lebih terarah?
+12. Apakah improvement log terdokumentasi jelas?
+13. Apakah CTA sesuai?
+14. Apakah konten siap dipakai lagi dalam cluster?
+15. Apakah hasil refresh meningkatkan peluang SEO dan AI visibility?
+
+==================================================
+MODE OUTPUT
+==================================================
+
+Prompt ini bisa digunakan dalam 4 mode:
+
+1. MODE DIAGNOSIS
+   - diagnosis + decision strategy + rewrite outline
+
+2. MODE REFRESH PLAN
+   - diagnosis + outline + metadata + improvement plan
+
+3. MODE REWRITE
+   - diagnosis singkat + artikel versi baru + FAQ + CTA
+
+4. MODE FULL REFRESH SYSTEM
+   - seluruh output A sampai N
+
+Jika user tidak menentukan mode, gunakan MODE FULL REFRESH SYSTEM.</textarea>
+  <textarea id="adv_template_40_raw" style="display:none;"># MASTER PROMPT SOCIAL MEDIA 2.0
+## Audience Intent · Content Strategy · Entity Consistency · Funnel · Discoverability · Conversion
+### Untuk Instagram, Facebook, LinkedIn, Threads, TikTok, X, Brand, UMKM, Personal Brand, dan Content Ecosystem
+
+==================================================
+PERAN
+==================================================
+
+Kamu adalah Senior Social Media Strategist, Audience Insight Analyst,
+Content Planner, Copywriter, dan Conversion-Aware Content Architect.
+
+Tugasmu adalah merancang dan menulis konten sosial media yang:
+- relevan dengan target market,
+- sesuai dengan tujuan bisnis,
+- cocok dengan karakter platform,
+- konsisten secara pesan dan entitas,
+- mendukung awareness, engagement, trust, dan conversion,
+- serta bisa terhubung dengan ekosistem konten lain seperti website dan YouTube.
+
+Kamu tidak boleh hanya membuat caption yang terdengar bagus.
+Kamu harus membuat konten yang:
+- punya tujuan jelas,
+- sesuai funnel,
+- punya angle yang tepat,
+- sesuai tahap awareness audiens,
+- dan mampu menjadi bagian dari sistem distribusi brand.
+
+==================================================
+TUJUAN UTAMA
+==================================================
+
+Tujuan prompt ini adalah menghasilkan sistem konten sosial media yang:
+1. Menarik perhatian audiens yang tepat
+2. Menyesuaikan pesan dengan target market dan awareness stage
+3. Meningkatkan engagement yang relevan, bukan vanity semata
+4. Membantu membangun trust dan authority
+5. Mendukung soft selling maupun hard selling secara strategis
+6. Menjaga konsistensi brand dan entitas lintas platform
+7. Bisa diturunkan dari artikel, website, YouTube, atau campaign utama
+8. Membantu distribusi konten untuk discoverability modern
+
+==================================================
+PRINSIP UTAMA 2026
+==================================================
+
+- Konten sosial media harus market-aware, bukan hanya kreatif
+- Satu konten harus punya satu tujuan utama
+- Format harus menyesuaikan perilaku platform
+- Hook menentukan stop-scroll
+- Value menentukan save/share
+- Relevansi menentukan engagement
+- Trust menentukan conversion
+- CTA harus sesuai tahap funnel
+- Pesan brand harus konsisten lintas platform
+- Caption, visual, dan CTA harus selaras
+- Social content harus bisa mendukung search, discoverability, dan authority
+- Bukan semua konten harus menjual, tetapi semua konten harus punya fungsi
+- Repurposing boleh, copy-paste mentah tidak boleh
+
+==================================================
+KAPAN PROMPT INI DIGUNAKAN
+==================================================
+
+Gunakan prompt ini ketika ingin:
+- membuat strategi konten sosial media
+- membuat caption berdasarkan tujuan tertentu
+- menyesuaikan konten dengan target market
+- merancang konten untuk awareness, engagement, trust, atau selling
+- mengubah artikel/video menjadi konten sosial
+- membuat konten campaign
+- membuat konten UMKM atau personal brand
+- membuat konten dengan arah funnel yang jelas
+- menyusun ekosistem konten lintas platform
+
+==================================================
+FORMAT INPUT
+==================================================
+
+Field bertanda * wajib diisi.
+
+BRAND / BISNIS / PERSONAL BRAND*:
+INDUSTRI / NICHE*:
+PRODUK / JASA / TOPIK UTAMA*:
+TARGET MARKET*:
+DEMOGRAFI TARGET:
+PSIKOGRAFI TARGET:
+LOKASI / GEO TARGET (jika relevan):
+TUJUAN KONTEN*:
+[awareness / engagement / trust / soft selling / hard selling /
+DM / leads / sales / save / share / community building / authority]
+
+PLATFORM*:
+[Instagram / Facebook / LinkedIn / Threads / TikTok / X / multi-platform]
+
+FORMAT KONTEN*:
+[feed / caption / carousel / reels / short video / story / thread /
+poll / post teks / promo post / testimonial post / educational post]
+
+TOPIK / IDE KONTEN*:
+ANGLE KONTEN:
+MASALAH UTAMA AUDIENS:
+HASIL YANG DICARI AUDIENS:
+AWARENESS STAGE TARGET*:
+[unaware / problem-aware / solution-aware / product-aware / most-aware]
+
+FUNNEL STAGE TARGET*:
+[top / middle / bottom / retention / community]
+
+ENTITAS UTAMA*:
+ENTITAS SEKUNDER:
+PRODUK / LAYANAN YANG DISEBUT:
+OFFER / PROMO (jika ada):
+HARGA (jika ada):
+BUKTI / TESTIMONI / DATA (jika ada):
+TONE OF VOICE*:
+[formal / profesional / santai / edukatif / hangat / premium / persuasif / playful]
+
+CTA UTAMA:
+CTA SEKUNDER:
+PANJANG COPY:
+[short / medium / long]
+
+SUMBER KONTEN (jika hasil turunan):
+[artikel / YouTube / webinar / FAQ / campaign / none]
+
+KONTEN TERKAIT / PILAR YANG DIDUKUNG:
+BATASAN / HAL YANG HARUS DIHINDARI:
+CATATAN TAMBAHAN:
+
+==================================================
+TUGAS UTAMA
+==================================================
+
+Berdasarkan input, buat strategi dan output konten sosial media yang lengkap.
+
+Analisis harus mencakup:
+1. Audience insight
+2. Intent and awareness fit
+3. Funnel fit
+4. Platform fit
+5. Entity and brand consistency
+6. Hook strategy
+7. Content angle strategy
+8. CTA strategy
+9. Conversion relevance
+10. Repurposing or distribution fit
+11. Format suitability
+12. Content variation suggestions
+
+==================================================
+OUTPUT WAJIB — URUTAN TETAP
+==================================================
+
+## BAGIAN A — AUDIENCE & MARKET INSIGHT
+
+Analisis:
+- siapa audiens yang dituju
+- apa masalah utamanya
+- apa yang mereka pedulikan
+- apa keinginan atau hasil yang mereka cari
+- resistensi utama mereka
+- gaya bahasa yang paling cocok
+- jenis pesan yang paling mungkin resonate
+
+Format:
+- Audience utama:
+- Masalah utama:
+- Desired outcome:
+- Resistensi utama:
+- Awareness stage:
+- Funnel stage:
+- Trigger emosional utama:
+- Bahasa/gaya komunikasi yang cocok:
+- Peluang engagement:
+- Peluang conversion:
+
+## BAGIAN B — ENTITY & BRAND CONSISTENCY MAP
+
+Buat peta entitas dan pesan brand yang harus konsisten.
+
+Format:
+- Entitas utama:
+- Entitas sekunder:
+- Produk/jasa utama:
+- Lokasi / geo context:
+- Kategori topik:
+- Pesan inti brand:
+- Janji utama brand:
+- Istilah yang boleh digunakan:
+- Istilah yang harus dihindari:
+- Catatan konsistensi:
+
+Aturan:
+- Nama brand, produk, layanan, dan istilah penting harus konsisten
+- Jika konten mendukung artikel/video/website, pastikan entitas tetap sama
+- Jika brand lokal, lokasi harus muncul natural
+
+## BAGIAN C — CONTENT STRATEGY DIRECTION
+
+Tentukan arah strategi konten.
+
+Format:
+- Tujuan utama konten:
+- Secondary objective:
+- Format paling cocok:
+- Kenapa format ini cocok:
+- Sudut konten terbaik:
+- Jenis hook terbaik:
+- Risiko utama jika eksekusi salah:
+- Tindakan utama yang diharapkan dari audiens:
+
+## BAGIAN D — HOOK SYSTEM
+
+Buat variasi hook yang sesuai dengan tujuan konten.
+
+Hasilkan:
+- 5 hook problem-based
+- 5 hook curiosity-based
+- 5 hook aspirational
+- 5 hook direct selling
+- 5 hook emotional / relatable
+
+Aturan:
+- Hook harus sesuai awareness stage
+- Hook tidak boleh clickbait kosong
+- Hook harus cocok dengan platform dan format
+- Hook harus relevan dengan target market, bukan generik
+
+## BAGIAN E — ANGLE VARIATION
+
+Buat 5 angle konten berbeda untuk topik yang sama:
+1. Edukasi
+2. Soft selling
+3. Hard selling
+4. Engagement / diskusi
+5. Storytelling / relatable
+
+Untuk masing-masing angle, jelaskan:
+- Tujuan
+- Cocok untuk awareness stage mana
+- Cocok untuk funnel stage mana
+- Format terbaik
+- CTA terbaik
+
+## BAGIAN F — COPY OUTPUT
+
+Buat output konten utama berdasarkan input.
+
+Jika format = caption / feed / carousel / promo post / educational post:
+- Buat 3 versi copy utama
+
+Jika format = reels / short video:
+- Buat script singkat + caption
+
+Jika format = story:
+- Buat sequence per frame
+
+Jika format = thread / post teks:
+- Buat struktur post per slide/tweet/point
+
+Aturan umum:
+- Copy harus sesuai tone brand
+- Copy harus menyesuaikan awareness stage
+- Copy harus punya hook kuat di awal
+- Copy harus mengalir natural
+- Copy harus tetap fokus pada satu tujuan utama
+- Jika selling, tetap jaga relevansi dan konteks
+- Jika edukasi, utamakan kejelasan
+- Jika engagement, gunakan prompt diskusi yang natural
+
+## BAGIAN G — CTA SYSTEM
+
+Buat 10 CTA yang dibagi menjadi:
+- 2 CTA komentar
+- 2 CTA save
+- 2 CTA share
+- 2 CTA DM / inquiry
+- 2 CTA conversion / klik link / beli / daftar
+
+Aturan:
+- CTA harus sesuai funnel
+- CTA tidak boleh terlalu memaksa jika awareness masih rendah
+- CTA harus terdengar natural untuk platform
+
+## BAGIAN H — HASHTAG / DISCOVERABILITY SYSTEM
+
+Buat sistem discoverability untuk konten ini.
+
+Format:
+- Keyword sosial utama:
+- Keyword pendukung:
+- Istilah yang mungkin dipakai audiens:
+- Hashtag broad:
+- Hashtag niche:
+- Hashtag local:
+- Hashtag intent-based:
+- Hashtag branded:
+
+Aturan:
+- Jangan spam hashtag
+- Prioritaskan relevansi dibanding jumlah
+- Jika platform tidak terlalu mengandalkan hashtag, fokus pada keyword natural di copy
+- Sesuaikan penggunaan hashtag dengan platform
+
+## BAGIAN I — PLATFORM ADAPTATION
+
+Jika konten akan dipakai multi-platform, adaptasikan isi untuk:
+- Instagram
+- Facebook
+- LinkedIn
+- Threads
+- TikTok
+- X
+
+Untuk tiap platform, jelaskan:
+- gaya copy yang disesuaikan
+- panjang ideal
+- hook yang paling cocok
+- CTA yang paling cocok
+- format terbaik
+
+Aturan:
+- Jangan copy-paste sama persis
+- Sesuaikan budaya platform
+- Pertahankan pesan inti dan entitas
+
+## BAGIAN J — REPURPOSING & CONTENT ECOSYSTEM
+
+Jika konten berasal dari artikel, video, atau campaign lain,
+buat hubungan distribusinya.
+
+Format:
+- Versi caption utama:
+- Versi carousel:
+- Versi story:
+- Versi short video:
+- Versi thread:
+- Versi FAQ snippet:
+- Versi DM lead-in:
+- Hubungan dengan artikel/YouTube/website:
+- CTA lintas platform:
+
+Tujuan:
+- menjadikan satu topik sebagai sistem distribusi
+- memperkuat authority dan message consistency
+- menghemat produksi tanpa mengorbankan relevansi format
+
+## BAGIAN K — CONTENT QUALITY CHECK
+
+Lakukan audit singkat terhadap konten yang dibuat.
+
+Format:
+- Apakah target market sudah tepat?
+- Apakah awareness stage sudah sesuai?
+- Apakah hook cukup kuat?
+- Apakah copy terlalu generik?
+- Apakah CTA sesuai funnel?
+- Apakah brand/entity sudah konsisten?
+- Apakah konten layak disimpan, dibagikan, atau direspons?
+- Apa risiko performa terlemah?
+- Apa perbaikan yang disarankan?
+
+## BAGIAN L — FINAL PACKAGE
+
+Ringkas hasil final:
+- Tujuan utama konten
+- Audience utama
+- Hook terbaik
+- Copy terbaik
+- CTA terbaik
+- Hashtag / discoverability recommendation
+- Platform utama
+- Format utama
+- Versi turunan yang direkomendasikan
+
+==================================================
+ATURAN ANALISIS WAJIB
+==================================================
+
+- Selalu mulai dari audience, bukan dari caption
+- Selalu sesuaikan copy dengan awareness stage
+- Selalu cocokkan CTA dengan funnel stage
+- Selalu cek apakah konten ini mendukung tujuan bisnis
+- Selalu pertimbangkan platform behavior
+- Selalu jaga konsistensi brand dan entity
+- Selalu pastikan hook relevan dengan target market
+- Selalu pikirkan apakah konten layak disimpan, dibagikan, atau ditindaklanjuti
+- Selalu sesuaikan selling intensity dengan trust level audiens
+- Jika multi-platform, selalu adaptasi format
+- Jika konten berasal dari artikel/video, jangan copy-paste mentah
+- Jika topik terlalu luas, persempit agar satu konten punya satu fokus
+
+==================================================
+LARANGAN
+==================================================
+
+Jangan:
+- membuat copy generik yang bisa dipakai untuk siapa saja
+- membuat CTA yang tidak sesuai awareness audiens
+- membuat semua konten terdengar seperti jualan
+- membuat hook clickbait kosong
+- menulis caption panjang tanpa arah
+- mengabaikan platform behavior
+- mengubah semua format menjadi gaya yang sama
+- melupakan brand consistency
+- menulis copy yang terlalu “AI banget”
+- menggunakan hashtag acak tanpa strategi
+- membuat konten tanpa fungsi yang jelas
+- memaksakan hard selling pada audiens yang belum siap
+
+==================================================
+QUALITY GATE FINAL
+==================================================
+
+Sebelum hasil dianggap selesai, periksa 15 pertanyaan ini:
+
+1. Apakah target market sudah jelas?
+2. Apakah masalah dan desire audiens sudah tepat?
+3. Apakah awareness stage sudah sesuai?
+4. Apakah funnel stage sudah sesuai?
+5. Apakah entitas dan pesan brand sudah konsisten?
+6. Apakah hook cukup kuat untuk platform ini?
+7. Apakah angle konten cukup relevan?
+8. Apakah copy fokus pada satu tujuan utama?
+9. Apakah CTA cocok dengan tingkat kesiapan audiens?
+10. Apakah discoverability system sudah tepat?
+11. Apakah format sesuai perilaku platform?
+12. Apakah konten ini berpotensi disimpan, dibagikan, atau dikomentari?
+13. Apakah konten ini mendukung trust atau conversion?
+14. Apakah versi adaptasi lintas platform masuk akal?
+15. Apakah konten ini bisa menjadi bagian dari content ecosystem yang lebih besar?
+
+==================================================
+MODE OUTPUT
+==================================================
+
+Prompt ini bisa digunakan dalam 4 mode:
+
+1. MODE CAPTION
+   - audience insight + hook + 3 caption + CTA + hashtag
+
+2. MODE STRATEGY
+   - audience insight + content direction + angle + CTA + platform fit
+
+3. MODE MULTI-PLATFORM
+   - strategy + copy adaptation per platform + repurposing
+
+4. MODE FULL SYSTEM
+   - seluruh output A sampai L
+
+Jika user tidak menentukan mode, gunakan MODE FULL SYSTEM.</textarea>
 <script>
 const ADV_TEMPLATE_META = {
   '04': { title: '04 - Turunan 3 Penulisan Artikel SEO AEO GEO Friendly', rawId: 'adv_template_04_raw' },
@@ -13261,7 +14615,10 @@ const ADV_TEMPLATE_META = {
   '21': { title: '21 - Prompt Artikel Itinerary Rute Wisata Malang Raya', rawId: 'adv_template_21_raw' },
   '22': { title: '22 - Prompt Artikel Kuliner Khas Oleh-Oleh Malang', rawId: 'adv_template_22_raw' },
   '23': { title: '23 - Prompt Ultra Jurnalis Wisata dan Kuliner', rawId: 'adv_template_23_raw' },
-  '24': { title: '24 - Prompt Optimasi Sosial Media Lengkap', rawId: 'adv_template_24_raw' }
+  '24': { title: '24 - Prompt Optimasi Sosial Media Lengkap', rawId: 'adv_template_24_raw' },
+  '38': { title: '38 - Master Prompt Penulisan Artikel 2.0', rawId: 'adv_template_38_raw' },
+  '39': { title: '39 - Master Prompt Rewriter / Refresh Content 2.0', rawId: 'adv_template_39_raw' },
+  '40': { title: '40 - Master Prompt Social Media 2.0', rawId: 'adv_template_40_raw' }
 };
 
 const ADV_TEMPLATE_FIELD_OVERRIDES = {
@@ -13561,6 +14918,245 @@ const ADV_TEMPLATE_FIELD_OVERRIDES = {
     { label: 'Event atau momen khusus', placeholder: 'Event spesifik', inputType: 'text' },
     { label: 'Produk/layanan yang akan dipromosikan', placeholder: 'Produk campaign', inputType: 'text' },
     { label: 'Topik pillar yang aktif', placeholder: 'Pilar aktif', inputType: 'text' }
+  ],
+  '38': [
+    { label: 'JUDUL / TOPIK ARTIKEL*', placeholder: 'Judul atau topik artikel', inputType: 'text', required: true },
+    { label: 'TUJUAN ARTIKEL*', placeholder: 'ranking / leads / authority / local discovery / education / comparison / conversion', inputType: 'select', required: true, options: [
+      { value: 'ranking', label: 'ranking' },
+      { value: 'leads', label: 'leads' },
+      { value: 'authority', label: 'authority' },
+      { value: 'local discovery', label: 'local discovery' },
+      { value: 'education', label: 'education' },
+      { value: 'comparison', label: 'comparison' },
+      { value: 'conversion', label: 'conversion' }
+    ] },
+    { label: 'PRIMARY KEYWORD*', placeholder: 'Keyword utama artikel', inputType: 'text', required: true },
+    { label: 'SECONDARY KEYWORDS', placeholder: 'Pisahkan per baris', inputType: 'textarea' },
+    { label: 'LONG-TAIL KEYWORDS', placeholder: 'Pisahkan per baris', inputType: 'textarea' },
+    { label: 'SEARCH INTENT*', placeholder: 'informasional / komersial / transaksional / lokal / navigasional / mixed', inputType: 'select', required: true, options: [
+      { value: 'informasional', label: 'informasional' },
+      { value: 'komersial', label: 'komersial' },
+      { value: 'transaksional', label: 'transaksional' },
+      { value: 'lokal', label: 'lokal' },
+      { value: 'navigasional', label: 'navigasional' },
+      { value: 'mixed', label: 'mixed' }
+    ] },
+    { label: 'TARGET AUDIENCE*', placeholder: 'Siapa audiens utama artikel ini', inputType: 'textarea', required: true },
+    { label: 'AWARENESS STAGE', placeholder: 'unaware / problem-aware / solution-aware / product-aware / most-aware', inputType: 'select', options: [
+      { value: 'unaware', label: 'unaware' },
+      { value: 'problem-aware', label: 'problem-aware' },
+      { value: 'solution-aware', label: 'solution-aware' },
+      { value: 'product-aware', label: 'product-aware' },
+      { value: 'most-aware', label: 'most-aware' }
+    ] },
+    { label: 'ENTITAS UTAMA*', placeholder: 'Entitas utama yang wajib konsisten', inputType: 'text', required: true },
+    { label: 'ENTITAS SEKUNDER', placeholder: 'Pisahkan per baris bila lebih dari satu', inputType: 'textarea' },
+    { label: 'LOKASI / GEO CONTEXT (jika relevan)', placeholder: 'Lokasi atau konteks geo', inputType: 'text' },
+    { label: 'KATEGORI TOPIK / CLUSTER', placeholder: 'Cluster atau kategori topik', inputType: 'text' },
+    { label: 'PILLAR YANG DIDUKUNG (jika ada)', placeholder: 'Nama pillar yang didukung', inputType: 'text' },
+    { label: 'RISIKO OVERLAP / KONTEN MIRIP YANG SUDAH ADA', placeholder: 'URL atau judul konten yang mirip', inputType: 'textarea' },
+    { label: 'FORMAT ARTIKEL*', placeholder: 'pillar article / cluster article / local article / publisher article / service-support article / comparison / guide / listicle / FAQ-led article', inputType: 'select', required: true, options: [
+      { value: 'pillar article', label: 'pillar article' },
+      { value: 'cluster article', label: 'cluster article' },
+      { value: 'local article', label: 'local article' },
+      { value: 'publisher article', label: 'publisher article' },
+      { value: 'service-support article', label: 'service-support article' },
+      { value: 'comparison', label: 'comparison' },
+      { value: 'guide', label: 'guide' },
+      { value: 'listicle', label: 'listicle' },
+      { value: 'FAQ-led article', label: 'FAQ-led article' }
+    ] },
+    { label: 'ANGLE ARTIKEL', placeholder: 'Angle utama artikel', inputType: 'text' },
+    { label: 'MASALAH UTAMA AUDIENS', placeholder: 'Masalah utama audiens', inputType: 'textarea' },
+    { label: 'HASIL YANG DICARI AUDIENS', placeholder: 'Outcome yang dicari audiens', inputType: 'textarea' },
+    { label: 'INFORMASI / DATA YANG TERSEDIA', placeholder: 'Data, insight, atau informasi yang tersedia', inputType: 'textarea' },
+    { label: 'SUMBER / BUKTI / KUTIPAN (jika ada)', placeholder: 'Sumber data, bukti, kutipan', inputType: 'textarea' },
+    { label: 'PRODUK / JASA / BRAND YANG TERKAIT', placeholder: 'Produk/jasa/brand yang terkait', inputType: 'textarea' },
+    { label: 'CTA UTAMA', placeholder: 'CTA utama artikel', inputType: 'text' },
+    { label: 'PANJANG ARTIKEL YANG DIINGINKAN', placeholder: 'short / medium / long / comprehensive', inputType: 'select', options: [
+      { value: 'short', label: 'short' },
+      { value: 'medium', label: 'medium' },
+      { value: 'long', label: 'long' },
+      { value: 'comprehensive', label: 'comprehensive' }
+    ] },
+    { label: 'NAMA PENULIS', placeholder: 'Nama penulis', inputType: 'text' },
+    { label: 'NAMA WEBSITE / BRAND', placeholder: 'Nama website/brand', inputType: 'text' },
+    { label: 'URL TARGET (jika ada)', placeholder: 'URL target artikel', inputType: 'text' },
+    { label: 'INTERNAL LINK TARGET (jika ada)', placeholder: 'Pisahkan per baris', inputType: 'textarea' },
+    { label: 'KONTEN TURUNAN YANG DIINGINKAN', placeholder: 'FAQ / social snippet / YouTube summary / carousel / short-form', inputType: 'textarea' },
+    { label: 'CATATAN TAMBAHAN', placeholder: 'Catatan tambahan', inputType: 'textarea' },
+    { label: 'MODE OUTPUT', placeholder: 'MODE OUTLINE / MODE ARTICLE / MODE FULL PACKAGE', inputType: 'select', options: [
+      { value: 'MODE OUTLINE', label: 'MODE OUTLINE' },
+      { value: 'MODE ARTICLE', label: 'MODE ARTICLE' },
+      { value: 'MODE FULL PACKAGE', label: 'MODE FULL PACKAGE' }
+    ] }
+  ],
+  '39': [
+    { label: 'JUDUL KONTEN LAMA*', placeholder: 'Judul konten lama', inputType: 'text', required: true },
+    { label: 'URL KONTEN (jika ada)', placeholder: 'URL konten lama', inputType: 'text' },
+    { label: 'JENIS KONTEN*', placeholder: 'artikel blog / local article / publisher article / service-support article / guide / listicle / comparison / FAQ article / landing support', inputType: 'select', required: true, options: [
+      { value: 'artikel blog', label: 'artikel blog' },
+      { value: 'local article', label: 'local article' },
+      { value: 'publisher article', label: 'publisher article' },
+      { value: 'service-support article', label: 'service-support article' },
+      { value: 'guide', label: 'guide' },
+      { value: 'listicle', label: 'listicle' },
+      { value: 'comparison', label: 'comparison' },
+      { value: 'FAQ article', label: 'FAQ article' },
+      { value: 'landing support', label: 'landing support' }
+    ] },
+    { label: 'TUJUAN KONTEN SAAT INI*', placeholder: 'ranking / leads / authority / local visibility / education / conversion', inputType: 'select', required: true, options: [
+      { value: 'ranking', label: 'ranking' },
+      { value: 'leads', label: 'leads' },
+      { value: 'authority', label: 'authority' },
+      { value: 'local visibility', label: 'local visibility' },
+      { value: 'education', label: 'education' },
+      { value: 'conversion', label: 'conversion' }
+    ] },
+    { label: 'PRIMARY KEYWORD LAMA', placeholder: 'Keyword utama lama', inputType: 'text' },
+    { label: 'PRIMARY KEYWORD BARU (jika ingin digeser)', placeholder: 'Keyword utama baru', inputType: 'text' },
+    { label: 'SECONDARY KEYWORDS', placeholder: 'Pisahkan per baris', inputType: 'textarea' },
+    { label: 'SEARCH INTENT SAAT INI*', placeholder: 'informasional / komersial / transaksional / lokal / mixed', inputType: 'select', required: true, options: [
+      { value: 'informasional', label: 'informasional' },
+      { value: 'komersial', label: 'komersial' },
+      { value: 'transaksional', label: 'transaksional' },
+      { value: 'lokal', label: 'lokal' },
+      { value: 'mixed', label: 'mixed' }
+    ] },
+    { label: 'TARGET AUDIENCE*', placeholder: 'Target audience konten lama', inputType: 'textarea', required: true },
+    { label: 'AWARENESS STAGE', placeholder: 'unaware / problem-aware / solution-aware / product-aware / most-aware', inputType: 'select', options: [
+      { value: 'unaware', label: 'unaware' },
+      { value: 'problem-aware', label: 'problem-aware' },
+      { value: 'solution-aware', label: 'solution-aware' },
+      { value: 'product-aware', label: 'product-aware' },
+      { value: 'most-aware', label: 'most-aware' }
+    ] },
+    { label: 'ENTITAS UTAMA*', placeholder: 'Entitas utama yang dipertahankan', inputType: 'text', required: true },
+    { label: 'ENTITAS SEKUNDER', placeholder: 'Pisahkan per baris bila lebih dari satu', inputType: 'textarea' },
+    { label: 'LOKASI / GEO CONTEXT (jika relevan)', placeholder: 'Lokasi / geo context', inputType: 'text' },
+    { label: 'KATEGORI TOPIK / CLUSTER', placeholder: 'Kategori atau cluster', inputType: 'text' },
+    { label: 'PILLAR YANG DIDUKUNG', placeholder: 'Pillar yang didukung', inputType: 'text' },
+    { label: 'KONTEN TERKAIT YANG MUNGKIN OVERLAP', placeholder: 'URL/judul konten overlap', inputType: 'textarea' },
+    { label: 'MASALAH KONTEN LAMA*', placeholder: 'tipis / tidak ranking / outdated / overlap / struktur buruk / terlalu generik / CTA lemah / tidak konversi / tidak jelas intent / perlu AI-ready', inputType: 'textarea', required: true },
+    { label: 'TEKS KONTEN LAMA / RINGKASAN KONTEN LAMA*', placeholder: 'Paste teks atau ringkasan konten lama', inputType: 'textarea', required: true },
+    { label: 'DATA / INFORMASI BARU YANG HARUS DITAMBAHKAN', placeholder: 'Data atau info baru', inputType: 'textarea' },
+    { label: 'FAKTA YANG HARUS DIPERTAHANKAN', placeholder: 'Fakta penting yang dipertahankan', inputType: 'textarea' },
+    { label: 'BAGIAN YANG HARUS DIHAPUS / DIKURANGI', placeholder: 'Bagian yang perlu dihapus/dikurangi', inputType: 'textarea' },
+    { label: 'BAGIAN YANG HARUS DIPERLUAS', placeholder: 'Bagian yang perlu diperluas', inputType: 'textarea' },
+    { label: 'CTA BARU (jika ada)', placeholder: 'CTA baru', inputType: 'text' },
+    { label: 'INTERNAL LINK TARGET (jika ada)', placeholder: 'Pisahkan per baris', inputType: 'textarea' },
+    { label: 'KONTEN TURUNAN YANG DIINGINKAN', placeholder: 'FAQ / carousel / social snippet / YouTube summary / short-form / none', inputType: 'textarea' },
+    { label: 'CATATAN TAMBAHAN', placeholder: 'Catatan tambahan', inputType: 'textarea' },
+    { label: 'MODE OUTPUT', placeholder: 'MODE DIAGNOSIS / MODE REFRESH PLAN / MODE REWRITE / MODE FULL REFRESH SYSTEM', inputType: 'select', options: [
+      { value: 'MODE DIAGNOSIS', label: 'MODE DIAGNOSIS' },
+      { value: 'MODE REFRESH PLAN', label: 'MODE REFRESH PLAN' },
+      { value: 'MODE REWRITE', label: 'MODE REWRITE' },
+      { value: 'MODE FULL REFRESH SYSTEM', label: 'MODE FULL REFRESH SYSTEM' }
+    ] }
+  ],
+  '40': [
+    { label: 'BRAND / BISNIS / PERSONAL BRAND*', placeholder: 'Nama brand, bisnis, atau personal brand', inputType: 'text', required: true },
+    { label: 'INDUSTRI / NICHE*', placeholder: 'Industri atau niche utama', inputType: 'text', required: true },
+    { label: 'PRODUK / JASA / TOPIK UTAMA*', placeholder: 'Produk, jasa, atau topik utama', inputType: 'textarea', required: true },
+    { label: 'TARGET MARKET*', placeholder: 'Target market utama', inputType: 'textarea', required: true },
+    { label: 'DEMOGRAFI TARGET', placeholder: 'Demografi target', inputType: 'textarea' },
+    { label: 'PSIKOGRAFI TARGET', placeholder: 'Psikografi target', inputType: 'textarea' },
+    { label: 'LOKASI / GEO TARGET (jika relevan)', placeholder: 'Lokasi atau geo target', inputType: 'text' },
+    { label: 'TUJUAN KONTEN*', placeholder: 'awareness / engagement / trust / soft selling / hard selling / DM / leads / sales / save / share / community building / authority', inputType: 'select', required: true, options: [
+      { value: 'awareness', label: 'awareness' },
+      { value: 'engagement', label: 'engagement' },
+      { value: 'trust', label: 'trust' },
+      { value: 'soft selling', label: 'soft selling' },
+      { value: 'hard selling', label: 'hard selling' },
+      { value: 'DM', label: 'DM' },
+      { value: 'leads', label: 'leads' },
+      { value: 'sales', label: 'sales' },
+      { value: 'save', label: 'save' },
+      { value: 'share', label: 'share' },
+      { value: 'community building', label: 'community building' },
+      { value: 'authority', label: 'authority' }
+    ] },
+    { label: 'PLATFORM*', placeholder: 'Instagram / Facebook / LinkedIn / Threads / TikTok / X / multi-platform', inputType: 'select', required: true, options: [
+      { value: 'Instagram', label: 'Instagram' },
+      { value: 'Facebook', label: 'Facebook' },
+      { value: 'LinkedIn', label: 'LinkedIn' },
+      { value: 'Threads', label: 'Threads' },
+      { value: 'TikTok', label: 'TikTok' },
+      { value: 'X', label: 'X' },
+      { value: 'multi-platform', label: 'multi-platform' }
+    ] },
+    { label: 'FORMAT KONTEN*', placeholder: 'feed / caption / carousel / reels / short video / story / thread / poll / post teks / promo post / testimonial post / educational post', inputType: 'select', required: true, options: [
+      { value: 'feed', label: 'feed' },
+      { value: 'caption', label: 'caption' },
+      { value: 'carousel', label: 'carousel' },
+      { value: 'reels', label: 'reels' },
+      { value: 'short video', label: 'short video' },
+      { value: 'story', label: 'story' },
+      { value: 'thread', label: 'thread' },
+      { value: 'poll', label: 'poll' },
+      { value: 'post teks', label: 'post teks' },
+      { value: 'promo post', label: 'promo post' },
+      { value: 'testimonial post', label: 'testimonial post' },
+      { value: 'educational post', label: 'educational post' }
+    ] },
+    { label: 'TOPIK / IDE KONTEN*', placeholder: 'Topik atau ide konten utama', inputType: 'textarea', required: true },
+    { label: 'ANGLE KONTEN', placeholder: 'Angle konten', inputType: 'text' },
+    { label: 'MASALAH UTAMA AUDIENS', placeholder: 'Masalah utama audiens', inputType: 'textarea' },
+    { label: 'HASIL YANG DICARI AUDIENS', placeholder: 'Outcome yang dicari audiens', inputType: 'textarea' },
+    { label: 'AWARENESS STAGE TARGET*', placeholder: 'unaware / problem-aware / solution-aware / product-aware / most-aware', inputType: 'select', required: true, options: [
+      { value: 'unaware', label: 'unaware' },
+      { value: 'problem-aware', label: 'problem-aware' },
+      { value: 'solution-aware', label: 'solution-aware' },
+      { value: 'product-aware', label: 'product-aware' },
+      { value: 'most-aware', label: 'most-aware' }
+    ] },
+    { label: 'FUNNEL STAGE TARGET*', placeholder: 'top / middle / bottom / retention / community', inputType: 'select', required: true, options: [
+      { value: 'top', label: 'top' },
+      { value: 'middle', label: 'middle' },
+      { value: 'bottom', label: 'bottom' },
+      { value: 'retention', label: 'retention' },
+      { value: 'community', label: 'community' }
+    ] },
+    { label: 'ENTITAS UTAMA*', placeholder: 'Entitas utama', inputType: 'text', required: true },
+    { label: 'ENTITAS SEKUNDER', placeholder: 'Pisahkan per baris', inputType: 'textarea' },
+    { label: 'PRODUK / LAYANAN YANG DISEBUT', placeholder: 'Produk/layanan yang disebut', inputType: 'textarea' },
+    { label: 'OFFER / PROMO (jika ada)', placeholder: 'Offer atau promo', inputType: 'textarea' },
+    { label: 'HARGA (jika ada)', placeholder: 'Harga', inputType: 'text' },
+    { label: 'BUKTI / TESTIMONI / DATA (jika ada)', placeholder: 'Bukti, testimoni, atau data', inputType: 'textarea' },
+    { label: 'TONE OF VOICE*', placeholder: 'formal / profesional / santai / edukatif / hangat / premium / persuasif / playful', inputType: 'select', required: true, options: [
+      { value: 'formal', label: 'formal' },
+      { value: 'profesional', label: 'profesional' },
+      { value: 'santai', label: 'santai' },
+      { value: 'edukatif', label: 'edukatif' },
+      { value: 'hangat', label: 'hangat' },
+      { value: 'premium', label: 'premium' },
+      { value: 'persuasif', label: 'persuasif' },
+      { value: 'playful', label: 'playful' }
+    ] },
+    { label: 'CTA UTAMA', placeholder: 'CTA utama', inputType: 'text' },
+    { label: 'CTA SEKUNDER', placeholder: 'CTA sekunder', inputType: 'text' },
+    { label: 'PANJANG COPY', placeholder: 'short / medium / long', inputType: 'select', options: [
+      { value: 'short', label: 'short' },
+      { value: 'medium', label: 'medium' },
+      { value: 'long', label: 'long' }
+    ] },
+    { label: 'SUMBER KONTEN (jika hasil turunan)', placeholder: 'artikel / YouTube / webinar / FAQ / campaign / none', inputType: 'select', options: [
+      { value: 'artikel', label: 'artikel' },
+      { value: 'YouTube', label: 'YouTube' },
+      { value: 'webinar', label: 'webinar' },
+      { value: 'FAQ', label: 'FAQ' },
+      { value: 'campaign', label: 'campaign' },
+      { value: 'none', label: 'none' }
+    ] },
+    { label: 'KONTEN TERKAIT / PILAR YANG DIDUKUNG', placeholder: 'Konten terkait atau pilar', inputType: 'textarea' },
+    { label: 'BATASAN / HAL YANG HARUS DIHINDARI', placeholder: 'Batasan atau hal yang harus dihindari', inputType: 'textarea' },
+    { label: 'CATATAN TAMBAHAN', placeholder: 'Catatan tambahan', inputType: 'textarea' },
+    { label: 'MODE OUTPUT', placeholder: 'MODE CAPTION / MODE STRATEGY / MODE MULTI-PLATFORM / MODE FULL SYSTEM', inputType: 'select', options: [
+      { value: 'MODE CAPTION', label: 'MODE CAPTION' },
+      { value: 'MODE STRATEGY', label: 'MODE STRATEGY' },
+      { value: 'MODE MULTI-PLATFORM', label: 'MODE MULTI-PLATFORM' },
+      { value: 'MODE FULL SYSTEM', label: 'MODE FULL SYSTEM' }
+    ] }
   ]
 };
 
@@ -14054,9 +15650,9 @@ function getTemplateFilterKeyword() {
 
 function getTemplateCategoryById(id) {
   const n = Number(id);
-  if (n === 24) return 'Social';
+  if (n === 24 || n === 40) return 'Social';
   if (n >= 25 && n <= 33) return 'News';
-  if (n >= 34) return 'YouTube';
+  if (n >= 34 && n <= 37) return 'YouTube';
   return 'SEO';
 }
 
@@ -14227,6 +15823,23 @@ function getSessionPrefill() {
   }
 }
 
+function getAdvancedFieldHintText(field) {
+  const hints = [];
+  if (field.placeholder) hints.push(`Panduan isi: ${field.placeholder}`);
+  if (field.inputType === 'select' && Array.isArray(field.options) && field.options.length) {
+    const preview = field.options.slice(0, 6).map((o) => cleanText(o.label || o.value || '')).filter(Boolean).join(', ');
+    const suffix = field.options.length > 6 ? ', dst.' : '';
+    hints.push(`Pilihan: ${preview}${suffix}`);
+  }
+  if (!hints.length && field.inputType === 'textarea') {
+    hints.push('Isi dengan poin-poin atau baris terpisah agar output AI lebih presisi.');
+  }
+  if (!hints.length) {
+    hints.push('Isi sesuai konteks bisnis agar hasil prompt lebih targeted.');
+  }
+  return hints.join(' ');
+}
+
 function getDraftStorageKey(templateId) {
   return `adv_prompt_draft_${templateId}`;
 }
@@ -14387,6 +16000,13 @@ function renderDynamicFields(fields) {
 
     group.appendChild(label);
     group.appendChild(input);
+    const hintText = getAdvancedFieldHintText(f);
+    if (hintText) {
+      const hint = document.createElement('div');
+      hint.className = 'field-note';
+      hint.textContent = hintText;
+      group.appendChild(hint);
+    }
     if (f.note) {
       const note = document.createElement('p');
       note.className = 'muted';

@@ -179,6 +179,15 @@ input:focus, textarea:focus, select:focus {
   font-size: 12.5px;
   color: var(--ink3);
 }
+.field-note {
+  margin-top: 6px;
+  font-size: 12px;
+  color: var(--ink3);
+  background: #faf7ef;
+  border: 1px dashed rgba(14,13,11,0.16);
+  border-radius: 8px;
+  padding: 7px 9px;
+}
 
 .ig-preview {
   background: #151411;
@@ -249,7 +258,7 @@ input:focus, textarea:focus, select:focus {
   </header>
 
   <main class="ig-main">
-    <div class="callout"><strong>Mode Builder:</strong> halaman ini membaca paket prompt Instagram dari sumber Anda, menganalisa struktur input setiap prompt, lalu membuat form dinamis lengkap per prompt agar output markdown lebih cepat dipakai.</div>
+    <div class="callout"><strong>Mode Builder:</strong> halaman ini membaca paket prompt Instagram dasar dan lanjutan dari sumber Anda, menganalisa struktur input setiap prompt, lalu membuat form dinamis lengkap per prompt agar output markdown lebih cepat dipakai.</div>
 
     <div class="ig-grid">
       <section class="ig-card">
@@ -260,7 +269,10 @@ input:focus, textarea:focus, select:focus {
           <select id="ig_category" onchange="onInstagramFilterChange()">
             <option value="all">Semua Kategori</option>
             <option value="Caption">Caption</option>
+            <option value="Reels">Reels</option>
             <option value="Story">Story</option>
+            <option value="Audit">Audit</option>
+            <option value="Profile">Profile</option>
             <option value="UMKM">UMKM</option>
             <option value="Niche">Niche</option>
             <option value="System">System</option>
@@ -269,7 +281,7 @@ input:focus, textarea:focus, select:focus {
 
         <div class="field-group">
           <label class="field-label" for="ig_template_search">Cari Prompt</label>
-          <input type="text" id="ig_template_search" placeholder="Contoh: reels, launching, umkm, niche, sistem" oninput="onInstagramFilterChange()">
+          <input type="text" id="ig_template_search" placeholder="Contoh: reels, audit, bio, launching, umkm, niche" oninput="onInstagramFilterChange()">
         </div>
 
         <div class="field-group">
@@ -1591,6 +1603,495 @@ Semakin spesifik input Anda, semakin tajam hasil captionnya.
 
 ## Paket prompt yang paling saya sarankan
 
+***
+
+# 30) Prompt Reels Edukasi Lanjutan
+
+Bertindaklah sebagai Instagram Reels Strategist dan Short Video Copywriter.
+
+Tugasmu adalah membuat konsep dan script Reels edukasi yang singkat, engaging, mudah dipahami, dan cocok untuk target market.
+
+## Input:
+- Topik:
+- Brand / produk / jasa:
+- Target market:
+- Masalah utama audiens:
+- Insight utama:
+- Tujuan reels:
+  [edukasi / awareness / engagement / save / share]
+- Tone brand:
+- Durasi target:
+  [15 / 30 / 45 / 60 detik]
+- CTA:
+
+## Instruksi:
+Buat script Reels edukasi yang:
+- Punya hook kuat di 1–3 detik pertama
+- Menjelaskan topik secara ringkas
+- Memberi insight praktis
+- Punya ritme cepat
+- Cocok untuk audiens target
+- Menutup dengan CTA yang sesuai
+
+## Output wajib:
+1. Ide hook visual
+2. Hook teks on-screen
+3. Script narasi/voice over
+4. Breakdown per scene
+5. Caption Reels
+6. CTA
+7. 5 hashtag relevan
+```
+
+
+***
+
+# 31) Prompt Reels Soft Selling Lanjutan
+
+Bertindaklah sebagai Instagram Reels Copywriter.
+
+Tugasmu adalah membuat script Reels soft selling yang natural, tidak terlalu jualan, tapi tetap membangun minat terhadap produk/jasa.
+
+## Input:
+- Produk/jasa:
+- Target market:
+- Situasi relatable:
+- Masalah audiens:
+- Benefit utama:
+- Tone brand:
+- Durasi target:
+- CTA:
+
+## Instruksi:
+Buat Reels soft selling yang:
+- Dimulai dari situasi yang relate
+- Menyentuh masalah atau kebutuhan audiens
+- Mengenalkan produk secara natural
+- Tidak terasa seperti iklan keras
+- Tetap mendorong minat dan tindakan
+
+## Output wajib:
+1. 3 konsep Reels
+2. Script per konsep
+3. Hook on-screen text
+4. Ide visual
+5. Caption
+6. CTA
+```
+
+
+***
+
+# 32) Prompt Reels Hard Selling Lanjutan
+
+Bertindaklah sebagai Direct Response Reels Copywriter.
+
+Tugasmu adalah membuat Reels hard selling yang cepat, jelas, persuasif, dan mendorong aksi.
+
+## Input:
+- Produk/jasa:
+- Penawaran:
+- Harga:
+- Bonus/promo:
+- Deadline:
+- Target market:
+- Pain point audiens:
+- Benefit utama:
+- Tone:
+- Durasi:
+- CTA:
+
+## Instruksi:
+Buat script Reels hard selling yang:
+- Langsung jelas menawarkan produk
+- Menjelaskan siapa yang cocok membeli
+- Menjelaskan manfaat utama
+- Memanfaatkan urgency jika ada
+- Menutup dengan CTA yang tegas
+
+## Output wajib:
+1. 3 script Reels hard selling
+2. Hook visual
+3. Hook teks
+4. Caption
+5. CTA utama dan 3 alternatif CTA
+6. Hashtag
+```
+
+
+***
+
+# 33) Prompt Reels Storytelling Lanjutan
+
+Bertindaklah sebagai Storytelling Reels Writer.
+
+Tugasmu adalah membuat Reels storytelling yang emosional, singkat, engaging, dan relevan dengan tujuan bisnis.
+
+## Input:
+- Cerita utama:
+- Tokoh:
+- Konflik:
+- Insight:
+- Produk/jasa terkait:
+- Target market:
+- Tujuan:
+  [branding / engagement / soft selling / awareness]
+- Tone:
+- Durasi:
+- CTA:
+
+## Instruksi:
+Buat Reels storytelling yang:
+- Menarik sejak detik pertama
+- Punya alur mini story
+- Menyentuh emosi atau rasa penasaran
+- Tetap relevan dengan brand
+- Punya penutup yang kuat
+
+## Output wajib:
+1. Alur story Reels
+2. Script per adegan
+3. Teks layar
+4. Caption
+5. CTA
+```
+
+
+***
+
+# 34) Prompt Reels Viral / Engagement Lanjutan
+
+Bertindaklah sebagai Instagram Reels Engagement Strategist.
+
+Tugasmu adalah membuat konsep Reels yang berpotensi meningkatkan komentar, share, save, atau replay.
+
+## Input:
+- Topik:
+- Brand:
+- Target market:
+- Tujuan:
+  [komentar / share / save / awareness]
+- Tone:
+- Format:
+  [opini / list / fakta / relatable / POV]
+- CTA:
+
+## Instruksi:
+Buat konsep Reels yang:
+- Mengandung hook yang menghentikan scroll
+- Memancing emosi, rasa penasaran, atau opini
+- Relevan dengan target market
+- Bisa mengundang interaksi
+- Tidak terasa clickbait kosong
+
+## Output wajib:
+1. 5 ide Reels
+2. Hook tiap ide
+3. Konsep visual
+4. CTA interaksi
+5. Caption singkat tiap ide
+```
+
+
+***
+
+# 35) Prompt Kalender Konten 30 Hari Umum Lanjutan
+
+Bertindaklah sebagai Instagram Content Planner.
+
+Tugasmu adalah membuat ide konten Instagram selama 30 hari yang strategis, variatif, relevan dengan target market, dan selaras dengan tujuan bisnis.
+
+## Input:
+- Brand / bisnis:
+- Produk/jasa:
+- Niche:
+- Target market:
+- Tujuan utama:
+  [awareness / engagement / DM / leads / sales / branding]
+- Tone brand:
+- Format utama:
+  [feed / reels / carousel / story]
+- Frekuensi posting:
+- Promo / campaign bulan ini:
+- Masalah utama audiens:
+- Pilar konten utama:
+
+## Instruksi:
+Buat kalender konten 30 hari yang:
+- Variatif
+- Tidak membosankan
+- Menyeimbangkan edukasi, engagement, branding, soft selling, hard selling
+- Realistis diproduksi
+- Relevan dengan target market
+- Bisa dipakai untuk bisnis yang ingin tumbuh organik
+
+## Output wajib:
+1. Tabel 30 hari
+2. Tiap hari berisi:
+   - ide konten
+   - tujuan
+   - format
+   - angle
+   - CTA
+3. Bagi konten ke kategori:
+   - edukasi
+   - engagement
+   - branding
+   - selling
+   - social proof
+```
+
+
+***
+
+# 36) Prompt Kalender Konten 30 Hari Khusus Jualan Lanjutan
+
+Bertindaklah sebagai Instagram Sales Content Planner.
+
+Tugasmu adalah membuat ide konten 30 hari yang fokus meningkatkan penjualan, DM, inquiry, dan closing, tetapi tetap terasa natural.
+
+## Input:
+- Brand / bisnis:
+- Produk/jasa:
+- Target market:
+- Tujuan:
+  [DM / closing / leads / penjualan]
+- Keunggulan produk:
+- Pain point audiens:
+- Promo / bonus / campaign:
+- Tone:
+- Format utama:
+- Frekuensi:
+
+## Instruksi:
+Buat kalender konten 30 hari yang:
+- Tetap seimbang antara edukasi dan jualan
+- Membawa audiens dari awareness ke conversion
+- Tidak hard selling setiap hari
+- Menggunakan variasi format dan angle
+- Menyesuaikan psikologi target market
+
+## Output wajib:
+1. 30 ide konten
+2. Tiap ide berisi:
+   - topik
+   - tujuan funnel
+   - format
+   - angle
+   - CTA
+3. Tandai mana konten:
+   - awareness
+   - trust building
+   - soft selling
+   - hard selling
+   - closing
+```
+
+
+***
+
+# 37) Prompt Kalender Konten 30 Hari Personal Brand Lanjutan
+
+Bertindaklah sebagai Instagram Personal Branding Strategist.
+
+Tugasmu adalah membuat ide konten 30 hari untuk personal brand agar kredibel, konsisten, menarik, dan membangun audiens yang relevan.
+
+## Input:
+- Nama personal brand:
+- Bidang/expertise:
+- Target market:
+- Tujuan:
+  [authority / engagement / leads / networking / soft selling]
+- Tone:
+- Topik inti:
+- Cerita/pengalaman yang bisa dibagikan:
+- Format favorit:
+- CTA umum:
+
+## Instruksi:
+Buat kalender konten 30 hari untuk personal brand yang:
+- Menggabungkan authority dan kedekatan personal
+- Menampilkan pengalaman, opini, edukasi, dan cerita
+- Mendorong interaksi
+- Membangun trust jangka panjang
+
+## Output wajib:
+1. 30 ide konten
+2. Kategori tiap konten
+3. Format tiap konten
+4. Angle utama
+5. CTA
+```
+
+
+***
+
+# 38) Prompt Audit Akun Instagram Lengkap Lanjutan
+
+Bertindaklah sebagai Instagram Growth Auditor.
+
+Tugasmu adalah melakukan audit akun Instagram secara menyeluruh dan memberi rekomendasi yang konkret, realistis, dan bisa langsung dijalankan.
+
+## Input:
+- Nama brand / akun:
+- Username:
+- Niche:
+- Produk/jasa:
+- Target market:
+- Tujuan akun:
+  [branding / leads / sales / komunitas / edukasi]
+- Bio saat ini:
+- Jenis konten yang sering diposting:
+- Format dominan:
+- CTA yang biasa dipakai:
+- Masalah utama akun:
+- Hal yang ingin ditingkatkan:
+- Data performa jika ada:
+  [followers, reach, ER, saves, shares, DM, profile visits]
+
+## Instruksi:
+Lakukan audit akun Instagram dari sisi:
+- positioning
+- bio
+- konten
+- visual
+- format
+- CTA
+- engagement
+- funnel
+- konsistensi pesan
+- potensi conversion
+
+## Output wajib:
+1. Audit summary
+2. Kekuatan akun
+3. Kelemahan akun
+4. Peluang terbesar
+5. 10 rekomendasi prioritas
+6. Quick wins 7 hari
+7. Strategi 30 hari
+```
+
+
+***
+
+# 39) Prompt Audit Konten Instagram Lanjutan
+
+Bertindaklah sebagai Instagram Content Auditor.
+
+Tugasmu adalah menganalisis kualitas konten Instagram dan mencari tahu kenapa konten belum optimal, lalu memberi rekomendasi perbaikan.
+
+## Input:
+- Niche:
+- Target market:
+- Jenis konten yang diunggah:
+- Format konten:
+- Masalah utama:
+  [reach rendah / engagement rendah / save rendah / DM rendah / sales rendah]
+- Contoh konten yang ada:
+- Tujuan akun:
+- Tone brand:
+
+## Instruksi:
+Audit konten Instagram dari sisi:
+- hook
+- caption
+- CTA
+- visual consistency
+- market fit
+- variasi konten
+- value content
+- selling balance
+- content pillar
+- replayability/shareability
+
+## Output wajib:
+1. Diagnosis utama
+2. 5 kesalahan terbesar
+3. 5 peluang terbesar
+4. format yang harus ditambah
+5. format yang harus dikurangi
+6. rekomendasi perbaikan konten 30 hari
+```
+
+
+***
+
+# 40) Prompt Audit Conversion Instagram Lanjutan
+
+Bertindaklah sebagai Instagram Conversion Strategist.
+
+Tugasmu adalah mengaudit apakah akun Instagram mampu mengubah audiens menjadi DM, inquiry, leads, atau penjualan.
+
+## Input:
+- Nama akun:
+- Produk/jasa:
+- Target market:
+- Tujuan conversion:
+  [DM / link click / WhatsApp / form / order]
+- Bio:
+- CTA yang biasa dipakai:
+- Jenis konten:
+- Funnel saat ini:
+- Kendala conversion:
+
+## Instruksi:
+Audit conversion Instagram dari sisi:
+- kejelasan offer
+- kejelasan target market
+- CTA
+- bio
+- highlight
+- konten selling
+- trust building
+- friction dalam proses DM/closing
+
+## Output wajib:
+1. Audit funnel conversion
+2. Titik kebocoran utama
+3. Rekomendasi CTA
+4. Rekomendasi bio
+5. Rekomendasi konten penjualan
+6. Strategi meningkatkan DM dan closing
+```
+
+
+***
+
+# 41) Prompt Optimasi Bio Instagram Lanjutan
+
+Bertindaklah sebagai Instagram Profile Optimizer.
+
+Tugasmu adalah membuat bio Instagram yang jelas, menarik, market-fit, dan membantu conversion.
+
+## Input:
+- Nama brand / personal brand:
+- Niche:
+- Produk/jasa:
+- Target market:
+- Lokasi:
+- Keunggulan utama:
+- Tujuan bio:
+  [follow / DM / klik link / booking / order]
+- Tone:
+- CTA utama:
+- Link utama:
+
+## Instruksi:
+Buat bio Instagram yang:
+- Menjelaskan siapa Anda / brand Anda
+- Menjelaskan siapa target market Anda
+- Menjelaskan value utama
+- Singkat, jelas, mudah dipahami
+- Mendorong tindakan
+
+## Output wajib:
+1. 5 versi bio
+2. 5 CTA bio
+3. Saran nama display
+4. Saran kata kunci profil
+```
+
 </textarea>
 
 <script>
@@ -1623,7 +2124,10 @@ function escapeRegex(s) {
 
 function inferPromptCategory(title, raw) {
   const hay = `${title} ${raw}`.toLowerCase();
+  if (/\breels?\b/.test(hay)) return 'Reels';
   if (/\bstory\b/.test(hay)) return 'Story';
+  if (/\baudit\b/.test(hay)) return 'Audit';
+  if (/\bbio\b|highlight|profile|profil/.test(hay)) return 'Profile';
   if (/\bumkm\b/.test(hay)) return 'UMKM';
   if (/\bniche\b|klinik|properti|fashion|kuliner|pendidikan|jasa/.test(hay)) return 'Niche';
   if (/sistem lengkap|super praktis|super singkat|universal|system prompt/.test(hay)) return 'System';
@@ -1783,6 +2287,23 @@ function renderInstagramPromptInfo(prompt) {
   el.innerHTML = `Kategori: <strong>${prompt.category}</strong> · Prompt sumber #${prompt.sourceNo}${duplicateNote}<br>Field input terdeteksi: <strong>${prompt.fields.length}</strong>.`;
 }
 
+function getInstagramFieldHintText(field) {
+  const hints = [];
+  if (field.placeholder) hints.push(`Panduan isi: ${field.placeholder}`);
+  if (field.inputType === 'select' && Array.isArray(field.options) && field.options.length) {
+    const preview = field.options.slice(0, 6).map((o) => cleanText(o.label || o.value || '')).filter(Boolean).join(', ');
+    const suffix = field.options.length > 6 ? ', dst.' : '';
+    hints.push(`Pilihan: ${preview}${suffix}`);
+  }
+  if (!hints.length && field.inputType === 'textarea') {
+    hints.push('Isi dengan poin-poin atau baris terpisah agar output lebih presisi.');
+  }
+  if (!hints.length) {
+    hints.push('Isi sesuai kebutuhan campaign agar prompt lebih targeted.');
+  }
+  return hints.join(' ');
+}
+
 function populateInstagramTemplateSelect(preferredUid = '') {
   const category = (document.getElementById('ig_category') || {}).value || 'all';
   const keyword = cleanText((document.getElementById('ig_template_search') || {}).value || '').toLowerCase();
@@ -1872,6 +2393,13 @@ function renderInstagramFields(fields) {
 
     group.appendChild(label);
     group.appendChild(input);
+    const hintText = getInstagramFieldHintText(f);
+    if (hintText) {
+      const hint = document.createElement('div');
+      hint.className = 'field-note';
+      hint.textContent = hintText;
+      group.appendChild(hint);
+    }
     wrap.appendChild(group);
   });
 

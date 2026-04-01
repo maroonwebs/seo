@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prompt Niche Properti Builder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0e0d0b;
+  --ink2: #2a2825;
+  --ink3: #4a4845;
+  --muted: #8a8780;
+  --paper: #faf8f4;
+  --paper2: #f3f0ea;
+  --border: rgba(14,13,11,0.1);
+  --border2: rgba(14,13,11,0.18);
+  --gold: #b8860b;
+  --gold2: #d4a017;
+  --green-light: #e8f5ec;
+  --green: #1c6b43;
+  --shadow: 0 1px 3px rgba(14,13,11,0.08), 0 4px 16px rgba(14,13,11,0.06);
+  --shadow-lg: 0 2px 8px rgba(14,13,11,0.1), 0 12px 40px rgba(14,13,11,0.12);
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'DM Sans', 'Helvetica Neue', sans-serif;
+  --font-mono: 'DM Mono', 'Courier New', monospace;
+  --radius: 10px;
+  --radius-lg: 16px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: radial-gradient(circle at top right, #e8f5ec 0, #faf8f4 40%, #f3efe7 100%);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.um-header {
+  background: var(--ink);
+  padding: 16px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.um-logo {
+  font-family: var(--font-display);
+  font-size: 16px;
+  color: var(--paper);
+}
+
+.um-logo span {
+  color: #8fe2b6;
+  font-style: italic;
+}
+
+.um-actions { display: flex; align-items: center; gap: 10px; }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: var(--radius);
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 13px;
+  font-family: var(--font-body);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: rgba(255,255,255,0.84);
+  border: 1.5px solid rgba(255,255,255,0.3);
+}
+.btn-ghost:hover { color: #fff; border-color: rgba(255,255,255,0.45); }
+.btn-primary { background: var(--gold); color: #fff; }
+.btn-primary:hover { background: var(--gold2); }
+.btn-light { background: var(--paper2); color: var(--ink2); border: 1px solid var(--border2); }
+.btn-light:hover { border-color: rgba(14,13,11,0.28); }
+.btn-gold { background: var(--gold); color: #fff; }
+.btn-gold:hover { background: var(--gold2); }
+
+.um-main {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 34px 40px 70px;
+}
+
+.callout {
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  margin: 14px 0 22px;
+  border-left: 3px solid var(--green);
+  background: var(--green-light);
+  color: var(--green);
+  font-size: 13.5px;
+}
+
+.um-grid {
+  display: grid;
+  grid-template-columns: minmax(340px, 0.96fr) minmax(340px, 1.04fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.um-card {
+  background: #fff;
+  border: 1px solid var(--border2);
+  border-radius: var(--radius-lg);
+  padding: 18px;
+  box-shadow: var(--shadow);
+}
+
+.um-card h3 {
+  font-family: var(--font-display);
+  font-size: 21px;
+  font-weight: 500;
+  margin-bottom: 14px;
+}
+
+.field-group { margin-bottom: 14px; }
+
+.field-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink2);
+  margin-bottom: 8px;
+}
+
+.field-label span {
+  color: var(--gold);
+  font-size: 11px;
+  margin-left: 6px;
+  font-family: var(--font-mono);
+}
+
+input[type="text"], textarea, select {
+  width: 100%;
+  border: 1.5px solid var(--border2);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+  font-size: 14px;
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: #fff;
+}
+
+select {
+  font-weight: 500;
+  background: linear-gradient(180deg, #fffefb 0%, #f8f5ee 100%);
+}
+
+textarea { min-height: 90px; resize: vertical; }
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--gold2);
+  box-shadow: 0 0 0 2px rgba(212,160,23,0.15);
+}
+
+.helper-box {
+  background: #f7f4ec;
+  border: 1px dashed rgba(14,13,11,0.25);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+  margin-bottom: 14px;
+  font-size: 12.5px;
+  color: var(--ink3);
+}
+.field-note {
+  margin-top: 6px;
+  font-size: 12px;
+  color: var(--ink3);
+  background: #faf7ef;
+  border: 1px dashed rgba(14,13,11,0.16);
+  border-radius: 8px;
+  padding: 7px 9px;
+}
+
+.um-form-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
+
+.um-preview {
+  background: #151411;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: var(--shadow-lg);
+  padding: 18px;
+  min-height: 520px;
+}
+
+.um-preview pre {
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: #efe8d7;
+  line-height: 1.72;
+}
+
+.muted { color: var(--muted); }
+
+.site-credit {
+  margin: 22px auto 30px;
+  max-width: 1320px;
+  padding: 0 40px;
+  font-size: 12px;
+  color: var(--ink3);
+  text-align: center;
+}
+
+.site-credit a {
+  color: #1a3a6b;
+  text-decoration: none;
+  border-bottom: 1px dashed rgba(26,58,107,0.35);
+}
+
+.site-credit a:hover {
+  border-bottom-color: rgba(26,58,107,0.65);
+}
+
+@media (max-width: 900px) {
+  .um-header, .um-main { padding-left: 20px; padding-right: 20px; }
+  .um-header { flex-wrap: wrap; align-items: stretch; }
+  .um-logo { width: 100%; }
+  .btn { font-size: 12px; padding: 9px 10px; }
+  .um-actions { width: 100%; display: grid; grid-template-columns: 1fr; gap: 8px; }
+  .um-actions .btn { width: 100%; }
+  .um-grid { grid-template-columns: 1fr; }
+  .um-card { padding: 14px 14px 34px; }
+  .um-card h3 { font-size: 19px; }
+  .um-preview { min-height: 430px; }
+  .um-form-actions .btn { width: 100%; }
+  .site-credit { padding-left: 20px; padding-right: 20px; }
+  input[type="text"], textarea, select { font-size: 16px; }
+  .field-group { scroll-margin-top: 88px; scroll-margin-bottom: 190px; }
+}
+</style>
+</head>
+<body>
+  <header class="um-header">
+    <div class="um-logo">Prompt <em>Properti</em> Builder — <span id="um-brand-header">Niche Properti</span></div>
+    <div class="um-actions">
+      <a class="btn btn-ghost" href="index.html">← Kembali ke SEO System</a>
+      <a class="btn btn-ghost" href="prompt-advanced.html">🧩 Prompt Lanjutan</a>
+      <button class="btn btn-ghost" onclick="copyUmrohMarkdown()">Copy Markdown</button>
+      <button class="btn btn-primary" onclick="downloadUmrohMarkdown()">⬇ Download .md</button>
+    </div>
+  </header>
+
+  <main class="um-main">
+    <div class="callout"><strong>Mode Builder Properti:</strong> pilih prompt sesuai alur kerja (Research, Writing, atau Audit), isi form input yang otomatis dibaca dari section <strong>INPUT</strong> setiap prompt, lalu generate markdown. Halaman ini disiapkan agar mudah diturunkan ke niche lain berikutnya.</div>
+
+    <div class="um-grid">
+      <section class="um-card">
+        <h3>Input Prompt Properti</h3>
+
+        <div class="field-group">
+          <label class="field-label" for="um_template_category">Filter Kategori</label>
+          <select id="um_template_category" onchange="onUmrohCategoryChange()">
+            <option value="all">Semua Kategori</option>
+            <option value="Research">Research</option>
+            <option value="Writing">Writing</option>
+            <option value="Audit">Audit</option>
+          </select>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label" for="um_template_search">Cari Template (Nama / ID)</label>
+          <input type="text" id="um_template_search" placeholder="Contoh: research, audit, 04A, landing page" oninput="onUmrohTemplateSearchChange()">
+        </div>
+
+        <div class="field-group">
+          <label class="field-label" for="um_template">Pilihan Template Prompt <span>Properti</span></label>
+          <select id="um_template" onchange="onUmrohTemplateChange()"></select>
+        </div>
+
+        <div class="helper-box">Field di bawah ini mengikuti template terpilih. Kami menambahkan validasi <strong>field wajib</strong> dan tambahan <strong>Seed Keyword / Keyword Utama</strong> untuk template research, supaya output copy-paste ke AI lebih cepat dieksekusi.</div>
+
+        <div class="field-group">
+          <label class="field-label" for="um_field_search">Cari Field Input</label>
+          <input type="text" id="um_field_search" placeholder="Ketik kata kunci field: keyword / audience / CTA / URL" oninput="filterUmrohFields()">
+        </div>
+
+        <div id="um-dynamic-fields"></div>
+
+        <div class="um-form-actions">
+          <button class="btn btn-gold" onclick="generateUmrohMarkdown()">✦ Generate Markdown Prompt</button>
+          <button class="btn btn-light" onclick="resetUmrohForm()">Reset Form</button>
+          <button class="btn btn-light" onclick="resetUmrohHistory()">Reset Filter + Histori</button>
+        </div>
+      </section>
+
+      <section class="um-card">
+        <h3>Preview Markdown</h3>
+        <div class="um-form-actions" style="margin-top:-4px; margin-bottom:12px;">
+          <button class="btn btn-light" onclick="copyUmrohMarkdown()">Copy Hasil Markdown</button>
+        </div>
+        <div class="um-preview"><pre id="um-markdown-preview">Belum ada output. Pilih template dan isi field input, lalu klik "Generate Markdown Prompt".</pre></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-credit">
+    Credit : Dikembangkan oleh PixxelPro Digital, Hubungi via WA
+    <a href="https://wa.me/62895639068080" target="_blank" rel="noopener">0895-6390-68080</a>
+  </footer>
+
+<script src="properti-prompts-data.js"></script>
+<script>
+let currentUmrohFields = [];
+let lastUmrohMarkdown = '';
+const UMROH_CATEGORY_STORAGE_KEY = 'properti_prompt_template_category';
+const UMROH_RESEARCH_IDS = new Set(['P01', 'P02', 'P03', 'P14']);
+
+function cleanText(s) {
+  return (s || '')
+    .replace(/\u00a0/g, ' ')
+    .replace(/[ \t]+\n/g, '\n')
+    .replace(/\n[ \t]+/g, '\n')
+    .replace(/[ \t]{2,}/g, ' ')
+    .trim();
+}
+
+function slug(s) {
+  return (s || '')
+    .toLowerCase()
+    .replace(/[^a-z0-9\s]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/--+/g, '-')
+    .substring(0, 56);
+}
+
+function escapeRegex(s) {
+  return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function decodeBase64Utf8(base64Text) {
+  try {
+    const binary = atob(base64Text || '');
+    const bytes = Uint8Array.from(binary, (ch) => ch.charCodeAt(0));
+    return new TextDecoder('utf-8').decode(bytes);
+  } catch (e) {
+    return '';
+  }
+}
+
+function getTemplateLibrary() {
+  const lib = (typeof window !== 'undefined' && window.PROPERTI_PROMPT_LIBRARY) ? window.PROPERTI_PROMPT_LIBRARY : null;
+  if (!lib) return {};
+  const out = {};
+  Object.keys(lib).forEach((id) => {
+    const row = lib[id] || {};
+    out[id] = {
+      title: row.title || id,
+      category: row.category || 'Writing',
+      raw: decodeBase64Utf8(row.rawBase64 || '')
+    };
+  });
+  return out;
+}
+
+const UMROH_TEMPLATE_META = getTemplateLibrary();
+
+function getSelectedUmrohTemplateId() {
+  const el = document.getElementById('um_template');
+  return el ? el.value : '';
+}
+
+function getSelectedUmrohCategory() {
+  const el = document.getElementById('um_template_category');
+  return el ? el.value : 'all';
+}
+
+function getUmrohTemplateKeyword() {
+  const el = document.getElementById('um_template_search');
+  return el ? cleanText(el.value || '').toLowerCase() : '';
+}
+
+function getFilteredUmrohTemplateIds(category, keyword) {
+  const picked = category || 'all';
+  const kw = cleanText(keyword || '').toLowerCase();
+
+  return Object.keys(UMROH_TEMPLATE_META)
+    .sort((a, b) => a.localeCompare(b, 'id'))
+    .filter((id) => picked === 'all' || UMROH_TEMPLATE_META[id].category === picked)
+    .filter((id) => {
+      if (!kw) return true;
+      const item = UMROH_TEMPLATE_META[id];
+      const hay = `${id} ${item.category} ${item.title}`.toLowerCase();
+      return hay.includes(kw);
+    });
+}
+
+function detectUmrohInputBlock(templateRaw) {
+  const lines = (templateRaw || '').split(/\r?\n/);
+  let start = -1;
+
+  for (let i = 0; i < lines.length; i += 1) {
+    const plain = cleanText(lines[i].replace(/^#+\s*/, ''));
+    const rawLine = cleanText(lines[i] || '');
+    const headingLike = /^\s*#{1,6}\s+/.test(rawLine) || /^\s*BAGIAN\s+\d+\s*[—-]/i.test(rawLine);
+    const exactInputTitle = /^(INPUT|FORMAT INPUT|FORMAT INPUT UNIVERSAL|INPUT DATA|DATA INPUT|BRIEF INPUT)$/i.test(plain);
+    const headingInputTitle = headingLike && /(FORMAT\s+INPUT|INPUT\s+UNIVERSAL|\bINPUT\b|INPUT DATA|DATA INPUT|BRIEF INPUT)/i.test(plain);
+    if (exactInputTitle || headingInputTitle) {
+      start = i + 1;
+      break;
+    }
+  }
+
+  if (start < 0) {
+    return lines.slice(0, Math.min(lines.length, 220)).join('\n');
+  }
+
+  let end = lines.length;
+  for (let i = start; i < lines.length; i += 1) {
+    const ln = cleanText(lines[i]);
+    if (i > start + 1 && /^#{2,4}\s+/.test(ln)) {
+      end = i;
+      break;
+    }
+    if (i > start + 2 && /^={8,}$/.test(ln)) {
+      end = i;
+      break;
+    }
+    if (i > start + 3 && /^(TUGAS UTAMA|OUTPUT WAJIB|OUTPUT|PRINSIP|QUALITY GATE|ATURAN WAJIB|MODE OUTPUT|PERAN)\b/i.test(ln)) {
+      end = i;
+      break;
+    }
+  }
+
+  return lines.slice(start, end).join('\n');
+}
+
+function normalizeLabel(label) {
+  return (label || '')
+    .replace(/^[\-\*\d\.\)\s•]+/, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function isLikelyInputLabel(label) {
+  const raw = cleanText(label || '');
+  if (!raw) return false;
+  const hasInputKeyword = /(brand|dealer|website|niche|sub-niche|keyword|kota|geo|lokasi|target|tujuan|platform|funnel|audience|intent|awareness|cta|url|judul|topik|jenis|data|catatan|periode|model|tipe|segmen|transaksi|konten|kompetitor|halaman|link|promo|harga|spesifikasi|layanan|provinsi|alamat|kontak|jam operasional|review|audit|entity|entitas)/i.test(raw);
+  if (hasInputKeyword) return true;
+  const compact = raw.replace(/[^A-Za-z]/g, '');
+  if (!compact) return false;
+  const upperCount = compact.replace(/[^A-Z]/g, '').length;
+  return upperCount / compact.length >= 0.72;
+}
+
+function guessInputTypeAndOptions(label, placeholder) {
+  const l = (label || '').toLowerCase();
+  const p = cleanText(placeholder || '');
+  const pLower = p.toLowerCase();
+  let inputType = 'text';
+  let options = [];
+
+  const listLike = /daftar|tempel|cerita|ringkasan|referensi|catatan|konten|teks|data|keyword|keywords|cluster|langkah|masalah|fakta|link/i;
+  if (p.length > 42 || listLike.test(`${l} ${pLower}`)) {
+    inputType = 'textarea';
+  }
+
+  const rawOptionText = p.replace(/^\[|\]$/g, '');
+  const split = rawOptionText.split('/').map((s) => cleanText(s)).filter(Boolean);
+  const maybeOptions = split.length >= 2 && split.length <= 8 && split.every((s) => s.length <= 34);
+  if (maybeOptions) {
+    inputType = 'select';
+    options = split.map((s) => ({ value: s, label: s }));
+  }
+
+  if (/periode/i.test(l) && /30|60|90/.test(p)) {
+    inputType = 'select';
+    options = ['30 hari', '60 hari', '90 hari'].map((s) => ({ value: s, label: s }));
+  }
+
+  if (/jumlah faq/i.test(l)) {
+    inputType = 'select';
+    options = ['15', '20', '25', '30'].map((s) => ({ value: s, label: s }));
+  }
+
+  if (/panjang/i.test(l) && /kata|1\.000|1.000|1\.500|1.500|2\.000|2.000|2\.500|2.500|3\.000|3.000/i.test(p)) {
+    inputType = 'select';
+    options = ['1.000 kata', '1.500 kata', '2.000 kata', '2.500 kata', '3.000 kata'].map((s) => ({ value: s, label: s }));
+  }
+
+  if (inputType !== 'select' && /sub[\s-]?niche/.test(l)) {
+    inputType = 'select';
+    options = ['Jual/Beli', 'Sewa', 'Konstruksi', 'Arsitek', 'Perumahan', 'Semua'].map((s) => ({ value: s, label: s }));
+  }
+
+  if (inputType !== 'select' && /funnel/.test(l)) {
+    inputType = 'select';
+    options = ['Top', 'Middle', 'Bottom', 'Full Funnel'].map((s) => ({ value: s, label: s }));
+  }
+
+  if (inputType !== 'select' && /platform/.test(l)) {
+    inputType = 'select';
+    options = ['Website', 'YouTube', 'Instagram', 'Semua'].map((s) => ({ value: s, label: s }));
+  }
+
+  if (inputType !== 'select' && /awareness\s*stage/.test(l)) {
+    inputType = 'select';
+    options = ['Unaware', 'Problem-Aware', 'Solution-Aware', 'Product-Aware', 'Most-Aware'].map((s) => ({ value: s, label: s }));
+  }
+
+  if (inputType !== 'select' && /search\s*intent|intent/.test(l)) {
+    inputType = 'select';
+    options = ['Informasional', 'Komersial', 'Transaksional', 'Navigasional', 'Lokal'].map((s) => ({ value: s, label: s }));
+  }
+
+  if (inputType !== 'select' && /segmen\s*harga/.test(l)) {
+    inputType = 'select';
+    options = ['Subsidi', 'Menengah', 'Premium', 'Luxury'].map((s) => ({ value: s, label: s }));
+  }
+
+  if (inputType !== 'select' && /jenis\s*properti/.test(l)) {
+    inputType = 'select';
+    options = ['Rumah', 'Kavling', 'Ruko', 'Apartemen', 'Kos', 'Perumahan Cluster', 'Vila', 'Komersial'].map((s) => ({ value: s, label: s }));
+  }
+
+  return { inputType, options };
+}
+
+const MANUAL_OTHER_VALUE = '__other_manual__';
+
+function isOtherOptionValue(value) {
+  const v = cleanText(value || '').toLowerCase();
+  return v === MANUAL_OTHER_VALUE || /kota\s*lain|lokasi\s*lain|opsi\s*lain|lainnya|other/.test(v);
+}
+
+function isNumericStyleOptions(options) {
+  if (!Array.isArray(options) || !options.length) return false;
+  return options.every((opt) => {
+    const v = cleanText((opt && (opt.value || opt.label)) || '').toLowerCase();
+    return /^[\d\.\s]+$/.test(v) || /hari|kata/.test(v);
+  });
+}
+
+function shouldUseManualSelectInput(label, guessed) {
+  if (!guessed || guessed.inputType !== 'select' || !Array.isArray(guessed.options) || !guessed.options.length) return false;
+  if (isNumericStyleOptions(guessed.options)) return false;
+  const l = cleanText(label || '').toLowerCase();
+  if (/sub[\s-]?niche|lokasi|geo|kota|wilayah|platform|funnel|awareness|intent|jenis|tujuan|segmen/.test(l)) return true;
+  return true;
+}
+
+function getManualInputLabel(label) {
+  const l = cleanText(label || '').toLowerCase();
+  if (/sub[\s-]?niche/.test(l)) return 'Tulis Sub-Niche Lainnya';
+  if (/lokasi|geo|kota|wilayah/.test(l)) return 'Tulis Kota/Lokasi Lainnya';
+  return 'Tulis opsi lainnya';
+}
+
+function getManualInputPlaceholder(label) {
+  const l = cleanText(label || '').toLowerCase();
+  if (/sub[\s-]?niche/.test(l)) return 'Contoh: properti komersial';
+  if (/lokasi|geo|kota|wilayah/.test(l)) return 'Contoh: Bandung';
+  return `Contoh: ${cleanText(label || 'nilai lain')}`;
+}
+
+function getFieldHintText(field) {
+  const hints = [];
+  if (field.placeholder) hints.push(`Panduan isi: ${field.placeholder}`);
+  if (field.inputType === 'select' && Array.isArray(field.options) && field.options.length) {
+    const preview = field.options.slice(0, 6).map((o) => cleanText(o.label || o.value || '')).filter(Boolean).join(', ');
+    const suffix = field.options.length > 6 ? ', dst.' : '';
+    hints.push(`Pilihan: ${preview}${suffix}`);
+  }
+  if (field.enableManualSelectInput) {
+    hints.push('Jika opsi belum sesuai, pilih "Lainnya (tulis manual)" lalu isi nilai custom.');
+  }
+  if (!hints.length && field.inputType === 'textarea') {
+    hints.push('Isi dengan poin-poin atau baris terpisah agar mudah diproses AI.');
+  }
+  if (!hints.length) {
+    hints.push('Isi sesuai data aktual bisnis Anda untuk hasil yang lebih targeted.');
+  }
+  return hints.join(' ');
+}
+
+function parseUmrohInputFields(templateRaw) {
+  const source = detectUmrohInputBlock(templateRaw);
+  const lines = source.split(/\r?\n/);
+  const fields = [];
+  const seen = new Set();
+  const lineRx = /^\s*[-*•\d\.\)\s]*([^:\n]{2,140})\s*:\s*(?:\[([^\]\n]*)\])?\s*$/;
+  const bracketOnlyRx = /^\s*\[([^\]\n]+)\]\s*$/;
+
+  for (let i = 0; i < lines.length; i += 1) {
+    const line = lines[i];
+    const m = line.match(lineRx);
+    if (!m) continue;
+
+    const sourceLabel = normalizeLabel(m[1]);
+    if (!sourceLabel) continue;
+    if (!isLikelyInputLabel(sourceLabel)) continue;
+    const displayLabel = cleanText(sourceLabel.replace(/\*/g, ''));
+    if (!displayLabel) continue;
+
+    let placeholder = cleanText(m[2] || '');
+    if (!placeholder && i + 1 < lines.length) {
+      const next = lines[i + 1].match(bracketOnlyRx);
+      if (next) {
+        placeholder = cleanText(next[1]);
+        i += 1;
+      }
+    }
+
+    const key = slug(displayLabel).replace(/-/g, '_');
+    if (!key || seen.has(key)) continue;
+    seen.add(key);
+
+    const guessed = guessInputTypeAndOptions(displayLabel, placeholder);
+    fields.push({
+      key,
+      label: displayLabel,
+      sourceLabel,
+      placeholder,
+      required: /\*/.test(sourceLabel) || /wajib/i.test(`${sourceLabel} ${placeholder}`),
+      inputType: guessed.inputType,
+      options: guessed.options,
+      enableManualSelectInput: shouldUseManualSelectInput(displayLabel, guessed),
+      manualInputLabel: getManualInputLabel(displayLabel),
+      manualInputPlaceholder: getManualInputPlaceholder(displayLabel),
+      virtual: false
+    });
+  }
+
+  return fields;
+}
+
+function ensureResearchSeedField(templateId, fields) {
+  if (!UMROH_RESEARCH_IDS.has(templateId)) return fields;
+  const hasSeedField = fields.some((f) => /(seed\s*keyword|keyword\s*utama|primary\s*keyword)/i.test(f.label));
+  if (hasSeedField) return fields;
+
+  return [{
+    key: 'seed_keyword_keyword_utama',
+    label: 'Seed Keyword / Keyword Utama',
+    sourceLabel: 'SEED KEYWORD / KEYWORD UTAMA*',
+    placeholder: 'Contoh: rumah dijual malang',
+    required: true,
+    inputType: 'text',
+    options: [],
+    virtual: true
+  }, ...fields];
+}
+
+function getPrefill() {
+  const raw = sessionStorage.getItem('seo_generator_prefill');
+  if (!raw) return {};
+  try {
+    return JSON.parse(raw) || {};
+  } catch (e) {
+    return {};
+  }
+}
+
+function normalizePrefillList(value) {
+  if (!value) return '';
+  if (Array.isArray(value)) return value.filter(Boolean).join('; ');
+  return String(value).trim();
+}
+
+function suggestValueByLabel(label, prefill) {
+  const l = (label || '').toLowerCase();
+  if (/(brand|website|bisnis)/.test(l)) return prefill.brand || '';
+  if (/(industri|niche|nishe|jenis bisnis)/.test(l)) return prefill.industry || '';
+  if (/(seed|keyword utama|kata kunci utama|primary keyword)/.test(l)) return normalizePrefillList(prefill.seedKeywords);
+  if (/(produk|layanan)/.test(l)) return normalizePrefillList(prefill.products);
+  if (/(audience|market|persona)/.test(l)) return prefill.audience || prefill.targetMarket || '';
+  if (/(lokasi|kota|geo|wilayah)/.test(l)) return prefill.targetMarket || '';
+  if (/platform/.test(l)) return normalizePrefillList(prefill.platforms);
+  if (/kompetitor/.test(l)) return normalizePrefillList(prefill.competitors);
+  if (/cta/.test(l)) return prefill.conversion || '';
+  return '';
+}
+
+function renderUmrohDynamicFields(fields) {
+  const wrap = document.getElementById('um-dynamic-fields');
+  wrap.innerHTML = '';
+
+  if (!fields.length) {
+    const p = document.createElement('p');
+    p.className = 'muted';
+    p.textContent = 'Input field tidak terdeteksi untuk template ini.';
+    wrap.appendChild(p);
+    return;
+  }
+
+  const prefill = getPrefill();
+
+  fields.forEach((f) => {
+    const group = document.createElement('div');
+    group.className = 'field-group';
+    group.dataset.fieldText = `${f.label} ${f.placeholder || ''}`.toLowerCase();
+
+    const label = document.createElement('label');
+    label.className = 'field-label';
+    label.setAttribute('for', `um_${f.key}`);
+    label.textContent = f.label;
+    if (f.required) {
+      const req = document.createElement('span');
+      req.textContent = 'Wajib';
+      label.appendChild(req);
+    }
+    if (f.placeholder) {
+      const badge = document.createElement('span');
+      badge.textContent = 'Template';
+      label.appendChild(badge);
+    }
+
+    const isSelect = f.inputType === 'select' && Array.isArray(f.options) && f.options.length > 0;
+    const useTextarea = f.inputType === 'textarea';
+    const input = document.createElement(isSelect ? 'select' : (useTextarea ? 'textarea' : 'input'));
+    if (!isSelect && !useTextarea) input.type = 'text';
+    input.id = `um_${f.key}`;
+    input.autocomplete = 'off';
+    input.autocorrect = 'off';
+    input.autocapitalize = 'off';
+    input.spellcheck = false;
+    if (!isSelect) input.placeholder = f.placeholder ? `Contoh: ${f.placeholder}` : 'Isi data sesuai kebutuhan prompt';
+
+    let existingOtherOptionValue = '';
+    if (isSelect) {
+      const empty = document.createElement('option');
+      empty.value = '';
+      empty.textContent = f.placeholder || 'Pilih salah satu';
+      input.appendChild(empty);
+      f.options.forEach((opt) => {
+        const o = document.createElement('option');
+        o.value = opt.value;
+        o.textContent = opt.label;
+        if (!existingOtherOptionValue && isOtherOptionValue(o.value || o.textContent)) {
+          existingOtherOptionValue = o.value;
+        }
+        input.appendChild(o);
+      });
+      if (f.enableManualSelectInput && !existingOtherOptionValue) {
+        const o = document.createElement('option');
+        o.value = MANUAL_OTHER_VALUE;
+        o.textContent = 'Lainnya (tulis manual)';
+        input.appendChild(o);
+      }
+    }
+
+    const suggested = suggestValueByLabel(f.label, prefill);
+    const suggestedExistsAsOption = isSelect && Array.from(input.options).some((o) => cleanText(o.value) === cleanText(suggested));
+    if (suggested && (!isSelect || suggestedExistsAsOption)) input.value = suggested;
+
+    group.appendChild(label);
+    group.appendChild(input);
+    const hintText = getFieldHintText(f);
+    if (hintText) {
+      const hint = document.createElement('div');
+      hint.className = 'field-note';
+      hint.textContent = hintText;
+      group.appendChild(hint);
+    }
+
+    if (f.enableManualSelectInput && isSelect) {
+      const customWrap = document.createElement('div');
+      customWrap.style.marginTop = '8px';
+      customWrap.style.display = 'none';
+
+      const customLabel = document.createElement('label');
+      customLabel.className = 'field-label';
+      customLabel.style.marginBottom = '6px';
+      customLabel.setAttribute('for', `um_${f.key}_manual_value`);
+      customLabel.textContent = f.manualInputLabel || 'Tulis opsi lainnya';
+      if (f.required) {
+        const req = document.createElement('span');
+        req.textContent = 'Wajib saat pilih Lainnya';
+        customLabel.appendChild(req);
+      }
+
+      const customInput = document.createElement('input');
+      customInput.type = 'text';
+      customInput.id = `um_${f.key}_manual_value`;
+      customInput.placeholder = f.manualInputPlaceholder || 'Contoh: nilai lainnya';
+      customInput.autocomplete = 'off';
+      customInput.autocorrect = 'off';
+      customInput.autocapitalize = 'off';
+      customInput.spellcheck = false;
+
+      if (suggested && isSelect && !suggestedExistsAsOption) {
+        input.value = existingOtherOptionValue || MANUAL_OTHER_VALUE;
+        customInput.value = suggested;
+      }
+
+      const syncCustomVisibility = () => {
+        const show = isOtherOptionValue(input.value || '');
+        customWrap.style.display = show ? 'block' : 'none';
+        if (!show) customInput.value = '';
+      };
+
+      input.addEventListener('change', syncCustomVisibility);
+      input.addEventListener('input', syncCustomVisibility);
+      syncCustomVisibility();
+
+      customWrap.appendChild(customLabel);
+      customWrap.appendChild(customInput);
+      group.appendChild(customWrap);
+      group.dataset.fieldText += ' lainnya input manual';
+    }
+
+    wrap.appendChild(group);
+  });
+}
+
+function filterUmrohFields() {
+  const keyword = cleanText((document.getElementById('um_field_search') || {}).value || '').toLowerCase();
+  const rows = document.querySelectorAll('#um-dynamic-fields .field-group');
+  rows.forEach((row) => {
+    const hay = row.dataset.fieldText || '';
+    row.style.display = !keyword || hay.includes(keyword) ? 'block' : 'none';
+  });
+}
+
+function populateUmrohTemplateSelect(preferredTemplateId) {
+  const select = document.getElementById('um_template');
+  const previous = preferredTemplateId || select.value;
+  const ids = getFilteredUmrohTemplateIds(getSelectedUmrohCategory(), getUmrohTemplateKeyword());
+  select.innerHTML = '';
+
+  if (!ids.length) {
+    const empty = document.createElement('option');
+    empty.value = '';
+    empty.textContent = 'Tidak ada template yang cocok';
+    select.appendChild(empty);
+    select.value = '';
+    return;
+  }
+
+  ids.forEach((id) => {
+    const row = UMROH_TEMPLATE_META[id];
+    const opt = document.createElement('option');
+    opt.value = id;
+    opt.textContent = `[${row.category}] ${id} — ${row.title}`;
+    select.appendChild(opt);
+  });
+
+  select.value = ids.includes(previous) ? previous : ids[0];
+}
+
+function onUmrohCategoryChange() {
+  localStorage.setItem(UMROH_CATEGORY_STORAGE_KEY, getSelectedUmrohCategory());
+  const prev = getSelectedUmrohTemplateId();
+  populateUmrohTemplateSelect(prev);
+  onUmrohTemplateChange();
+}
+
+function onUmrohTemplateSearchChange() {
+  const prev = getSelectedUmrohTemplateId();
+  populateUmrohTemplateSelect(prev);
+  onUmrohTemplateChange();
+}
+
+function onUmrohTemplateChange() {
+  const id = getSelectedUmrohTemplateId();
+  if (!id || !UMROH_TEMPLATE_META[id]) {
+    currentUmrohFields = [];
+    renderUmrohDynamicFields([]);
+    lastUmrohMarkdown = '';
+    document.getElementById('um-markdown-preview').textContent = 'Template tidak ditemukan. Ubah filter kategori atau kata kunci pencarian template.';
+    return;
+  }
+
+  const raw = UMROH_TEMPLATE_META[id].raw || '';
+  const parsed = parseUmrohInputFields(raw);
+  currentUmrohFields = ensureResearchSeedField(id, parsed);
+  renderUmrohDynamicFields(currentUmrohFields);
+
+  const fieldSearch = document.getElementById('um_field_search');
+  if (fieldSearch) fieldSearch.value = '';
+  filterUmrohFields();
+
+  lastUmrohMarkdown = '';
+  document.getElementById('um-markdown-preview').textContent = 'Template dipilih. Isi field input lalu klik "Generate Markdown Prompt".';
+}
+
+function replacePromptFieldGeneric(template, label, value) {
+  const escaped = escapeRegex(label);
+  const patterns = [
+    new RegExp(`(\\*\\*${escaped}\\*\\*\\s*:\\s*)\\[[^\\n]*\\]`, 'g'),
+    new RegExp(`(^\\s*[\\-\\*•\\d\\.\\)\\s]*\\*\\*${escaped}\\*\\*\\s*:\\s*)([^\\n]*)`, 'gm'),
+    new RegExp(`(^\\s*[\\-\\*•\\d\\.\\)\\s]*${escaped}\\s*:\\s*)\\[[^\\n]*\\]`, 'gm'),
+    new RegExp(`(^\\s*[\\-\\*•\\d\\.\\)\\s]*${escaped}\\s*:\\s*)([^\\n]*)`, 'gm')
+  ];
+
+  let out = template;
+  patterns.forEach((rx) => {
+    out = out.replace(rx, (_, prefix) => `${prefix}${value}`);
+  });
+  return out;
+}
+
+function getCurrentUmrohFieldValues() {
+  const values = {};
+  currentUmrohFields.forEach((f) => {
+    const el = document.getElementById(`um_${f.key}`);
+    if (!el) {
+      values[f.key] = '';
+      return;
+    }
+
+    const baseValue = cleanText(el.value || '');
+    if (f.enableManualSelectInput && isOtherOptionValue(baseValue)) {
+      const manual = document.getElementById(`um_${f.key}_manual_value`);
+      values[f.key] = manual ? cleanText(manual.value || '') : '';
+      return;
+    }
+
+    values[f.key] = baseValue;
+  });
+  return values;
+}
+
+function getMissingRequiredUmrohFields() {
+  const missing = [];
+  const values = getCurrentUmrohFieldValues();
+  currentUmrohFields.forEach((f) => {
+    if (!f.required) return;
+    const val = cleanText(values[f.key] || '');
+    if (!val) {
+      if (f.enableManualSelectInput) {
+        const base = document.getElementById(`um_${f.key}`);
+        const selectedOther = base ? isOtherOptionValue(cleanText(base.value || '')) : false;
+        if (selectedOther) {
+          missing.push(`${f.label} (${f.manualInputLabel || 'Tulis opsi lainnya'})`);
+          return;
+        }
+      }
+      missing.push(f.label);
+    }
+  });
+  return missing;
+}
+
+function findSeedKeyword(values) {
+  const preferred = currentUmrohFields.find((f) => /(seed\s*keyword|keyword\s*utama|primary\s*keyword)/i.test(f.label) && cleanText(values[f.key]));
+  if (preferred) return cleanText(values[preferred.key]);
+
+  const anyKeyword = currentUmrohFields.find((f) => /keyword/i.test(f.label) && cleanText(values[f.key]));
+  if (anyKeyword) return cleanText(values[anyKeyword.key]);
+
+  return '';
+}
+
+function formatSeedKeywordBlock(value) {
+  const cleaned = cleanText(value || '');
+  if (!cleaned) return '[ISI]';
+  const lines = cleaned.split(/\r?\n/).map((s) => cleanText(s.replace(/^[\-\*\d\.\)\s•]+/, ''))).filter(Boolean);
+  if (!lines.length) return '[ISI]';
+  if (lines.length === 1) return lines[0];
+  return lines.map((line) => `- ${line}`).join('\n');
+}
+
+function appendSeedKeywordSummary(markdown, seedValue) {
+  return `${markdown}\n\n==================================================\nRINGKASAN INPUT CEPAT\n==================================================\nSeed Keyword / Keyword Utama:\n${formatSeedKeywordBlock(seedValue)}`;
+}
+
+function buildUmrohMarkdown() {
+  const id = getSelectedUmrohTemplateId();
+  const tpl = UMROH_TEMPLATE_META[id];
+  if (!tpl) return '';
+
+  const values = getCurrentUmrohFieldValues();
+  let out = tpl.raw || '';
+
+  currentUmrohFields.forEach((f) => {
+    if (f.virtual) return;
+    const val = values[f.key];
+    if (!val) return;
+    out = replacePromptFieldGeneric(out, f.sourceLabel || f.label, val);
+    if (f.sourceLabel && f.sourceLabel !== f.label) {
+      out = replacePromptFieldGeneric(out, f.label, val);
+    }
+  });
+
+  const seed = findSeedKeyword(values);
+  return appendSeedKeywordSummary(out, seed);
+}
+
+function generateUmrohMarkdown() {
+  const id = getSelectedUmrohTemplateId();
+  if (!id || !UMROH_TEMPLATE_META[id]) {
+    alert('Template belum tersedia. Ubah kategori atau kata kunci pencarian template.');
+    return;
+  }
+
+  const missing = getMissingRequiredUmrohFields();
+  if (missing.length) {
+    const top = missing.slice(0, 10).map((s) => `- ${s}`).join('\n');
+    const more = missing.length > 10 ? `\n...dan ${missing.length - 10} field wajib lainnya.` : '';
+    alert(`Lengkapi field wajib berikut sebelum generate:\n${top}${more}`);
+    return;
+  }
+
+  lastUmrohMarkdown = buildUmrohMarkdown();
+  document.getElementById('um-markdown-preview').textContent = lastUmrohMarkdown || 'Template kosong.';
+}
+
+function copyUmrohMarkdown() {
+  if (!lastUmrohMarkdown) generateUmrohMarkdown();
+  if (!lastUmrohMarkdown) return;
+
+  navigator.clipboard.writeText(lastUmrohMarkdown).then(() => {
+    alert('Markdown Prompt Properti berhasil disalin.');
+  }).catch(() => {
+    alert('Gagal menyalin otomatis. Silakan copy manual dari preview.');
+  });
+}
+
+function downloadUmrohMarkdown() {
+  if (!lastUmrohMarkdown) generateUmrohMarkdown();
+  if (!lastUmrohMarkdown) return;
+
+  const id = getSelectedUmrohTemplateId();
+  const row = UMROH_TEMPLATE_META[id];
+  const filename = `prompt-properti-${id.toLowerCase()}-${slug(row.title || id)}-${new Date().toISOString().slice(0, 10)}.md`;
+  const blob = new Blob([lastUmrohMarkdown], { type: 'text/markdown;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
+}
+
+function resetUmrohForm() {
+  currentUmrohFields.forEach((f) => {
+    const el = document.getElementById(`um_${f.key}`);
+    if (!el) return;
+    if (el.tagName === 'SELECT') el.selectedIndex = 0;
+    else el.value = '';
+    if (f.enableManualSelectInput) {
+      const manual = document.getElementById(`um_${f.key}_manual_value`);
+      if (manual) manual.value = '';
+    }
+  });
+  lastUmrohMarkdown = '';
+  document.getElementById('um-markdown-preview').textContent = 'Form direset. Isi ulang lalu klik "Generate Markdown Prompt".';
+}
+
+function resetUmrohHistory() {
+  const ok = confirm('Reset filter template Properti, pencarian field, dan histori prefill dari session ini?');
+  if (!ok) return;
+  sessionStorage.removeItem('seo_generator_prefill');
+  localStorage.removeItem(UMROH_CATEGORY_STORAGE_KEY);
+  document.getElementById('um_template_category').value = 'all';
+  document.getElementById('um_template_search').value = '';
+  document.getElementById('um_field_search').value = '';
+  populateUmrohTemplateSelect('P01');
+  onUmrohTemplateChange();
+  lastUmrohMarkdown = '';
+  document.getElementById('um-markdown-preview').textContent = 'Histori dibersihkan. Isi ulang data terbaru lalu generate markdown.';
+}
+
+function keepFocusedFieldVisible(containerSelector, maxWidth) {
+  const container = document.querySelector(containerSelector);
+  if (!container) return;
+
+  container.addEventListener('focusin', (event) => {
+    const field = event.target;
+    if (!field || !/^(INPUT|TEXTAREA|SELECT)$/.test(field.tagName)) return;
+    if (!window.matchMedia(`(max-width: ${maxWidth}px)`).matches) return;
+
+    const ensureVisible = () => {
+      const viewportHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+      const rect = field.getBoundingClientRect();
+      const topLimit = 88;
+      const bottomLimit = Math.max(120, viewportHeight - 180);
+      let delta = 0;
+
+      if (rect.top < topLimit) delta = rect.top - topLimit - 12;
+      else if (rect.bottom > bottomLimit) delta = rect.bottom - bottomLimit + 12;
+
+      if (delta) window.scrollBy({ top: delta, behavior: 'auto' });
+    };
+
+    window.setTimeout(ensureVisible, 80);
+    window.setTimeout(ensureVisible, 260);
+  });
+}
+
+function initUmrohPage() {
+  if (!Object.keys(UMROH_TEMPLATE_META).length) {
+    document.getElementById('um-markdown-preview').textContent = 'Data prompt Properti tidak ditemukan. Pastikan file "properti-prompts-data.js" tersedia.';
+    return;
+  }
+
+  const categoryEl = document.getElementById('um_template_category');
+  const savedCategory = localStorage.getItem(UMROH_CATEGORY_STORAGE_KEY);
+  if (savedCategory && ['all', 'Research', 'Writing', 'Audit'].includes(savedCategory)) {
+    categoryEl.value = savedCategory;
+  }
+
+  populateUmrohTemplateSelect('P01');
+  onUmrohTemplateChange();
+  keepFocusedFieldVisible('.um-card', 900);
+}
+
+initUmrohPage();
+</script>
+</body>
+</html>

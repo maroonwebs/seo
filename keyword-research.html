@@ -79,6 +79,25 @@ body { background: var(--paper); color: var(--ink); font-family: var(--font-body
   font-size: 13.5px;
 }
 
+.helper-box {
+  background: #f7f4ec;
+  border: 1px dashed rgba(14,13,11,0.25);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+  margin-bottom: 14px;
+  font-size: 12.5px;
+  color: var(--ink3);
+}
+.field-note {
+  margin-top: 6px;
+  font-size: 12px;
+  color: var(--ink3);
+  background: #faf7ef;
+  border: 1px dashed rgba(14,13,11,0.16);
+  border-radius: 8px;
+  padding: 7px 9px;
+}
+
 .kw-grid {
   display: grid;
   grid-template-columns: minmax(320px, 1fr) minmax(320px, 1fr);
@@ -197,7 +216,7 @@ input:focus, textarea:focus, select:focus { outline: none; border-color: var(--g
   </header>
 
   <main class="kw-main">
-    <div class="callout"><strong>Mode Builder:</strong> Pilih template Prompt Turunan 1 atau 2, isi form, lalu generate markdown siap pakai.</div>
+    <div class="callout"><strong>Mode Builder:</strong> halaman ini menyimpan prompt research lama dan tambahan Volume 2. Pilih template, isi field yang relevan, lalu generate markdown tanpa menghapus prompt sebelumnya.</div>
 
     <div class="kw-grid">
       <section class="kw-card">
@@ -208,8 +227,12 @@ input:focus, textarea:focus, select:focus { outline: none; border-color: var(--g
           <select id="kw_template" onchange="toggleKeywordTemplateFields()">
             <option value="kr1">Prompt Turunan 1 — Research & Keyword Strategy</option>
             <option value="kr2">Prompt Turunan 2 — Keyword Mapping & Topical Authority</option>
+            <option value="kr3">Volume 2 — Master Prompt Keyword Research 2.0</option>
+            <option value="kr4">Volume 2 — Topical Authority & Content Plan 2.0</option>
           </select>
         </div>
+
+        <div class="helper-box" id="kw-template-summary">Template lama dan template Volume 2 tersedia bersamaan. Field khusus akan muncul otomatis sesuai template yang dipilih.</div>
 
         <div class="field-group">
           <label class="field-label" for="kw_brand">Nama Brand / Website <span>Wajib</span></label>
@@ -227,40 +250,59 @@ input:focus, textarea:focus, select:focus { outline: none; border-color: var(--g
           </div>
         </div>
 
-        <div class="field-group">
-          <label class="field-label" for="kw_target_market">Target Market <span>Wajib</span></label>
-          <input type="text" id="kw_target_market" placeholder="Contoh: Surabaya, Jawa Timur, Indonesia (B2B)">
+        <div class="two-col">
+          <div class="field-group">
+            <label class="field-label" for="kw_target_market">Target Market / Segment</label>
+            <input type="text" id="kw_target_market" placeholder="Contoh: Surabaya, Jawa Timur, Indonesia (B2B)">
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="kw_geo_target">Lokasi / GEO Target</label>
+            <input type="text" id="kw_geo_target" placeholder="Contoh: Surabaya, Jawa Timur, Indonesia">
+          </div>
         </div>
 
         <div class="field-group">
-          <label class="field-label" for="kw_products">Produk / Layanan Utama <span>Wajib</span></label>
+          <label class="field-label" for="kw_products">Produk / Layanan / Area Topik Utama <span>Wajib</span></label>
           <textarea id="kw_products" placeholder="- Souvenir kantor&#10;- Merchandise event&#10;- Hampers custom"></textarea>
         </div>
 
         <div class="field-group">
-          <label class="field-label" for="kw_audience">Target Audience</label>
+          <label class="field-label" for="kw_primary_keywords">Seed Keyword / Keyword Utama <span>Untuk Semua Template</span></label>
+          <textarea id="kw_primary_keywords" placeholder="Pisahkan per baris. Contoh:&#10;jasa seo b2b&#10;seo surabaya&#10;content plan seo"></textarea>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label" for="kw_audience">Target Audience <span>Wajib untuk Volume 2</span></label>
           <textarea id="kw_audience" placeholder="Jelaskan persona, masalah utama, dan cara mereka mencari informasi"></textarea>
         </div>
 
         <div class="two-col">
           <div class="field-group">
+            <label class="field-label" for="kw_business_goal">Tujuan Bisnis</label>
+            <input type="text" id="kw_business_goal" placeholder="Contoh: leads, sales, authority, local discovery">
+          </div>
+          <div class="field-group">
             <label class="field-label" for="kw_conversion">Tujuan / Target Konversi</label>
             <input type="text" id="kw_conversion" placeholder="Contoh: WhatsApp Leads, Form Inquiry">
           </div>
+        </div>
+
+        <div class="two-col">
           <div class="field-group">
             <label class="field-label" for="kw_platforms">Platform Distribusi Konten</label>
             <input type="text" id="kw_platforms" placeholder="Contoh: Website, YouTube, LinkedIn">
           </div>
+          <div class="field-group">
+            <label class="field-label" for="kw_competitors">Kompetitor / Referensi</label>
+            <textarea id="kw_competitors" placeholder="Pisahkan per baris bila lebih dari satu"></textarea>
+          </div>
         </div>
 
-        <div class="field-group">
-          <label class="field-label" for="kw_money_pages">Money Pages Prioritas</label>
-          <textarea id="kw_money_pages"></textarea>
-        </div>
-
-        <div class="field-group">
-          <label class="field-label" for="kw_competitors">Kompetitor Referensi</label>
-          <textarea id="kw_competitors"></textarea>
+        <div id="kw-legacy-common-fields">
+          <div class="field-group">
+            <label class="field-label" for="kw_money_pages">Money Pages Prioritas</label>
+            <textarea id="kw_money_pages" placeholder="Contoh: /jasa-seo-surabaya&#10;/harga-seo"></textarea>
+          </div>
         </div>
 
         <div id="kw-kr1-fields">
@@ -283,6 +325,130 @@ input:focus, textarea:focus, select:focus { outline: none; border-color: var(--g
             <div class="field-group">
               <label class="field-label" for="kw_tone">Tone of Voice Brand</label>
               <input type="text" id="kw_tone" placeholder="Contoh: profesional, praktis, edukatif">
+            </div>
+          </div>
+        </div>
+
+        <div id="kw-v2-common-fields" style="display:none;">
+          <div class="two-col">
+            <div class="field-group">
+              <label class="field-label" for="kw_main_entity">Entitas Utama <span>Wajib Volume 2</span></label>
+              <input type="text" id="kw_main_entity" placeholder="Contoh: jasa souvenir custom">
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="kw_output_mode">Mode Output</label>
+              <select id="kw_output_mode">
+                <option value="MODE PENUH">MODE PENUH</option>
+                <option value="MODE STRATEGIS">MODE STRATEGIS</option>
+                <option value="MODE RINGKAS">MODE RINGKAS</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="kw_secondary_entities">Entitas Sekunder</label>
+            <textarea id="kw_secondary_entities" placeholder="Pisahkan per baris bila lebih dari satu"></textarea>
+          </div>
+
+          <div class="two-col">
+            <div class="field-group">
+              <label class="field-label" for="kw_audience_problem">Problem Utama Audiens</label>
+              <textarea id="kw_audience_problem" placeholder="Masalah utama yang ingin diselesaikan audiens"></textarea>
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="kw_audience_outcome">Hasil yang Dicari Audiens</label>
+              <textarea id="kw_audience_outcome" placeholder="Outcome yang ingin dicapai audiens"></textarea>
+            </div>
+          </div>
+
+          <div class="two-col">
+            <div class="field-group">
+              <label class="field-label" for="kw_funnel_target">Funnel yang Ditarget</label>
+              <select id="kw_funnel_target">
+                <option value="">Pilih funnel</option>
+                <option value="top of funnel">top of funnel</option>
+                <option value="middle / middle of funnel">middle / middle of funnel</option>
+                <option value="bottom / bottom of funnel">bottom / bottom of funnel</option>
+                <option value="mixed / full funnel">mixed / full funnel</option>
+                <option value="retention / repeat">retention / repeat</option>
+                <option value="community building">community building</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="kw_content_formats">Format Konten / Distribusi yang Digunakan</label>
+              <input type="text" id="kw_content_formats" placeholder="Contoh: artikel, landing page, FAQ, YouTube, carousel">
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="kw_existing_assets">Konten / Asset yang Sudah Ada</label>
+            <textarea id="kw_existing_assets" placeholder="Contoh: 10 artikel blog, 2 video YouTube, FAQ lama"></textarea>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="kw_existing_urls">URL / Judul Konten yang Sudah Ada</label>
+            <textarea id="kw_existing_urls" placeholder="Pisahkan per baris"></textarea>
+          </div>
+        </div>
+
+        <div id="kw-kr3-fields" style="display:none;">
+          <div class="two-col">
+            <div class="field-group">
+              <label class="field-label" for="kw_keyword_research_goal">Tujuan Keyword Research <span>Wajib Volume 2</span></label>
+              <input type="text" id="kw_keyword_research_goal" placeholder="Contoh: topical authority, landing page, full content ecosystem">
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="kw_target_intent">Tipe Search Intent yang Ditarget</label>
+              <input type="text" id="kw_target_intent" placeholder="Contoh: informasional, komersial, lokal, campuran">
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="kw_seed_topic">Topik Awal / Seed Topic <span>Wajib Volume 2</span></label>
+            <textarea id="kw_seed_topic" placeholder="Satu atau beberapa seed topic utama"></textarea>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="kw_initial_keywords">Keyword Awal (jika ada)</label>
+            <textarea id="kw_initial_keywords" placeholder="Pisahkan per baris"></textarea>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="kw_overlap_risk">Risiko Overlap yang Dicurigai</label>
+            <textarea id="kw_overlap_risk" placeholder="Tuliskan keyword/topik yang rawan bentrok"></textarea>
+          </div>
+        </div>
+
+        <div id="kw-kr4-fields" style="display:none;">
+          <div class="two-col">
+            <div class="field-group">
+              <label class="field-label" for="kw_content_plan_goal">Tujuan Content Plan <span>Wajib Volume 2</span></label>
+              <input type="text" id="kw_content_plan_goal" placeholder="Contoh: topical authority, lead generation, local SEO">
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="kw_plan_period">Periode Rencana</label>
+              <input type="text" id="kw_plan_period" placeholder="Contoh: 30 hari, 60 hari, 90 hari">
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="kw_core_topics">Topik Inti / Seed Topics <span>Wajib Volume 2</span></label>
+            <textarea id="kw_core_topics" placeholder="Pisahkan per baris"></textarea>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="kw_existing_primary_keywords">Keyword Utama yang Sudah Ada</label>
+            <textarea id="kw_existing_primary_keywords" placeholder="Pisahkan per baris"></textarea>
+          </div>
+
+          <div class="two-col">
+            <div class="field-group">
+              <label class="field-label" for="kw_desired_content_count">Jumlah Konten yang Diinginkan</label>
+              <input type="text" id="kw_desired_content_count" placeholder="Contoh: 12 konten">
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="kw_special_priority">Prioritas Khusus</label>
+              <input type="text" id="kw_special_priority" placeholder="Contoh: authority, local, AI visibility">
             </div>
           </div>
         </div>
@@ -1106,6 +1272,927 @@ Buat aturan untuk mencegah keyword cannibalization:
 
 Mulai sekarang:
 **Audit Input → Keyword Mapping → Topical Authority Map → Editorial Roadmap → Article Brief**</textarea>
+  <textarea id="kw_template_kr3_raw" style="display:none;"># MASTER PROMPT KEYWORD RESEARCH 2.0
+## SEO · AEO · GEO · Entity Mapping · Topical Authority · Anti-Cannibalization
+### Untuk Website, Artikel, Local Business, Publisher, Social Support, dan YouTube Support
+
+==================================================
+PERAN
+==================================================
+
+Kamu adalah Senior Keyword Research Strategist, Search Intent Analyst,
+Entity SEO Planner, dan Topical Authority Architect.
+
+Tugasmu adalah melakukan riset keyword modern berbasis:
+- Search intent
+- Entity clarity
+- Query fan-out
+- Topical relevance
+- Funnel stage
+- GEO / AI citation readiness
+- Anti-keyword cannibalization
+- Distribution lintas platform
+
+Kamu tidak boleh hanya mengeluarkan daftar keyword.
+Kamu harus menghasilkan keyword research yang bisa langsung dipakai
+untuk:
+- content planning,
+- cluster building,
+- artikel SEO,
+- local SEO,
+- YouTube planning,
+- social content support,
+- dan optimasi AI visibility.
+
+==================================================
+TUJUAN UTAMA
+==================================================
+
+Tujuan prompt ini adalah menemukan:
+1. Keyword yang benar-benar relevan dengan intent audiens
+2. Struktur topik yang tidak tumpang tindih
+3. Query yang layak dibuat menjadi konten
+4. Relasi antar keyword, intent, entity, dan format
+5. Peluang membangun topical authority
+6. Peluang muncul di search tradisional dan AI-generated answers
+7. Risiko cannibalization sebelum konten dibuat
+
+==================================================
+PRINSIP UTAMA 2026
+==================================================
+
+- Keyword bukan sekadar volume; keyword harus dibaca sebagai intent
+- Topic-first, keyword-second
+- Setiap keyword harus dipetakan ke entity
+- Setiap topik harus diuji risiko overlap/cannibalization
+- Keyword utama harus didukung long-tail dan question-based query
+- Konten harus bisa menjawab query utama dan sub-query turunannya
+- Keyword mapping harus mempertimbangkan format:
+  artikel, landing page, local page, YouTube, carousel, short-form, FAQ
+- Keyword research harus mendukung SEO, AEO, dan GEO sekaligus
+- Satu topik jangan dipecah menjadi banyak konten yang menarget intent sama
+- Prioritaskan keyword yang memberi peluang authority, bukan hanya traffic
+
+==================================================
+KAPAN PROMPT INI DIGUNAKAN
+==================================================
+
+Gunakan prompt ini ketika ingin:
+- menentukan keyword utama website atau blog
+- merencanakan cluster topik
+- memetakan keyword untuk artikel
+- menyusun topical authority
+- mengecek risiko keyword overlap
+- memutuskan apakah topik perlu artikel baru atau cukup update artikel lama
+- membuat strategi keyword untuk local business
+- menyesuaikan keyword website dengan YouTube dan social search
+
+==================================================
+FORMAT INPUT
+==================================================
+
+Field bertanda * wajib diisi.
+
+BISNIS / BRAND / WEBSITE*:
+INDUSTRI / NICHE*:
+PRODUK / JASA / TOPIK UTAMA*:
+TARGET AUDIENCE*:
+LOKASI / GEO TARGET (jika relevan):
+TUJUAN BISNIS*:
+[traffic / leads / sales / authority / local discovery / awareness]
+
+TUJUAN KEYWORD RESEARCH*:
+[artikel blog / landing page / local page / topical authority /
+YouTube support / social content / full content ecosystem]
+
+TOPIK AWAL / SEED TOPIC*:
+KEYWORD AWAL (jika ada):
+ENTITAS UTAMA*:
+ENTITAS SEKUNDER:
+PROBLEM UTAMA AUDIENS:
+HASIL YANG DICARI AUDIENS:
+FUNNEL STAGE TARGET:
+[top of funnel / middle / bottom / mixed]
+
+TIPE SEARCH INTENT YANG DITARGET:
+[informasional / komersial / transaksional / navigasional / lokal / campuran]
+
+FORMAT KONTEN YANG MUNGKIN DIGUNAKAN:
+[artikel / landing page / FAQ / YouTube / Shorts / carousel / reels / story / local listing]
+
+KONTEN YANG SUDAH ADA (jika ada):
+URL / JUDUL KONTEN YANG SUDAH ADA:
+RISIKO OVERLAP YANG DICURIGAI:
+KOMPETITOR (jika ada):
+CATATAN TAMBAHAN:
+
+==================================================
+TUGAS UTAMA
+==================================================
+
+Lakukan riset keyword yang lengkap dan strategis berdasarkan input.
+
+Analisis harus mencakup:
+
+1. Search intent analysis
+2. Audience need analysis
+3. Entity mapping
+4. Primary and secondary keyword mapping
+5. Long-tail expansion
+6. Question-based keyword generation
+7. Query fan-out generation
+8. Format suitability
+9. Funnel stage suitability
+10. Cannibalization risk check
+11. Topic clustering recommendation
+12. Internal linking potential
+13. Distribution potential ke YouTube dan social
+14. Prioritization matrix
+
+==================================================
+OUTPUT WAJIB — URUTAN TETAP
+==================================================
+
+## BAGIAN A — AUDIENCE & INTENT ANALYSIS
+
+Analisis:
+- siapa audiens yang mencari topik ini
+- apa masalah utama mereka
+- apa hasil yang mereka inginkan
+- apa tingkat awareness mereka
+- apa intent paling mungkin di balik query ini
+- apakah mereka butuh jawaban cepat, panduan lengkap, comparison,
+  rekomendasi, local result, atau solusi transaksional
+
+Format output:
+- Audience utama:
+- Masalah utama:
+- Desired outcome:
+- Awareness stage:
+- Search intent primer:
+- Search intent sekunder:
+- Format jawaban yang paling dibutuhkan:
+- Tingkat urgensi:
+- Potensi konversi:
+
+## BAGIAN B — ENTITY MAP
+
+Buat peta entitas yang terlibat dalam topik ini.
+
+Format:
+- Entitas utama:
+- Entitas sekunder:
+- Lokasi / geo entity:
+- Kategori topik:
+- Relasi antar entitas:
+- Istilah/variasi nama yang boleh digunakan:
+- Istilah yang harus dihindari:
+- Entity clarity notes:
+
+Aturan:
+- Entitas harus spesifik
+- Jika topik lokal, lokasi harus menjadi bagian dari entity map
+- Jika topik produk/jasa, hubungkan dengan use case dan target user
+- Jika topik informasional, hubungkan dengan kategori/topik induk
+
+## BAGIAN C — KEYWORD CORE MAP
+
+Hasilkan:
+1. Primary keyword terbaik
+2. 5–10 secondary keywords
+3. 10–20 long-tail keywords
+4. 10 question-based keywords
+5. 10 problem-based keywords
+6. 10 result-based keywords
+7. 5 geo/local keywords jika relevan
+8. 5 branded / entity-support keywords jika relevan
+
+Aturan:
+- Keyword harus dikelompokkan dengan jelas
+- Pisahkan keyword berdasarkan intent, bukan hanya daftar campur
+- Hindari keyword yang terlalu mirip tanpa diferensiasi fungsi
+- Tunjukkan keyword mana yang layak jadi halaman utama vs pendukung
+
+## BAGIAN D — QUERY FAN-OUT MAP
+
+Buat peta query turunan yang mungkin dihasilkan user maupun AI.
+
+Format:
+- Pertanyaan utama:
+- Sub-query 1:
+- Sub-query 2:
+- Sub-query 3:
+- Sub-query 4:
+- Sub-query 5:
+- Sub-query 6:
+- Sub-query 7:
+
+Tambahkan:
+- Query mana yang wajib dijawab dalam halaman utama
+- Query mana yang lebih cocok jadi section FAQ
+- Query mana yang lebih cocok jadi artikel terpisah
+- Query mana yang lebih cocok dijawab lewat YouTube atau social content
+
+## BAGIAN E — INTENT SPLIT & FORMAT FIT
+
+Petakan keyword berdasarkan format terbaik.
+
+Gunakan tabel ini:
+
+| Keyword / Query | Intent | Funnel | Format Terbaik | Alasan |
+|---|---|---|---|---|
+
+Format yang dapat dipilih:
+- Artikel blog
+- Landing page
+- FAQ page
+- Local page
+- Category page
+- YouTube video
+- Shorts/Reels
+- Carousel social
+- Story
+- Google Business Profile / local support
+
+Tujuan:
+- memastikan keyword tidak dipaksa ke format yang salah
+- membantu distribusi lintas platform
+- memetakan konten utama vs konten pendukung
+
+## BAGIAN F — TOPICAL AUTHORITY & CLUSTER MAP
+
+Susun struktur topik menjadi:
+1. Pillar topic
+2. Cluster topics
+3. Support topics
+4. FAQ / snippet / short-form content
+
+Format:
+- Pillar topic:
+- Alasan layak jadi pillar:
+- Cluster 1:
+- Cluster 2:
+- Cluster 3:
+- Support content ideas:
+- FAQ content ideas:
+- Topik yang bisa diubah menjadi YouTube:
+- Topik yang bisa diubah menjadi Instagram/social:
+- Internal linking direction:
+
+Aturan:
+- Jangan membuat cluster yang intent-nya terlalu tumpang tindih
+- Setiap cluster harus punya fungsi yang berbeda
+- Pillar harus lebih luas dan komprehensif
+- Support content harus memperkuat, bukan menyaingi pillar
+
+## BAGIAN G — CANNIBALIZATION CHECK
+
+Audit risiko keyword cannibalization.
+
+Format:
+- Apakah ada risiko overlap? [ya/tidak]
+- Jika ya, overlap dengan topik/konten apa?
+- Apakah keyword ini sebaiknya:
+  [buat baru / update konten lama / merge / reposition / noindex]
+- Risiko terbesar:
+- Solusi terbaik:
+- Catatan anti-cannibalization:
+
+Aturan:
+- Jika intent sama, jangan sarankan banyak halaman baru
+- Jika topik lama masih relevan, pertimbangkan update/merge
+- Jika sudut berbeda, jelaskan perbedaan intent-nya dengan tegas
+- Jika keyword terlalu dekat, pilih halaman utama dan pendukung
+
+## BAGIAN H — PRIORITY MATRIX
+
+Susun prioritas keyword menjadi:
+- Prioritas tinggi
+- Prioritas menengah
+- Prioritas rendah
+
+Gunakan penilaian berdasarkan:
+- intent match
+- business relevance
+- authority building potential
+- content differentiation potential
+- AI citation potential
+- local relevance
+- conversion potential
+
+Format:
+| Keyword / Topic | Prioritas | Alasan | Tindakan |
+|---|---|---|---|
+
+Tindakan dapat berupa:
+- Buat halaman utama
+- Jadikan cluster article
+- Jadikan FAQ
+- Jadikan local page
+- Jadikan video
+- Jadikan social support
+- Update halaman lama
+- Jangan dibuat sekarang
+
+## BAGIAN I — DISTRIBUTION MAP
+
+Petakan bagaimana keyword/topik ini bisa didistribusikan lintas platform.
+
+Format:
+- Versi website:
+- Versi artikel:
+- Versi local SEO:
+- Versi YouTube:
+- Versi Shorts/Reels:
+- Versi carousel:
+- Versi story:
+- Versi FAQ / snippet:
+- CTA utama tiap platform:
+
+Tujuan:
+- menjadikan keyword research tidak berhenti di artikel saja
+- membangun sistem distribusi satu topik ke banyak format
+- memperkuat sinyal entity dan authority lintas kanal
+
+## BAGIAN J — FINAL RECOMMENDATION
+
+Berikan rekomendasi final yang ringkas dan tegas.
+
+Format:
+- Primary keyword final:
+- Search intent final:
+- Halaman/format utama yang disarankan:
+- Cluster yang paling penting dibuat dulu:
+- Risiko overlap yang harus diwaspadai:
+- Distribution channel paling efektif:
+- Langkah berikutnya yang disarankan:
+
+==================================================
+ATURAN ANALISIS WAJIB
+==================================================
+
+- Jangan hanya fokus pada volume
+- Jangan menganggap keyword mirip berarti harus dibuat halaman terpisah
+- Selalu cek intent sebelum memutuskan struktur konten
+- Selalu kaitkan keyword dengan entity dan audience
+- Selalu jelaskan apakah topik lebih cocok untuk halaman utama atau support content
+- Selalu pertimbangkan query turunan
+- Selalu pikirkan topical authority, bukan hanya satu artikel
+- Selalu pertimbangkan apakah keyword cocok untuk AI-answer extraction
+- Selalu pertimbangkan apakah keyword bisa didukung video dan social
+- Jika ada risiko cannibalization, jelaskan solusi paling rasional
+
+==================================================
+LARANGAN
+==================================================
+
+Jangan:
+- hanya memberi daftar keyword mentah tanpa struktur
+- mencampur keyword beda intent tanpa penjelasan
+- menyarankan banyak artikel untuk intent yang sama
+- mengabaikan entity dan geo context
+- memisahkan topik yang seharusnya jadi satu halaman komprehensif
+- membuat cluster yang saling memakan keyword utama
+- terlalu fokus pada traffic tetapi melupakan relevansi bisnis
+- mengeluarkan rekomendasi generik tanpa tindakan praktis
+
+==================================================
+QUALITY GATE FINAL
+==================================================
+
+Sebelum hasil dianggap selesai, periksa 12 pertanyaan ini:
+
+1. Apakah audience dan intent sudah jelas?
+2. Apakah entitas utama sudah tegas?
+3. Apakah primary keyword benar-benar paling relevan?
+4. Apakah secondary dan long-tail mendukung, bukan menduplikasi?
+5. Apakah query fan-out sudah cukup luas?
+6. Apakah format terbaik untuk tiap keyword sudah dipetakan?
+7. Apakah cluster topik sudah logis?
+8. Apakah support content benar-benar mendukung pillar?
+9. Apakah risiko cannibalization sudah diperiksa?
+10. Apakah keyword yang dipilih relevan dengan tujuan bisnis?
+11. Apakah ada peluang distribusi ke YouTube/social?
+12. Apakah rekomendasi final cukup jelas untuk langsung dieksekusi?
+
+==================================================
+VERSI OUTPUT YANG BISA DIMINTA
+==================================================
+
+Prompt ini bisa digunakan dengan salah satu mode berikut:
+
+1. MODE RINGKAS
+   - hanya keyword map + cluster + priority matrix
+
+2. MODE STRATEGIS
+   - keyword map + entity map + cluster + anti-cannibalization + distribution
+
+3. MODE PENUH
+   - seluruh output A sampai J
+
+Jika user tidak menentukan mode, gunakan MODE PENUH.</textarea>
+  <textarea id="kw_template_kr4_raw" style="display:none;"># MASTER PROMPT TOPICAL AUTHORITY & CONTENT PLAN 2.0
+## SEO · AEO · GEO · Entity Map · Cluster Architecture · Distribution System
+### Untuk Website, Publisher, Local Business, Brand, Jasa, SaaS, E-commerce, dan Multi-Platform Content
+
+==================================================
+PERAN
+==================================================
+
+Kamu adalah Senior Topical Authority Strategist, Content Architect,
+SEO Planner, Entity Mapping Specialist, dan Multi-Platform Content System Builder.
+
+Tugasmu adalah menyusun struktur topical authority dan content plan
+yang:
+- membantu website/brand membangun otoritas topik,
+- memperkuat struktur SEO,
+- memudahkan AI memahami relasi antar konten,
+- mengurangi keyword cannibalization,
+- dan menciptakan sistem distribusi lintas platform.
+
+Kamu tidak boleh hanya membuat daftar ide artikel.
+Kamu harus membangun:
+- peta topik,
+- peta entitas,
+- struktur pillar-cluster-support,
+- urutan prioritas produksi,
+- dan distribusi turunan ke format lain.
+
+==================================================
+TUJUAN UTAMA
+==================================================
+
+Tujuan prompt ini adalah:
+1. Menentukan topik inti yang paling strategis
+2. Menyusun struktur topical authority yang logis
+3. Membangun cluster konten yang saling menguatkan
+4. Mencegah overlap dan cannibalization
+5. Menyesuaikan topik dengan intent, funnel, dan format
+6. Membuat content plan yang bisa dieksekusi bertahap
+7. Menghubungkan konten website dengan YouTube dan social
+8. Memastikan setiap konten berkontribusi pada authority, bukan hanya traffic
+
+==================================================
+PRINSIP UTAMA 2026
+==================================================
+
+- Topical authority dibangun dari sistem, bukan artikel satuan
+- Satu topik besar harus punya pillar, cluster, support, dan format turunan
+- Topic-first, keyword-second
+- Setiap topik harus dipetakan ke entity
+- Setiap cluster harus punya fungsi intent yang jelas
+- Support content harus memperkuat pillar, bukan menyainginya
+- Internal linking harus direncanakan sejak awal
+- Distribusi multi-platform harus menjadi bagian dari planning
+- AEO dan GEO harus dipikirkan sejak tahap content planning
+- Setiap ide konten harus diuji risiko overlap dan business relevance
+
+==================================================
+KAPAN PROMPT INI DIGUNAKAN
+==================================================
+
+Gunakan prompt ini ketika ingin:
+- membangun topical authority website
+- membuat content plan 1–3 bulan
+- merancang struktur pillar-cluster
+- mengembangkan blog baru
+- memperkuat niche website tertentu
+- menghubungkan keyword research ke rencana konten
+- membuat roadmap artikel + video + social content
+- mengevaluasi apakah konten yang akan dibuat saling mendukung atau justru overlap
+
+==================================================
+FORMAT INPUT
+==================================================
+
+Field bertanda * wajib diisi.
+
+BRAND / WEBSITE / BISNIS*:
+INDUSTRI / NICHE*:
+PRODUK / JASA / AREA KEAHLIAN*:
+TARGET AUDIENCE*:
+LOKASI / GEO TARGET (jika relevan):
+TUJUAN BISNIS*:
+[traffic / leads / sales / authority / local visibility / branding]
+
+TUJUAN CONTENT PLAN*:
+[topical authority / traffic growth / lead generation / local SEO /
+publisher growth / full ecosystem]
+
+TOPIK INTI / SEED TOPICS*:
+KEYWORD UTAMA YANG SUDAH ADA (jika ada):
+ENTITAS UTAMA*:
+ENTITAS SEKUNDER:
+MASALAH UTAMA AUDIENS:
+HASIL YANG DICARI AUDIENS:
+FUNNEL YANG DITARGET:
+[top / middle / bottom / full funnel]
+
+FORMAT YANG INGIN DIGUNAKAN:
+[artikel / landing page / local page / FAQ / YouTube / Shorts / carousel / reels / story / email / social post]
+
+ASSET KONTEN YANG SUDAH ADA:
+URL / JUDUL KONTEN YANG SUDAH ADA:
+KOMPETITOR / REFERENSI:
+JUMLAH KONTEN YANG DIINGINKAN:
+PERIODE RENCANA:
+[30 hari / 60 hari / 90 hari / custom]
+
+PRIORITAS KHUSUS:
+[authority / leads / local / product support / discoverability / AI visibility]
+
+CATATAN TAMBAHAN:
+
+==================================================
+TUGAS UTAMA
+==================================================
+
+Buat topical authority plan dan content plan yang lengkap berdasarkan input.
+
+Analisis harus mencakup:
+1. Audience and intent analysis
+2. Entity and topical map
+3. Topic prioritization
+4. Pillar-cluster-support structure
+5. Search intent split
+6. Funnel mapping
+7. Format mapping
+8. Anti-cannibalization review
+9. Internal linking architecture
+10. Multi-platform distribution map
+11. Content sequencing / production roadmap
+12. Priority and impact matrix
+
+==================================================
+OUTPUT WAJIB — URUTAN TETAP
+==================================================
+
+## BAGIAN A — AUDIENCE, INTENT, DAN POSITIONING
+
+Analisis:
+- siapa audiens utama
+- apa masalah utama mereka
+- apa yang mereka cari
+- apa tingkat awareness mereka
+- apa intent dominan dalam niche ini
+- apa posisi brand/website dalam topik ini
+- apa peluang authority yang paling realistis
+
+Format output:
+- Audience utama:
+- Masalah utama:
+- Desired outcomes:
+- Awareness stage:
+- Intent dominan:
+- Intent sekunder:
+- Positioning brand dalam topik ini:
+- Opportunity terbesar:
+- Risiko terbesar:
+
+## BAGIAN B — ENTITY MAP & TOPICAL SCOPE
+
+Buat peta entitas dan ruang lingkup topik.
+
+Format:
+- Entitas utama:
+- Entitas sekunder:
+- Lokasi / geo entity:
+- Kategori utama:
+- Sub-kategori:
+- Relasi antar entitas:
+- Topik yang masuk cakupan:
+- Topik yang sebaiknya tidak masuk cakupan:
+- Catatan konsistensi entitas:
+
+Aturan:
+- Peta entitas harus membantu menjaga konsistensi topik
+- Jangan memasukkan topik di luar positioning brand
+- Jika ada elemen lokal, lokasi harus menjadi bagian dari scope
+
+## BAGIAN C — TOPICAL AUTHORITY MAP
+
+Susun peta otoritas topik.
+
+Format:
+- Topik inti 1:
+- Topik inti 2:
+- Topik inti 3:
+- Alasan tiap topik inti penting:
+- Potensi authority:
+- Potensi konversi:
+- Potensi AI visibility:
+- Potensi local relevance:
+
+Tujuan:
+- menentukan topik inti yang pantas dibangun jangka panjang
+- menghindari situs/brand membahas terlalu banyak topik acak
+- fokus pada area yang benar-benar bisa dimenangkan
+
+## BAGIAN D — PILLAR, CLUSTER, SUPPORT STRUCTURE
+
+Bangun struktur konten bertingkat.
+
+Format:
+### Pillar Topic
+- Nama pillar:
+- Intent utama:
+- Audience target:
+- Entity utama:
+- Alasan harus jadi pillar:
+- Format utama yang direkomendasikan:
+- CTA utama:
+
+### Cluster Topics
+Untuk setiap pillar, buat:
+- Cluster 1:
+- Cluster 2:
+- Cluster 3:
+- Cluster 4:
+- Cluster 5:
+
+Untuk tiap cluster, jelaskan:
+- Intent
+- Audience fit
+- Keyword angle
+- Fungsi terhadap pillar
+- Format terbaik
+- Risiko overlap
+
+### Support Content
+- FAQ content
+- Snippet content
+- Checklist content
+- Comparison content
+- Update/news content
+- Case study/testimonial content
+- Local variant content
+- Short-form turunan
+
+Aturan:
+- Setiap cluster harus punya intent berbeda
+- Support content tidak boleh menyaingi pillar
+- Cluster harus memperluas cakupan, bukan menduplikasi
+
+## BAGIAN E — SILO ARCHITECTURE & INTERNAL LINKING
+
+Susun struktur silo dan arah internal linking.
+
+Format:
+- Silo 1:
+  - Pillar:
+  - Cluster pendukung:
+  - Support content:
+- Silo 2:
+  - Pillar:
+  - Cluster pendukung:
+  - Support content:
+
+Tambahkan:
+- arah internal linking utama
+- halaman yang harus menjadi authority hub
+- anchor text direction
+- halaman yang harus saling terhubung
+- halaman yang tidak perlu saling terhubung langsung
+
+Aturan:
+- Internal link harus memperjelas relasi topik
+- Anchor text harus deskriptif
+- Jangan link acak tanpa alasan topikal
+- Pastikan struktur mendukung crawlability dan context understanding
+
+## BAGIAN F — INTENT SPLIT & FUNNEL MAP
+
+Petakan topik berdasarkan intent dan funnel.
+
+Gunakan tabel ini:
+
+| Topik / Konten | Intent | Funnel | Tujuan | CTA | Format |
+|---|---|---|---|---|---|
+
+Intent dapat berupa:
+- informasional
+- komersial
+- transaksional
+- lokal
+- navigasional
+- mixed
+
+Funnel dapat berupa:
+- top of funnel
+- middle of funnel
+- bottom of funnel
+- retention / repeat
+- community building
+
+Tujuan:
+- memastikan setiap konten punya fungsi dalam journey user
+- mencegah semua konten menumpuk di top funnel saja
+- menjaga keseimbangan antara authority dan conversion
+
+## BAGIAN G — CONTENT PLAN MATRIX
+
+Buat content plan yang bisa dieksekusi.
+
+Gunakan format tabel:
+| Prioritas | Judul/Topik | Jenis Konten | Pilar/Cluster | Intent | Funnel | Format | CTA | Catatan |
+|---|---|---|---|---|---|---|---|---|
+
+Aturan:
+- Susun berdasarkan prioritas nyata, bukan hanya ide menarik
+- Bedakan mana yang harus dibuat dulu
+- Tunjukkan hubungan tiap konten dengan cluster
+- Pastikan tidak ada konten yang tujuan atau intent-nya kabur
+
+## BAGIAN H — ANTI-CANNIBALIZATION REVIEW
+
+Audit potensi overlap sebelum eksekusi.
+
+Format:
+- Area overlap paling berisiko:
+- Topik yang rawan tumpang tindih:
+- Konten yang sebaiknya digabung:
+- Konten yang sebaiknya dipisah:
+- Konten yang cukup jadi section, bukan artikel baru:
+- Catatan anti-cannibalization per cluster:
+- Rule agar tim tidak membuat konten duplikatif:
+
+Aturan:
+- Jika intent sama, jangan pecah jadi banyak artikel
+- Jika topik terlalu dekat, tetapkan satu authority page
+- Jika konten baru tidak memberi information gain, jangan dibuat
+
+## BAGIAN I — AEO & GEO READINESS PLAN
+
+Pastikan struktur konten mendukung visibility modern.
+
+Format:
+- Topik yang cocok untuk answer-first content:
+- Topik yang cocok untuk FAQ extraction:
+- Topik yang cocok untuk AI citation:
+- Topik yang butuh data/bukti lebih kuat:
+- Topik yang perlu freshness signal:
+- Topik yang perlu authority reinforcement:
+- Format yang paling AI-readable:
+- Catatan AEO/GEO per pillar:
+
+Aturan:
+- Pillar dan cluster penting harus dirancang agar bisa menjawab query utama dan sub-query
+- Konten dengan peluang AI visibility tinggi harus memiliki struktur yang lebih ketat
+- Konten pendukung harus memperkuat citation readiness konten utama
+
+## BAGIAN J — MULTI-PLATFORM DISTRIBUTION MAP
+
+Petakan turunan konten ke platform lain.
+
+Format:
+Untuk tiap pillar/cluster penting, buat:
+- Versi artikel:
+- Versi FAQ:
+- Versi YouTube:
+- Versi Shorts/Reels:
+- Versi carousel:
+- Versi story:
+- Versi LinkedIn/Threads/Facebook:
+- CTA utama per platform:
+- Tujuan tiap versi:
+
+Aturan:
+- Jangan copy-paste antar platform
+- Message inti tetap konsisten
+- Format harus menyesuaikan perilaku platform
+- Distribusi harus memperkuat authority topik yang sama
+
+## BAGIAN K — PRODUCTION ROADMAP
+
+Susun roadmap produksi berdasarkan periode input.
+
+Format:
+### Fase 1 — Fondasi
+- konten apa dibuat lebih dulu
+- kenapa
+- output yang diharapkan
+
+### Fase 2 — Ekspansi
+- cluster mana yang diperluas
+- support content apa yang ditambahkan
+- channel distribusi apa yang mulai diaktifkan
+
+### Fase 3 — Penguatan
+- konten mana yang di-refresh
+- cluster mana yang diperkuat
+- konten mana yang dipromosikan lintas platform
+- mana yang perlu audit overlap
+
+Jika user meminta periode 30 / 60 / 90 hari, sesuaikan roadmap dengan periode tersebut.
+
+## BAGIAN L — PRIORITY & IMPACT MATRIX
+
+Tentukan prioritas akhir berdasarkan:
+- relevance to business
+- authority potential
+- intent clarity
+- conversion value
+- AI visibility potential
+- local relevance
+- production feasibility
+
+Gunakan tabel:
+| Topik / Konten | Prioritas | Impact | Effort | Alasan | Tindakan |
+|---|---|---|---|---|---|
+
+Tindakan dapat berupa:
+- Buat sekarang
+- Buat setelah pillar selesai
+- Jadikan support content
+- Ubah jadi FAQ
+- Ubah jadi video
+- Update konten lama
+- Jangan dibuat dulu
+
+## BAGIAN M — FINAL RECOMMENDATION
+
+Berikan rekomendasi akhir yang ringkas dan tegas.
+
+Format:
+- Topik inti yang harus dimenangkan:
+- Pillar pertama yang harus dibuat:
+- Cluster paling penting:
+- Support content paling penting:
+- Risiko overlap terbesar:
+- Channel distribusi paling efektif:
+- Urutan eksekusi terbaik:
+- Langkah berikutnya:
+
+==================================================
+ATURAN ANALISIS WAJIB
+==================================================
+
+- Jangan hanya membuat daftar ide artikel
+- Selalu pikirkan struktur topik secara sistemik
+- Setiap topik harus punya intent yang jelas
+- Setiap cluster harus menguatkan pillar
+- Setiap support content harus punya fungsi spesifik
+- Jangan membangun banyak topik di luar positioning brand
+- Selalu kaitkan topic planning dengan entity dan audience
+- Selalu cek overlap sebelum menyarankan konten baru
+- Selalu pikirkan format dan distribusi sejak tahap planning
+- Selalu pertimbangkan authority, conversion, dan AI visibility bersama
+- Jika situs lokal, masukkan elemen geo dan local intent
+- Jika brand menjual produk/jasa, pastikan content plan mendukung bisnis nyata
+
+==================================================
+LARANGAN
+==================================================
+
+Jangan:
+- hanya membuat daftar artikel acak
+- menyarankan terlalu banyak topik yang tidak saling terhubung
+- mencampur beberapa intent besar ke satu cluster tanpa pembeda
+- membiarkan support content menyaingi pillar
+- mengabaikan internal linking
+- mengabaikan entity consistency
+- membuat konten baru yang sebenarnya hanya duplikasi konten lama
+- terlalu fokus pada traffic namun melupakan authority dan conversion
+- menyarankan distribusi lintas platform tanpa menyesuaikan format
+- membuat content plan yang terlalu besar tetapi tidak realistis dieksekusi
+
+==================================================
+QUALITY GATE FINAL
+==================================================
+
+Sebelum hasil dianggap selesai, periksa 14 pertanyaan ini:
+
+1. Apakah audience dan positioning sudah jelas?
+2. Apakah topik inti sudah sesuai dengan bisnis/brand?
+3. Apakah entity map sudah tegas?
+4. Apakah pillar topic benar-benar layak jadi fondasi?
+5. Apakah cluster topic saling melengkapi?
+6. Apakah support content memperkuat, bukan menyaingi?
+7. Apakah silo structure sudah logis?
+8. Apakah internal linking sudah terarah?
+9. Apakah intent dan funnel sudah seimbang?
+10. Apakah ada risiko cannibalization?
+11. Apakah ada rencana AEO/GEO readiness?
+12. Apakah distribusi multi-platform sudah masuk akal?
+13. Apakah roadmap produksi realistis?
+14. Apakah rekomendasi akhir cukup jelas untuk langsung dijalankan?
+
+==================================================
+MODE OUTPUT
+==================================================
+
+Prompt ini bisa digunakan dalam 3 mode:
+
+1. MODE RINGKAS
+   - topical map + pillar/cluster + priority content plan
+
+2. MODE STRATEGIS
+   - topical map + entity map + silo + anti-cannibalization + roadmap
+
+3. MODE PENUH
+   - seluruh output A sampai M
+
+Jika user tidak menentukan mode, gunakan MODE PENUH.</textarea>
 
 <footer class="site-credit">
   Credit : Dikembangkan oleh PixxelPro Digital, Hubungi via WA
@@ -1114,6 +2201,25 @@ Mulai sekarang:
 
 <script>
 let lastKeywordMarkdown = '';
+
+const keywordTemplateMeta = {
+  kr1: {
+    downloadLabel: 'keyword-research',
+    summary: 'Template lama untuk riset keyword dan clustering awal. Isi target market, seed keywords, dan data bisnis dasar.',
+  },
+  kr2: {
+    downloadLabel: 'keyword-mapping',
+    summary: 'Template lama untuk keyword mapping dan topical authority setelah hasil Turunan 1 siap.',
+  },
+  kr3: {
+    downloadLabel: 'keyword-research-v2',
+    summary: 'Template tambahan Volume 2 untuk riset keyword modern berbasis intent, entity, query fan-out, dan anti-cannibalization.',
+  },
+  kr4: {
+    downloadLabel: 'topical-authority-plan-v2',
+    summary: 'Template tambahan Volume 2 untuk topical authority dan content plan lintas platform.',
+  }
+};
 
 function cleanText(s) {
   return (s || '')
@@ -1141,15 +2247,39 @@ function kwCsv(v) {
   return (v || '').split(',').map(s => cleanText(s)).filter(Boolean);
 }
 
-function kwBullet(arr, fallback) {
-  if (!arr || !arr.length) return `- ${fallback}`;
-  return arr.map(s => `- ${s}`).join('\n');
+function blockList(arr, fallback = '[ISI]') {
+  const items = (arr || []).map((s) => cleanText(s)).filter(Boolean);
+  if (!items.length) return fallback;
+  if (items.length === 1) return items[0];
+  return items.map((s) => `- ${s}`).join('\n');
+}
+
+function blockText(v, fallback = '[ISI]') {
+  const t = cleanText(v || '');
+  return t || fallback;
+}
+
+function setDisplay(id, visible) {
+  const el = document.getElementById(id);
+  if (el) el.style.display = visible ? 'block' : 'none';
+}
+
+function renderKeywordTemplateSummary(template) {
+  const meta = keywordTemplateMeta[template] || keywordTemplateMeta.kr1;
+  const box = document.getElementById('kw-template-summary');
+  if (!box) return;
+  box.innerHTML = `<strong>Template aktif:</strong> ${meta.summary}`;
 }
 
 function toggleKeywordTemplateFields() {
   const t = document.getElementById('kw_template').value;
-  document.getElementById('kw-kr1-fields').style.display = t === 'kr1' ? 'block' : 'none';
-  document.getElementById('kw-kr2-fields').style.display = t === 'kr2' ? 'block' : 'none';
+  setDisplay('kw-legacy-common-fields', t === 'kr1' || t === 'kr2');
+  setDisplay('kw-kr1-fields', t === 'kr1');
+  setDisplay('kw-kr2-fields', t === 'kr2');
+  setDisplay('kw-v2-common-fields', t === 'kr3' || t === 'kr4');
+  setDisplay('kw-kr3-fields', t === 'kr3');
+  setDisplay('kw-kr4-fields', t === 'kr4');
+  renderKeywordTemplateSummary(t);
 }
 
 function fillFromSessionPrefill() {
@@ -1160,19 +2290,30 @@ function fillFromSessionPrefill() {
     const set = (id, val) => {
       const el = document.getElementById(id);
       if (!el) return;
-      if (!el.value.trim()) el.value = val || '';
+      if (!cleanText(el.value || '')) el.value = val || '';
     };
+    const products = Array.isArray(p.products) ? p.products : [];
+    const competitors = Array.isArray(p.competitors) ? p.competitors : (p.competitors ? [p.competitors] : []);
+    const platforms = Array.isArray(p.platforms) ? p.platforms : [];
+    const firstProduct = cleanText(products[0] || '');
     set('kw_brand', p.brand || '');
     set('kw_industry', p.industry || '');
     set('kw_target_market', p.targetMarket || '');
-    set('kw_products', (p.products || []).join('\n'));
+    set('kw_geo_target', p.targetMarket || '');
+    set('kw_products', products.join('\n'));
+    set('kw_primary_keywords', (p.seedKeywords || []).join('\n'));
     set('kw_audience', p.audience || '');
+    set('kw_business_goal', p.businessGoal || '');
     set('kw_conversion', p.conversion || '');
     set('kw_money_pages', (p.moneyPages || []).join('\n'));
-    set('kw_competitors', p.competitors || '');
+    set('kw_competitors', competitors.join('\n'));
     set('kw_seed_keywords', (p.seedKeywords || []).join('\n'));
-    set('kw_platforms', (p.platforms || []).join(', '));
+    set('kw_seed_topic', (p.seedKeywords || []).join('\n'));
+    set('kw_initial_keywords', (p.seedKeywords || []).join('\n'));
+    set('kw_platforms', platforms.join(', '));
+    set('kw_content_formats', platforms.join(', '));
     set('kw_language', p.language || 'Bahasa Indonesia');
+    set('kw_main_entity', firstProduct || p.industry || '');
     document.getElementById('kw-brand-header').textContent = p.brand || 'Brand';
   } catch (e) {}
 }
@@ -1182,18 +2323,41 @@ function getKeywordFormData() {
     template: document.getElementById('kw_template').value,
     brand: cleanText(document.getElementById('kw_brand').value),
     industry: cleanText(document.getElementById('kw_industry').value),
+    language: cleanText(document.getElementById('kw_language').value) || 'Bahasa Indonesia',
     targetMarket: cleanText(document.getElementById('kw_target_market').value),
+    geoTarget: cleanText(document.getElementById('kw_geo_target').value),
     products: kwLines(document.getElementById('kw_products').value),
+    primaryKeywords: kwLines(document.getElementById('kw_primary_keywords').value),
     audience: cleanText(document.getElementById('kw_audience').value),
+    businessGoal: cleanText(document.getElementById('kw_business_goal').value),
     conversion: cleanText(document.getElementById('kw_conversion').value),
-    moneyPages: kwLines(document.getElementById('kw_money_pages').value),
+    platforms: kwCsv(document.getElementById('kw_platforms').value),
     competitors: kwLines(document.getElementById('kw_competitors').value),
+    moneyPages: kwLines(document.getElementById('kw_money_pages').value),
     seedKeywords: kwLines(document.getElementById('kw_seed_keywords').value),
     researchOutput: cleanText(document.getElementById('kw_research_output').value),
     contentCapacity: cleanText(document.getElementById('kw_content_capacity').value),
     tone: cleanText(document.getElementById('kw_tone').value),
-    language: cleanText(document.getElementById('kw_language').value) || 'Bahasa Indonesia',
-    platforms: kwCsv(document.getElementById('kw_platforms').value),
+    mainEntity: cleanText(document.getElementById('kw_main_entity').value),
+    outputMode: cleanText(document.getElementById('kw_output_mode').value) || 'MODE PENUH',
+    secondaryEntities: kwLines(document.getElementById('kw_secondary_entities').value),
+    audienceProblem: cleanText(document.getElementById('kw_audience_problem').value),
+    audienceOutcome: cleanText(document.getElementById('kw_audience_outcome').value),
+    funnelTarget: cleanText(document.getElementById('kw_funnel_target').value),
+    contentFormats: cleanText(document.getElementById('kw_content_formats').value),
+    existingAssets: cleanText(document.getElementById('kw_existing_assets').value),
+    existingUrls: kwLines(document.getElementById('kw_existing_urls').value),
+    keywordResearchGoal: cleanText(document.getElementById('kw_keyword_research_goal').value),
+    targetIntent: cleanText(document.getElementById('kw_target_intent').value),
+    seedTopic: cleanText(document.getElementById('kw_seed_topic').value),
+    initialKeywords: kwLines(document.getElementById('kw_initial_keywords').value),
+    overlapRisk: cleanText(document.getElementById('kw_overlap_risk').value),
+    contentPlanGoal: cleanText(document.getElementById('kw_content_plan_goal').value),
+    planPeriod: cleanText(document.getElementById('kw_plan_period').value),
+    coreTopics: kwLines(document.getElementById('kw_core_topics').value),
+    existingPrimaryKeywords: kwLines(document.getElementById('kw_existing_primary_keywords').value),
+    desiredContentCount: cleanText(document.getElementById('kw_desired_content_count').value),
+    specialPriority: cleanText(document.getElementById('kw_special_priority').value),
     notes: cleanText(document.getElementById('kw_notes').value),
   };
 }
@@ -1216,8 +2380,61 @@ function replacePromptField(template, label, value) {
   return template.replace(rx, (_, prefix) => `${prefix}${value}`);
 }
 
+function replaceColonPromptField(template, label, value, fallback = '[ISI]') {
+  const formatted = Array.isArray(value) ? blockList(value, fallback) : blockText(value, fallback);
+  const rx = new RegExp(`(^${escapeRegex(label)}[ \\t]*:[ \\t]*)(.*)$`, 'm');
+  return template.replace(rx, () => {
+    return formatted.includes('\n') ? `${label}:\n${formatted}` : `${label}: ${formatted}`;
+  });
+}
+
+function composeV2Audience(k) {
+  const chunks = [];
+  if (k.targetMarket) chunks.push(`Segment / target market: ${k.targetMarket}`);
+  if (k.audience) chunks.push(k.audience);
+  return chunks.join('\n');
+}
+
+function composeV2Formats(k) {
+  const chunks = [];
+  if (k.contentFormats) chunks.push(k.contentFormats);
+  if (k.platforms.length) chunks.push(`Platform distribusi prioritas: ${k.platforms.join(', ')}`);
+  return chunks.join('\n');
+}
+
+function composeV2Notes(k) {
+  const chunks = [];
+  if (k.conversion) chunks.push(`Target konversi: ${k.conversion}`);
+  if (k.notes) chunks.push(k.notes);
+  return chunks.join('\n');
+}
+
+function getEffectiveSeedKeywords(k) {
+  return k.seedKeywords.length ? k.seedKeywords : k.primaryKeywords;
+}
+
+function getEffectiveInitialKeywords(k) {
+  return k.initialKeywords.length ? k.initialKeywords : k.primaryKeywords;
+}
+
+function getEffectiveExistingPrimaryKeywords(k) {
+  return k.existingPrimaryKeywords.length ? k.existingPrimaryKeywords : k.primaryKeywords;
+}
+
+function appendRequestedMode(markdown, mode) {
+  const selected = cleanText(mode || '');
+  if (!selected) return markdown;
+  return `${markdown}\n\n==================================================\nPREFERENSI OUTPUT USER\n==================================================\nGunakan ${selected} sebagai mode output default untuk jawaban ini.`;
+}
+
+function appendSeedKeywordSummary(markdown, keywords) {
+  const seedText = blockList(keywords, '[ISI]');
+  return `${markdown}\n\n==================================================\nRINGKASAN INPUT CEPAT\n==================================================\nSeed Keyword / Keyword Utama:\n${seedText}`;
+}
+
 function buildKeywordPrompt1Markdown(k) {
   let t = document.getElementById('kw_template_kr1_raw').value || '';
+  const effectiveSeedKeywords = getEffectiveSeedKeywords(k);
   t = replacePromptField(t, 'Nama Brand / Website', inlineValue(k.brand));
   t = replacePromptField(t, 'Industri / Niche', inlineValue(k.industry));
   t = replacePromptField(t, 'Target Market', inlineValue(k.targetMarket, '[ISI — lokasi, demografi, psikografi]'));
@@ -1226,10 +2443,10 @@ function buildKeywordPrompt1Markdown(k) {
   t = replacePromptField(t, 'Tujuan Konversi', inlineValue(k.conversion));
   t = replacePromptField(t, 'Money Pages', inlineList(k.moneyPages, '[ISI — daftar halaman prioritas konversi]'));
   t = replacePromptField(t, 'Kompetitor Referensi', inlineList(k.competitors, '[ISI]'));
-  t = replacePromptField(t, 'Seed Keywords', inlineList(k.seedKeywords, '[ISI — minimal 5-10 kata kunci awal yang sudah diketahui]'));
+  t = replacePromptField(t, 'Seed Keywords', inlineList(effectiveSeedKeywords, '[ISI — minimal 5-10 kata kunci awal yang sudah diketahui]'));
   t = replacePromptField(t, 'Bahasa Konten', inlineValue(k.language));
   t = replacePromptField(t, 'Platform Distribusi', inlineList(k.platforms, '[website / YouTube / LinkedIn / Reddit / dll]'));
-  return t;
+  return appendSeedKeywordSummary(t, k.primaryKeywords.length ? k.primaryKeywords : effectiveSeedKeywords);
 }
 
 function buildKeywordPrompt2Markdown(k) {
@@ -1243,24 +2460,101 @@ function buildKeywordPrompt2Markdown(k) {
   t = replacePromptField(t, 'Bahasa Konten', inlineValue(k.language));
   t = replacePromptField(t, 'Platform Distribusi Konten', inlineList(k.platforms, '[website / YouTube / LinkedIn / Reddit / dll]'));
   t = replacePromptField(t, 'Tone of Voice Brand', inlineValue(k.tone));
-  return t;
+  return appendSeedKeywordSummary(t, k.primaryKeywords);
+}
+
+function buildKeywordPrompt3Markdown(k) {
+  let t = document.getElementById('kw_template_kr3_raw').value || '';
+  const effectiveInitialKeywords = getEffectiveInitialKeywords(k);
+  t = replaceColonPromptField(t, 'BISNIS / BRAND / WEBSITE*', k.brand);
+  t = replaceColonPromptField(t, 'INDUSTRI / NICHE*', k.industry);
+  t = replaceColonPromptField(t, 'PRODUK / JASA / TOPIK UTAMA*', k.products);
+  t = replaceColonPromptField(t, 'TARGET AUDIENCE*', composeV2Audience(k));
+  t = replaceColonPromptField(t, 'LOKASI / GEO TARGET (jika relevan)', k.geoTarget);
+  t = replaceColonPromptField(t, 'TUJUAN BISNIS*', k.businessGoal);
+  t = replaceColonPromptField(t, 'TUJUAN KEYWORD RESEARCH*', k.keywordResearchGoal);
+  t = replaceColonPromptField(t, 'TOPIK AWAL / SEED TOPIC*', k.seedTopic);
+  t = replaceColonPromptField(t, 'KEYWORD AWAL (jika ada)', effectiveInitialKeywords);
+  t = replaceColonPromptField(t, 'ENTITAS UTAMA*', k.mainEntity);
+  t = replaceColonPromptField(t, 'ENTITAS SEKUNDER', k.secondaryEntities);
+  t = replaceColonPromptField(t, 'PROBLEM UTAMA AUDIENS', k.audienceProblem);
+  t = replaceColonPromptField(t, 'HASIL YANG DICARI AUDIENS', k.audienceOutcome);
+  t = replaceColonPromptField(t, 'FUNNEL STAGE TARGET', k.funnelTarget);
+  t = replaceColonPromptField(t, 'TIPE SEARCH INTENT YANG DITARGET', k.targetIntent);
+  t = replaceColonPromptField(t, 'FORMAT KONTEN YANG MUNGKIN DIGUNAKAN', composeV2Formats(k));
+  t = replaceColonPromptField(t, 'KONTEN YANG SUDAH ADA (jika ada)', k.existingAssets);
+  t = replaceColonPromptField(t, 'URL / JUDUL KONTEN YANG SUDAH ADA', k.existingUrls);
+  t = replaceColonPromptField(t, 'RISIKO OVERLAP YANG DICURIGAI', k.overlapRisk);
+  t = replaceColonPromptField(t, 'KOMPETITOR (jika ada)', k.competitors);
+  t = replaceColonPromptField(t, 'CATATAN TAMBAHAN', composeV2Notes(k));
+  t = appendSeedKeywordSummary(t, k.primaryKeywords.length ? k.primaryKeywords : effectiveInitialKeywords);
+  return appendRequestedMode(t, k.outputMode);
+}
+
+function buildKeywordPrompt4Markdown(k) {
+  let t = document.getElementById('kw_template_kr4_raw').value || '';
+  const effectiveExistingPrimaryKeywords = getEffectiveExistingPrimaryKeywords(k);
+  t = replaceColonPromptField(t, 'BRAND / WEBSITE / BISNIS*', k.brand);
+  t = replaceColonPromptField(t, 'INDUSTRI / NICHE*', k.industry);
+  t = replaceColonPromptField(t, 'PRODUK / JASA / AREA KEAHLIAN*', k.products);
+  t = replaceColonPromptField(t, 'TARGET AUDIENCE*', composeV2Audience(k));
+  t = replaceColonPromptField(t, 'LOKASI / GEO TARGET (jika relevan)', k.geoTarget);
+  t = replaceColonPromptField(t, 'TUJUAN BISNIS*', k.businessGoal);
+  t = replaceColonPromptField(t, 'TUJUAN CONTENT PLAN*', k.contentPlanGoal);
+  t = replaceColonPromptField(t, 'TOPIK INTI / SEED TOPICS*', k.coreTopics);
+  t = replaceColonPromptField(t, 'KEYWORD UTAMA YANG SUDAH ADA (jika ada)', effectiveExistingPrimaryKeywords);
+  t = replaceColonPromptField(t, 'ENTITAS UTAMA*', k.mainEntity);
+  t = replaceColonPromptField(t, 'ENTITAS SEKUNDER', k.secondaryEntities);
+  t = replaceColonPromptField(t, 'MASALAH UTAMA AUDIENS', k.audienceProblem);
+  t = replaceColonPromptField(t, 'HASIL YANG DICARI AUDIENS', k.audienceOutcome);
+  t = replaceColonPromptField(t, 'FUNNEL YANG DITARGET', k.funnelTarget);
+  t = replaceColonPromptField(t, 'FORMAT YANG INGIN DIGUNAKAN', composeV2Formats(k));
+  t = replaceColonPromptField(t, 'ASSET KONTEN YANG SUDAH ADA', k.existingAssets);
+  t = replaceColonPromptField(t, 'URL / JUDUL KONTEN YANG SUDAH ADA', k.existingUrls);
+  t = replaceColonPromptField(t, 'KOMPETITOR / REFERENSI', k.competitors);
+  t = replaceColonPromptField(t, 'JUMLAH KONTEN YANG DIINGINKAN', k.desiredContentCount || k.contentCapacity);
+  t = replaceColonPromptField(t, 'PERIODE RENCANA', k.planPeriod);
+  t = replaceColonPromptField(t, 'PRIORITAS KHUSUS', k.specialPriority);
+  t = replaceColonPromptField(t, 'CATATAN TAMBAHAN', composeV2Notes(k));
+  t = appendSeedKeywordSummary(t, k.primaryKeywords.length ? k.primaryKeywords : effectiveExistingPrimaryKeywords);
+  return appendRequestedMode(t, k.outputMode);
+}
+
+function validateKeywordForm(k) {
+  if (!k.brand || !k.industry || !k.products.length) {
+    return 'Lengkapi minimal: Brand, Industri, dan Produk/Layanan.';
+  }
+  if (k.template === 'kr1') {
+    if (!k.targetMarket) return 'Turunan 1 membutuhkan Target Market.';
+    if (getEffectiveSeedKeywords(k).length < 5) return 'Turunan 1 membutuhkan minimal 5 seed keyword.';
+  }
+  if (k.template === 'kr2' && !k.researchOutput) {
+    return 'Turunan 2 membutuhkan hasil Turunan 1.';
+  }
+  if (k.template === 'kr3' && (!k.audience || !k.businessGoal || !k.keywordResearchGoal || !k.seedTopic || !k.mainEntity)) {
+    return 'Volume 2 Keyword Research membutuhkan: Target Audience, Tujuan Bisnis, Tujuan Keyword Research, Seed Topic, dan Entitas Utama.';
+  }
+  if (k.template === 'kr4' && (!k.audience || !k.businessGoal || !k.contentPlanGoal || !k.coreTopics.length || !k.mainEntity)) {
+    return 'Volume 2 Content Plan membutuhkan: Target Audience, Tujuan Bisnis, Tujuan Content Plan, Topik Inti, dan Entitas Utama.';
+  }
+  return '';
+}
+
+function buildKeywordMarkdownByTemplate(k) {
+  if (k.template === 'kr1') return buildKeywordPrompt1Markdown(k);
+  if (k.template === 'kr2') return buildKeywordPrompt2Markdown(k);
+  if (k.template === 'kr3') return buildKeywordPrompt3Markdown(k);
+  return buildKeywordPrompt4Markdown(k);
 }
 
 function generateKeywordMarkdown() {
   const k = getKeywordFormData();
-  if (!k.brand || !k.industry || !k.targetMarket || !k.products.length) {
-    alert('Lengkapi minimal: Brand, Industri, Target Market, dan Produk/Layanan.');
+  const error = validateKeywordForm(k);
+  if (error) {
+    alert(error);
     return;
   }
-  if (k.template === 'kr1' && k.seedKeywords.length < 5) {
-    alert('Turunan 1 membutuhkan minimal 5 seed keyword.');
-    return;
-  }
-  if (k.template === 'kr2' && !k.researchOutput) {
-    alert('Turunan 2 membutuhkan hasil Turunan 1.');
-    return;
-  }
-  lastKeywordMarkdown = k.template === 'kr1' ? buildKeywordPrompt1Markdown(k) : buildKeywordPrompt2Markdown(k);
+  lastKeywordMarkdown = buildKeywordMarkdownByTemplate(k);
   document.getElementById('kw-markdown-preview').textContent = lastKeywordMarkdown;
   document.getElementById('kw-brand-header').textContent = k.brand || 'Brand';
 }
@@ -1279,7 +2573,7 @@ function downloadKeywordMarkdown() {
   if (!lastKeywordMarkdown) generateKeywordMarkdown();
   if (!lastKeywordMarkdown) return;
   const k = getKeywordFormData();
-  const label = k.template === 'kr1' ? 'keyword-research' : 'keyword-mapping';
+  const label = (keywordTemplateMeta[k.template] || keywordTemplateMeta.kr1).downloadLabel;
   const fname = `${label}-${slug(k.brand || 'brand')}-${new Date().toISOString().slice(0,10)}.md`;
   const blob = new Blob([lastKeywordMarkdown], { type: 'text/markdown;charset=utf-8' });
   const url = URL.createObjectURL(blob);
@@ -1293,16 +2587,32 @@ function downloadKeywordMarkdown() {
 }
 
 function resetKeywordForm() {
-  ['kw_brand','kw_industry','kw_target_market','kw_products','kw_audience','kw_conversion','kw_money_pages','kw_competitors','kw_seed_keywords','kw_research_output','kw_content_capacity','kw_tone','kw_platforms','kw_notes'].forEach(id => {
+  [
+    'kw_brand','kw_industry','kw_target_market','kw_geo_target','kw_products','kw_primary_keywords','kw_audience',
+    'kw_business_goal','kw_conversion','kw_platforms','kw_competitors','kw_money_pages',
+    'kw_seed_keywords','kw_research_output','kw_content_capacity','kw_tone','kw_main_entity',
+    'kw_secondary_entities','kw_audience_problem','kw_audience_outcome','kw_funnel_target',
+    'kw_content_formats','kw_existing_assets','kw_existing_urls','kw_keyword_research_goal',
+    'kw_target_intent','kw_seed_topic','kw_initial_keywords','kw_overlap_risk',
+    'kw_content_plan_goal','kw_plan_period','kw_core_topics','kw_existing_primary_keywords',
+    'kw_desired_content_count','kw_special_priority','kw_notes'
+  ].forEach(id => {
     const el = document.getElementById(id);
-    if (el) el.value = '';
+    if (!el) return;
+    if (el.tagName === 'SELECT') {
+      el.selectedIndex = 0;
+    } else {
+      el.value = '';
+    }
   });
   document.getElementById('kw_language').value = 'Bahasa Indonesia';
+  document.getElementById('kw_output_mode').value = 'MODE PENUH';
   document.getElementById('kw_template').value = 'kr1';
   toggleKeywordTemplateFields();
   fillFromSessionPrefill();
   lastKeywordMarkdown = '';
   document.getElementById('kw-markdown-preview').textContent = 'Belum ada output. Isi form lalu klik "Generate Markdown Keyword".';
+  document.getElementById('kw-brand-header').textContent = cleanText(document.getElementById('kw_brand').value) || 'Brand';
 }
 
 function clearSharedGeneratorHistoryStorage() {
@@ -1358,15 +2668,60 @@ function keepFocusedFieldVisible(containerSelector, maxWidth = 760) {
   });
 }
 
-document.querySelectorAll('input[type="text"], textarea').forEach(el => {
+function attachKeywordFieldNotes() {
+  document.querySelectorAll('.kw-card .field-group').forEach((group) => {
+    if (group.querySelector('.field-note')) return;
+    const label = group.querySelector('label.field-label');
+    const control = group.querySelector('input, textarea, select');
+    if (!label || !control) return;
+
+    const hints = [];
+    const placeholder = cleanText(control.getAttribute('placeholder') || '');
+    if (placeholder) hints.push(`Panduan isi: ${placeholder}`);
+
+    if (control.tagName === 'SELECT') {
+      const options = Array.from(control.options || [])
+        .map((opt) => cleanText(opt.textContent || opt.value || ''))
+        .filter((text, idx) => !!text && !(idx === 0 && /pilih/i.test(text)));
+      if (options.length) {
+        const preview = options.slice(0, 6).join(', ');
+        const suffix = options.length > 6 ? ', dst.' : '';
+        hints.push(`Pilihan: ${preview}${suffix}`);
+      }
+    }
+
+    if (!hints.length && control.tagName === 'TEXTAREA') {
+      hints.push('Isi dengan poin-poin atau baris terpisah agar hasil prompt lebih presisi.');
+    }
+    if (!hints.length) {
+      hints.push('Isi sesuai kebutuhan aktual bisnis agar output markdown lebih targeted.');
+    }
+
+    const note = document.createElement('div');
+    note.className = 'field-note';
+    note.textContent = hints.join(' ');
+    group.appendChild(note);
+  });
+}
+
+document.querySelectorAll('input[type="text"], textarea, select').forEach(el => {
   el.setAttribute('autocomplete', 'off');
   el.setAttribute('autocorrect', 'off');
   el.setAttribute('autocapitalize', 'off');
   el.setAttribute('spellcheck', 'false');
 });
 
+const brandInput = document.getElementById('kw_brand');
+if (brandInput) {
+  brandInput.addEventListener('input', () => {
+    document.getElementById('kw-brand-header').textContent = cleanText(brandInput.value) || 'Brand';
+  });
+}
+
 toggleKeywordTemplateFields();
 fillFromSessionPrefill();
+renderKeywordTemplateSummary(document.getElementById('kw_template').value);
+attachKeywordFieldNotes();
 keepFocusedFieldVisible('.kw-card', 760);
 </script>
 </body>

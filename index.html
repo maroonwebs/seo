@@ -1216,10 +1216,85 @@ tr:hover td { background: var(--paper2); }
   border-bottom-color: rgba(26,58,107,0.65);
 }
 
+.niche-links-section {
+  margin: 10px auto 12px;
+  max-width: 1320px;
+  padding: 0 40px;
+}
+
+.niche-links-shell {
+  border: 1px solid var(--border2);
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: var(--shadow);
+  padding: 12px;
+}
+
+.niche-links-title {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink3);
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.niche-links-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 8px;
+}
+
+.footer-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 40px;
+  padding: 9px 12px;
+  border-radius: 10px;
+  text-decoration: none;
+  border-bottom: none !important;
+  border: 1px solid rgba(28,107,67,0.36);
+  background: rgba(232,245,236,0.95);
+  color: #1c6b43;
+  font-size: 12.5px;
+  font-weight: 500;
+  line-height: 1.25;
+  text-align: center;
+}
+
+.footer-badge:hover {
+  border-color: rgba(28,107,67,0.55);
+  background: #d9f0e1;
+}
+
 @media (max-width: 700px) {
+  .niche-links-section {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .niche-links-shell {
+    padding: 10px;
+  }
+  .niche-links-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 7px;
+  }
+  .footer-badge {
+    min-height: 38px;
+    font-size: 12px;
+    padding: 8px 10px;
+  }
   .site-credit {
     padding-left: 20px;
     padding-right: 20px;
+  }
+}
+
+@media (max-width: 460px) {
+  .niche-links-grid {
+    grid-template-columns: 1fr;
   }
 }
 </style>
@@ -1666,6 +1741,22 @@ tr:hover td { background: var(--paper2); }
     </section>
   </main>
 </div>
+
+<section class="niche-links-section" aria-label="Halaman niche">
+  <div class="niche-links-shell">
+    <span class="niche-links-title">Shortcut Halaman Niche</span>
+    <div class="niche-links-grid">
+      <a class="footer-badge" href="umroh-prompts.html">Halaman Umroh</a>
+      <a class="footer-badge" href="properti-prompts.html">Halaman Properti</a>
+      <a class="footer-badge" href="otomotif-prompts.html">Halaman Otomotif</a>
+      <a class="footer-badge" href="travel-prompts.html">Halaman Travel &amp; Wisata</a>
+      <a class="footer-badge" href="kuliner-prompts.html">Halaman Jasa Kuliner</a>
+      <a class="footer-badge" href="umkm-prompts.html">Halaman UMKM</a>
+      <a class="footer-badge" href="corporate-prompts.html">Halaman Corporate Gift</a>
+      <a class="footer-badge" href="aqiqah-prompts.html">Halaman Paket Aqiqah</a>
+    </div>
+  </div>
+</section>
 
 <footer class="site-credit">
   Credit : Dikembangkan oleh PixxelPro Digital, Hubungi via WA
