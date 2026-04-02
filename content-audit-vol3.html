@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Audit Artikel Vol 3 Builder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0e0d0b;--ink2:#2a2825;--ink3:#4a4845;--paper:#faf8f4;--paper2:#f3f0ea;--gold:#b8860b;--gold2:#d4a017;--border:rgba(14,13,11,.16);--shadow:0 2px 10px rgba(14,13,11,.08);--font-display:"Playfair Display",Georgia,serif;--font-body:"DM Sans","Helvetica Neue",sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-body);background:var(--paper);color:var(--ink);line-height:1.6}
+.header{position:sticky;top:0;background:var(--ink);padding:14px 24px;display:flex;justify-content:space-between;align-items:center;gap:12px;z-index:20}
+.logo{font-family:var(--font-display);font-size:18px;color:#fff}.logo span{color:var(--gold2)}
+.actions{display:flex;gap:8px;flex-wrap:wrap}
+.btn{border:1px solid transparent;border-radius:999px;padding:9px 13px;font-size:12px;text-decoration:none;cursor:pointer;display:inline-flex;align-items:center;justify-content:center}
+.btn-ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.32)}.btn-light{background:var(--paper2);color:var(--ink2);border-color:var(--border)}.btn-primary{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#1f1304;border-color:rgba(0,0,0,.08)}
+.hero{background:linear-gradient(180deg,var(--ink2),#1a1714);padding:38px 24px;color:#efe8d7;text-align:center}
+.hero h1{font-family:var(--font-display);font-size:34px;font-weight:400}.hero h1 em{color:var(--gold2)}
+.hero p{max-width:980px;margin:10px auto 0;color:#cfc9bd}
+.shell{max-width:1320px;margin:0 auto;padding:18px 24px 60px}
+.status{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.pill{border:1px solid var(--border);background:var(--paper2);border-radius:999px;padding:8px 13px;font-size:13px;color:var(--ink3)}
+.grid{display:grid;grid-template-columns:minmax(360px,560px) minmax(0,1fr);gap:16px}
+.panel{background:#fff;border:1px solid var(--border);border-radius:18px;box-shadow:var(--shadow)}
+.form-panel{padding:16px;position:sticky;top:78px;max-height:calc(100vh - 92px);overflow:auto}
+.result-panel{padding:16px;min-height:620px}
+.card{border:1px solid rgba(14,13,11,.1);border-radius:14px;padding:14px;background:#fff}
+.card+.card{margin-top:12px}
+.card h2{font-family:var(--font-display);font-size:22px;font-weight:400;margin-bottom:6px}
+.card p{font-size:13px;color:var(--ink3);margin-bottom:10px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.field{border:1px solid rgba(14,13,11,.1);border-radius:12px;padding:10px}
+.wide{grid-column:1/-1}
+label{display:block;font-size:13px;font-weight:600;margin-bottom:6px}
+label span{font-size:10px;letter-spacing:.08em;text-transform:uppercase;background:#fdf4e3;color:#6f4f00;padding:3px 6px;border-radius:999px;margin-left:4px}
+.hint{font-size:12px;color:var(--ink3);margin-bottom:8px}
+input[type="text"],textarea,select{width:100%;border:1px solid var(--border);border-radius:10px;padding:9px 10px;font:inherit}
+textarea{min-height:88px;resize:vertical}
+.checks{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.checks label{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:500;border:1px solid rgba(14,13,11,.1);border-radius:10px;padding:7px}
+.form-actions,.report-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.report-title{font-family:var(--font-display);font-size:31px;font-weight:400}
+.report-sub{color:var(--ink3);font-size:14px;margin:6px 0 8px}
+.report-wrap{border:1px solid rgba(14,13,11,.1);border-radius:14px;padding:14px;background:#fff}
+.empty{border:1px dashed var(--border);border-radius:10px;padding:12px;background:var(--paper2);color:var(--ink3)}
+.section+.section{margin-top:20px}
+.section h3{font-family:var(--font-display);font-size:25px;font-weight:400;margin-bottom:8px}
+.section h4{font-size:17px;margin:12px 0 6px}
+.tbl{overflow:auto;border:1px solid rgba(14,13,11,.1);border-radius:10px;margin:8px 0}
+table{width:100%;border-collapse:collapse;min-width:680px}
+th,td{padding:8px 10px;border-bottom:1px solid rgba(14,13,11,.1);text-align:left;vertical-align:top}
+th{font-size:11px;text-transform:uppercase;background:var(--paper2);color:var(--ink3)}
+ul{padding-left:18px}
+.good{color:#1a6b5a;font-weight:600}.warn{color:#946300;font-weight:600}.bad{color:#8b2020;font-weight:600}
+@media (max-width:1080px){.grid{grid-template-columns:1fr}.form-panel{position:static;max-height:none}}
+@media (max-width:760px){.header,.hero,.shell{padding-left:16px;padding-right:16px}.actions,.form-actions,.report-actions{display:grid;grid-template-columns:1fr}.btn{width:100%}.form-grid,.checks{grid-template-columns:1fr}.hero h1{font-size:28px}}
+@media print{.header,.hero,.status,.form-panel,.report-actions{display:none!important}.shell{padding:0}.result-panel{border:none;box-shadow:none;padding:0}.report-wrap{border:none;padding:0}}
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="logo">Audit Artikel <span>Vol 3</span></div>
+  <div class="actions">
+    <a class="btn btn-ghost" href="index.html">← Index</a>
+    <a class="btn btn-ghost" href="keyword-research.html">Research</a>
+    <a class="btn btn-ghost" href="keyword-research-vol3.html">Research Vol 3</a>
+    <button class="btn btn-ghost" type="button" onclick="resetHistory()">Reset Histori</button>
+  </div>
+</header>
+
+<section class="hero">
+  <h1>Audit, Refresh & <em>Optimasi Artikel</em> Vol 3</h1>
+  <p>Halaman ini khusus untuk audit artikel existing dengan framework QATEX, Golden Zone, AI Citation Readiness, dan rencana refresh terstruktur. Semua field form sudah dilengkapi penjelasan singkat agar tidak rancu saat diisi.</p>
+</section>
+
+<main class="shell">
+  <div class="status">
+    <div class="pill" id="draft-status">Draft lokal aktif. Belum ada draft tersimpan.</div>
+    <div class="actions">
+      <button class="btn btn-light" type="button" onclick="saveDraft()">Simpan Draft</button>
+      <button class="btn btn-light" type="button" onclick="loadDraft(true)">Muat Draft</button>
+      <button class="btn btn-light" type="button" onclick="copyDraft()">Copy Draft</button>
+      <button class="btn btn-light" type="button" onclick="clearDraft()">Hapus Draft</button>
+    </div>
+  </div>
+
+  <div class="grid">
+    <section class="panel form-panel">
+      <div class="card">
+        <h2>Identitas Konten yang Diaudit</h2>
+        <p>Isi data inti artikel/halaman yang akan dievaluasi.</p>
+        <div class="form-grid">
+          <div class="field wide">
+            <label for="article_title">Judul Artikel / Halaman <span>Wajib</span></label>
+            <div class="hint">Judul versi saat ini yang sudah tayang.</div>
+            <input id="article_title" type="text">
+          </div>
+          <div class="field wide">
+            <label for="article_url">URL <span>Wajib</span></label>
+            <div class="hint">Gunakan URL halaman yang benar-benar ingin diaudit.</div>
+            <input id="article_url" type="text" placeholder="https://domain.com/slug-artikel">
+          </div>
+          <div class="field">
+            <label for="content_type">Tipe Konten <span>Wajib</span></label>
+            <div class="hint">Pilih jenis konten agar rekomendasi refresh sesuai konteks.</div>
+            <select id="content_type">
+              <option value="">Pilih tipe konten</option>
+              <option>Pillar article</option>
+              <option>Cluster article</option>
+              <option>Money / landing page</option>
+              <option>Local page</option>
+              <option>FAQ page</option>
+              <option>Entity hub page</option>
+              <option>Lainnya</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="content_type_other">Jika Lainnya</label>
+            <div class="hint">Isi hanya jika memilih tipe konten "Lainnya".</div>
+            <input id="content_type_other" type="text">
+          </div>
+          <div class="field">
+            <label for="publish_date">Tanggal Publish Pertama</label>
+            <div class="hint">Format bebas, contoh: 12 Januari 2025.</div>
+            <input id="publish_date" type="text">
+          </div>
+          <div class="field">
+            <label for="update_date">Tanggal Terakhir Diupdate</label>
+            <div class="hint">Dipakai untuk freshness check dan trigger refresh.</div>
+            <input id="update_date" type="text">
+          </div>
+          <div class="field">
+            <label for="primary_keyword">Primary Keyword Saat Ini <span>Wajib</span></label>
+            <div class="hint">Keyword utama yang saat ini ditarget halaman.</div>
+            <input id="primary_keyword" type="text">
+          </div>
+          <div class="field">
+            <label for="ranking_position">Posisi Ranking Saat Ini</label>
+            <div class="hint">Bisa berupa angka/range, misal: 8 atau 8-12.</div>
+            <input id="ranking_position" type="text">
+          </div>
+          <div class="field wide">
+            <label for="traffic_estimate">Estimasi Traffic / Bulan</label>
+            <div class="hint">Isi angka perkiraan agar prioritas bisnis lebih tepat.</div>
+            <input id="traffic_estimate" type="text">
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Konten Artikel + Tujuan Audit</h2>
+        <p>Isi konten atau ringkasan struktur untuk evaluasi kualitas dan rencana refresh.</p>
+        <div class="form-grid">
+          <div class="field wide">
+            <label for="article_content">Paste Konten Artikel Lengkap <span>Wajib*</span></label>
+            <div class="hint">Isi konten lengkap. Jika tidak tersedia, minimal isi ringkasan struktur di bawah.</div>
+            <textarea id="article_content" style="min-height:170px"></textarea>
+          </div>
+          <div class="field">
+            <label for="structure_h1">Ringkasan H1</label>
+            <div class="hint">Gunakan jika tidak menempelkan konten penuh.</div>
+            <input id="structure_h1" type="text">
+          </div>
+          <div class="field">
+            <label for="structure_h2">Ringkasan H2 Utama</label>
+            <div class="hint">Pisahkan dengan koma jika lebih dari satu.</div>
+            <input id="structure_h2" type="text">
+          </div>
+          <div class="field">
+            <label for="word_count">Jumlah Kata</label>
+            <div class="hint">Contoh: 1800.</div>
+            <input id="word_count" type="text">
+          </div>
+          <div class="field">
+            <label for="has_faq">Ada FAQ?</label>
+            <select id="has_faq">
+              <option>Belum dicek</option>
+              <option>Ya</option>
+              <option>Tidak</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="has_schema">Ada Schema?</label>
+            <select id="has_schema">
+              <option>Belum dicek</option>
+              <option>Ya</option>
+              <option>Tidak</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="has_data">Ada Data / Statistik?</label>
+            <select id="has_data">
+              <option>Belum dicek</option>
+              <option>Ya</option>
+              <option>Tidak</option>
+            </select>
+          </div>
+          <div class="field wide">
+            <label>Tujuan Refresh <span>Wajib</span></label>
+            <div class="hint">Pilih tujuan utama agar prioritas aksi refresh lebih fokus.</div>
+            <div class="checks">
+              <label><input type="checkbox" name="refresh_goal" value="Tingkatkan ranking SEO">Tingkatkan ranking SEO</label>
+              <label><input type="checkbox" name="refresh_goal" value="Tingkatkan AI citation">Tingkatkan AI citation</label>
+              <label><input type="checkbox" name="refresh_goal" value="Perbaiki AEO readiness">Perbaiki AEO readiness</label>
+              <label><input type="checkbox" name="refresh_goal" value="Update data/statistik">Update data/statistik</label>
+              <label><input type="checkbox" name="refresh_goal" value="Perbaiki cannibalization">Perbaiki cannibalization</label>
+              <label><input type="checkbox" name="refresh_goal" value="Full audit + refresh">Full audit + refresh</label>
+            </div>
+          </div>
+          <div class="field wide">
+            <label for="audit_notes">Catatan Tambahan</label>
+            <div class="hint">Tambahkan konteks khusus agar rencana refresh lebih realistis.</div>
+            <textarea id="audit_notes"></textarea>
+          </div>
+          <div class="field">
+            <label for="output_mode">Mode Output</label>
+            <div class="hint">Jika kosong/tidak dipilih, default-nya MODE STANDAR.</div>
+            <select id="output_mode">
+              <option>MODE STANDAR</option>
+              <option>MODE CEPAT</option>
+              <option>MODE PENUH</option>
+              <option>MODE AI CITATION FOCUS</option>
+              <option>MODE GSC WIN</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="next_refresh_schedule">Jadwal Refresh Berikutnya</label>
+            <div class="hint">Contoh: 30 hari lagi / 15 Mei 2026.</div>
+            <input id="next_refresh_schedule" type="text">
+          </div>
+        </div>
+        <div class="form-actions">
+          <button class="btn btn-primary" type="button" onclick="generate()">Generate Audit Artikel Vol 3</button>
+          <button class="btn btn-light" type="button" onclick="resetForm()">Reset Form</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel result-panel">
+      <div class="report-title">Output Audit Vol 3</div>
+      <div class="report-sub">Output disusun sesuai urutan A–J + scorecard, dan bisa diekspor ke Markdown, HTML, dan PDF.</div>
+      <div class="report-actions">
+        <button class="btn btn-light" type="button" onclick="copyMarkdown()">Copy Markdown</button>
+        <button class="btn btn-light" type="button" onclick="downloadMarkdown()">Download .md</button>
+        <button class="btn btn-light" type="button" onclick="downloadHtml()">Download .html</button>
+        <button class="btn btn-primary" type="button" onclick="printPdf()">PDF / Print</button>
+      </div>
+      <div class="report-wrap" id="report-wrap">
+        <div class="empty">Belum ada output. Lengkapi form audit lalu klik "Generate Audit Artikel Vol 3".</div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<script>
+const STORAGE_KEY = "content_audit_vol3_draft_v1";
+let lastMarkdown = "";
+let lastHtml = "";
+let lastData = null;
+
+const byId = (id) => document.getElementById(id);
+const clean = (v) => String(v || "").replace(/\s+/g, " ").trim();
+const lines = (v) => String(v || "").split(/\r?\n/).map(clean).filter(Boolean);
+const checks = (name) => Array.from(document.querySelectorAll(`input[name="${name}"]:checked`)).map((el) => clean(el.value));
+const setChecks = (name, vals) => {
+  const pool = new Set((vals || []).map(clean));
+  document.querySelectorAll(`input[name="${name}"]`).forEach((el) => { el.checked = pool.has(clean(el.value)); });
+};
+const escapeHtml = (v) => String(v || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+const mdCell = (v) => clean(String(v || "").replace(/\|/g, "\\|")) || "-";
+const slug = (v) => clean(v).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "") || "audit";
+const today = () => new Intl.DateTimeFormat("id-ID", { dateStyle: "long" }).format(new Date());
+
+function table(headers, rows) {
+  const safeRows = rows.length ? rows : [headers.map(() => "-")];
+  const html = `<div class="tbl"><table><thead><tr>${headers.map((h) => `<th>${escapeHtml(h)}</th>`).join("")}</tr></thead><tbody>${safeRows.map((row) => `<tr>${row.map((c) => `<td>${c}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+  const markdown = [`| ${headers.map(mdCell).join(" | ")} |`, `| ${headers.map(() => "---").join(" | ")} |`, ...safeRows.map((row) => `| ${row.map((c) => mdCell(String(c).replace(/<[^>]*>/g, " "))).join(" | ")} |`)].join("\n");
+  return { html, markdown };
+}
+
+function list(items) {
+  const safe = items.length ? items : ["-"];
+  return {
+    html: `<ul>${safe.map((i) => `<li>${i}</li>`).join("")}</ul>`,
+    markdown: safe.map((i) => `- ${clean(String(i).replace(/<[^>]*>/g, " ")) || "-"}`).join("\n")
+  };
+}
+
+function toNum(v) {
+  const n = Number(String(v || "").replace(/[^\d.-]/g, ""));
+  return Number.isFinite(n) ? n : NaN;
+}
+
+function boolFromSelect(v) {
+  return clean(v).toLowerCase() === "ya";
+}
+
+function collect() {
+  return {
+    articleTitle: clean(byId("article_title").value),
+    articleUrl: clean(byId("article_url").value),
+    contentType: clean(byId("content_type").value),
+    contentTypeOther: clean(byId("content_type_other").value),
+    publishDate: clean(byId("publish_date").value),
+    updateDate: clean(byId("update_date").value),
+    primaryKeyword: clean(byId("primary_keyword").value),
+    rankingPosition: clean(byId("ranking_position").value),
+    trafficEstimate: clean(byId("traffic_estimate").value),
+    gscImpressions: clean(byId("gsc_impressions").value),
+    gscClicks: clean(byId("gsc_clicks").value),
+    gscCtr: clean(byId("gsc_ctr").value),
+    gscAvgPosition: clean(byId("gsc_avg_position").value),
+    gscWin: clean(byId("gsc_win").value),
+    competitorsAbove: lines(byId("competitors_above").value),
+    similarArticleStatus: clean(byId("similar_article_status").value),
+    similarArticleUrls: lines(byId("similar_article_urls").value),
+    aiOverview: clean(byId("ai_overview").value),
+    aiChatgpt: clean(byId("ai_chatgpt").value),
+    aiPerplexity: clean(byId("ai_perplexity").value),
+    aiTargets: checks("ai_target"),
+    articleContent: clean(byId("article_content").value),
+    structureH1: clean(byId("structure_h1").value),
+    structureH2: clean(byId("structure_h2").value),
+    wordCount: clean(byId("word_count").value),
+    hasFaq: clean(byId("has_faq").value),
+    hasSchema: clean(byId("has_schema").value),
+    hasData: clean(byId("has_data").value),
+    refreshGoals: checks("refresh_goal"),
+    auditNotes: clean(byId("audit_notes").value),
+    outputMode: clean(byId("output_mode").value) || "MODE STANDAR",
+    nextRefreshSchedule: clean(byId("next_refresh_schedule").value)
+  };
+}
+
+function applyData(d) {
+  const setVal = (id, v) => { if (byId(id)) byId(id).value = v || ""; };
+  setVal("article_title", d.articleTitle);
+  setVal("article_url", d.articleUrl);
+  setVal("content_type", d.contentType);
+  setVal("content_type_other", d.contentTypeOther);
+  setVal("publish_date", d.publishDate);
+  setVal("update_date", d.updateDate);
+  setVal("primary_keyword", d.primaryKeyword);
+  setVal("ranking_position", d.rankingPosition);
+  setVal("traffic_estimate", d.trafficEstimate);
+  setVal("gsc_impressions", d.gscImpressions);
+  setVal("gsc_clicks", d.gscClicks);
+  setVal("gsc_ctr", d.gscCtr);
+  setVal("gsc_avg_position", d.gscAvgPosition);
+  setVal("gsc_win", d.gscWin || "Tidak");
+  setVal("competitors_above", (d.competitorsAbove || []).join("\n"));
+  setVal("similar_article_status", d.similarArticleStatus || "Tidak");
+  setVal("similar_article_urls", (d.similarArticleUrls || []).join("\n"));
+  setVal("ai_overview", d.aiOverview || "Belum dicek");
+  setVal("ai_chatgpt", d.aiChatgpt || "Belum dicek");
+  setVal("ai_perplexity", d.aiPerplexity || "Belum dicek");
+  setChecks("ai_target", d.aiTargets || []);
+  setVal("article_content", d.articleContent);
+  setVal("structure_h1", d.structureH1);
+  setVal("structure_h2", d.structureH2);
+  setVal("word_count", d.wordCount);
+  setVal("has_faq", d.hasFaq || "Belum dicek");
+  setVal("has_schema", d.hasSchema || "Belum dicek");
+  setVal("has_data", d.hasData || "Belum dicek");
+  setChecks("refresh_goal", d.refreshGoals || []);
+  setVal("audit_notes", d.auditNotes);
+  setVal("output_mode", d.outputMode || "MODE STANDAR");
+  setVal("next_refresh_schedule", d.nextRefreshSchedule);
+}
+
+function prefillFromResearch() {
+  const raw = sessionStorage.getItem("seo_generator_prefill");
+  if (!raw) return;
+  try {
+    const p = JSON.parse(raw);
+    const current = collect();
+    if (!current.primaryKeyword) {
+      const seed = Array.isArray(p.seedKeywords) && p.seedKeywords.length ? p.seedKeywords[0] : "";
+      byId("primary_keyword").value = seed;
+    }
+    if (!current.contentType) byId("content_type").value = "Cluster article";
+  } catch (_e) {}
+}
+
+function validate(d) {
+  if (!d.articleTitle || !d.articleUrl || !d.contentType || !d.primaryKeyword) return "Lengkapi field wajib: Judul, URL, Tipe Konten, dan Primary Keyword.";
+  if (!d.refreshGoals.length) return "Pilih minimal 1 Tujuan Refresh.";
+  if (!d.articleContent && !d.structureH1 && !d.structureH2 && !d.wordCount) return "Isi konten lengkap atau minimal ringkasan struktur (H1/H2/Jumlah kata).";
+  return "";
+}
+
+function refreshDraftStatus() {
+  const raw = localStorage.getItem(STORAGE_KEY);
+  if (!raw) {
+    byId("draft-status").textContent = "Draft lokal aktif. Belum ada draft tersimpan.";
+    return;
+  }
+  try {
+    const p = JSON.parse(raw) || {};
+    byId("draft-status").textContent = `Draft tersimpan: ${clean(p.articleTitle || "Artikel")}`;
+  } catch (_e) {
+    byId("draft-status").textContent = "Draft tersimpan namun format data perlu diperbarui.";
+  }
+}
+
+function saveDraft() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(collect()));
+  refreshDraftStatus();
+  alert("Draft audit berhasil disimpan.");
+}
+
+function loadDraft(showAlert) {
+  const raw = localStorage.getItem(STORAGE_KEY);
+  if (!raw) {
+    if (showAlert) alert("Belum ada draft audit tersimpan.");
+    refreshDraftStatus();
+    return;
+  }
+  try {
+    applyData(JSON.parse(raw));
+    refreshDraftStatus();
+    if (showAlert) alert("Draft audit berhasil dimuat.");
+  } catch (_e) {
+    if (showAlert) alert("Draft audit gagal dimuat.");
+  }
+}
+
+function clearDraft() {
+  if (!confirm("Hapus draft Audit Artikel Vol 3?")) return;
+  localStorage.removeItem(STORAGE_KEY);
+  refreshDraftStatus();
+}
+
+function copyDraft() {
+  const d = collect();
+  const txt = [
+    "# Draft Input Audit Artikel Vol 3",
+    `- Judul: ${d.articleTitle || "-"}`,
+    `- URL: ${d.articleUrl || "-"}`,
+    `- Primary keyword: ${d.primaryKeyword || "-"}`,
+    `- GSC Win: ${d.gscWin || "-"}`,
+    `- Tujuan Refresh: ${(d.refreshGoals || []).join(", ") || "-"}`,
+    `- Mode Output: ${d.outputMode || "MODE STANDAR"}`
+  ].join("\n");
+  navigator.clipboard.writeText(txt).then(() => alert("Ringkasan draft audit berhasil disalin.")).catch(() => alert("Gagal menyalin draft audit."));
+}
+
+function parseWordCount(d) {
+  const fromField = toNum(d.wordCount);
+  if (Number.isFinite(fromField) && fromField > 0) return fromField;
+  if (d.articleContent) return d.articleContent.split(/\s+/).filter(Boolean).length;
+  return 0;
+}
+
+function scoreData(d) {
+  const wc = parseWordCount(d);
+  const firstChunk = d.articleContent ? d.articleContent.slice(0, Math.max(120, Math.floor(d.articleContent.length * 0.3))).toLowerCase() : "";
+  const keyword = d.primaryKeyword.toLowerCase();
+  const hasKeywordInIntro = keyword && firstChunk.includes(keyword);
+  const hasNumberInIntro = /\d/.test(firstChunk);
+  const hasFaq = boolFromSelect(d.hasFaq);
+  const hasSchema = boolFromSelect(d.hasSchema);
+  const hasData = boolFromSelect(d.hasData);
+  const gscAvg = toNum(d.gscAvgPosition);
+  const isGscWin = d.gscWin === "Ya" || (Number.isFinite(gscAvg) && gscAvg >= 4 && gscAvg <= 15);
+  const hasAitarget = d.aiTargets.length > 0;
+  const competitors = d.competitorsAbove.length;
+  const similar = d.similarArticleStatus === "Ya" || d.similarArticleUrls.length > 0;
+
+  const seoRows = [
+    ["H1 mengandung keyword", d.structureH1 && keyword && d.structureH1.toLowerCase().includes(keyword) ? "Ya" : "Belum optimal", d.structureH1 && keyword && d.structureH1.toLowerCase().includes(keyword) ? 5 : 3, "Pastikan H1 mengandung keyword utama secara natural."],
+    ["Meta title (max 60 kar)", d.articleTitle.length <= 60 && d.articleTitle.length >= 25 ? "Baik" : "Perlu revisi", d.articleTitle.length <= 60 && d.articleTitle.length >= 25 ? 5 : 3, "Optimalkan panjang title 25-60 karakter."],
+    ["Meta description (CTA)", d.auditNotes.toLowerCase().includes("cta") ? "Ada indikasi CTA" : "Belum jelas", d.auditNotes.toLowerCase().includes("cta") ? 4 : 2, "Tambahkan meta description dengan CTA jelas."],
+    ["Slug bersih / keyword", d.articleUrl.toLowerCase().includes(keyword.split(" ")[0] || "") ? "Relevan" : "Belum optimal", d.articleUrl.toLowerCase().includes(keyword.split(" ")[0] || "") ? 5 : 3, "Pastikan slug singkat dan mengandung keyword."],
+    ["H2 berbasis pertanyaan", d.structureH2.includes("?") ? "Ya" : "Belum dominan", d.structureH2.includes("?") ? 4 : 2, "Targetkan minimal 40% H2 berbentuk pertanyaan."],
+    ["Keyword density 1-2%", wc > 0 ? "Perlu validasi manual" : "Data belum ada", wc > 0 ? 3 : 2, "Cek density di final draft 1-2%."],
+    ["LSI keywords digunakan", d.articleContent.length > 400 ? "Ada indikasi" : "Belum jelas", d.articleContent.length > 400 ? 4 : 2, "Tambahkan istilah turunan dan entity pendukung."],
+    ["Internal links (min 3)", d.articleContent.toLowerCase().includes("http") ? "Ada indikasi" : "Belum jelas", d.articleContent.toLowerCase().includes("http") ? 3 : 2, "Pastikan minimal 3 internal links relevan."],
+    ["Panjang konten cukup", wc >= 1200 ? "Cukup" : "Kurang", wc >= 1200 ? 5 : wc >= 800 ? 3 : 2, "Targetkan panjang sesuai intent dan kompetitor."],
+    ["Schema markup ada", hasSchema ? "Ada" : "Tidak", hasSchema ? 5 : 1, "Implementasikan schema FAQPage/Article sesuai kebutuhan."],
+    ["dateModified ada", d.updateDate ? "Ada indikasi" : "Belum ada", d.updateDate ? 4 : 1, "Tambahkan dateModified agar freshness terbaca."],
+    ["Author bio ada", d.articleContent.toLowerCase().includes("author") ? "Ada indikasi" : "Belum jelas", d.articleContent.toLowerCase().includes("author") ? 4 : 2, "Tambahkan author bio untuk trust signal."]
+  ];
+  const seoTotal = seoRows.reduce((sum, row) => sum + row[2], 0);
+
+  const q = isGscWin || d.gscImpressions ? 4 : 3;
+  const a = d.refreshGoals.some((g) => g.toLowerCase().includes("ranking") || g.toLowerCase().includes("aeo")) ? 4 : 3;
+  const t = d.contentType.toLowerCase().includes("cluster") || d.contentType.toLowerCase().includes("pillar") ? 4 : 3;
+  const e = hasKeywordInIntro ? 4 : 3;
+  const x = wc >= 1200 ? 4 : 3;
+  const qatexTotal = q + a + t + e + x;
+
+  const golden = (hasKeywordInIntro ? 1 : 0) + (hasNumberInIntro ? 1 : 0) + (d.primaryKeyword ? 1 : 0) + (firstChunk.length > 0 && hasKeywordInIntro ? 1 : 0);
+  const answerCapsule = hasKeywordInIntro ? 4 : 2;
+  const evidenceDensity = hasData || hasNumberInIntro ? 4 : 2;
+  const freshnessSignal = d.updateDate ? 4 : 2;
+  const multiChannelReady = hasAitarget ? 4 : 2;
+  const aiCitationTotal = answerCapsule + evidenceDensity + freshnessSignal + multiChannelReady;
+  const aeoReadiness = [hasKeywordInIntro, hasFaq, hasSchema, hasData, d.structureH2.includes("?"), hasAitarget, d.primaryKeyword].filter(Boolean).length;
+
+  let overall = "🟢 SEHAT";
+  if (seoTotal < 35 || qatexTotal < 16 || aiCitationTotal < 11) overall = "🔴 KRITIS";
+  else if (seoTotal < 50 || qatexTotal < 21 || aiCitationTotal < 16) overall = "🟡 PERLU REFRESH";
+
+  const action = overall === "🔴 KRITIS" ? "Refresh konten" : (similar ? "Merge dengan artikel lain" : (isGscWin ? "Refresh konten" : "Refresh / Reposition keyword"));
+  const freshnessStatus = d.updateDate ? "Freshness perlu validasi tanggal update vs data terbaru" : "Outdated";
+
+  return {
+    seoRows, seoTotal, q, a, t, e, x, qatexTotal, golden,
+    answerCapsule, evidenceDensity, freshnessSignal, multiChannelReady, aiCitationTotal, aeoReadiness,
+    overall, action, isGscWin, freshnessStatus, hasKeywordInIntro, hasNumberInIntro, similar, competitors, wc
+  };
+}
+
+function sA(d, s) {
+  const issues = [
+    s.seoTotal < 50 ? "Skor SEO on-page belum optimal." : "Fondasi SEO relatif baik.",
+    s.aiCitationTotal < 16 ? "AI citation readiness masih rendah-menengah." : "AI citation readiness cukup kuat.",
+    s.similar ? "Terindikasi overlap/cannibalization dengan artikel lain." : "Belum ada indikasi overlap besar."
+  ];
+  const t = table(["Parameter", "Hasil"], [
+    ["Status keseluruhan", s.overall],
+    ["GSC Opportunity", s.isGscWin ? "⚡ Ya" : "Tidak"],
+    ["Tipe tindakan disarankan", s.action],
+    ["Alasan rekomendasi", "Dipilih berdasarkan skor SEO, QATEX, AI citation, dan sinyal overlap."]
+  ]);
+  const l = list(issues.map(escapeHtml));
+  return { key: "A", html: `<div class="section"><h3>Bagian A - Diagnosis Awal</h3>${t.html}<h4>Masalah utama teridentifikasi</h4>${l.html}</div>`, markdown: `## BAGIAN A - DIAGNOSIS AWAL\n\n${t.markdown}\n\n### Masalah utama teridentifikasi\n\n${l.markdown}` };
+}
+
+function sB(_d, s) {
+  const rows = s.seoRows.map((r) => [escapeHtml(r[0]), escapeHtml(r[1]), `${r[2]}/5`, escapeHtml(r[3])]);
+  rows.push(["TOTAL SEO", "-", `${s.seoTotal}/60`, s.seoTotal >= 50 ? "Pertahankan + optimasi minor" : s.seoTotal >= 35 ? "Perbaikan prioritas menengah" : "Perbaikan besar wajib"]);
+  const t = table(["Elemen", "Kondisi", "Nilai", "Aksi"], rows);
+  const status = s.seoTotal >= 50 ? "<span class='good'>✅ Kuat</span>" : s.seoTotal >= 35 ? "<span class='warn'>⚠️ Perlu perbaikan</span>" : "<span class='bad'>❌ Kritis</span>";
+  return { key: "B", html: `<div class="section"><h3>Bagian B - SEO On-Page Audit</h3>${t.html}<p>Status: ${status}</p></div>`, markdown: `## BAGIAN B - SEO ON-PAGE AUDIT\n\n${t.markdown}\n\nStatus: ${s.seoTotal >= 50 ? "Kuat" : s.seoTotal >= 35 ? "Perlu perbaikan" : "Kritis"}` };
+}
+
+function sC(d, s) {
+  const t = table(["Dimensi QATEX", "Nilai", "Temuan"], [
+    ["Q - Queries", `${s.q}/5`, s.isGscWin ? "Keyword punya peluang quick win GSC." : "Butuh validasi keyword berbasis data."],
+    ["A - Audience", `${s.a}/5`, "Perlu sinkronisasi message dengan tujuan refresh yang dipilih."],
+    ["T - Topik", `${s.t}/5`, d.contentType.toLowerCase().includes("cluster") ? "Sudah terhubung dengan struktur cluster." : "Perlu cek relasi ke pillar/cluster."],
+    ["E - Entity", `${s.e}/5`, s.hasKeywordInIntro ? "Entity/keyword utama sudah muncul di intro." : "Entity/keyword belum tegas di intro."],
+    ["X - eXperience", `${s.x}/5`, s.wc >= 1200 ? "Cukup komprehensif." : "Perlu pengayaan agar lebih membantu user."],
+    ["QATEX TOTAL", `${s.qatexTotal}/25`, s.qatexTotal >= 21 ? "LULUS" : s.qatexTotal >= 16 ? "REVISI" : "KRITIS"]
+  ]);
+  return { key: "C", html: `<div class="section"><h3>Bagian C - QATEX Evaluation</h3>${t.html}</div>`, markdown: `## BAGIAN C - QATEX EVALUATION\n\n${t.markdown}` };
+}
+
+function sD(d, s) {
+  const t = table(["Checklist Golden Zone", "Status"], [
+    ["Answer capsule di paragraf pertama", s.hasKeywordInIntro ? "Ya" : "Tidak"],
+    ["Ada data/angka di 30% awal", s.hasNumberInIntro ? "Ya" : "Tidak"],
+    ["Entitas utama disebut di intro", s.hasKeywordInIntro ? "Ya" : "Tidak"],
+    ["Intro terlalu panjang sebelum menjawab", s.hasKeywordInIntro ? "Tidak" : "Ya"],
+    ["Golden Zone Score", `${s.golden}/4`]
+  ]);
+  const suggestion = [
+    `Paragraf 1: Jawaban langsung untuk query "${d.primaryKeyword}".`,
+    "Paragraf 2: Tambahkan angka/data paling kuat.",
+    "Paragraf 3: Beri konteks singkat dan batasan.",
+    "Paragraf 4: Transisi ke body dengan sub-judul konkret."
+  ];
+  const l = list(suggestion);
+  return { key: "D", html: `<div class="section"><h3>Bagian D - Golden Zone Audit</h3>${t.html}<h4>Konten baru disarankan untuk Golden Zone</h4>${l.html}</div>`, markdown: `## BAGIAN D - GOLDEN ZONE AUDIT\n\n${t.markdown}\n\n### Konten baru disarankan untuk Golden Zone\n\n${l.markdown}` };
+}
+
+function sE(d, s) {
+  const introWords = s.wc ? Math.min(80, Math.max(20, Math.floor(s.wc * 0.05))) : 40;
+  const t = table(["Section", "Ada?", "Panjang", "Standalone?", "Score"], [
+    ["Intro", s.hasKeywordInIntro ? "Ya" : "Tidak", `${introWords} kata`, s.hasKeywordInIntro ? "Ya" : "Tidak", `${s.answerCapsule}/5`],
+    ["H2 #1", d.structureH2 ? "Ya" : "Tidak", d.structureH2 ? "35 kata (estimasi)" : "-", d.structureH2 ? "Ya" : "Tidak", `${d.structureH2 ? 4 : 2}/5`],
+    ["H2 #2", d.structureH2.split(",").length > 1 ? "Ya" : "Tidak", d.structureH2.split(",").length > 1 ? "30 kata (estimasi)" : "-", d.structureH2.split(",").length > 1 ? "Ya" : "Tidak", `${d.structureH2.split(",").length > 1 ? 4 : 2}/5`],
+    ["FAQ", boolFromSelect(d.hasFaq) ? "Ya" : "Tidak", boolFromSelect(d.hasFaq) ? "25 kata/capsule" : "-", boolFromSelect(d.hasFaq) ? "Ya" : "Tidak", `${boolFromSelect(d.hasFaq) ? 4 : 1}/5`]
+  ]);
+  const rewrite = list([
+    "Perkuat capsule di intro agar 20-80 kata dan langsung menjawab intent.",
+    "Setiap H2 utama ditutup ringkasan 1 capsule standalone.",
+    "FAQ ditulis dengan jawaban definitif + entitas utama."
+  ]);
+  return { key: "E", html: `<div class="section"><h3>Bagian E - Answer Capsule Audit</h3>${t.html}<h4>Answer capsule yang perlu ditulis ulang</h4>${rewrite.html}</div>`, markdown: `## BAGIAN E - ANSWER CAPSULE AUDIT\n\n${t.markdown}\n\n### Answer capsule yang perlu ditulis ulang\n\n${rewrite.markdown}` };
+}
+
+function sF(_d, s) {
+  const t1 = table(["Elemen AEO", "Ada?", "Kualitas"], [
+    ["Answer capsule di intro", s.hasKeywordInIntro ? "Ya" : "Tidak", s.hasKeywordInIntro ? "Baik" : "Perlu perbaikan"],
+    ["H2 berbentuk pertanyaan (40%+)", "Perlu validasi", "Menengah"],
+    ["FAQ section standalone", "-", "Perlu validasi dari konten final"],
+    ["Schema FAQPage", "-", "Perlu validasi teknis"],
+    ["Data/statistik konkret", s.evidenceDensity >= 4 ? "Ya" : "Tidak", s.evidenceDensity >= 4 ? "Baik" : "Perlu ditambah"],
+    ["Kalimat definitif", s.answerCapsule >= 4 ? "Ya" : "Belum konsisten", s.answerCapsule >= 4 ? "Baik" : "Perlu revisi"],
+    ["Entitas jelas dan konsisten", s.hasKeywordInIntro ? "Ya" : "Tidak", s.hasKeywordInIntro ? "Baik" : "Perlu diperjelas"]
+  ]);
+  const t2 = table(["Dimensi", "Nilai", "Catatan"], [
+    ["Answer Capsule", `${s.answerCapsule}/5`, "Pastikan 20-80 kata per section penting."],
+    ["Evidence Density", `${s.evidenceDensity}/5`, "Tambahkan data terbaru dan terverifikasi."],
+    ["Freshness Signal", `${s.freshnessSignal}/5`, "Gunakan dateModified + update data."],
+    ["Multi-Channel Ready", `${s.multiChannelReady}/5`, "Siapkan versi FAQ/social/video singkat."],
+    ["TOTAL", `${s.aiCitationTotal}/20`, s.aiCitationTotal >= 16 ? "Prioritas AI citation" : s.aiCitationTotal >= 11 ? "Potensi sedang" : "Fokus SEO dulu"]
+  ]);
+  const gap = list([
+    s.aiCitationTotal < 16 ? "Belum ada answer capsule kuat di early content." : "Pertahankan capsule yang sudah kuat.",
+    s.evidenceDensity < 4 ? "Evidence/data masih minim atau belum fresh." : "Evidence cukup, lanjutkan update berkala.",
+    "Belum semua section siap diekstrak AI secara standalone."
+  ]);
+  return { key: "F", html: `<div class="section"><h3>Bagian F - AEO & AI Citation Readiness Audit</h3><h4>F1 - AEO Checklist</h4>${t1.html}<h4>F2 - AI Citation Score</h4>${t2.html}<h4>F3 - Gap AI Citation</h4>${gap.html}</div>`, markdown: `## BAGIAN F - AEO & AI CITATION READINESS AUDIT\n\n### F1 - AEO Checklist\n\n${t1.markdown}\n\n### F2 - AI Citation Score\n\n${t2.markdown}\n\n### F3 - Gap AI Citation\n\n${gap.markdown}` };
+}
+
+function sG(d, s) {
+  const rows = (d.similarArticleUrls.length ? d.similarArticleUrls : ["-"]).map((u, i) => [escapeHtml(u), escapeHtml(u.startsWith("http") ? u : "-"), i % 2 ? "Komersial" : "Informasional", s.similar ? (i ? "Sedang" : "Tinggi") : "Rendah", s.similar ? (i ? "Reposition" : "Merge/Refresh") : "Aman"]);
+  const t = table(["Artikel Lain", "URL", "Intent", "Tingkat Overlap", "Solusi"], rows);
+  const decision = s.similar ? "Merge atau reposition disarankan agar intent tidak saling makan." : "Tidak ada indikasi cannibalization berat.";
+  return { key: "G", html: `<div class="section"><h3>Bagian G - Cannibalization Check</h3><p>${escapeHtml(decision)}</p>${t.html}</div>`, markdown: `## BAGIAN G - CANNIBALIZATION CHECK\n\n${decision}\n\n${t.markdown}` };
+}
+
+function sH(d) {
+  const t = table(["Elemen Teknis", "Status", "Aksi"], [
+    ["HTTPS", d.articleUrl.startsWith("https://") ? "✅" : "❌", "Gunakan HTTPS penuh."],
+    ["Mobile friendly", "Perlu cek", "Uji tampilan mobile + readability."],
+    ["Page speed (LCP < 2.5s)", "Perlu cek", "Optimasi image, render blocking, dan font load."],
+    ["Schema markup", boolFromSelect(d.hasSchema) ? "✅" : "❌", "Tambah schema relevan (Article/FAQPage)."],
+    ["dateModified schema", d.updateDate ? "✅" : "❌", "Tambahkan dateModified pada schema/article."],
+    ["robots.txt AI crawler diizinkan", "Perlu cek", "Pastikan GPTBot/PerplexityBot tidak diblok."],
+    ["GPTBot diizinkan", "Perlu cek", "Whitelisting jika diperlukan."],
+    ["PerplexityBot diizinkan", "Perlu cek", "Whitelisting jika diperlukan."],
+    ["Konten tidak di-render JS", "Perlu cek", "Pastikan konten utama bisa dibaca crawler."],
+    ["Breadcrumb schema", "Perlu cek", "Tambahkan breadcrumb untuk konteks entitas."]
+  ]);
+  return { key: "H", html: `<div class="section"><h3>Bagian H - Technical SEO Check</h3>${t.html}</div>`, markdown: `## BAGIAN H - TECHNICAL SEO CHECK\n\n${t.markdown}` };
+}
+
+function sI(d, s) {
+  const t = table(["Parameter Freshness", "Nilai"], [
+    ["Terakhir diupdate", escapeHtml(d.updateDate || "-")],
+    ["Status freshness", escapeHtml(s.freshnessStatus)],
+    ["Data/statistik dalam artikel", escapeHtml(d.hasData)],
+    ["Perlu update data?", boolFromSelect(d.hasData) ? "Ya, tetap update periodik" : "Ya, wajib tambahkan data"],
+    ["Sumber terbaru", "Gunakan referensi 12 bulan terakhir + data internal."]
+  ]);
+  const gap = table(["Data/Klaim", "Tahun", "Status", "Data Terbaru"], [
+    ["Statistik utama artikel", "-", boolFromSelect(d.hasData) ? "Valid parsial" : "Outdated / belum ada", "Update dengan data terbaru 2026"],
+    ["Contoh benchmark", "-", "Perlu verifikasi", "Tambahkan pembanding terbaru niche"]
+  ]);
+  const triggers = list([
+    d.updateDate ? "Artikel memiliki tanggal update, cek apakah >3 bulan." : "Artikel belum punya tanggal update jelas.",
+    s.isGscWin ? "Posisi 4-15 terdeteksi (⚡ quick win)." : "Belum terdeteksi quick win GSC yang jelas.",
+    boolFromSelect(d.hasData) ? "Data ada namun tetap perlu cycle refresh." : "Data/statistik belum memadai."
+  ]);
+  return { key: "I", html: `<div class="section"><h3>Bagian I - Content Freshness Check</h3>${t.html}<h4>Freshness Gap</h4>${gap.html}<h4>Trigger refresh terpenuhi</h4>${triggers.html}</div>`, markdown: `## BAGIAN I - CONTENT FRESHNESS CHECK\n\n${t.markdown}\n\n### Freshness Gap\n\n${gap.markdown}\n\n### Trigger refresh terpenuhi\n\n${triggers.markdown}` };
+}
+
+function sJ(d, s) {
+  const finalDecision = s.overall === "🔴 KRITIS" ? "✅ REFRESH" : (s.similar ? "🔀 MERGE" : "✅ REFRESH");
+  const deadlineBase = d.nextRefreshSchedule || "7-14 hari";
+  const t = table(["Prioritas", "Aksi", "Deadline"], [
+    ["Prioritas 1 - Golden Zone ⚡", "Tulis ulang paragraf 1-4 + answer capsule + data terkuat di awal", deadlineBase],
+    ["Prioritas 2 - Answer Capsule", "Tambah capsule setelah setiap H2, pastikan standalone", "3-7 hari"],
+    ["Prioritas 3 - FAQ & Schema", "Tambah FAQ, implementasi FAQPage, update dateModified", "7-10 hari"],
+    ["Prioritas 4 - Data & Evidence", "Update statistik outdated + tambahkan evidence baru", "7-14 hari"],
+    ["Prioritas 5 - SEO On-Page", "Perbaiki title/meta/H2/internal link/keyword alignment", "7-14 hari"],
+    ["Prioritas 6 - Distribusi", "Update snippet social/FAQ/video support", "14-21 hari"]
+  ]);
+  const target = table(["Target Setelah Refresh", "Target Nilai"], [
+    ["Posisi ranking target", d.rankingPosition ? `Lebih baik dari posisi saat ini (${d.rankingPosition})` : "Masuk top 10 untuk keyword utama"],
+    ["AI citation target", s.aiCitationTotal >= 11 ? "Naik ke level prioritas AI citation (16+/20)" : "Capai minimal 11+/20 lalu naik ke 16+/20"],
+    ["Traffic target", d.trafficEstimate ? `Naik dari baseline ${d.trafficEstimate}` : "Naik 20-40% dalam 1-2 cycle refresh"],
+    ["QATEX Score target", "21+/25"],
+    ["AI Citation Score target", "16+/20"],
+    ["Deadline refresh selesai", deadlineBase]
+  ]);
+  return { key: "J", html: `<div class="section"><h3>Bagian J - Rencana Refresh Terstruktur</h3><p><strong>Keputusan final:</strong> ${finalDecision}</p>${t.html}<h4>Target setelah refresh</h4>${target.html}</div>`, markdown: `## BAGIAN J - RENCANA REFRESH TERSTRUKTUR\n\nKeputusan final: ${finalDecision}\n\n${t.markdown}\n\n### Target setelah refresh\n\n${target.markdown}` };
+}
+
+function sScorecard(s) {
+  const t = table(["Dimensi", "Sebelum", "Target"], [
+    ["SEO On-Page", `${s.seoTotal}/60`, "55+/60"],
+    ["QATEX Total", `${s.qatexTotal}/25`, "21+/25"],
+    ["Golden Zone", `${s.golden}/4`, "4/4"],
+    ["AI Citation", `${s.aiCitationTotal}/20`, "16+/20"],
+    ["AEO Readiness", `${s.aeoReadiness}/7`, "7/7"],
+    ["Freshness", s.freshnessStatus, "Fresh"]
+  ]);
+  const summary = s.overall === "🟢 SEHAT" ? "Status saat ini: Sehat." : s.overall === "🟡 PERLU REFRESH" ? "Status saat ini: Perlu refresh." : "Status saat ini: Kritis dan perlu tindakan cepat.";
+  return { key: "SCORE", html: `<div class="section"><h3>Scorecard Akhir</h3><p>${escapeHtml(summary)}</p>${t.html}</div>`, markdown: `## SCORECARD AKHIR\n\n${summary}\n\n${t.markdown}` };
+}
+
+function sK(d) {
+  const l = list([
+    `Draft intro baru untuk "${d.primaryKeyword}" yang langsung menjawab intent user.`,
+    "Tambahkan 3-5 H2 berbasis pertanyaan prioritas.",
+    "Sisipkan FAQ standalone + schema FAQPage.",
+    "Pastikan dateModified dan internal linking plan diperbarui."
+  ]);
+  return { key: "K", html: `<div class="section"><h3>Bagian K - Artikel Refresh (Opsional)</h3><p>Mode penuh dapat melanjutkan ke penulisan ulang artikel berdasarkan rencana Bagian J.</p>${l.html}</div>`, markdown: `## BAGIAN K - ARTIKEL REFRESH (OPSIONAL)\n\n${l.markdown}` };
+}
+
+function keysByMode(mode) {
+  const m = (mode || "MODE STANDAR").toUpperCase();
+  if (m === "MODE CEPAT") return ["A", "B", "C", "J", "SCORE"];
+  if (m === "MODE PENUH") return ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "SCORE"];
+  if (m === "MODE AI CITATION FOCUS") return ["A", "C", "D", "E", "F", "J", "SCORE"];
+  if (m === "MODE GSC WIN") return ["A", "B", "D", "E", "J", "SCORE"];
+  return ["A", "B", "C", "D", "E", "F", "J", "SCORE"];
+}
+
+function build(d) {
+  const s = scoreData(d);
+  const all = [sA(d, s), sB(d, s), sC(d, s), sD(d, s), sE(d, s), sF(d, s), sG(d, s), sH(d, s), sI(d, s), sJ(d, s), sK(d), sScorecard(s)];
+  const allowed = new Set(keysByMode(d.outputMode));
+  const picked = all.filter((x) => allowed.has(x.key));
+  const body = picked.map((x) => x.html).join("");
+  const markdown = [
+    `# Audit Artikel Vol 3 - ${d.articleTitle}`,
+    "",
+    `- URL: ${d.articleUrl}`,
+    `- Primary keyword: ${d.primaryKeyword}`,
+    `- Mode: ${d.outputMode}`,
+    `- Dibuat: ${today()}`,
+    "",
+    "---",
+    "",
+    picked.map((x) => x.markdown).join("\n\n---\n\n")
+  ].join("\n");
+  const html = `<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Audit Artikel Vol 3 - ${escapeHtml(d.articleTitle)}</title><style>body{font-family:Arial,sans-serif;background:#f7f4ee;color:#17130d;line-height:1.65;margin:0}header{padding:24px 28px;background:#17130d;color:#fff}main{max-width:1020px;margin:0 auto;padding:24px 18px 54px}.section{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:16px;padding:20px;margin-bottom:16px}.section h3{font-family:Georgia,serif;font-size:30px;margin:0 0 10px}.section h4{font-size:20px;margin:14px 0 8px}table{width:100%;min-width:680px;border-collapse:collapse}th,td{padding:8px 10px;border-bottom:1px solid rgba(0,0,0,.08);text-align:left;vertical-align:top}th{font-size:12px;text-transform:uppercase;background:rgba(0,0,0,.03);color:#666}.tbl{overflow:auto;border:1px solid rgba(0,0,0,.09);border-radius:10px}ul{padding-left:18px}</style></head><body><header><h1>Audit Artikel Vol 3 - ${escapeHtml(d.articleTitle)}</h1><p>${escapeHtml(d.articleUrl)} | ${today()} | ${escapeHtml(d.outputMode)}</p></header><main>${body}</main></body></html>`;
+  return { body, markdown, html };
+}
+
+function generate() {
+  const d = collect();
+  const err = validate(d);
+  if (err) return alert(err);
+  const r = build(d);
+  lastData = d;
+  lastMarkdown = r.markdown;
+  lastHtml = r.html;
+  byId("report-wrap").innerHTML = r.body || '<div class="empty">Belum ada output.</div>';
+}
+
+function downloadBlob(content, type, filename) {
+  const blob = new Blob([content], { type });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url; a.download = filename; document.body.appendChild(a); a.click(); a.remove();
+  URL.revokeObjectURL(url);
+}
+
+function copyMarkdown() {
+  if (!lastMarkdown) generate();
+  if (!lastMarkdown) return;
+  navigator.clipboard.writeText(lastMarkdown).then(() => alert("Markdown audit berhasil disalin.")).catch(() => alert("Gagal menyalin markdown audit."));
+}
+
+function downloadMarkdown() {
+  if (!lastMarkdown) generate();
+  if (!lastMarkdown) return;
+  const d = lastData || collect();
+  downloadBlob(lastMarkdown, "text/markdown;charset=utf-8", `audit-artikel-vol3-${slug(d.articleTitle || "artikel")}.md`);
+}
+
+function downloadHtml() {
+  if (!lastHtml) generate();
+  if (!lastHtml) return;
+  const d = lastData || collect();
+  downloadBlob(lastHtml, "text/html;charset=utf-8", `audit-artikel-vol3-${slug(d.articleTitle || "artikel")}.html`);
+}
+
+function printPdf() {
+  if (!lastMarkdown) generate();
+  if (!lastMarkdown) return;
+  window.print();
+}
+
+function resetForm() {
+  document.querySelectorAll("input[type='text'],textarea").forEach((el) => { el.value = ""; });
+  document.querySelectorAll("input[type='checkbox']").forEach((el) => { el.checked = false; });
+  byId("content_type").value = "";
+  byId("gsc_win").value = "Tidak";
+  byId("similar_article_status").value = "Tidak";
+  byId("ai_overview").value = "Belum dicek";
+  byId("ai_chatgpt").value = "Belum dicek";
+  byId("ai_perplexity").value = "Belum dicek";
+  byId("has_faq").value = "Belum dicek";
+  byId("has_schema").value = "Belum dicek";
+  byId("has_data").value = "Belum dicek";
+  byId("output_mode").value = "MODE STANDAR";
+  lastData = null; lastMarkdown = ""; lastHtml = "";
+  byId("report-wrap").innerHTML = '<div class="empty">Belum ada output. Lengkapi form audit lalu klik "Generate Audit Artikel Vol 3".</div>';
+  prefillFromResearch();
+}
+
+function clearSharedHistory() {
+  sessionStorage.removeItem("seo_generator_prefill");
+  localStorage.removeItem("adv_prompt_template_category");
+  localStorage.removeItem("master_blueprint_draft_v1");
+  localStorage.removeItem("competitor_research_draft_v1");
+  localStorage.removeItem("keyword_research_vol3_draft_v1");
+  localStorage.removeItem("content_audit_vol3_draft_v1");
+  const prefixes = ["adv_prompt_draft_", "prd_builder_draft_"];
+  const del = [];
+  for (let i = 0; i < localStorage.length; i += 1) {
+    const k = localStorage.key(i);
+    if (k && prefixes.some((p) => k.startsWith(p))) del.push(k);
+  }
+  del.forEach((k) => localStorage.removeItem(k));
+}
+
+function resetHistory() {
+  if (!confirm("Hapus histori generator (Research, Blueprint, Competitor, Prompt, Audit Vol 3) dan reset form audit?")) return;
+  clearSharedHistory();
+  resetForm();
+  refreshDraftStatus();
+  alert("Histori berhasil dihapus.");
+}
+
+refreshDraftStatus();
+prefillFromResearch();
+</script>
+</body>
+</html>

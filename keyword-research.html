@@ -208,6 +208,7 @@ input:focus, textarea:focus, select:focus { outline: none; border-color: var(--g
     <div class="kw-logo">Keyword <em>Research</em> Builder — <span id="kw-brand-header">Brand</span></div>
     <div class="kw-actions">
       <a class="btn btn-ghost" href="index.html">← Kembali ke SEO System</a>
+      <a class="btn btn-ghost" href="content-audit-vol3.html">🩺 Audit Artikel Vol 3</a>
       <a class="btn btn-ghost" href="instagram-prompts.html">📱 Prompt Instagram</a>
       <button class="btn btn-ghost" onclick="resetKeywordHistory()">♻ Reset Histori</button>
       <button class="btn btn-ghost" onclick="copyKeywordMarkdown()">Copy Markdown</button>
@@ -2618,6 +2619,7 @@ function resetKeywordForm() {
 function clearSharedGeneratorHistoryStorage() {
   sessionStorage.removeItem('seo_generator_prefill');
   localStorage.removeItem('adv_prompt_template_category');
+  localStorage.removeItem('content_audit_vol3_draft_v1');
 
   const prefixes = ['adv_prompt_draft_', 'prd_builder_draft_'];
   const keysToDelete = [];
@@ -2630,7 +2632,7 @@ function clearSharedGeneratorHistoryStorage() {
 }
 
 function resetKeywordHistory() {
-  const ok = confirm('Hapus semua histori generator (Research, Index prefill, PRD, Prompt Lanjutan) dan reset form keyword?');
+  const ok = confirm('Hapus semua histori generator (Research, Audit Vol 3, Index prefill, PRD, Prompt Lanjutan) dan reset form keyword?');
   if (!ok) return;
   clearSharedGeneratorHistoryStorage();
   resetKeywordForm();

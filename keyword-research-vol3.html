@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Keyword Research Volume 3 Builder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0e0d0b;--ink2:#2a2825;--ink3:#4a4845;--paper:#faf8f4;--paper2:#f3f0ea;--gold:#b8860b;--gold2:#d4a017;--blue:#1a3a6b;--border:rgba(14,13,11,.16);--shadow:0 2px 10px rgba(14,13,11,.08);--font-display:"Playfair Display",Georgia,serif;--font-body:"DM Sans","Helvetica Neue",sans-serif;--font-mono:"DM Mono","Courier New",monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-body);background:var(--paper);color:var(--ink);line-height:1.6}
+.header{position:sticky;top:0;background:var(--ink);padding:14px 24px;display:flex;justify-content:space-between;align-items:center;gap:12px;z-index:20}
+.logo{font-family:var(--font-display);font-size:18px;color:#fff}.logo span{color:var(--gold2)}
+.actions{display:flex;gap:8px;flex-wrap:wrap}
+.btn{border:1px solid transparent;border-radius:999px;padding:9px 13px;font-size:12px;text-decoration:none;cursor:pointer;display:inline-flex;align-items:center;justify-content:center}
+.btn-ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.32)}.btn-light{background:var(--paper2);color:var(--ink2);border-color:var(--border)}.btn-primary{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#1f1304;border-color:rgba(0,0,0,.08)}
+.hero{background:linear-gradient(180deg,var(--ink2),#1a1714);padding:38px 24px;color:#efe8d7;text-align:center}
+.hero h1{font-family:var(--font-display);font-size:34px;font-weight:400}.hero h1 em{color:var(--gold2)}
+.hero p{max-width:900px;margin:10px auto 0;color:#cfc9bd}
+.shell{max-width:1300px;margin:0 auto;padding:18px 24px 60px}
+.status{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.pill{border:1px solid var(--border);background:var(--paper2);border-radius:999px;padding:8px 13px;font-size:13px;color:var(--ink3)}
+.grid{display:grid;grid-template-columns:minmax(360px,530px) minmax(0,1fr);gap:16px}
+.panel{background:#fff;border:1px solid var(--border);border-radius:18px;box-shadow:var(--shadow)}
+.form-panel{padding:16px;position:sticky;top:78px;max-height:calc(100vh - 92px);overflow:auto}
+.result-panel{padding:16px;min-height:620px}
+.card{border:1px solid rgba(14,13,11,.1);border-radius:14px;padding:14px;background:#fff}
+.card+.card{margin-top:12px}
+.card h2{font-family:var(--font-display);font-size:22px;font-weight:400;margin-bottom:6px}
+.card p{font-size:13px;color:var(--ink3);margin-bottom:10px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.field{border:1px solid rgba(14,13,11,.1);border-radius:12px;padding:10px}
+.field.dimmed{opacity:.52;border-style:dashed}
+.wide{grid-column:1/-1}
+label{display:block;font-size:13px;font-weight:600;margin-bottom:6px}
+label span{font-size:10px;letter-spacing:.08em;text-transform:uppercase;background:#fdf4e3;color:#6f4f00;padding:3px 6px;border-radius:999px;margin-left:4px}
+.hint{font-size:12px;color:var(--ink3);margin-bottom:8px}
+.usage-note{font-size:11.5px;color:var(--ink3);margin:-2px 0 8px}
+.usage-tag{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;padding:2px 7px;margin-right:6px;font-size:10px;letter-spacing:.05em;text-transform:uppercase;border:1px solid transparent}
+.usage-tag-both{background:#eef4ff;border-color:rgba(26,58,107,.28);color:#1a3a6b}
+.usage-tag-kr{background:#fff4ec;border-color:rgba(184,134,11,.34);color:#8a6100}
+.usage-tag-ta{background:#edf8f3;border-color:rgba(26,107,90,.3);color:#1a6b5a}
+input[type="text"],textarea,select{width:100%;border:1px solid var(--border);border-radius:10px;padding:9px 10px;font:inherit}
+textarea{min-height:88px;resize:vertical}
+.checks{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.checks label{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:500;border:1px solid rgba(14,13,11,.1);border-radius:10px;padding:7px}
+.form-actions,.report-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.report-title{font-family:var(--font-display);font-size:31px;font-weight:400}
+.report-sub{color:var(--ink3);font-size:14px;margin:6px 0 8px}
+.report-wrap{border:1px solid rgba(14,13,11,.1);border-radius:14px;padding:14px;background:#fff}
+.empty{border:1px dashed var(--border);border-radius:10px;padding:12px;background:var(--paper2);color:var(--ink3)}
+.section+.section{margin-top:20px}
+.section h3{font-family:var(--font-display);font-size:25px;font-weight:400;margin-bottom:8px}
+.section h4{font-size:17px;margin:12px 0 6px}
+.tbl{overflow:auto;border:1px solid rgba(14,13,11,.1);border-radius:10px;margin:8px 0}
+table{width:100%;border-collapse:collapse;min-width:680px}
+th,td{padding:8px 10px;border-bottom:1px solid rgba(14,13,11,.1);text-align:left;vertical-align:top}
+th{font-size:11px;text-transform:uppercase;background:var(--paper2);color:var(--ink3)}
+ul{padding-left:18px}
+@media (max-width:1080px){.grid{grid-template-columns:1fr}.form-panel{position:static;max-height:none}}
+@media (max-width:760px){.header,.hero,.shell{padding-left:16px;padding-right:16px}.actions,.form-actions,.report-actions{display:grid;grid-template-columns:1fr}.btn{width:100%}.form-grid,.checks{grid-template-columns:1fr}.hero h1{font-size:28px}}
+@media print{.header,.hero,.status,.form-panel,.report-actions{display:none!important}.shell{padding:0}.result-panel{border:none;box-shadow:none;padding:0}.report-wrap{border:none;padding:0}}
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="logo">Keyword Research <span>Vol 3</span></div>
+  <div class="actions">
+    <a class="btn btn-ghost" href="index.html">← Index</a>
+    <a class="btn btn-ghost" href="keyword-research.html">Research V2</a>
+    <a class="btn btn-ghost" href="content-audit-vol3.html">Audit Artikel Vol 3</a>
+    <a class="btn btn-ghost" href="master-blueprint.html">Master Blueprint</a>
+    <button class="btn btn-ghost" type="button" onclick="resetHistory()">Reset Histori</button>
+  </div>
+</header>
+
+<section class="hero">
+  <h1>Blueprint <em>Keyword Research</em> Volume 3</h1>
+  <p>Semua field sudah disiapkan lengkap sesuai format Vol 3: detail, universal, dengan output A-K yang bisa diunduh sebagai Markdown, HTML, dan PDF.</p>
+</section>
+
+<main class="shell">
+  <div class="status">
+    <div class="pill" id="draft-status">Draft lokal aktif. Belum ada draft tersimpan.</div>
+    <div class="actions">
+      <button class="btn btn-light" type="button" onclick="saveDraft()">Simpan Draft</button>
+      <button class="btn btn-light" type="button" onclick="loadDraft(true)">Muat Draft</button>
+      <button class="btn btn-light" type="button" onclick="copyDraft()">Copy Draft</button>
+      <button class="btn btn-light" type="button" onclick="clearDraft()">Hapus Draft</button>
+    </div>
+  </div>
+
+  <div class="grid">
+    <section class="panel form-panel">
+      <div class="card">
+        <h2>Identitas Bisnis</h2>
+        <p>Fondasi entity dan konteks market agar output tidak generik.</p>
+        <div class="form-grid">
+          <div class="field">
+            <label for="brand">Bisnis / Brand / Website <span>Wajib</span></label>
+            <div class="hint">Nama entitas utama yang dipakai konsisten di semua output.</div>
+            <input id="brand" type="text">
+          </div>
+          <div class="field">
+            <label for="industry">Industri / Niche <span>Wajib</span></label>
+            <div class="hint">Kategori utama untuk memetakan intent dan kompetisi.</div>
+            <input id="industry" type="text">
+          </div>
+          <div class="field wide">
+            <label for="products">Produk / Jasa / Topik Utama <span>Wajib</span></label>
+            <div class="hint">Pisahkan per baris agar cluster dan mapping lebih presisi.</div>
+            <textarea id="products"></textarea>
+          </div>
+          <div class="field wide">
+            <label for="audience">Target Audience <span>Wajib</span></label>
+            <div class="hint">Siapa mereka, problem utama, dan konteks keputusan mereka.</div>
+            <textarea id="audience"></textarea>
+          </div>
+          <div class="field wide">
+            <label for="geo">Lokasi / GEO Target</label>
+            <div class="hint">Isi bila ada target kota/wilayah untuk local SEO.</div>
+            <input id="geo" type="text">
+          </div>
+          <div class="field wide">
+            <label>Tujuan Bisnis <span>Wajib</span></label>
+            <div class="hint">Pilih prioritas supaya keyword tidak fokus traffic saja.</div>
+            <div class="checks">
+              <label><input type="checkbox" name="biz_goal" value="Traffic organik">Traffic organik</label>
+              <label><input type="checkbox" name="biz_goal" value="Leads / prospek">Leads / prospek</label>
+              <label><input type="checkbox" name="biz_goal" value="Sales / konversi">Sales / konversi</label>
+              <label><input type="checkbox" name="biz_goal" value="Authority building">Authority building</label>
+              <label><input type="checkbox" name="biz_goal" value="Local discovery">Local discovery</label>
+              <label><input type="checkbox" name="biz_goal" value="Brand awareness">Brand awareness</label>
+            </div>
+          </div>
+          <div class="field wide">
+            <label>Tujuan Keyword Research <span>Wajib</span></label>
+            <div class="hint">Menentukan format output prioritas untuk eksekusi.</div>
+            <div class="checks">
+              <label><input type="checkbox" name="research_goal" value="Artikel blog">Artikel blog</label>
+              <label><input type="checkbox" name="research_goal" value="Landing page">Landing page</label>
+              <label><input type="checkbox" name="research_goal" value="Local page">Local page</label>
+              <label><input type="checkbox" name="research_goal" value="Topical authority">Topical authority</label>
+              <label><input type="checkbox" name="research_goal" value="YouTube support">YouTube support</label>
+              <label><input type="checkbox" name="research_goal" value="Social content">Social content</label>
+              <label><input type="checkbox" name="research_goal" value="Full content ecosystem">Full content ecosystem</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Topik & Keyword</h2>
+        <p>Pemetaan seed topic, entity, intent, funnel, dan format konten.</p>
+        <div class="form-grid">
+          <div class="field">
+            <label for="seed_topic">Topik Awal / Seed Topic <span>Wajib</span></label>
+            <div class="hint">Topik utama yang jadi poros turunan keyword.</div>
+            <input id="seed_topic" type="text">
+          </div>
+          <div class="field">
+            <label for="main_entity">Entitas Utama <span>Wajib</span></label>
+            <div class="hint">Entity utama yang harus konsisten di semua konten.</div>
+            <input id="main_entity" type="text">
+          </div>
+          <div class="field wide">
+            <label for="initial_keywords">Keyword Awal (jika ada)</label>
+            <div class="hint">Pisahkan per baris.</div>
+            <textarea id="initial_keywords"></textarea>
+          </div>
+          <div class="field wide">
+            <label for="secondary_entities">Entitas Sekunder</label>
+            <div class="hint">Role, use case, istilah teknis, atau entitas pendukung lain.</div>
+            <textarea id="secondary_entities"></textarea>
+          </div>
+          <div class="field">
+            <label for="audience_problem">Problem Utama Audiens</label>
+            <div class="hint">Masalah yang memicu pencarian.</div>
+            <textarea id="audience_problem"></textarea>
+          </div>
+          <div class="field">
+            <label for="audience_outcome">Hasil yang Dicari Audiens</label>
+            <div class="hint">Outcome yang diharapkan setelah action.</div>
+            <textarea id="audience_outcome"></textarea>
+          </div>
+          <div class="field wide">
+            <label>Funnel Stage Target <span>Wajib</span></label>
+            <div class="hint">Tentukan tahap funnel yang diprioritaskan.</div>
+            <div class="checks">
+              <label><input type="checkbox" name="funnel" value="TOFU">TOFU</label>
+              <label><input type="checkbox" name="funnel" value="MOFU">MOFU</label>
+              <label><input type="checkbox" name="funnel" value="BOFU">BOFU</label>
+              <label><input type="checkbox" name="funnel" value="Mixed">Mixed</label>
+            </div>
+          </div>
+          <div class="field wide">
+            <label>Tipe Search Intent <span>Wajib</span></label>
+            <div class="hint">Pilih intent primer untuk arah format output.</div>
+            <div class="checks">
+              <label><input type="checkbox" name="intent" value="Informasional">Informasional</label>
+              <label><input type="checkbox" name="intent" value="Komersial">Komersial</label>
+              <label><input type="checkbox" name="intent" value="Transaksional">Transaksional</label>
+              <label><input type="checkbox" name="intent" value="Navigasional">Navigasional</label>
+              <label><input type="checkbox" name="intent" value="Lokal">Lokal</label>
+              <label><input type="checkbox" name="intent" value="Campuran">Campuran</label>
+            </div>
+          </div>
+          <div class="field wide">
+            <label>Format Konten yang Mungkin</label>
+            <div class="hint">Pilih format yang benar-benar ingin dioperasikan.</div>
+            <div class="checks">
+              <label><input type="checkbox" name="format" value="Artikel / blog">Artikel / blog</label>
+              <label><input type="checkbox" name="format" value="Landing page">Landing page</label>
+              <label><input type="checkbox" name="format" value="FAQ page">FAQ page</label>
+              <label><input type="checkbox" name="format" value="Local page">Local page</label>
+              <label><input type="checkbox" name="format" value="YouTube video">YouTube video</label>
+              <label><input type="checkbox" name="format" value="Shorts / Reels">Shorts / Reels</label>
+              <label><input type="checkbox" name="format" value="Carousel social">Carousel social</label>
+              <label><input type="checkbox" name="format" value="Google Business Profile">Google Business Profile</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Konten Existing, Kompetitor, dan AI Visibility</h2>
+        <p>Audit overlap, peluang quick win GSC, dan kesiapan AI citation.</p>
+        <div class="form-grid">
+          <div class="field wide">
+            <label for="existing_content">Konten yang Sudah Ada</label>
+            <div class="hint">Ringkasan aset konten saat ini.</div>
+            <textarea id="existing_content"></textarea>
+          </div>
+          <div class="field wide">
+            <label for="existing_urls">URL / Judul Konten Existing</label>
+            <div class="hint">Satu baris satu URL/judul untuk audit cannibalization.</div>
+            <textarea id="existing_urls"></textarea>
+          </div>
+          <div class="field">
+            <label for="overlap_risk">Risiko Overlap yang Dicurigai</label>
+            <div class="hint">Masukkan dugaan topik yang saling bentrok.</div>
+            <textarea id="overlap_risk"></textarea>
+          </div>
+          <div class="field">
+            <label for="gsc_keywords">Keyword Posisi 4-15 (GSC)</label>
+            <div class="hint">Satu baris satu keyword quick win.</div>
+            <textarea id="gsc_keywords"></textarea>
+          </div>
+          <div class="field">
+            <label for="comp1">Kompetitor 1</label>
+            <input id="comp1" type="text">
+          </div>
+          <div class="field">
+            <label for="comp2">Kompetitor 2</label>
+            <input id="comp2" type="text">
+          </div>
+          <div class="field wide">
+            <label for="comp3">Kompetitor 3</label>
+            <input id="comp3" type="text">
+          </div>
+          <div class="field">
+            <label for="ai_overview">Sudah muncul di Google AI Overview?</label>
+            <select id="ai_overview"><option>Belum dicek</option><option>Ya</option><option>Tidak</option></select>
+          </div>
+          <div class="field">
+            <label for="ai_chatgpt">Sudah dikutip ChatGPT?</label>
+            <select id="ai_chatgpt"><option>Belum dicek</option><option>Ya</option><option>Tidak</option></select>
+          </div>
+          <div class="field">
+            <label for="ai_perplexity">Sudah dikutip Perplexity?</label>
+            <select id="ai_perplexity"><option>Belum dicek</option><option>Ya</option><option>Tidak</option></select>
+          </div>
+          <div class="field wide">
+            <label>Platform AI yang Ditarget <span>Wajib</span></label>
+            <div class="checks">
+              <label><input type="checkbox" name="ai_target" value="Google AI Overview (SGE)">Google AI Overview</label>
+              <label><input type="checkbox" name="ai_target" value="ChatGPT">ChatGPT</label>
+              <label><input type="checkbox" name="ai_target" value="Perplexity">Perplexity</label>
+              <label><input type="checkbox" name="ai_target" value="Gemini">Gemini</label>
+              <label><input type="checkbox" name="ai_target" value="Semua platform AI">Semua platform AI</label>
+            </div>
+          </div>
+          <div class="field">
+            <label for="original_data_status">Punya data original?</label>
+            <select id="original_data_status"><option>Tidak / Belum</option><option>Ya</option></select>
+          </div>
+          <div class="field">
+            <label for="original_data_note">Detail data original</label>
+            <textarea id="original_data_note"></textarea>
+          </div>
+          <div class="field wide">
+            <label for="notes">Catatan Tambahan</label>
+            <textarea id="notes"></textarea>
+          </div>
+          <div class="field wide">
+            <label for="prompt_structure">Struktur Prompt</label>
+            <div class="hint">Pilih jenis prompt: gabungan atau terpisah agar output sesuai kebutuhan workflow Anda.</div>
+            <select id="prompt_structure">
+              <option>GABUNGAN (Keyword Research + Topical Authority)</option>
+              <option>KEYWORD RESEARCH SAJA</option>
+              <option>TOPICAL AUTHORITY SAJA</option>
+            </select>
+          </div>
+          <div class="field wide">
+            <label for="output_mode">Mode Output</label>
+            <select id="output_mode">
+              <option>MODE PENUH</option>
+              <option>MODE STRATEGIS</option>
+              <option>MODE RINGKAS</option>
+              <option>MODE AI CITATION FOCUS</option>
+              <option>MODE YOUTUBE FOCUS</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button class="btn btn-primary" type="button" onclick="generate()">Generate Keyword Research Vol 3</button>
+          <button class="btn btn-light" type="button" onclick="resetForm()">Reset Form</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel result-panel">
+      <div class="report-title">Output A-K</div>
+      <div class="report-sub">Output disusun detail sesuai urutan wajib Vol 3 dan siap dipakai sebagai blueprint bisnis.</div>
+      <div class="report-actions">
+        <button class="btn btn-light" type="button" onclick="copyMarkdown()">Copy Markdown</button>
+        <button class="btn btn-light" type="button" onclick="downloadMarkdown()">Download .md</button>
+        <button class="btn btn-light" type="button" onclick="downloadHtml()">Download .html</button>
+        <button class="btn btn-primary" type="button" onclick="printPdf()">PDF / Print</button>
+      </div>
+      <div class="report-wrap" id="report-wrap">
+        <div class="empty">Belum ada output. Isi form lalu klik "Generate Keyword Research Vol 3".</div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<script>
+const STORAGE_KEY = "keyword_research_vol3_draft_v1";
+let lastMarkdown = "";
+let lastHtml = "";
+let lastData = null;
+
+const byId = (id) => document.getElementById(id);
+const clean = (v) => String(v || "").replace(/\s+/g, " ").trim();
+const lines = (v) => String(v || "").split(/\r?\n/).map(clean).filter(Boolean);
+const uniq = (arr) => Array.from(new Set((arr || []).map(clean).filter(Boolean)));
+const checks = (name) => Array.from(document.querySelectorAll(`input[name="${name}"]:checked`)).map((el) => clean(el.value));
+const setChecks = (name, vals) => {
+  const pool = new Set((vals || []).map(clean));
+  document.querySelectorAll(`input[name="${name}"]`).forEach((el) => { el.checked = pool.has(clean(el.value)); });
+};
+const escapeHtml = (v) => String(v || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+const mdCell = (v) => clean(String(v || "").replace(/\|/g, "\\|")) || "-";
+const slug = (v) => clean(v).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "") || "report";
+const today = () => new Intl.DateTimeFormat("id-ID", { dateStyle: "long" }).format(new Date());
+
+const FIELD_USAGE = {
+  brand: "both",
+  industry: "both",
+  products: "both",
+  audience: "both",
+  geo: "both",
+  biz_goal: "both",
+  research_goal: "both",
+  seed_topic: "both",
+  main_entity: "both",
+  initial_keywords: "kr",
+  secondary_entities: "both",
+  audience_problem: "both",
+  audience_outcome: "both",
+  funnel: "both",
+  intent: "both",
+  format: "ta",
+  existing_content: "ta",
+  existing_urls: "ta",
+  overlap_risk: "ta",
+  gsc_keywords: "kr",
+  comp1: "both",
+  comp2: "both",
+  comp3: "both",
+  ai_overview: "kr",
+  ai_chatgpt: "kr",
+  ai_perplexity: "kr",
+  ai_target: "kr",
+  original_data_status: "kr",
+  original_data_note: "kr",
+  notes: "both",
+  prompt_structure: "both",
+  output_mode: "both"
+};
+
+const USAGE_META = {
+  both: { tag: "KR + TA", cls: "usage-tag-both", text: "Dipakai untuk Keyword Research dan Topical Authority." },
+  kr: { tag: "KR", cls: "usage-tag-kr", text: "Fokus dipakai saat struktur prompt = Keyword Research." },
+  ta: { tag: "TA", cls: "usage-tag-ta", text: "Fokus dipakai saat struktur prompt = Topical Authority." }
+};
+
+function detectFieldKey(field) {
+  const byIdControl = field.querySelector("input[id], textarea[id], select[id]");
+  if (byIdControl && byIdControl.id) return byIdControl.id;
+  const byNameControl = field.querySelector("input[name]");
+  if (byNameControl && byNameControl.name) return byNameControl.name;
+  return "";
+}
+
+function attachFieldUsageNotes() {
+  document.querySelectorAll(".form-panel .field").forEach((field) => {
+    if (field.querySelector(".usage-note")) return;
+    const key = detectFieldKey(field);
+    const mode = FIELD_USAGE[key] || "both";
+    const meta = USAGE_META[mode] || USAGE_META.both;
+    field.dataset.usage = mode;
+
+    const note = document.createElement("div");
+    note.className = "usage-note";
+    note.innerHTML = `<span class="usage-tag ${meta.cls}">${meta.tag}</span>${meta.text}`;
+
+    const hint = field.querySelector(".hint");
+    if (hint) {
+      hint.insertAdjacentElement("afterend", note);
+    } else {
+      const label = field.querySelector("label");
+      if (label) label.insertAdjacentElement("afterend", note);
+      else field.insertAdjacentElement("afterbegin", note);
+    }
+  });
+}
+
+function syncFieldVisibilityByPromptStructure() {
+  const structure = clean(byId("prompt_structure") ? byId("prompt_structure").value : "").toUpperCase();
+  document.querySelectorAll(".form-panel .field").forEach((field) => {
+    const mode = field.dataset.usage || "both";
+    let dimmed = false;
+    if (structure === "KEYWORD RESEARCH SAJA" && mode === "ta") dimmed = true;
+    if (structure === "TOPICAL AUTHORITY SAJA" && mode === "kr") dimmed = true;
+    field.classList.toggle("dimmed", dimmed);
+  });
+}
+
+function collect() {
+  return {
+    brand: clean(byId("brand").value),
+    industry: clean(byId("industry").value),
+    products: lines(byId("products").value),
+    audience: clean(byId("audience").value),
+    geo: clean(byId("geo").value),
+    bizGoals: checks("biz_goal"),
+    researchGoals: checks("research_goal"),
+    seedTopic: clean(byId("seed_topic").value),
+    initialKeywords: lines(byId("initial_keywords").value),
+    mainEntity: clean(byId("main_entity").value),
+    secondaryEntities: lines(byId("secondary_entities").value),
+    audienceProblem: clean(byId("audience_problem").value),
+    audienceOutcome: clean(byId("audience_outcome").value),
+    funnel: checks("funnel"),
+    intents: checks("intent"),
+    formats: checks("format"),
+    existingContent: clean(byId("existing_content").value),
+    existingUrls: lines(byId("existing_urls").value),
+    overlapRisk: clean(byId("overlap_risk").value),
+    gscKeywords: lines(byId("gsc_keywords").value),
+    competitors: uniq([byId("comp1").value, byId("comp2").value, byId("comp3").value]),
+    aiOverview: clean(byId("ai_overview").value),
+    aiChatgpt: clean(byId("ai_chatgpt").value),
+    aiPerplexity: clean(byId("ai_perplexity").value),
+    aiTargets: checks("ai_target"),
+    originalDataStatus: clean(byId("original_data_status").value),
+    originalDataNote: clean(byId("original_data_note").value),
+    notes: clean(byId("notes").value),
+    promptStructure: clean(byId("prompt_structure").value) || "GABUNGAN (Keyword Research + Topical Authority)",
+    outputMode: clean(byId("output_mode").value) || "MODE PENUH"
+  };
+}
+
+function applyData(d) {
+  const setVal = (id, v) => { if (byId(id)) byId(id).value = v || ""; };
+  setVal("brand", d.brand);
+  setVal("industry", d.industry);
+  setVal("products", (d.products || []).join("\n"));
+  setVal("audience", d.audience);
+  setVal("geo", d.geo);
+  setChecks("biz_goal", d.bizGoals || []);
+  setChecks("research_goal", d.researchGoals || []);
+  setVal("seed_topic", d.seedTopic);
+  setVal("initial_keywords", (d.initialKeywords || []).join("\n"));
+  setVal("main_entity", d.mainEntity);
+  setVal("secondary_entities", (d.secondaryEntities || []).join("\n"));
+  setVal("audience_problem", d.audienceProblem);
+  setVal("audience_outcome", d.audienceOutcome);
+  setChecks("funnel", d.funnel || []);
+  setChecks("intent", d.intents || []);
+  setChecks("format", d.formats || []);
+  setVal("existing_content", d.existingContent);
+  setVal("existing_urls", (d.existingUrls || []).join("\n"));
+  setVal("overlap_risk", d.overlapRisk);
+  setVal("gsc_keywords", (d.gscKeywords || []).join("\n"));
+  setVal("comp1", d.competitors && d.competitors[0] ? d.competitors[0] : "");
+  setVal("comp2", d.competitors && d.competitors[1] ? d.competitors[1] : "");
+  setVal("comp3", d.competitors && d.competitors[2] ? d.competitors[2] : "");
+  setVal("ai_overview", d.aiOverview || "Belum dicek");
+  setVal("ai_chatgpt", d.aiChatgpt || "Belum dicek");
+  setVal("ai_perplexity", d.aiPerplexity || "Belum dicek");
+  setChecks("ai_target", d.aiTargets || []);
+  setVal("original_data_status", d.originalDataStatus || "Tidak / Belum");
+  setVal("original_data_note", d.originalDataNote);
+  setVal("notes", d.notes);
+  setVal("prompt_structure", d.promptStructure || "GABUNGAN (Keyword Research + Topical Authority)");
+  setVal("output_mode", d.outputMode || "MODE PENUH");
+}
+
+function prefillFromIndex() {
+  const raw = sessionStorage.getItem("seo_generator_prefill");
+  if (!raw) return;
+  try {
+    const p = JSON.parse(raw);
+    const now = collect();
+    if (!now.brand) byId("brand").value = p.brand || "";
+    if (!now.industry) byId("industry").value = p.industry || "";
+    if (!now.geo) byId("geo").value = p.targetMarket || "";
+    if (!now.audience) byId("audience").value = p.audience || "";
+    if (!now.products.length) byId("products").value = (p.products || []).join("\n");
+    if (!now.seedTopic) byId("seed_topic").value = (p.seedKeywords || [p.industry || ""])[0] || "";
+    if (!now.mainEntity) byId("main_entity").value = (p.products || [p.industry || ""])[0] || "";
+    if (!now.initialKeywords.length) byId("initial_keywords").value = (p.seedKeywords || []).join("\n");
+  } catch (_e) {}
+}
+
+function validate(d) {
+  if (!d.brand || !d.industry || !d.products.length || !d.audience) return "Lengkapi Brand, Industri, Produk/Jasa, dan Audience.";
+  if (!d.bizGoals.length) return "Pilih minimal 1 Tujuan Bisnis.";
+  if (!d.researchGoals.length) return "Pilih minimal 1 Tujuan Keyword Research.";
+  if (!d.seedTopic || !d.mainEntity) return "Lengkapi Seed Topic dan Entitas Utama.";
+  if (!d.funnel.length) return "Pilih minimal 1 Funnel Stage.";
+  if (!d.intents.length) return "Pilih minimal 1 Search Intent.";
+  if (!d.aiTargets.length) return "Pilih minimal 1 Platform AI target.";
+  return "";
+}
+
+function refreshDraftStatus() {
+  const raw = localStorage.getItem(STORAGE_KEY);
+  if (!raw) {
+    byId("draft-status").textContent = "Draft lokal aktif. Belum ada draft tersimpan.";
+    return;
+  }
+  try {
+    const payload = JSON.parse(raw) || {};
+    byId("draft-status").textContent = `Draft tersimpan: ${clean(payload.brand || "Brand")}`;
+  } catch (_e) {
+    byId("draft-status").textContent = "Draft tersimpan namun format data perlu diperbarui.";
+  }
+}
+
+function saveDraft() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(collect()));
+  refreshDraftStatus();
+  alert("Draft berhasil disimpan.");
+}
+
+function loadDraft(showAlert) {
+  const raw = localStorage.getItem(STORAGE_KEY);
+  if (!raw) {
+    if (showAlert) alert("Belum ada draft tersimpan.");
+    refreshDraftStatus();
+    return;
+  }
+  try {
+    applyData(JSON.parse(raw));
+    syncFieldVisibilityByPromptStructure();
+    refreshDraftStatus();
+    if (showAlert) alert("Draft berhasil dimuat.");
+  } catch (_e) {
+    if (showAlert) alert("Draft gagal dimuat.");
+  }
+}
+
+function clearDraft() {
+  if (!confirm("Hapus draft Keyword Research Vol 3?")) return;
+  localStorage.removeItem(STORAGE_KEY);
+  refreshDraftStatus();
+}
+
+function copyDraft() {
+  const d = collect();
+  const txt = [
+    "# Draft Input Keyword Research Vol 3",
+    `- Brand: ${d.brand || "-"}`,
+    `- Industri: ${d.industry || "-"}`,
+    `- Seed Topic: ${d.seedTopic || "-"}`,
+    `- Struktur Prompt: ${d.promptStructure || "-"}`,
+    `- Tujuan Bisnis: ${(d.bizGoals || []).join(", ") || "-"}`,
+    `- Tujuan Research: ${(d.researchGoals || []).join(", ") || "-"}`,
+    `- Funnel: ${(d.funnel || []).join(", ") || "-"}`,
+    `- Intent: ${(d.intents || []).join(", ") || "-"}`,
+    `- AI Targets: ${(d.aiTargets || []).join(", ") || "-"}`
+  ].join("\n");
+  navigator.clipboard.writeText(txt).then(() => alert("Draft ringkas berhasil disalin.")).catch(() => alert("Gagal menyalin draft."));
+}
+
+function table(headers, rows) {
+  const safeRows = rows.length ? rows : [headers.map(() => "-")];
+  const html = `<div class="tbl"><table><thead><tr>${headers.map((h) => `<th>${escapeHtml(h)}</th>`).join("")}</tr></thead><tbody>${safeRows.map((row) => `<tr>${row.map((c) => `<td>${c}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+  const markdown = [`| ${headers.map(mdCell).join(" | ")} |`, `| ${headers.map(() => "---").join(" | ")} |`, ...safeRows.map((row) => `| ${row.map((c) => mdCell(String(c).replace(/<[^>]*>/g, " "))).join(" | ")} |`)].join("\n");
+  return { html, markdown };
+}
+
+function list(items) {
+  const safe = items.length ? items : ["-"];
+  return { html: `<ul>${safe.map((i) => `<li>${i}</li>`).join("")}</ul>`, markdown: safe.map((i) => `- ${clean(String(i).replace(/<[^>]*>/g, " ")) || "-"}`).join("\n") };
+}
+
+function keywordSets(d) {
+  const base = uniq(d.initialKeywords.length ? d.initialKeywords : [d.seedTopic]);
+  const core = d.seedTopic;
+  const p0 = (d.products[0] || d.mainEntity || d.industry || "").trim();
+  const primary = base[0] || core;
+  const secondary = uniq([...base, `${core} terbaik`, `${core} ${d.geo || "Indonesia"}`, `${core} harga`, `${core} review`, `${core} checklist`, `${core} strategi`, `${p0} ${d.geo || ""}`]).slice(0, 10);
+  const longtail = uniq([`cara ${core} untuk ${d.audience}`, `${core} untuk bisnis ${d.industry}`, `${core} ${d.geo || "Indonesia"} terbaik`, `biaya ${core} terbaru 2026`, `${core} vs alternatif lain`, `kapan butuh ${core}`, `langkah implementasi ${core}`, `${core} untuk lead berkualitas`, `kesalahan umum ${core}`, `template ${core}`]).slice(0, 12);
+  const questions = uniq([`apa itu ${core}?`, `bagaimana cara memulai ${core}?`, `berapa biaya ${core}?`, `${core} cocok untuk siapa?`, `kapan ${core} diperlukan?`, `apa beda ${core} vs alternatif?`, `tips memilih ${core}?`, `risiko jika tanpa ${core}?`, `${core} efektif untuk bisnis lokal?`, `langkah cepat ${core} 30 hari?`]).slice(0, 10);
+  const problem = uniq([`masalah umum ${core}`, `${core} tidak menghasilkan lead`, `${core} sulit diukur`, `${core} overlap keyword`, `${core} tidak cocok dengan intent`, `${core} tanpa entity map`, `${core} tidak muncul di AI`, `${core} minim konversi`, `${core} tanpa distribusi`, `${core} tanpa quick win`]).slice(0, 10);
+  const result = uniq([`${core} untuk lead berkualitas`, `${core} untuk konversi BOFU`, `${core} untuk topical authority`, `${core} untuk AI citation`, `${core} untuk branded search`, `${core} untuk discovery lokal`, `${core} untuk trust brand`, `${core} untuk mengurangi overlap`, `${core} untuk social support`, `${core} untuk YouTube support`]).slice(0, 10);
+  const geo = d.geo ? uniq([`${core} ${d.geo}`, `${p0} ${d.geo}`, `${core} terbaik di ${d.geo}`, `${core} lokal ${d.geo}`, `${core} dekat ${d.geo}`]).slice(0, 5) : [];
+  const branded = uniq([`${d.brand} ${core}`, `${d.brand} review`, `${d.brand} harga`, `${d.brand} vs kompetitor`, `${d.brand} layanan`]).slice(0, 5);
+  const hub = uniq([`${d.brand} adalah`, `apa itu layanan ${d.brand}`, `${d.brand} vs kompetitor`, `profil ${d.brand}`, `${d.brand} untuk ${d.industry}`]).slice(0, 5);
+  return { primary, secondary, longtail, questions, problem, result, geo, branded, hub };
+}
+
+function tripod(keyword, d) {
+  const w = clean(keyword).split(" ").filter(Boolean).length;
+  const popularity = w <= 2 ? "Tinggi" : "Sedang";
+  const difficulty = w <= 2 ? "Tinggi" : "Sedang";
+  const relevance = keyword.toLowerCase().includes(d.seedTopic.toLowerCase().split(" ")[0] || "") ? "Tinggi" : "Sedang";
+  const status = relevance === "Tinggi" ? "LULUS" : "SKIP";
+  return { popularity, difficulty, relevance, status };
+}
+
+function aiScore(keyword) {
+  const k = keyword.toLowerCase();
+  const answer = k.split(" ").length >= 4 ? 5 : 3;
+  const evidence = /(harga|biaya|data|statistik|2026|trend)/.test(k) ? 4 : 2;
+  const fresh = /(2026|terbaru|trend|update)/.test(k) ? 4 : 3;
+  const multi = /(cara|tips|review|vs|tutorial)/.test(k) ? 4 : 3;
+  const total = answer + evidence + fresh + multi;
+  const status = total >= 16 ? "Prioritas AI citation" : total >= 11 ? "Potensi sedang" : "Fokus SEO dulu";
+  return { answer, evidence, fresh, multi, total, status };
+}
+
+function sectionA(d, k) {
+  const dominant = d.funnel.includes("BOFU") ? "BOFU" : (d.funnel[0] || "Mixed");
+  const t = table(["Parameter", "Analisis"], [
+    ["Audience utama", escapeHtml(d.audience)],
+    ["Masalah utama", escapeHtml(d.audienceProblem || "Belum diisi detail")],
+    ["Desired outcome", escapeHtml(d.audienceOutcome || "Butuh solusi praktis dan terukur")],
+    ["Awareness stage", dominant === "BOFU" ? "Solution-aware" : dominant === "MOFU" ? "Problem-aware" : "Early awareness"],
+    ["Search intent primer", d.intents[0] || "Campuran"],
+    ["Search intent sekunder", escapeHtml(d.intents.slice(1).join(", ") || "-")],
+    ["Funnel stage dominan", dominant],
+    ["Potensi konversi", dominant === "BOFU" ? "Tinggi" : dominant === "MOFU" ? "Sedang" : "Rendah-Sedang"]
+  ]);
+  const ai = list([`Apa strategi ${d.seedTopic} paling efektif untuk ${d.audience}?`, `Bagaimana memilih ${d.seedTopic} yang tepat untuk ${d.industry}?`, `Langkah prioritas ${d.seedTopic} agar cepat hasil di ${d.geo || "Indonesia"}?`].map(escapeHtml));
+  return { key: "A", html: `<div class="section"><h3>Bagian A - Audience & Intent Analysis</h3>${t.html}<h4>AI Query kemungkinan (15-23 kata)</h4>${ai.html}</div>`, markdown: `## BAGIAN A - AUDIENCE & INTENT ANALYSIS\n\n${t.markdown}\n\n### AI Query kemungkinan\n\n${ai.markdown}` };
+}
+
+function sectionB(d) {
+  const t = table(["Komponen", "Detail"], [
+    ["Entitas utama", escapeHtml(d.mainEntity)],
+    ["Entitas sekunder", escapeHtml(d.secondaryEntities.join(", ") || "-")],
+    ["Lokasi / geo entity", escapeHtml(d.geo || "Nasional")],
+    ["Kategori topik", escapeHtml(d.seedTopic)],
+    ["Relasi antar entitas", escapeHtml(`${d.mainEntity} melayani ${d.audience} dengan penawaran ${d.products.join(", ") || d.seedTopic}.`)],
+    ["Istilah/variasi nama", escapeHtml([d.brand, `${d.brand} official`, d.mainEntity].join(", "))],
+    ["Entity hub yang dibutuhkan", escapeHtml(`Halaman profil ${d.brand} + definisi layanan + halaman perbandingan.`)]
+  ]);
+  return { key: "B", html: `<div class="section"><h3>Bagian B - Entity Map</h3>${t.html}</div>`, markdown: `## BAGIAN B - ENTITY MAP\n\n${t.markdown}` };
+}
+
+function sectionC(d, k) {
+  const p = tripod(k.primary, d);
+  const t2 = table(["Keyword", "Popularity", "Difficulty", "Relevance", "Status Tripod"], k.secondary.map((kw) => {
+    const x = tripod(kw, d); return [escapeHtml(kw), x.popularity, x.difficulty, x.relevance, x.status];
+  }));
+  const t3 = table(["Keyword", "Intent", "Funnel", "AI Citation Potential"], k.longtail.map((kw) => [escapeHtml(kw), d.intents[0] || "Campuran", /(harga|biaya|vs|review)/i.test(kw) ? "BOFU" : (d.funnel[0] || "MOFU"), aiScore(kw).total >= 16 ? "Tinggi" : aiScore(kw).total >= 11 ? "Sedang" : "Rendah"]));
+  const t4 = table(["Pertanyaan", "Intent", "Format Terbaik"], k.questions.map((kw) => [escapeHtml(kw), "Question-based", "FAQ / snippet"]));
+  const t5 = table(["Keyword Masalah", "Audience", "Funnel"], k.problem.map((kw) => [escapeHtml(kw), escapeHtml(d.audience), d.funnel.includes("MOFU") ? "MOFU" : (d.funnel[0] || "TOFU")]));
+  const t6 = table(["Keyword Hasil", "Intent", "Konversi"], k.result.map((kw) => [escapeHtml(kw), d.intents.includes("Komersial") ? "Komersial" : (d.intents[0] || "Campuran"), /(konversi|lead|bofu)/i.test(kw) ? "Tinggi" : "Sedang"]));
+  const t7 = table(["Keyword Lokal", "Kota/Area", "Intent"], k.geo.map((kw) => [escapeHtml(kw), escapeHtml(d.geo || "-"), "Lokal"]));
+  const t8 = table(["Keyword Brand", "Fungsi"], k.branded.map((kw) => [escapeHtml(kw), "Branded search + trust + entity consistency"]));
+  const t9 = table(["Keyword Entitas", "Halaman Target", "Fungsi untuk AI", "Prioritas"], k.hub.map((kw, i) => [escapeHtml(kw), "Entity Hub page", "Memperjelas identitas brand", i < 2 ? "Tinggi" : "Sedang"]));
+  const geoBlock = k.geo.length ? `<h4>Kelompok 7 - GEO / Local Keywords</h4>${t7.html}` : "";
+  const geoMd = k.geo.length ? `\n\n### Kelompok 7 - GEO / Local Keywords\n\n${t7.markdown}` : "";
+  return {
+    key: "C",
+    html: `<div class="section"><h3>Bagian C - Keyword Core Map</h3><p><strong>Primary keyword:</strong> ${escapeHtml(k.primary)} | Tripod: ${p.popularity}/${p.difficulty}/${p.relevance} | <strong>${p.status}</strong></p><h4>Kelompok 2 - Secondary Keywords</h4>${t2.html}<h4>Kelompok 3 - Long-tail Keywords</h4>${t3.html}<h4>Kelompok 4 - Question-based Keywords</h4>${t4.html}<h4>Kelompok 5 - Problem-based Keywords</h4>${t5.html}<h4>Kelompok 6 - Result-based Keywords</h4>${t6.html}${geoBlock}<h4>Kelompok 8 - Branded / Entity-support</h4>${t8.html}<h4>Kelompok 9 - Entity Hub Keywords</h4>${t9.html}</div>`,
+    markdown: `## BAGIAN C - KEYWORD CORE MAP\n\nPrimary keyword: ${k.primary} | Tripod ${p.popularity}/${p.difficulty}/${p.relevance} | ${p.status}\n\n### Kelompok 2 - Secondary Keywords\n\n${t2.markdown}\n\n### Kelompok 3 - Long-tail Keywords\n\n${t3.markdown}\n\n### Kelompok 4 - Question-based Keywords\n\n${t4.markdown}\n\n### Kelompok 5 - Problem-based Keywords\n\n${t5.markdown}\n\n### Kelompok 6 - Result-based Keywords\n\n${t6.markdown}${geoMd}\n\n### Kelompok 8 - Branded / Entity-support\n\n${t8.markdown}\n\n### Kelompok 9 - Entity Hub Keywords\n\n${t9.markdown}`
+  };
+}
+
+function sectionD(d, k) {
+  const rows = k.longtail.slice(0, 8).map((q, i) => [String(i + 1), escapeHtml(k.primary), escapeHtml(q), escapeHtml(`${d.seedTopic} subtopik ${i + 1}`), i < 3 ? "Tidak" : "Belum dicek", /apa|bagaimana|kapan|kenapa|berapa/i.test(q) ? "FAQ" : "Artikel", /tutorial|langkah|tips/i.test(q) ? "Web + YouTube" : "Website", i < 3 ? "🔴" : i < 6 ? "🟡" : "🟢"]);
+  const t = table(["No", "Query Utama", "Sub-Query AI", "Topik Konten", "Sudah Ada?", "Format", "Platform", "Prioritas"], rows);
+  const l1 = list(k.longtail.slice(0, 3).map(escapeHtml));
+  const l2 = list(k.questions.slice(0, 4).map(escapeHtml));
+  const l3 = list(k.secondary.slice(0, 4).map(escapeHtml));
+  const l4 = list(k.longtail.slice(3, 6).map(escapeHtml));
+  const l5 = list(k.result.slice(0, 4).map(escapeHtml));
+  return { key: "D", html: `<div class="section"><h3>Bagian D - Query Fan-out Map</h3>${t.html}<h4>Wajib ada di halaman utama</h4>${l1.html}<h4>Lebih cocok jadi FAQ</h4>${l2.html}<h4>Lebih cocok jadi artikel terpisah</h4>${l3.html}<h4>Lebih cocok jadi video YouTube</h4>${l4.html}<h4>Lebih cocok jadi social content</h4>${l5.html}</div>`, markdown: `## BAGIAN D - QUERY FAN-OUT MAP\n\n${t.markdown}\n\n### Wajib ada di halaman utama\n\n${l1.markdown}\n\n### Lebih cocok jadi FAQ\n\n${l2.markdown}\n\n### Lebih cocok jadi artikel terpisah\n\n${l3.markdown}\n\n### Lebih cocok jadi video YouTube\n\n${l4.markdown}\n\n### Lebih cocok jadi social content\n\n${l5.markdown}` };
+}
+
+function sectionE(d, k) {
+  const src = uniq([k.primary, ...k.secondary.slice(0, 4), ...k.questions.slice(0, 2), ...k.result.slice(0, 2), ...k.hub.slice(0, 1)]);
+  const t = table(["Keyword / Query", "Intent", "Funnel", "Format Terbaik", "Alasan", "Platform"], src.map((kw) => [escapeHtml(kw), d.intents[0] || "Campuran", /(harga|biaya|jasa|review|vs)/i.test(kw) ? "BOFU" : (d.funnel[0] || "MOFU"), /apa|bagaimana|kapan|kenapa|berapa/i.test(kw) ? "FAQ page" : (/harga|biaya|jasa|review|vs/i.test(kw) ? "Landing page" : "Artikel blog"), "Sesuai intent dominan + conversion path", /tutorial|tips|langkah/i.test(kw) ? "Web + YouTube" : "Website"]));
+  return { key: "E", html: `<div class="section"><h3>Bagian E - Intent Split & Format Fit</h3>${t.html}</div>`, markdown: `## BAGIAN E - INTENT SPLIT & FORMAT FIT\n\n${t.markdown}` };
+}
+
+function sectionF(d, k) {
+  const t = table(["No", "Cluster Topik", "Target KW", "Intent", "Link ke Pillar"], k.secondary.slice(0, 10).map((kw, i) => [String(i + 1), escapeHtml(`${kw} - cluster`), escapeHtml(kw), i < 4 ? "MOFU" : "BOFU", escapeHtml(d.seedTopic)]));
+  const s1 = list([`FAQ ideas: ${k.questions.slice(0, 3).join(" | ")}`, `Glossary ideas: istilah inti ${d.mainEntity}`, `Comparison ideas: ${d.brand} vs alternatif`, `Case study ideas: implementasi ${d.seedTopic}`, `Data/statistik ideas: insight internal niche ${d.industry}`].map(escapeHtml));
+  const s2 = list([`${d.seedTopic} -> YouTube: tutorial + case`, `${d.seedTopic} -> IG/social: carousel + reels`, `${d.seedTopic} -> Entity Hub: profil + definisi layanan`].map(escapeHtml));
+  const s3 = list([`Cluster -> Pillar: "panduan ${d.seedTopic}"`, `FAQ -> Cluster: "penjelasan detail ${d.seedTopic}"`, `Money page -> Pillar: "solusi ${d.seedTopic} untuk ${d.industry}"`].map(escapeHtml));
+  return { key: "F", html: `<div class="section"><h3>Bagian F - Topical Authority & Cluster Map</h3><p><strong>Pillar topic:</strong> ${escapeHtml(d.seedTopic)} | <strong>Word count:</strong> 3.000-5.000 kata</p>${t.html}<h4>Support content</h4>${s1.html}<h4>Distribusi konten</h4>${s2.html}<h4>Internal linking direction</h4>${s3.html}</div>`, markdown: `## BAGIAN F - TOPICAL AUTHORITY & CLUSTER MAP\n\nPillar topic: ${d.seedTopic} | Word count: 3.000-5.000 kata\n\n${t.markdown}\n\n### Support content\n\n${s1.markdown}\n\n### Distribusi konten\n\n${s2.markdown}\n\n### Internal linking direction\n\n${s3.markdown}` };
+}
+
+function sectionG(d) {
+  const risk = !!d.overlapRisk || d.existingUrls.length > 1;
+  const t = table(["Topik/Konten Lama", "URL", "Intent", "Tingkat Overlap", "Solusi"], (d.existingUrls.length ? d.existingUrls : ["Konten existing belum diisi"]).slice(0, 5).map((u, i) => [escapeHtml(u), escapeHtml(u.startsWith("/") ? `https://${d.brand}${u}` : "-"), i % 2 ? "Komersial" : "Informasional", risk ? (i ? "Sedang" : "Tinggi") : "Rendah", risk ? (i ? "Reposition" : "Update/Merge") : "Aman"]));
+  return { key: "G", html: `<div class="section"><h3>Bagian G - Cannibalization Check</h3><p><strong>Status:</strong> ${risk ? "Ada Risiko" : "Aman"}</p>${t.html}</div>`, markdown: `## BAGIAN G - CANNIBALIZATION CHECK\n\nStatus: ${risk ? "Ada Risiko" : "Aman"}\n\n${t.markdown}` };
+}
+
+function sectionH(d, k) {
+  const src = uniq([...k.result.slice(0, 4), ...k.secondary.slice(0, 4), ...d.gscKeywords.slice(0, 3), ...k.hub.slice(0, 2)]).slice(0, 11);
+  const t = table(["Keyword / Topic", "Funnel", "Tripod Status", "AI Citation", "Prioritas", "Tindakan"], src.map((kw) => {
+    const tp = tripod(kw, d); const s = aiScore(kw); const bofu = /(harga|biaya|jasa|review|vs|lead|konversi)/i.test(kw) || d.funnel.includes("BOFU");
+    const g = d.gscKeywords.some((x) => x.toLowerCase() === kw.toLowerCase()); const p = bofu || g ? "🔴 Tinggi" : s.total >= 13 ? "🟡 Sedang" : "🟢 Rendah";
+    return [escapeHtml(kw), bofu ? "BOFU" : (d.funnel[0] || "MOFU"), tp.status, s.total >= 16 ? "Tinggi" : s.total >= 11 ? "Sedang" : "Rendah", p, g ? "⚡ GSC WIN - update existing" : (bofu ? "Money page / conversion page" : "Cluster / support content")];
+  }));
+  return { key: "H", html: `<div class="section"><h3>Bagian H - Priority Matrix</h3>${t.html}</div>`, markdown: `## BAGIAN H - PRIORITY MATRIX\n\n${t.markdown}` };
+}
+
+function sectionI(d, k) {
+  const t = table(["Platform", "Format", "KW utama", "Eksekusi"], [
+    ["Website", "Pillar + landing support", escapeHtml(k.primary), "CTA lead/konsultasi"],
+    ["Artikel Blog", "Pillar + cluster", escapeHtml(k.longtail[0] || k.primary), "Internal link ke money page"],
+    ["Local SEO", d.geo ? `Local page ${escapeHtml(d.geo)}` : "Opsional", d.geo ? escapeHtml(`${k.primary} ${d.geo}`) : "-", "Schema + GBP support"],
+    ["YouTube", "Long-form tutorial", escapeHtml(k.longtail[1] || k.primary), "VideoObject + transcript"],
+    ["Shorts / Reels", "Problem-solution hook", escapeHtml(k.problem[0] || k.primary), "CTA ke artikel/WA"],
+    ["Carousel", "Ringkasan framework", escapeHtml(k.result[0] || k.primary), "CTA slide akhir"],
+    ["FAQ / Snippet", "Question-answer capsule", escapeHtml(k.questions[0] || k.primary), "FAQPage schema wajib"],
+    ["Entity Hub", "Halaman definisi brand", escapeHtml(k.hub[0] || `${d.brand} adalah`), "Entity consistency + trust"]
+  ]);
+  return { key: "I", html: `<div class="section"><h3>Bagian I - Distribution Map</h3>${t.html}</div>`, markdown: `## BAGIAN I - DISTRIBUTION MAP\n\n${t.markdown}` };
+}
+
+function sectionJ(d, k) {
+  const keys = uniq([...k.questions.slice(0, 3), ...k.longtail.slice(0, 4), ...k.hub.slice(0, 2)]).slice(0, 8);
+  const t1 = table(["Keyword", "Answer Capsule", "Evidence Density", "Freshness", "Multi-Channel", "Total", "Status"], keys.map((kw) => { const s = aiScore(kw); return [escapeHtml(kw), s.answer, s.evidence, s.fresh, s.multi, s.total, s.total >= 16 ? "🔴 Prioritas" : s.total >= 11 ? "🟡 Sedang" : "🟢 SEO dulu"]; }));
+  const t2 = table(["Elemen", "Rencana"], [["Target branded keyword", escapeHtml(`${d.brand} ${d.seedTopic}`)], ["Entity hub yang perlu dibuat", escapeHtml(k.hub.slice(0, 3).join(", "))], ["Konsistensi nama brand", "Samakan naming di website, sosial, dan direktori"], ["Platform profil brand", "GBP, LinkedIn, direktori industri, YouTube"], ["Target branded search 90 hari", "Naik 20-35% dari baseline"]]);
+  const l = list([d.originalDataStatus === "Ya" ? `Data existing: ${d.originalDataNote || "Gunakan dataset internal."}` : "Mulai mini-survey pelanggan + audit data internal.", "Publikasikan tabel perbandingan berbasis angka.", "Rilis insight kuartalan untuk bukti freshness.", "Gunakan format artikel + infografis + video ringkas."].map(escapeHtml));
+  return { key: "J", html: `<div class="section"><h3>Bagian J - AI Citation Readiness Plan</h3><h4>J1 - AI Citation Score per keyword</h4>${t1.html}<h4>J2 - Branded search strategy</h4>${t2.html}<h4>J3 - Data original opportunity</h4>${l.html}</div>`, markdown: `## BAGIAN J - AI CITATION READINESS PLAN\n\n### J1 - AI Citation Score\n\n${t1.markdown}\n\n### J2 - Branded Search Strategy\n\n${t2.markdown}\n\n### J3 - Data Original Opportunity\n\n${l.markdown}` };
+}
+
+function sectionK(d, k) {
+  const quick = d.gscKeywords[0] || "Belum ada keyword posisi 4-15 dari GSC";
+  const sum = table(["Rekomendasi Final", "Keputusan"], [["Primary keyword final", escapeHtml(k.primary)], ["Search intent final", escapeHtml(d.intents[0] || "Campuran")], ["Halaman/format utama", "Pillar + landing support + FAQ"], ["Cluster paling penting", escapeHtml(k.secondary.slice(0, 3).join(", "))], ["BOFU keyword paling kritis", escapeHtml(k.result.slice(0, 2).join(", "))], ["Quick win GSC", escapeHtml(quick)], ["Risiko overlap", escapeHtml(d.overlapRisk || "Lanjut audit intent rutin")], ["Channel distribusi paling efektif", "Website + YouTube + Social + FAQ"], ["AI citation opportunity terbesar", "Question-based + entity hub + data original"], ["Entity hub wajib dibuat", escapeHtml(k.hub.slice(0, 2).join(", "))], ["Langkah berikutnya", "Eksekusi 30 hari fokus BOFU + quick wins"]]);
+  const road = table(["Minggu", "Aksi", "KW / Topik", "Format", "Platform", "Prioritas"], [["Minggu 1", "Audit existing + quick win", escapeHtml(quick), "Update page", "Website", "🔴"], ["Minggu 2", "Publish pillar + 2 cluster", escapeHtml(k.primary), "Pillar/cluster", "Website", "🔴"], ["Minggu 3-4", "Bangun FAQ + entity hub", escapeHtml(k.hub[0] || `${d.brand} adalah`), "FAQ + hub", "Website", "🟡"], ["Bulan 2", "Ekspansi YouTube + social", escapeHtml(k.longtail[0] || k.primary), "Video + carousel", "YouTube + IG", "🟡"], ["Bulan 3", "Scale cluster + monitor AI", escapeHtml(k.result[0] || k.primary), "Cluster lanjutan", "Website + AI", "🟢"]]);
+  return { key: "K", html: `<div class="section"><h3>Bagian K - Final Recommendation</h3>${sum.html}<h4>Roadmap Eksekusi</h4>${road.html}</div>`, markdown: `## BAGIAN K - FINAL RECOMMENDATION\n\n${sum.markdown}\n\n### Roadmap Eksekusi\n\n${road.markdown}` };
+}
+
+function qualityGate(d, k) {
+  const q = [["Audience dan intent sudah jelas", !!d.audience && !!d.intents.length], ["Entitas utama sudah tegas", !!d.mainEntity], ["Primary keyword lulus Tripod Rule", tripod(k.primary, d).status === "LULUS"], ["Secondary dan long-tail mendukung", k.secondary.length >= 5 && k.longtail.length >= 8], ["Query fan-out min 5", k.longtail.length >= 5], ["Sub-query AI method disarankan", true], ["Format terbaik sudah dipetakan", true], ["Cluster topik sudah logis", k.secondary.length >= 5], ["Support content mendukung pillar", true], ["Cannibalization sudah dicek", !!d.overlapRisk || d.existingUrls.length > 0], ["Keyword relevan dengan tujuan bisnis", d.bizGoals.length > 0], ["Peluang YouTube/social tersedia", d.researchGoals.includes("YouTube support") || d.formats.some((x) => /youtube|shorts|reels|carousel/i.test(x))], ["Quick win GSC diidentifikasi", d.gscKeywords.length > 0], ["AI citation potential dinilai", true]];
+  const t = table(["No", "Pertanyaan Quality Gate", "Status", "Catatan"], q.map((x, i) => [String(i + 1), escapeHtml(x[0]), x[1] ? "Ya" : "Tidak", x[1] ? "Lolos" : "Perlu dilengkapi"]));
+  return { key: "Q", html: `<div class="section"><h3>Quality Gate Final - 14 Pertanyaan</h3>${t.html}</div>`, markdown: `## QUALITY GATE FINAL - 14 PERTANYAAN\n\n${t.markdown}` };
+}
+
+function keysByMode(mode) {
+  const m = (mode || "MODE PENUH").toUpperCase();
+  if (m === "MODE RINGKAS") return ["C", "F", "H", "K", "Q"];
+  if (m === "MODE STRATEGIS") return ["A", "B", "C", "D", "F", "G", "H", "K", "Q"];
+  if (m === "MODE AI CITATION FOCUS") return ["A", "C", "D", "J", "K", "Q"];
+  if (m === "MODE YOUTUBE FOCUS") return ["A", "C", "D", "E", "I", "K", "Q"];
+  return ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "Q"];
+}
+
+function keysByPromptStructure(structure) {
+  const s = (structure || "GABUNGAN (Keyword Research + Topical Authority)").toUpperCase();
+  if (s === "KEYWORD RESEARCH SAJA") return ["A", "B", "C", "D", "E", "G", "H", "J", "K", "Q"];
+  if (s === "TOPICAL AUTHORITY SAJA") return ["A", "B", "C", "F", "G", "H", "I", "K", "Q"];
+  return ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "Q"];
+}
+
+function build(d) {
+  const k = keywordSets(d);
+  const all = [sectionA(d, k), sectionB(d), sectionC(d, k), sectionD(d, k), sectionE(d, k), sectionF(d, k), sectionG(d), sectionH(d, k), sectionI(d, k), sectionJ(d, k), sectionK(d, k), qualityGate(d, k)];
+  const modeKeys = keysByMode(d.outputMode);
+  const structureKeys = keysByPromptStructure(d.promptStructure);
+  const allowed = new Set(modeKeys.filter((key) => structureKeys.includes(key)));
+  const picked = all.filter((s) => allowed.has(s.key));
+  const selected = picked.length ? picked : all.filter((s) => structureKeys.includes(s.key));
+  const contentBody = (picked.length ? picked : selected).map((s) => s.html).join("");
+  const markdown = [`# Keyword Research Volume 3 - ${d.brand}`, "", `- Industri: ${d.industry}`, `- Tanggal: ${today()}`, `- Struktur Prompt: ${d.promptStructure}`, `- Mode: ${d.outputMode}`, "", "---", "", (picked.length ? picked : selected).map((s) => s.markdown).join("\n\n---\n\n")].join("\n");
+  const html = `<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Keyword Research Vol 3 - ${escapeHtml(d.brand)}</title><style>body{font-family:Arial,sans-serif;background:#f7f4ee;color:#17130d;line-height:1.65;margin:0}header{padding:26px 28px;background:#17130d;color:#fff}main{max-width:1020px;margin:0 auto;padding:26px 18px 54px}.section{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:16px;padding:20px;margin-bottom:16px}.section h3{font-family:Georgia,serif;font-size:30px;margin:0 0 10px}.section h4{font-size:20px;margin:14px 0 8px}table{width:100%;min-width:680px;border-collapse:collapse}th,td{padding:8px 10px;border-bottom:1px solid rgba(0,0,0,.08);text-align:left;vertical-align:top}th{font-size:12px;text-transform:uppercase;background:rgba(0,0,0,.03);color:#666}.tbl{overflow:auto;border:1px solid rgba(0,0,0,.09);border-radius:10px}ul{padding-left:18px}</style></head><body><header><h1>Keyword Research Vol 3 - ${escapeHtml(d.brand)}</h1><p>${escapeHtml(d.industry)} | ${today()} | ${escapeHtml(d.promptStructure)} | ${escapeHtml(d.outputMode)}</p></header><main>${contentBody}</main></body></html>`;
+  return { body: contentBody, markdown, html };
+}
+
+function generate() {
+  const d = collect();
+  const err = validate(d);
+  if (err) return alert(err);
+  const r = build(d);
+  lastData = d;
+  lastMarkdown = r.markdown;
+  lastHtml = r.html;
+  byId("report-wrap").innerHTML = r.body || '<div class="empty">Belum ada output.</div>';
+}
+
+function downloadBlob(content, type, filename) {
+  const blob = new Blob([content], { type });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url; a.download = filename; document.body.appendChild(a); a.click(); a.remove();
+  URL.revokeObjectURL(url);
+}
+
+function copyMarkdown() {
+  if (!lastMarkdown) generate();
+  if (!lastMarkdown) return;
+  navigator.clipboard.writeText(lastMarkdown).then(() => alert("Markdown berhasil disalin.")).catch(() => alert("Gagal menyalin markdown."));
+}
+
+function downloadMarkdown() {
+  if (!lastMarkdown) generate();
+  if (!lastMarkdown) return;
+  const d = lastData || collect();
+  downloadBlob(lastMarkdown, "text/markdown;charset=utf-8", `keyword-research-vol3-${slug(d.brand || "brand")}.md`);
+}
+
+function downloadHtml() {
+  if (!lastHtml) generate();
+  if (!lastHtml) return;
+  const d = lastData || collect();
+  downloadBlob(lastHtml, "text/html;charset=utf-8", `keyword-research-vol3-${slug(d.brand || "brand")}.html`);
+}
+
+function printPdf() {
+  if (!lastMarkdown) generate();
+  if (!lastMarkdown) return;
+  window.print();
+}
+
+function resetForm() {
+  document.querySelectorAll("input[type='text'],textarea").forEach((el) => { el.value = ""; });
+  document.querySelectorAll("input[type='checkbox']").forEach((el) => { el.checked = false; });
+  byId("ai_overview").value = "Belum dicek";
+  byId("ai_chatgpt").value = "Belum dicek";
+  byId("ai_perplexity").value = "Belum dicek";
+  byId("original_data_status").value = "Tidak / Belum";
+  byId("prompt_structure").value = "GABUNGAN (Keyword Research + Topical Authority)";
+  byId("output_mode").value = "MODE PENUH";
+  syncFieldVisibilityByPromptStructure();
+  lastData = null; lastMarkdown = ""; lastHtml = "";
+  byId("report-wrap").innerHTML = '<div class="empty">Belum ada output. Isi form lalu klik "Generate Keyword Research Vol 3".</div>';
+  prefillFromIndex();
+}
+
+function clearSharedHistory() {
+  sessionStorage.removeItem("seo_generator_prefill");
+  localStorage.removeItem("adv_prompt_template_category");
+  localStorage.removeItem("master_blueprint_draft_v1");
+  localStorage.removeItem("competitor_research_draft_v1");
+  localStorage.removeItem("keyword_research_vol3_draft_v1");
+  localStorage.removeItem("content_audit_vol3_draft_v1");
+  const prefixes = ["adv_prompt_draft_", "prd_builder_draft_"];
+  const del = [];
+  for (let i = 0; i < localStorage.length; i += 1) {
+    const k = localStorage.key(i);
+    if (k && prefixes.some((p) => k.startsWith(p))) del.push(k);
+  }
+  del.forEach((k) => localStorage.removeItem(k));
+}
+
+function resetHistory() {
+  if (!confirm("Hapus histori generator (Index, Blueprint, Competitor, Audit Vol 3, Prompt Lanjutan, Keyword Vol 3) dan reset form?")) return;
+  clearSharedHistory();
+  resetForm();
+  refreshDraftStatus();
+  alert("Histori berhasil dihapus.");
+}
+
+attachFieldUsageNotes();
+refreshDraftStatus();
+prefillFromIndex();
+syncFieldVisibilityByPromptStructure();
+if (byId("prompt_structure")) {
+  byId("prompt_structure").addEventListener("change", syncFieldVisibilityByPromptStructure);
+}
+</script>
+</body>
+</html>

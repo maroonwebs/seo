@@ -1,0 +1,1985 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Master Blueprint Generator 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0e0d0b;
+  --ink2: #2a2825;
+  --ink3: #4a4845;
+  --muted: #8a8780;
+  --muted2: #b9b5ae;
+  --paper: #faf8f4;
+  --paper2: #f3f0ea;
+  --gold: #b8860b;
+  --gold2: #d4a017;
+  --gold-light: #fdf4e3;
+  --gold-border: rgba(184, 134, 11, 0.24);
+  --teal-light: #e8f4f1;
+  --blue-light: #e8edf8;
+  --red-light: #fdf0f0;
+  --border: rgba(14, 13, 11, 0.1);
+  --border2: rgba(14, 13, 11, 0.18);
+  --shadow: 0 1px 3px rgba(14, 13, 11, 0.08), 0 4px 16px rgba(14, 13, 11, 0.06);
+  --shadow-lg: 0 2px 8px rgba(14, 13, 11, 0.1), 0 12px 40px rgba(14, 13, 11, 0.12);
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-body: "DM Sans", "Helvetica Neue", sans-serif;
+  --font-mono: "DM Mono", "Courier New", monospace;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.65;
+  min-height: 100vh;
+}
+a { color: inherit; }
+#loading {
+  position: fixed;
+  inset: 0;
+  background: rgba(14, 13, 11, 0.76);
+  backdrop-filter: blur(6px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 90;
+}
+#loading.show { display: flex; }
+.loading-card {
+  width: min(460px, calc(100vw - 40px));
+  background: rgba(250, 248, 244, 0.98);
+  border: 1px solid rgba(255, 255, 255, 0.44);
+  border-radius: 22px;
+  box-shadow: var(--shadow-lg);
+  padding: 28px 26px;
+  text-align: center;
+}
+.loading-spinner {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 3px solid rgba(212, 160, 23, 0.18);
+  border-top-color: var(--gold2);
+  animation: spin 0.9s linear infinite;
+  margin: 0 auto 18px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.loading-title {
+  font-family: var(--font-display);
+  font-size: 26px;
+  margin-bottom: 6px;
+}
+.loading-text { color: var(--ink3); font-size: 14px; }
+#app-form {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.app-header,
+.result-header {
+  background: var(--ink);
+  padding: 18px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  gap: 16px;
+}
+.app-logo,
+.result-logo {
+  font-family: var(--font-display);
+  color: var(--paper);
+  font-size: 18px;
+}
+.app-logo span,
+.result-logo span {
+  color: var(--gold2);
+  font-style: italic;
+}
+.app-nav-links,
+.result-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+.app-nav-link {
+  color: rgba(255, 255, 255, 0.82);
+  text-decoration: none;
+  font-size: 12px;
+  font-family: var(--font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 999px;
+  padding: 6px 12px;
+  transition: all 0.2s;
+}
+.app-nav-link:hover {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.08);
+}
+.app-nav-btn { background: transparent; cursor: pointer; }
+.step-pills { display: flex; gap: 6px; align-items: center; }
+.step-pill {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.22);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.42);
+  font-family: var(--font-mono);
+  transition: all 0.3s;
+  cursor: pointer;
+}
+.step-pill.done {
+  background: var(--gold2);
+  border-color: var(--gold2);
+  color: var(--ink);
+}
+.step-pill.active {
+  border-color: var(--gold2);
+  color: var(--gold2);
+}
+.step-connector {
+  width: 16px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.16);
+}
+.form-hero {
+  background: linear-gradient(180deg, var(--ink2) 0%, #1d1a16 100%);
+  padding: 58px 40px 48px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.form-hero::before {
+  content: "";
+  position: absolute;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 520px;
+  height: 340px;
+  background: radial-gradient(ellipse, rgba(184, 134, 11, 0.14) 0%, transparent 70%);
+}
+.hero-tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold2);
+  margin-bottom: 16px;
+}
+.hero-title {
+  font-family: var(--font-display);
+  font-size: 40px;
+  font-weight: 400;
+  color: var(--paper);
+  line-height: 1.16;
+  margin-bottom: 14px;
+}
+.hero-title em { color: var(--gold2); font-style: italic; }
+.hero-sub {
+  font-size: 15px;
+  color: var(--muted2);
+  max-width: 760px;
+  margin: 0 auto;
+}
+.hero-points {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 22px;
+}
+.hero-point {
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  padding: 8px 14px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 12px;
+  background: rgba(255, 255, 255, 0.04);
+}
+.progress-wrap {
+  background: var(--ink);
+  padding: 0 40px 18px;
+}
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  margin-bottom: 8px;
+}
+.progress-track {
+  height: 3px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold), var(--gold2));
+  border-radius: 2px;
+  transition: width 0.5s ease;
+}
+.draft-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 40px 0;
+  flex-wrap: wrap;
+}
+.draft-status {
+  font-size: 13px;
+  color: var(--ink3);
+  background: var(--paper2);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 8px 14px;
+}
+.draft-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.form-body {
+  flex: 1;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 24px 40px 86px;
+  width: 100%;
+}
+.step-section { display: none; animation: fadeIn 0.25s ease; }
+.step-section.active { display: block; }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.step-title {
+  font-family: var(--font-display);
+  font-size: 30px;
+  margin-bottom: 8px;
+}
+.step-title em { font-style: italic; color: var(--gold); }
+.step-desc {
+  color: var(--ink3);
+  max-width: 780px;
+  margin-bottom: 24px;
+}
+.callout {
+  border-radius: 16px;
+  padding: 16px 18px;
+  margin-bottom: 20px;
+  border: 1px solid var(--border);
+  background: var(--paper2);
+  box-shadow: var(--shadow);
+}
+.c-gold {
+  background: linear-gradient(180deg, #fffaf0 0%, #fbf3df 100%);
+  border-color: var(--gold-border);
+}
+.c-blue {
+  background: linear-gradient(180deg, #f7f9fe 0%, var(--blue-light) 100%);
+  border-color: rgba(26, 58, 107, 0.18);
+}
+.c-teal {
+  background: linear-gradient(180deg, #f5fcfb 0%, var(--teal-light) 100%);
+  border-color: rgba(26, 107, 90, 0.16);
+}
+.c-red {
+  background: linear-gradient(180deg, #fff8f8 0%, var(--red-light) 100%);
+  border-color: rgba(139, 32, 32, 0.18);
+}
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px 20px;
+}
+.field-group {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: var(--shadow);
+}
+.field-group.wide { grid-column: 1 / -1; }
+.field-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 7px;
+}
+.field-label span {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border-radius: 999px;
+  padding: 4px 8px;
+  background: var(--gold-light);
+  color: #6f4f00;
+}
+.field-label .opt {
+  background: rgba(74, 72, 69, 0.08);
+  color: var(--ink3);
+}
+.field-hint {
+  color: var(--ink3);
+  font-size: 13px;
+  margin-bottom: 12px;
+}
+input[type="text"],
+input[type="url"],
+textarea,
+select {
+  width: 100%;
+  border: 1px solid var(--border2);
+  border-radius: 12px;
+  padding: 12px 14px;
+  font: inherit;
+  color: var(--ink);
+  background: #fff;
+}
+textarea {
+  min-height: 118px;
+  resize: vertical;
+}
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: rgba(184, 134, 11, 0.64);
+  box-shadow: 0 0 0 3px rgba(184, 134, 11, 0.12);
+}
+.invalid,
+.choice-grid.invalid {
+  border-color: rgba(139, 32, 32, 0.45) !important;
+  box-shadow: 0 0 0 3px rgba(139, 32, 32, 0.08) !important;
+}
+.error-msg {
+  font-size: 12px;
+  color: #8b2020;
+  margin-top: 8px;
+  display: none;
+}
+.error-msg.visible { display: block; }
+.choice-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  border: 1px solid transparent;
+  border-radius: 16px;
+}
+.choice-card { position: relative; }
+.choice-card input {
+  position: absolute;
+  opacity: 0;
+  inset: 0;
+  cursor: pointer;
+}
+.choice-card label {
+  display: block;
+  height: 100%;
+  border: 1px solid var(--border2);
+  border-radius: 14px;
+  padding: 14px;
+  background: #fff;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+.choice-title { font-weight: 600; font-size: 13px; margin-bottom: 4px; }
+.choice-desc { font-size: 12px; color: var(--ink3); }
+.choice-card input:checked + label {
+  border-color: rgba(184, 134, 11, 0.6);
+  background: linear-gradient(180deg, #fffdf7 0%, #fbf4e4 100%);
+  box-shadow: 0 10px 22px rgba(184, 134, 11, 0.12);
+}
+.step-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 28px;
+  flex-wrap: wrap;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 999px;
+  padding: 10px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease, border-color 0.16s ease;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn-primary {
+  background: var(--ink);
+  color: #fff;
+  box-shadow: var(--shadow);
+}
+.btn-gold {
+  background: linear-gradient(135deg, var(--gold), var(--gold2));
+  color: #1b1506;
+  box-shadow: var(--shadow);
+}
+.btn-ghost {
+  background: rgba(255, 255, 255, 0.86);
+  color: var(--ink);
+  border-color: var(--border2);
+}
+.btn-light {
+  background: var(--paper2);
+  color: var(--ink2);
+  border-color: var(--border);
+}
+.review-shell { display: grid; gap: 18px; }
+.review-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+.review-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: var(--shadow);
+}
+.review-card h3 {
+  font-family: var(--font-display);
+  font-size: 21px;
+  margin-bottom: 12px;
+}
+.review-list { display: grid; gap: 10px; }
+.review-item {
+  border-top: 1px dashed rgba(14, 13, 11, 0.1);
+  padding-top: 10px;
+}
+.review-item:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+.review-item strong {
+  display: block;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+#app-result { display: none; }
+.result-mobile-nav { display: none; width: 100%; }
+.result-mobile-nav label {
+  display: block;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.72);
+  margin-bottom: 6px;
+}
+.result-mobile-nav select { background: rgba(255, 255, 255, 0.96); }
+.result-layout {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  min-height: calc(100vh - 84px);
+}
+.result-sidebar {
+  background: linear-gradient(180deg, #12100d 0%, #181512 100%);
+  color: rgba(255, 255, 255, 0.86);
+  padding: 28px 18px;
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+  position: sticky;
+  top: 84px;
+  align-self: start;
+  max-height: calc(100vh - 84px);
+  overflow: auto;
+}
+.rsb-section + .rsb-section {
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+.rsb-label {
+  font-size: 11px;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.48);
+  margin-bottom: 10px;
+  font-family: var(--font-mono);
+}
+.rsb-item {
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: 1px solid transparent;
+  color: rgba(255, 255, 255, 0.88);
+  border-radius: 12px;
+  padding: 10px 12px;
+  font: inherit;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+.rsb-item.active {
+  background: rgba(212, 160, 23, 0.12);
+  border-color: rgba(212, 160, 23, 0.28);
+}
+.rsb-num {
+  display: inline-flex;
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.08);
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+.result-main {
+  padding: 36px 36px 56px;
+  background: linear-gradient(180deg, #fbf9f5 0%, #f6f2ea 100%);
+}
+.result-section {
+  display: none;
+  max-width: 980px;
+  margin: 0 auto;
+}
+.result-section.active { display: block; }
+.rs-header { margin-bottom: 24px; }
+.rs-tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+.rs-title {
+  font-family: var(--font-display);
+  font-size: 34px;
+  line-height: 1.12;
+  margin-bottom: 10px;
+}
+.rs-sub { color: var(--ink3); max-width: 760px; }
+.result-section h2.rs {
+  font-family: var(--font-display);
+  font-size: 24px;
+  margin-top: 26px;
+  margin-bottom: 12px;
+}
+.cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+.card,
+.stat-card,
+.tbl-wrap,
+.checklist li,
+.bullet-list li,
+.code-block {
+  box-shadow: var(--shadow);
+}
+.card {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 18px;
+}
+.card-title { font-weight: 600; margin-bottom: 8px; }
+.card-desc { color: var(--ink3); }
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+.stat-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 16px;
+}
+.stat-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+.stat-value {
+  font-family: var(--font-display);
+  font-size: 24px;
+}
+.tbl-wrap {
+  overflow: auto;
+  background: #fff;
+  border-radius: 18px;
+  border: 1px solid var(--border);
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 680px;
+}
+th,
+td {
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(14, 13, 11, 0.08);
+  vertical-align: top;
+  text-align: left;
+}
+th {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  background: rgba(14, 13, 11, 0.03);
+}
+tr:last-child td { border-bottom: none; }
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  padding: 5px 9px;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.b-crit { background: rgba(139, 32, 32, 0.12); color: #7c1010; }
+.b-warn { background: rgba(184, 134, 11, 0.16); color: #7a5600; }
+.b-info { background: rgba(26, 58, 107, 0.11); color: #1a3a6b; }
+.b-ok { background: rgba(26, 107, 90, 0.12); color: #176251; }
+.checklist,
+.bullet-list {
+  list-style: none;
+  display: grid;
+  gap: 10px;
+}
+.checklist li,
+.bullet-list li {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 12px 14px 12px 16px;
+}
+.checklist li::before,
+.bullet-list li::before {
+  content: "•";
+  color: var(--gold);
+  font-weight: 700;
+  margin-right: 8px;
+}
+.flow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+.flow-step,
+.flow-arr {
+  border-radius: 999px;
+  padding: 10px 14px;
+  font-size: 13px;
+}
+.flow-step {
+  background: #fff;
+  border: 1px solid var(--border);
+}
+.flow-arr {
+  color: var(--muted);
+  font-family: var(--font-mono);
+}
+.code-block {
+  background: #13110e;
+  color: #f5f0e2;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 18px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  overflow: auto;
+}
+.site-credit {
+  padding: 20px 40px 36px;
+  color: var(--ink3);
+  text-align: center;
+}
+.site-credit a { color: #1a3a6b; }
+body.print-all-mode .result-section {
+  display: block !important;
+  margin-bottom: 40px;
+}
+body.print-all-mode .result-section:not(:last-child) { page-break-after: always; }
+@media (max-width: 1120px) {
+  .app-header,
+  .result-header,
+  .form-hero,
+  .progress-wrap,
+  .draft-strip,
+  .form-body,
+  .result-main,
+  .site-credit {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .result-layout { grid-template-columns: 1fr; }
+  .result-sidebar { display: none; }
+  .result-mobile-nav { display: block; }
+  .stat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 760px) {
+  .step-pills { display: none; }
+  .form-grid,
+  .review-grid,
+  .cards,
+  .stat-grid,
+  .choice-grid { grid-template-columns: 1fr; }
+  .hero-title { font-size: 31px; }
+  .step-title { font-size: 27px; }
+  .rs-title { font-size: 30px; }
+  .app-header,
+  .result-header { align-items: flex-start; }
+  .app-nav-links,
+  .result-actions {
+    width: 100%;
+    justify-content: flex-start;
+    margin-left: 0;
+  }
+}
+@media print {
+  body { background: #fff; }
+  #app-form,
+  .result-sidebar,
+  .result-mobile-nav,
+  .result-actions,
+  .site-credit { display: none !important; }
+  #app-result { display: block !important; }
+  .result-main { padding: 0; background: #fff; }
+  .result-section {
+    display: block !important;
+    max-width: none;
+    margin: 0 0 36px;
+  }
+  .tbl-wrap,
+  .card,
+  .stat-card,
+  .checklist li,
+  .bullet-list li,
+  .code-block,
+  .callout { box-shadow: none; }
+}
+</style>
+</head>
+<body>
+<div id="loading">
+  <div class="loading-card">
+    <div class="loading-spinner"></div>
+    <div class="loading-title">Menyusun Blueprint</div>
+    <div class="loading-text" id="loading-text">Mengubah input bisnis Anda menjadi blueprint strategis yang siap dipakai ulang.</div>
+  </div>
+</div>
+
+<div id="app-form">
+  <header class="app-header">
+    <div class="app-logo">Master <span>Blueprint</span> Generator</div>
+    <div class="app-nav-links">
+      <a class="app-nav-link" href="index.html">SEO System</a>
+      <a class="app-nav-link" href="keyword-research.html">Research</a>
+      <a class="app-nav-link" href="prd-generator.html">PRD Builder</a>
+      <a class="app-nav-link" href="prompt-advanced.html">Prompt Lanjutan</a>
+      <button type="button" class="app-nav-link app-nav-btn" onclick="clearPageHistory()">Reset Histori</button>
+    </div>
+    <div class="step-pills" id="step-pills"></div>
+  </header>
+
+  <div class="form-hero">
+    <div class="hero-tag">Universal Generator · 2026</div>
+    <h1 class="hero-title">Bangun <em>Master Blueprint</em><br>yang detail, reusable, dan siap diunduh</h1>
+    <p class="hero-sub">Halaman ini dirancang untuk menyusun blueprint bisnis yang lebih lengkap dari halaman index: lebih banyak konteks, penjelasan singkat di setiap field, output HTML aktif, serta file HTML, PDF, dan Markdown yang bisa langsung diunduh.</p>
+    <div class="hero-points">
+      <div class="hero-point">Form lebih rinci per field</div>
+      <div class="hero-point">Draft lokal bisa disimpan dan dicopy</div>
+      <div class="hero-point">Output universal untuk berbagai jenis bisnis</div>
+      <div class="hero-point">Bisa reset histori kapan saja</div>
+    </div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-label">
+      <span id="progress-text">Langkah 1 dari 7</span>
+      <span id="progress-pct">14%</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="progress-fill" style="width:14%"></div>
+    </div>
+  </div>
+
+  <div class="draft-strip">
+    <div class="draft-status" id="draft-status">Draft lokal aktif. Belum ada draft tersimpan.</div>
+    <div class="draft-actions">
+      <button class="btn btn-light" onclick="saveDraft(true)">Simpan Draft</button>
+      <button class="btn btn-light" onclick="loadDraft(true)">Muat Draft</button>
+      <button class="btn btn-light" onclick="copyDraftSummary()">Copy Draft</button>
+      <button class="btn btn-ghost" onclick="clearPageHistory()">Hapus Histori</button>
+    </div>
+  </div>
+
+  <div class="form-body" id="form-steps"></div>
+</div>
+
+<div id="app-result">
+  <header class="result-header">
+    <div class="result-logo">Master <span>Blueprint</span> - <span id="result-brand">Brand</span></div>
+    <div class="result-actions">
+      <button class="btn btn-ghost" onclick="backToForm()">Kembali ke Form</button>
+      <button class="btn btn-ghost" onclick="copyDraftSummary()">Copy Draft</button>
+      <button class="btn btn-ghost" onclick="copyMarkdownReport()">Copy Markdown</button>
+      <button class="btn btn-ghost" onclick="downloadMarkdownReport()">Download .md</button>
+      <button class="btn btn-ghost" onclick="downloadHtmlReport()">Download .html</button>
+      <button class="btn btn-primary" onclick="printAllPDF()">PDF / Print</button>
+    </div>
+    <div class="result-mobile-nav">
+      <label for="mobile-section-nav">Pilih bagian hasil</label>
+      <select id="mobile-section-nav" onchange="showSection(this.value)"></select>
+    </div>
+  </header>
+
+  <div class="result-layout">
+    <nav class="result-sidebar" id="result-sidebar"></nav>
+    <main class="result-main" id="result-main"></main>
+  </div>
+</div>
+
+<footer class="site-credit">
+  Blueprint ini dibuat agar aman dipakai ulang untuk banyak bisnis, banyak niche, dan banyak user tanpa mengunci output pada satu industri saja.
+</footer>
+
+<script>
+const STORAGE_KEY = "master_blueprint_draft_v1";
+const totalSteps = 7;
+let currentStep = 1;
+let blueprintData = {};
+let lastSections = [];
+let lastMarkdown = "";
+
+const steps = [
+  {
+    id: "step-1",
+    title: "Identitas & Konteks Bisnis",
+    description: "Kita mulai dari identitas inti bisnis agar output tidak generik dan punya pijakan entity yang jelas sejak awal.",
+    callout: {
+      className: "c-blue",
+      html: "<p><strong>Kenapa bagian ini penting:</strong> fondasi identitas menentukan konsistensi brand, arah narasi, dan cara AI mengenali bisnis Anda sebagai entitas yang stabil.</p>"
+    },
+    fields: [
+      { id: "business_name", label: "Nama bisnis / brand", type: "text", required: true, hint: "Nama utama yang akan dipakai konsisten di seluruh blueprint, prompt turunan, dan output final.", placeholder: "Contoh: Nusantara Legal Hub", impact: "Entity utama blueprint menjadi kabur dan hasil mudah terasa generik.", assumption: "Gunakan working title bisnis yang paling sering dipakai publik." },
+      { id: "website_url", label: "Website / domain utama", type: "url", required: false, hint: "Boleh domain aktif, subdomain, atau placeholder bila website belum live.", placeholder: "Contoh: https://brandanda.com", impact: "Rencana technical, citation, dan canonical reference menjadi kurang presisi.", assumption: "Gunakan domain yang paling mungkin menjadi rumah utama brand." },
+      { id: "business_stage", label: "Tahap bisnis saat ini", type: "select", required: true, options: ["", "Baru dibangun", "Mulai bertumbuh", "Sudah stabil", "Sedang ekspansi"], hint: "Status ini membantu menyesuaikan level agresivitas strategi dan prioritas eksekusi.", impact: "Roadmap berisiko terlalu berat atau terlalu ringan untuk kondisi bisnis.", assumption: "Asumsikan bisnis berada di fase mulai bertumbuh." },
+      { id: "business_type", label: "Jenis model bisnis", type: "select", required: true, options: ["", "Company Profile", "Service Business", "E-Commerce / Catalog", "SaaS / Aplikasi", "Marketplace / Platform", "Publisher / Media", "Personal Brand", "Local Business", "Lainnya"], hint: "Jenis bisnis menentukan bentuk money page, funnel, dan struktur konten utama.", impact: "Arsitektur blueprint bisa salah arah terhadap model monetisasi sebenarnya.", assumption: "Asumsikan model bisnis dominan adalah service business." },
+      { id: "industry", label: "Industri / niche utama", type: "text", required: true, hint: "Masukkan kategori bisnis utama, bukan slogan. Ini menjadi anchor topik, query, dan positioning.", placeholder: "Contoh: Jasa legal perusahaan", impact: "Keyword mapping dan content architecture kehilangan fokus industri.", assumption: "Gunakan niche inti yang paling sering dicari market." },
+      { id: "market_scope", label: "Cakupan market", type: "select", required: true, options: ["", "Lokal", "Regional", "Nasional Indonesia", "Internasional", "Hybrid"], hint: "Cakupan market akan memengaruhi local SEO, bahasa konten, dan struktur distribusi.", impact: "Prioritas page, channel, dan skala distribusi menjadi tidak sinkron.", assumption: "Asumsikan target utama tetap nasional Indonesia kecuali ada data lain." },
+      { id: "primary_locations", label: "Lokasi utama / area pelayanan", type: "textarea", required: true, wide: true, rows: 3, hint: "Tulis kota, wilayah, atau area operasi utama. Satu baris per area akan lebih mudah dibaca.", placeholder: "Contoh:\nJakarta Selatan\nBandung\nSurabaya", impact: "Blueprint lokal, money page per lokasi, dan peluang GEO lokal jadi kurang jelas.", assumption: "Gunakan lokasi dengan potensi demand dan margin tertinggi." },
+      { id: "content_languages", label: "Bahasa konten yang dibutuhkan", type: "checkboxes", required: true, wide: true, hint: "Pilih bahasa yang benar-benar akan dipakai. Ini memengaruhi format CTA, FAQ, dan distribusi lintas channel.", options: [
+        { value: "Indonesia", label: "Indonesia", description: "Fokus market domestik dan visibilitas nasional." },
+        { value: "Inggris", label: "Inggris", description: "Cocok untuk ekspansi global atau B2B lintas negara." },
+        { value: "Bilingual", label: "Bilingual", description: "Perlu sistem konten ganda dan governance lebih rapi." },
+        { value: "Campuran niche", label: "Campuran niche", description: "Dipakai jika produk, brand, atau komunitas memakai istilah campuran." }
+      ], impact: "Output copy, FAQ, dan CTA berisiko tidak cocok dengan pola pencarian user.", assumption: "Asumsikan bahasa utama adalah Indonesia." },
+      { id: "brand_summary", label: "Ringkasan bisnis dalam 2-4 kalimat", type: "textarea", required: true, wide: true, rows: 4, hint: "Jelaskan siapa Anda, menjual apa, untuk siapa, dan nilai utama yang ingin ditonjolkan.", placeholder: "Contoh: Kami membantu perusahaan menata kebutuhan legal korporasi dari pendirian, review kontrak, hingga tata kelola dokumen dengan proses yang cepat dan terstruktur.", impact: "Executive overview kehilangan konteks bisnis yang utuh.", assumption: "Gunakan ringkasan paling jelas tentang siapa, apa, dan untuk siapa." }
+    ]
+  },
+  {
+    id: "step-2",
+    title: "Penawaran, Value & Deliverables",
+    description: "Bagian ini memperjelas apa yang benar-benar dijual, halaman mana yang menghasilkan uang, dan bukti apa yang bisa menguatkan blueprint.",
+    callout: {
+      className: "c-gold",
+      html: "<p><strong>Catatan:</strong> semakin jelas daftar penawaran dan halaman prioritas Anda, semakin tajam output money page, CTA logic, dan roadmap monetisasinya.</p>"
+    },
+    fields: [
+      { id: "core_offer", label: "Produk / layanan inti", type: "textarea", required: true, wide: true, rows: 4, hint: "Tuliskan penawaran yang benar-benar menjadi mesin revenue utama. Pisahkan per baris bila lebih dari satu.", placeholder: "Contoh:\nPendirian PT dan CV\nReview kontrak bisnis\nPendampingan legal retainer", impact: "Blueprint tidak tahu apa yang harus diprioritaskan sebagai motor utama bisnis.", assumption: "Asumsikan 1-3 layanan inti dengan kontribusi omzet terbesar." },
+      { id: "supporting_offer", label: "Penawaran pendukung", type: "textarea", required: false, wide: true, rows: 3, hint: "Layanan tambahan, upsell, cross-sell, atau produk support yang membantu lifecycle pelanggan.", placeholder: "Contoh:\nAudit dokumen\nKonsultasi satu sesi\nTemplate kontrak standar", impact: "Peluang lifecycle, cross-sell, dan supporting content menjadi lebih sempit.", assumption: "Tambahkan layanan support yang memperpanjang nilai pelanggan." },
+      { id: "flagship_pages", label: "Halaman prioritas / money pages", type: "textarea", required: true, wide: true, rows: 5, hint: "Masukkan halaman yang paling ingin Anda jadikan penghasil lead, transaksi, atau booking. Satu baris per halaman.", placeholder: "Contoh:\nHomepage\nHalaman Pendirian PT\nHalaman Review Kontrak\nHalaman Konsultasi Legal\nHalaman Kontak", impact: "Output conversion system dan page hierarchy tidak punya target halaman yang eksplisit.", assumption: "Gunakan homepage dan 3-5 halaman bernilai komersial tertinggi." },
+      { id: "pricing_model", label: "Model harga / monetisasi", type: "text", required: false, hint: "Boleh berupa retainer, paket, project-based, langganan, komisi, atau campuran.", placeholder: "Contoh: Paket + retainer bulanan", impact: "Blueprint konversi sulit memetakan CTA, offer, dan packaging yang cocok.", assumption: "Asumsikan monetisasi berbasis paket atau project per kebutuhan." },
+      { id: "usp", label: "Keunggulan utama / alasan memilih brand ini", type: "textarea", required: true, wide: true, rows: 4, hint: "Jelaskan pembeda yang nyata: kecepatan, kualitas, metodologi, spesialisasi, akses, atau bukti kerja.", placeholder: "Contoh: Proses review kontrak 24 jam, spesialis B2B, bahasa legal disederhanakan untuk non-hukum.", impact: "Positioning dan messaging blueprint akan terasa datar.", assumption: "Gunakan 2-4 pembeda yang paling kuat dan paling bisa dibuktikan." },
+      { id: "proof_assets", label: "Aset bukti yang sudah tersedia", type: "textarea", required: false, wide: true, rows: 4, hint: "Masukkan testimoni, studi kasus, data internal, portfolio, sertifikasi, partner, atau dokumen pendukung lain.", placeholder: "Contoh:\n35+ klien aktif\nTestimoni corporate\nSertifikasi profesional\nTemplate hasil kerja", impact: "Trust system dan evidence plan akan banyak memakai placeholder.", assumption: "Anggap brand perlu menyiapkan minimal 3 proof assets inti." },
+      { id: "delivery_area", label: "Area pengiriman / delivery capability", type: "text", required: false, hint: "Tulis cakupan operasional nyata bila produk atau layanan punya batas area.", placeholder: "Contoh: Seluruh Indonesia via remote consultation", impact: "Roadmap distribusi dan cakupan page lokal bisa terlalu luas atau terlalu sempit.", assumption: "Asumsikan pengiriman/layanan mengikuti area dengan proses paling siap." },
+      { id: "business_constraints", label: "Batasan bisnis yang perlu diingat", type: "textarea", required: false, wide: true, rows: 3, hint: "Misalnya kapasitas tim, wilayah tertentu, kategori klien, jam layanan, atau aturan legal tertentu.", placeholder: "Contoh: Tidak melayani retail kecil, hanya B2B, response maksimal 24 jam kerja", impact: "Blueprint berisiko membuat rencana yang tidak realistis untuk dieksekusi.", assumption: "Gunakan constraint nyata agar output tetap operasional." }
+    ]
+  },
+  {
+    id: "step-3",
+    title: "Audience, Masalah & Perilaku Beli",
+    description: "Blueprint yang bagus tidak hanya tahu siapa user-nya, tapi juga apa masalahnya, bagaimana dia mencari solusi, dan kapan dia siap membeli.",
+    callout: {
+      className: "c-teal",
+      html: "<p><strong>Fokus bagian ini:</strong> kita sedang memetakan siapa yang dituju, bahasa apa yang mereka pakai, dan friksi apa yang harus dijawab oleh konten maupun money page.</p>"
+    },
+    fields: [
+      { id: "primary_audience", label: "Audience utama", type: "textarea", required: true, wide: true, rows: 4, hint: "Jelaskan siapa mereka, jabatan atau perannya, kebutuhan utamanya, dan konteks mereka datang ke bisnis Anda.", placeholder: "Contoh: Founder startup, HR manager, dan owner UMKM yang butuh bantuan legal praktis tanpa proses bertele-tele.", impact: "Blueprint tidak bisa menentukan sudut konten, CTA, dan value framing yang tepat.", assumption: "Asumsikan audience utama adalah buyer dengan kebutuhan mendesak dan orientasi hasil." },
+      { id: "secondary_audience", label: "Audience sekunder", type: "textarea", required: false, wide: true, rows: 3, hint: "Audience kedua yang belum dominan tetapi masih relevan untuk mendukung demand.", placeholder: "Contoh: Konsultan bisnis, partner agency, atau divisi procurement", impact: "Peluang channel tambahan dan konten pendukung bisa terlewat.", assumption: "Tambahkan segmen pendukung yang masih punya hubungan kuat dengan pembelian." },
+      { id: "core_problems", label: "Masalah utama yang ingin diselesaikan", type: "textarea", required: true, wide: true, rows: 4, hint: "Masukkan problem real, bukan fitur produk. Satu masalah per baris lebih mudah diolah.", placeholder: "Contoh:\nTidak paham alur legal perusahaan\nTakut salah isi kontrak\nButuh vendor yang responsif", impact: "Search intent dan content plan tidak akan menjawab problem yang benar-benar dicari user.", assumption: "Gunakan masalah yang paling sering memicu kontak atau permintaan demo." },
+      { id: "buying_triggers", label: "Pemicu pembelian / momentum action", type: "textarea", required: false, wide: true, rows: 3, hint: "Apa yang biasanya membuat user akhirnya mencari solusi sekarang juga?", placeholder: "Contoh: Deadline pendirian usaha, audit internal, negosiasi kontrak baru", impact: "CTA dan timing distribusi sulit diarahkan ke momen paling efektif.", assumption: "Asumsikan trigger terbesar terkait urgensi, risiko, atau target bisnis." },
+      { id: "objections", label: "Keberatan utama sebelum membeli", type: "textarea", required: false, wide: true, rows: 3, hint: "Tulis keraguan yang paling sering muncul agar blueprint bisa menyiapkan trust dan FAQ yang tepat.", placeholder: "Contoh: Harga dianggap mahal, takut proses lama, ragu apakah cocok untuk bisnis kecil", impact: "Halaman konversi bisa kuat di atas tapi lemah saat user masuk tahap evaluasi.", assumption: "Minimal siapkan jawaban untuk 3 keberatan paling sering." },
+      { id: "awareness_level", label: "Tingkat awareness market", type: "select", required: false, options: ["", "Sangat awal / belum paham masalah", "Sudah paham masalah", "Sudah membandingkan solusi", "Siap membeli"], hint: "Ini membantu menentukan apakah blueprint perlu lebih banyak edukasi atau lebih banyak halaman komersial.", impact: "Rasio edukasi vs komersial menjadi tidak seimbang.", assumption: "Asumsikan market berada di tengah: sudah paham masalah tapi belum yakin memilih vendor." },
+      { id: "search_behavior", label: "Cara audience mencari solusi", type: "textarea", required: false, wide: true, rows: 4, hint: "Jelaskan perilaku pencarian di Google, AI chat, komunitas, atau rekomendasi personal.", placeholder: "Contoh: Awalnya cari di Google, lalu bandingkan via ChatGPT/Perplexity, kemudian cek kredibilitas di LinkedIn atau review.", impact: "Strategi SEO, GEO, dan distribusi multi-channel bisa tidak nyambung dengan perilaku nyata.", assumption: "Asumsikan user memadukan Google, AI chat, dan social proof." },
+      { id: "customer_journey", label: "Ringkasan perjalanan user dari kenal sampai beli", type: "textarea", required: false, wide: true, rows: 4, hint: "Tulis alur singkat awareness -> consideration -> decision -> after-sales.", placeholder: "Contoh: Cari solusi -> baca panduan -> cek layanan -> tanya via WA -> konsultasi -> deal -> repeat order", impact: "Blueprint funnel dan CTA sequence jadi kurang rapi.", assumption: "Anggap ada 4 tahap inti: menemukan, menilai, menghubungi, lalu membeli." }
+    ]
+  },
+  {
+    id: "step-4",
+    title: "Brand, Konversi & Sistem Kepercayaan",
+    description: "Di sini kita mengunci gaya komunikasi, CTA utama, dan material kepercayaan yang akan menopang semua halaman penting.",
+    callout: {
+      className: "c-blue",
+      html: "<p><strong>Prinsipnya:</strong> blueprint yang universal tetap harus punya karakter brand yang jelas, jalur konversi yang lugas, dan trust signal yang terasa nyata.</p>"
+    },
+    fields: [
+      { id: "primary_goal", label: "Tujuan utama blueprint", type: "select", required: true, options: ["", "Lead generation", "Penjualan langsung", "Booking / konsultasi", "Brand authority", "Community / edukasi", "Hybrid"], hint: "Pilih prioritas utama agar output tidak mencoba mengejar semuanya sekaligus.", impact: "Prioritas konten dan struktur money page menjadi bercampur.", assumption: "Asumsikan tujuan utama adalah lead generation bila belum pasti." },
+      { id: "conversion_methods", label: "Metode konversi utama", type: "checkboxes", required: true, wide: true, hint: "Pilih semua jalur yang benar-benar akan dipakai. Blueprint akan menurunkan CTA dan tracking dari pilihan ini.", options: [
+        { value: "WhatsApp / Chat", label: "WhatsApp / Chat", description: "Cocok untuk bisnis yang butuh respons cepat dan penjelasan langsung." },
+        { value: "Form inquiry", label: "Form inquiry", description: "Bagus untuk lead qualification dan data awal." },
+        { value: "Telepon", label: "Telepon", description: "Efektif untuk lead bernilai tinggi atau urgent." },
+        { value: "Demo / konsultasi", label: "Demo / konsultasi", description: "Pas untuk layanan kompleks, SaaS, atau jasa advisory." },
+        { value: "Checkout", label: "Checkout", description: "Ideal jika produk sudah cukup standar dan siap transaksi mandiri." },
+        { value: "Booking", label: "Booking", description: "Cocok untuk jadwal layanan, appointment, atau reservasi." },
+        { value: "Email", label: "Email", description: "Relevan bila approval atau dokumen perlu jejak formal." },
+        { value: "Download proposal", label: "Download proposal", description: "Bisa jadi micro-conversion sebelum closing." }
+      ], impact: "CTA, tracking, dan page hierarchy tidak tahu action mana yang harus diprioritaskan.", assumption: "Gunakan 1 CTA primer dan 1-2 CTA sekunder." },
+      { id: "tone_of_voice", label: "Tone of voice", type: "select", required: true, options: ["", "Profesional dan otoritatif", "Edukatif dan informatif", "Santai tapi kredibel", "Premium dan meyakinkan", "Hangat dan human", "Tegas dan direct"], hint: "Tone ini akan memengaruhi copy headline, CTA, dan gaya argumentasi di blueprint.", impact: "Output copy dan sistem pesan terasa tidak punya karakter konsisten.", assumption: "Asumsikan tone paling aman adalah profesional dan edukatif." },
+      { id: "brand_personality", label: "Karakter brand yang ingin terasa", type: "textarea", required: false, wide: true, rows: 3, hint: "Misalnya tegas, rapi, cepat, sophisticated, ramah, atau praktis.", placeholder: "Contoh: Rapi, tenang, tajam, tidak ribet, dan membuat klien merasa dituntun dengan jelas", impact: "Design language dan messaging tidak punya rasa yang khas.", assumption: "Gunakan 3-5 kata sifat yang paling menggambarkan brand." },
+      { id: "brand_claim", label: "Klaim utama yang ingin ditekankan", type: "textarea", required: false, wide: true, rows: 3, hint: "Tuliskan janji brand yang ingin diingat user. Pastikan realistis dan bisa dijaga.", placeholder: "Contoh: Pendampingan legal bisnis yang cepat, jelas, dan mudah dipahami", impact: "Executive messaging kehilangan hook utama untuk diingat.", assumption: "Pilih klaim yang paling dekat dengan bukti dan pengalaman nyata." },
+      { id: "sales_process", label: "Alur penjualan / penanganan lead", type: "textarea", required: false, wide: true, rows: 4, hint: "Jelaskan bagaimana lead masuk, disaring, dibalas, lalu diarahkan sampai closing.", placeholder: "Contoh: Lead masuk via WA -> verifikasi kebutuhan -> kirim opsi layanan -> jadwalkan call -> proposal -> closing", impact: "Conversion blueprint sulit memetakan friction dan SLA yang realistis.", assumption: "Asumsikan proses penjualan punya 4-6 tahap yang bisa dibakukan." },
+      { id: "trust_signals", label: "Trust signal yang tersedia / ingin dibangun", type: "textarea", required: false, wide: true, rows: 4, hint: "Masukkan testimoni, logo klien, rating, sertifikasi, jumlah proyek, SLA, alamat kantor, atau kebijakan garansi.", placeholder: "Contoh:\nLogo klien\nAlamat kantor jelas\nNomor legal badan usaha\nStudi kasus ringkas", impact: "Halaman penting akan kekurangan penguat keputusan di fase evaluasi.", assumption: "Minimal siapkan trust signal pada level brand, layanan, dan proof sosial." },
+      { id: "retention_offer", label: "Peluang retensi / repeat business", type: "textarea", required: false, wide: true, rows: 3, hint: "Tuliskan upsell, cross-sell, membership, retainer, maintenance, atau layanan lanjutan.", placeholder: "Contoh: Retainer legal bulanan, review tahunan, paket lanjutan untuk compliance", impact: "Blueprint hanya fokus akuisisi dan mengabaikan nilai jangka panjang pelanggan.", assumption: "Asumsikan ada 1-2 penawaran lanjutan setelah pembelian awal." }
+    ]
+  },
+  {
+    id: "step-5",
+    title: "Search, Content & Distribution Map",
+    description: "Bagian ini mengubah wawasan bisnis menjadi topik, intent, format konten, dan jalur distribusi yang siap dioperasikan.",
+    callout: {
+      className: "c-gold",
+      html: "<p><strong>Kerangka kerja 2026:</strong> kita tidak hanya mengejar ranking. Blueprint juga perlu siap untuk answer engine, AI citation, dan distribusi brand-managed sources.</p>"
+    },
+    fields: [
+      { id: "seed_topics", label: "Topik / seed query awal", type: "textarea", required: true, wide: true, rows: 4, hint: "Masukkan topik inti yang paling dekat dengan demand komersial maupun edukatif. Satu baris per topik akan lebih baik.", placeholder: "Contoh:\nPendirian PT\nReview kontrak bisnis\nKonsultasi legal usaha", impact: "Search market model dan topical architecture tidak punya sumber bahan awal.", assumption: "Gunakan 3-8 topik yang paling mewakili demand nyata." },
+      { id: "priority_intents", label: "Intent yang paling penting", type: "checkboxes", required: true, wide: true, hint: "Intent ini membantu membagi porsi antara money page, content support, dan FAQ.", options: [
+        { value: "Informasional", label: "Informasional", description: "Untuk edukasi awal, awareness, dan authority." },
+        { value: "Komersial", label: "Komersial", description: "Untuk user yang sedang membandingkan opsi." },
+        { value: "Transaksional", label: "Transaksional", description: "Untuk user yang siap action atau menghubungi." },
+        { value: "Lokal", label: "Lokal", description: "Untuk kebutuhan per kota, wilayah, atau cakupan service area." },
+        { value: "Navigasional", label: "Navigasional", description: "Untuk brand demand, halaman utama, dan branded query." },
+        { value: "Brand building", label: "Brand building", description: "Untuk mendorong mention, recognition, dan branded search volume." }
+      ], impact: "Distribusi intent antar halaman bisa tidak proporsional.", assumption: "Asumsikan minimal ada kombinasi informasional + komersial." },
+      { id: "competitor_refs", label: "Kompetitor / referensi pasar", type: "textarea", required: false, wide: true, rows: 4, hint: "Tulis nama brand, domain, atau kategori referensi yang patut diamati.", placeholder: "Contoh:\nbrandkompetitor.com\nNama Konsultan A\nMarketplace niche tertentu", impact: "Blueprint gap analysis akan lebih banyak memakai asumsi.", assumption: "Gunakan 3-5 referensi yang paling sering muncul di pasar." },
+      { id: "existing_assets", label: "Aset konten / channel yang sudah ada", type: "textarea", required: false, wide: true, rows: 4, hint: "Masukkan artikel lama, akun sosial, PDF, e-book, database, video, list FAQ, atau landing page yang sudah tersedia.", placeholder: "Contoh:\nBlog lama 20 artikel\nLinkedIn aktif\n5 video YouTube\nDeck company profile PDF", impact: "Blueprint sulit membedakan mana yang harus dibuat dari nol dan mana yang cukup diupgrade.", assumption: "Anggap aset lama perlu diaudit, bukan langsung dipakai mentah." },
+      { id: "content_formats", label: "Format konten yang ingin dipakai", type: "checkboxes", required: true, wide: true, hint: "Pilih format yang benar-benar ingin dioperasikan agar blueprint tetap realistis.", options: [
+        { value: "Pillar article", label: "Pillar article", description: "Konten utama yang komprehensif untuk topik besar." },
+        { value: "FAQ page", label: "FAQ page", description: "Jawaban ringkas, citation-friendly, dan mudah dipindai AI." },
+        { value: "Glossary / definitional", label: "Glossary / definitional", description: "Bagus untuk entity clarity dan intent dasar." },
+        { value: "Comparison page", label: "Comparison page", description: "Membantu fase evaluasi dan komersial." },
+        { value: "Case study", label: "Case study", description: "Menguatkan trust dan evidence density." },
+        { value: "Landing / money page", label: "Landing / money page", description: "Fokus konversi langsung." },
+        { value: "Video / script", label: "Video / script", description: "Mendukung distribusi YouTube dan repurposing." },
+        { value: "Social repurposing", label: "Social repurposing", description: "Memperluas brand-managed mentions." }
+      ], impact: "Blueprint operasional tidak tahu format mana yang harus dibangun dulu.", assumption: "Prioritaskan format yang paling dekat dengan kapasitas tim." },
+      { id: "distribution_channels", label: "Channel distribusi aktif / ingin diaktifkan", type: "checkboxes", required: true, wide: true, hint: "Pilih channel yang benar-benar akan dipakai untuk distribusi dan citation support.", options: [
+        { value: "Website / Blog", label: "Website / Blog", description: "Rumah utama brand dan sumber referensi inti." },
+        { value: "LinkedIn", label: "LinkedIn", description: "Bagus untuk authority dan visibilitas B2B." },
+        { value: "YouTube", label: "YouTube", description: "Menguatkan transcript, video search, dan repurposing." },
+        { value: "Instagram", label: "Instagram", description: "Meningkatkan discovery visual dan trust sosial." },
+        { value: "TikTok", label: "TikTok", description: "Bagus untuk reach dan top-of-funnel." },
+        { value: "X / Twitter", label: "X / Twitter", description: "Cocok untuk opini, update, dan distribution burst." },
+        { value: "Threads", label: "Threads", description: "Efektif untuk micro-thought leadership ringan." },
+        { value: "Reddit / Community", label: "Reddit / Community", description: "Mendukung trust komunitas dan discovery organik." },
+        { value: "Email / WA Broadcast", label: "Email / WA Broadcast", description: "Bagus untuk retention dan activation ulang." },
+        { value: "Podcast / Webinar", label: "Podcast / Webinar", description: "Mendukung authority jangka panjang." },
+        { value: "Google Business Profile", label: "Google Business Profile", description: "Penting bila local intent signifikan." }
+      ], impact: "Plan distribusi dan AI visibility akan kehilangan kanal pendukung utama.", assumption: "Minimal aktifkan website plus 2 channel pendukung yang realistis." },
+      { id: "faq_topics", label: "Pertanyaan yang paling sering muncul", type: "textarea", required: false, wide: true, rows: 4, hint: "Masukkan FAQ internal, pertanyaan sales, atau pertanyaan user yang sering ditanyakan ke AI dan Google.", placeholder: "Contoh:\nBerapa biaya pendirian PT?\nBerapa lama proses review kontrak?\nApakah bisa remote?", impact: "FAQ blueprint akan terlalu asumtif dan kurang dekat dengan percakapan nyata.", assumption: "Gunakan pertanyaan yang sering muncul di chat, sales call, atau konsultasi." },
+      { id: "local_seo_scope", label: "Prioritas local SEO", type: "select", required: false, options: ["", "Tidak prioritas", "Per kota", "Per wilayah", "Hybrid lokal + nasional"], hint: "Pilih hanya bila lokasi benar-benar berpengaruh pada akuisisi demand.", impact: "Peluang local page bisa terlalu banyak atau justru tidak digarap padahal penting.", assumption: "Asumsikan local SEO relevan jika layanan punya area atau bukti fisik yang jelas." },
+      { id: "target_locations", label: "Lokasi target untuk halaman khusus", type: "textarea", required: false, wide: true, rows: 4, hint: "Masukkan kota, wilayah, atau area yang pantas dibuatkan halaman lokal, studi kasus, atau variasi intent.", placeholder: "Contoh:\nJakarta\nBekasi\nTangerang\nBandung", impact: "Blueprint lokal akan kesulitan menentukan prioritas ekspansi wilayah.", assumption: "Prioritaskan lokasi dengan demand tinggi, margin baik, atau bukti operasional yang kuat." }
+    ]
+  },
+  {
+    id: "step-6",
+    title: "Operasi, KPI & Batas Eksekusi",
+    description: "Sekarang kita tutup konteks dengan sisi operasional: kapasitas tim, data, compliance, dan definisi sukses yang akan mengunci blueprint agar tetap realistis.",
+    callout: {
+      className: "c-red",
+      html: "<p><strong>Bagian ini sangat membantu:</strong> banyak blueprint gagal bukan karena idenya salah, tetapi karena kapasitas, tooling, dan ekspektasinya tidak pernah dijelaskan dari awal.</p>"
+    },
+    fields: [
+      { id: "current_stack", label: "Stack / sistem yang digunakan sekarang", type: "textarea", required: false, wide: true, rows: 3, hint: "Tulis CMS, builder, CRM, spreadsheet, atau workflow yang sudah dipakai saat ini.", placeholder: "Contoh: WordPress, Notion, Google Sheets, WA Business", impact: "Blueprint teknis akan lebih abstrak karena tidak tahu fondasi aktual yang tersedia.", assumption: "Asumsikan stack saat ini masih bisa ditingkatkan tanpa migrasi besar." },
+      { id: "data_sources", label: "Sumber data yang tersedia", type: "textarea", required: false, wide: true, rows: 3, hint: "Masukkan GSC, GA4, CRM, spreadsheet lead, catatan sales, survey, atau insight internal.", placeholder: "Contoh: GSC, GA4, data penjualan bulanan, transkrip sales call", impact: "KPI dan evidence plan menjadi kurang berbasis data nyata.", assumption: "Gunakan data paling mudah diakses terlebih dahulu untuk baseline." },
+      { id: "team_capacity", label: "Kapasitas tim / resource eksekusi", type: "textarea", required: false, wide: true, rows: 3, hint: "Jelaskan siapa yang menulis, review, publish, desain, atau distribusi. Boleh ringkas.", placeholder: "Contoh: 1 owner, 1 admin, 1 freelance writer, belum ada SEO specialist khusus", impact: "Roadmap bisa terlalu agresif dibanding kapasitas sebenarnya.", assumption: "Asumsikan tim kecil perlu prioritas yang tajam dan sistem reusable." },
+      { id: "automation_notes", label: "Automasi atau bantuan AI yang ingin dipakai", type: "textarea", required: false, wide: true, rows: 3, hint: "Tulis bila ingin ada prompt system, template, checklist AI, atau workflow semi-otomatis.", placeholder: "Contoh: gunakan AI untuk brief, outline, FAQ draft, dan scoring QA awal", impact: "Blueprint operasional kehilangan peluang efisiensi yang sebenarnya diinginkan.", assumption: "Asumsikan AI dipakai untuk mempercepat draft, bukan menggantikan validasi manusia." },
+      { id: "compliance_notes", label: "Aturan khusus / compliance / batas legal", type: "textarea", required: false, wide: true, rows: 3, hint: "Penting untuk niche sensitif seperti kesehatan, keuangan, hukum, pendidikan, atau kategori regulatif lain.", placeholder: "Contoh: tidak boleh menjanjikan hasil absolut, perlu disclaimer, wajib review legal sebelum publish", impact: "Blueprint berisiko mendorong copy atau CTA yang tidak aman.", assumption: "Gunakan guardrail yang paling ketat bila niche punya risiko regulasi." },
+      { id: "kpi_targets", label: "Target KPI utama", type: "textarea", required: true, wide: true, rows: 4, hint: "Masukkan target yang ingin dicapai: lead, traffic, branded search, booking, closing rate, AI citation, atau metric lain.", placeholder: "Contoh:\n20 lead qualified per bulan\nBranded search naik 30% dalam 90 hari\n5 halaman prioritas ranking top 10", impact: "Blueprint tidak punya definisi keberhasilan yang terukur.", assumption: "Minimal tetapkan target visibilitas, konversi, dan brand growth." },
+      { id: "success_definition", label: "Definisi sukses versi bisnis Anda", type: "textarea", required: true, wide: true, rows: 4, hint: "Tulis seperti apa hasil yang dianggap berhasil oleh Anda, bukan hanya oleh tim marketing.", placeholder: "Contoh: lead lebih relevan, closing lebih cepat, pertanyaan sales lebih sedikit, dan brand lebih sering disebut", impact: "Output mudah mengejar vanity metric yang tidak membantu keputusan bisnis.", assumption: "Gunakan definisi sukses yang terhubung langsung dengan revenue atau efisiensi." },
+      { id: "execution_timeline", label: "Horizon eksekusi yang diinginkan", type: "select", required: true, options: ["", "30 hari", "60 hari", "90 hari", "90+ hari"], hint: "Pilih horizon paling realistis untuk mulai jalan. Blueprint tetap akan memberi roadmap 30-60-90 secara default.", impact: "Roadmap prioritas tidak punya horizon kerja yang jelas.", assumption: "Asumsikan 90 hari sebagai horizon kerja yang paling ideal untuk fondasi." },
+      { id: "additional_notes", label: "Catatan tambahan yang perlu diingat", type: "textarea", required: false, wide: true, rows: 3, hint: "Ruang bebas untuk konteks lain yang belum tertampung namun penting untuk blueprint.", placeholder: "Contoh: akan rebrand dalam 2 bulan, ada partner channel besar, ingin fokus B2B enterprise", impact: "Nuansa konteks penting bisa hilang dari output final.", assumption: "Tambahkan hanya hal yang benar-benar bisa mengubah keputusan strategi." }
+    ]
+  },
+  {
+    id: "step-7",
+    title: "Review & Generate",
+    description: "Periksa ringkasan input sebelum blueprint dihasilkan. Setelah generate, Anda akan mendapatkan tampilan HTML aktif plus unduhan HTML, PDF, dan Markdown.",
+    review: true
+  }
+];
+
+function escapeHtml(value) {
+  return String(value || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function cleanText(value) {
+  return String(value || "")
+    .replace(/\u00a0/g, " ")
+    .replace(/[ \t]+\n/g, "\n")
+    .replace(/\n[ \t]+/g, "\n")
+    .replace(/[ \t]{2,}/g, " ")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+}
+
+function slug(value) {
+  return cleanText(value)
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "")
+    .slice(0, 60) || "blueprint";
+}
+
+function splitItems(value) {
+  return cleanText(value)
+    .split(/\n|,|;/)
+    .map((item) => cleanText(item))
+    .filter(Boolean);
+}
+
+function flattenFields() {
+  return steps.flatMap((step) => step.fields || []);
+}
+
+function fieldById(id) {
+  return flattenFields().find((field) => field.id === id);
+}
+
+function formatDateTime(value) {
+  if (!value) return "-";
+  try {
+    return new Date(value).toLocaleString("id-ID", { dateStyle: "full", timeStyle: "short" });
+  } catch (err) {
+    return String(value);
+  }
+}
+
+function todayLong() {
+  return new Date().toLocaleDateString("id-ID", { dateStyle: "full" });
+}
+
+function renderField(field) {
+  const requiredTag = field.required ? '<span>Wajib</span>' : '<span class="opt">Opsional</span>';
+  let inputHtml = "";
+  if (field.type === "textarea") {
+    inputHtml = `<textarea id="${field.id}" rows="${field.rows || 4}" placeholder="${escapeHtml(field.placeholder || "")}"></textarea>`;
+  } else if (field.type === "select") {
+    inputHtml = `<select id="${field.id}">${(field.options || []).map((option) => {
+      const value = typeof option === "string" ? option : option.value;
+      const label = typeof option === "string" ? option : option.label;
+      return `<option value="${escapeHtml(value)}">${escapeHtml(label)}</option>`;
+    }).join("")}</select>`;
+  } else if (field.type === "checkboxes") {
+    inputHtml = `<div class="choice-grid" id="group-${field.id}">${(field.options || []).map((option, idx) => `
+      <div class="choice-card">
+        <input type="checkbox" id="${field.id}-${idx}" name="${field.id}" value="${escapeHtml(option.value)}">
+        <label for="${field.id}-${idx}">
+          <div class="choice-title">${escapeHtml(option.label)}</div>
+          <div class="choice-desc">${escapeHtml(option.description || "")}</div>
+        </label>
+      </div>`).join("")}</div>`;
+  } else {
+    inputHtml = `<input type="${field.type === "url" ? "url" : "text"}" id="${field.id}" placeholder="${escapeHtml(field.placeholder || "")}">`;
+  }
+  return `
+    <div class="field-group${field.wide ? " wide" : ""}" data-field="${field.id}">
+      <label class="field-label" for="${field.id}">${escapeHtml(field.label)} ${requiredTag}</label>
+      <p class="field-hint">${escapeHtml(field.hint || "")}</p>
+      ${inputHtml}
+      <div class="error-msg" id="err-${field.id}">${escapeHtml(field.label)} wajib diisi.</div>
+    </div>`;
+}
+
+function renderFormSteps() {
+  const wrap = document.getElementById("form-steps");
+  wrap.innerHTML = steps.map((step, index) => {
+    if (step.review) {
+      return `
+        <div class="step-section${index === 0 ? " active" : ""}" id="${step.id}">
+          <h2 class="step-title">Review & <em>Generate</em></h2>
+          <p class="step-desc">${escapeHtml(step.description)}</p>
+          <div class="review-shell">
+            <div class="callout c-gold">
+              <p><strong>Output akhir:</strong> HTML aktif untuk dibaca di browser, file Markdown untuk dokumentasi, dan PDF lewat print/save as PDF.</p>
+              <p><strong>Draft lokal:</strong> input Anda disimpan di browser ini dan bisa dicopy kapan saja sebelum atau sesudah generate.</p>
+            </div>
+            <div class="review-grid" id="review-summary"></div>
+          </div>
+          <div class="step-nav">
+            <button class="btn btn-ghost" onclick="prevStep(${index})">Kembali</button>
+            <button class="btn btn-gold" onclick="generateBlueprint()">Generate Master Blueprint</button>
+          </div>
+        </div>`;
+    }
+    const parts = step.title.split(" & ");
+    return `
+      <div class="step-section${index === 0 ? " active" : ""}" id="${step.id}">
+        <h2 class="step-title">${escapeHtml(parts[0] || step.title)}${parts[1] ? ` & <em>${escapeHtml(parts[1])}</em>` : ""}</h2>
+        <p class="step-desc">${escapeHtml(step.description)}</p>
+        ${step.callout ? `<div class="callout ${step.callout.className}">${step.callout.html}</div>` : ""}
+        <div class="form-grid">
+          ${(step.fields || []).map(renderField).join("")}
+        </div>
+        <div class="step-nav">
+          ${index === 0 ? "<div></div>" : `<button class="btn btn-ghost" onclick="prevStep(${index})">Kembali</button>`}
+          <button class="btn btn-primary" onclick="nextStep(${index + 2})">${index === steps.length - 2 ? "Lanjut ke Review" : "Lanjut"}</button>
+        </div>
+      </div>`;
+  }).join("");
+}
+
+function renderPills() {
+  const wrap = document.getElementById("step-pills");
+  wrap.innerHTML = "";
+  for (let i = 1; i <= totalSteps; i += 1) {
+    if (i > 1) {
+      const connector = document.createElement("div");
+      connector.className = "step-connector";
+      wrap.appendChild(connector);
+    }
+    const pill = document.createElement("button");
+    pill.type = "button";
+    pill.className = "step-pill" + (i < currentStep ? " done" : i === currentStep ? " active" : "");
+    pill.textContent = i < currentStep ? "OK" : i;
+    pill.onclick = () => { if (i <= currentStep) goStep(i); };
+    wrap.appendChild(pill);
+  }
+}
+
+function updateProgress() {
+  const pct = Math.round((currentStep / totalSteps) * 100);
+  document.getElementById("progress-fill").style.width = `${pct}%`;
+  document.getElementById("progress-pct").textContent = `${pct}%`;
+  document.getElementById("progress-text").textContent = `Langkah ${currentStep} dari ${totalSteps}`;
+}
+
+function goStep(stepNumber) {
+  currentStep = Math.max(1, Math.min(totalSteps, stepNumber));
+  document.querySelectorAll(".step-section").forEach((section) => section.classList.remove("active"));
+  const active = document.getElementById(`step-${currentStep}`);
+  if (active) active.classList.add("active");
+  renderPills();
+  updateProgress();
+  if (currentStep === totalSteps) renderReviewSummary();
+  window.scrollTo(0, 0);
+}
+
+function nextStep(targetStep) {
+  const currentConfig = steps[currentStep - 1];
+  if (!currentConfig.review && !validateStep(currentConfig)) return;
+  saveDraft(false);
+  goStep(targetStep);
+}
+
+function prevStep(targetStep) {
+  goStep(targetStep);
+}
+
+function clearValidationState(field) {
+  const error = document.getElementById(`err-${field.id}`);
+  if (field.type === "checkboxes") {
+    const choiceGrid = document.getElementById(`group-${field.id}`);
+    if (choiceGrid) choiceGrid.classList.remove("invalid");
+  } else {
+    const input = document.getElementById(field.id);
+    if (input) input.classList.remove("invalid");
+  }
+  if (error) error.classList.remove("visible");
+}
+
+function markInvalid(field) {
+  const error = document.getElementById(`err-${field.id}`);
+  if (field.type === "checkboxes") {
+    const choiceGrid = document.getElementById(`group-${field.id}`);
+    if (choiceGrid) choiceGrid.classList.add("invalid");
+  } else {
+    const input = document.getElementById(field.id);
+    if (input) input.classList.add("invalid");
+  }
+  if (error) error.classList.add("visible");
+}
+
+function getFieldValue(field) {
+  if (field.type === "checkboxes") {
+    return [...document.querySelectorAll(`input[name="${field.id}"]:checked`)].map((el) => el.value);
+  }
+  return cleanText(document.getElementById(field.id)?.value || "");
+}
+
+function setFieldValue(field, value) {
+  if (field.type === "checkboxes") {
+    const values = Array.isArray(value) ? value : [];
+    document.querySelectorAll(`input[name="${field.id}"]`).forEach((input) => {
+      input.checked = values.includes(input.value);
+    });
+    return;
+  }
+  const input = document.getElementById(field.id);
+  if (input) input.value = value || "";
+}
+
+function validateStep(stepConfig) {
+  let valid = true;
+  (stepConfig.fields || []).forEach((field) => {
+    clearValidationState(field);
+    if (!field.required) return;
+    const value = getFieldValue(field);
+    const ok = Array.isArray(value) ? value.length > 0 : !!cleanText(value);
+    if (!ok) {
+      valid = false;
+      markInvalid(field);
+    }
+  });
+  return valid;
+}
+
+function collectData() {
+  const data = {};
+  flattenFields().forEach((field) => {
+    data[field.id] = getFieldValue(field);
+  });
+  return data;
+}
+
+function fillForm(data) {
+  flattenFields().forEach((field) => {
+    clearValidationState(field);
+    setFieldValue(field, data[field.id]);
+  });
+}
+
+function resetFormState() {
+  flattenFields().forEach((field) => {
+    setFieldValue(field, field.type === "checkboxes" ? [] : "");
+    clearValidationState(field);
+  });
+}
+
+function disableInputHistory() {
+  document.querySelectorAll("input, textarea, select").forEach((el) => {
+    el.setAttribute("autocomplete", "off");
+    el.setAttribute("autocorrect", "off");
+    el.setAttribute("autocapitalize", "off");
+    el.setAttribute("spellcheck", "false");
+  });
+}
+
+function draftPayload() {
+  return { savedAt: new Date().toISOString(), step: currentStep, data: collectData() };
+}
+
+function updateDraftStatus(savedAt) {
+  const status = document.getElementById("draft-status");
+  if (!status) return;
+  const raw = localStorage.getItem(STORAGE_KEY);
+  if (!raw) {
+    status.textContent = "Draft lokal aktif. Belum ada draft tersimpan.";
+    return;
+  }
+  const stamp = savedAt || (() => {
+    try { return JSON.parse(raw).savedAt; } catch (err) { return null; }
+  })();
+  status.textContent = `Draft lokal tersimpan: ${formatDateTime(stamp)}. Data hanya berada di browser ini.`;
+}
+
+function saveDraft(showAlert) {
+  const payload = draftPayload();
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+  updateDraftStatus(payload.savedAt);
+  if (showAlert) alert("Draft berhasil disimpan di browser ini.");
+}
+
+function loadDraft(showAlert) {
+  const raw = localStorage.getItem(STORAGE_KEY);
+  if (!raw) {
+    if (showAlert) alert("Belum ada draft tersimpan.");
+    updateDraftStatus();
+    return;
+  }
+  try {
+    const parsed = JSON.parse(raw);
+    fillForm(parsed.data || {});
+    currentStep = Math.max(1, Math.min(totalSteps, Number(parsed.step) || 1));
+    updateDraftStatus(parsed.savedAt);
+    goStep(currentStep);
+    if (showAlert) alert("Draft berhasil dimuat.");
+  } catch (err) {
+    if (showAlert) alert("Draft tidak bisa dimuat karena formatnya rusak.");
+  }
+}
+
+function clearPageHistory() {
+  const ok = confirm("Hapus draft Master Blueprint di browser ini dan reset semua field?");
+  if (!ok) return;
+  localStorage.removeItem(STORAGE_KEY);
+  resetFormState();
+  blueprintData = {};
+  lastSections = [];
+  lastMarkdown = "";
+  currentStep = 1;
+  document.getElementById("app-result").style.display = "none";
+  document.getElementById("app-form").style.display = "flex";
+  document.getElementById("result-main").innerHTML = "";
+  document.getElementById("result-sidebar").innerHTML = "";
+  document.getElementById("result-brand").textContent = "Brand";
+  updateDraftStatus();
+  goStep(1);
+  alert("Histori halaman ini sudah dihapus.");
+}
+
+function copyToClipboard(text, successMessage) {
+  navigator.clipboard.writeText(text).then(() => {
+    alert(successMessage);
+  }).catch(() => {
+    alert("Gagal menyalin otomatis. Silakan ulangi dari browser yang mendukung clipboard.");
+  });
+}
+
+function displayValue(field, value) {
+  if (Array.isArray(value)) return value.length ? value.join(", ") : `[Asumsi] ${field.assumption}`;
+  return cleanText(value) || `[Asumsi] ${field.assumption}`;
+}
+
+function buildDraftSummaryMarkdown() {
+  const data = collectData();
+  const lines = ["# Draft Input - Master Blueprint", "", `- Disalin: ${todayLong()}`, ""];
+  steps.forEach((step) => {
+    if (step.review) return;
+    lines.push(`## ${step.title}`, "");
+    (step.fields || []).forEach((field) => {
+      lines.push(`- **${field.label}**: ${displayValue(field, data[field.id])}`);
+    });
+    lines.push("");
+  });
+  return lines.join("\n").replace(/\n{3,}/g, "\n\n");
+}
+
+function copyDraftSummary() {
+  copyToClipboard(buildDraftSummaryMarkdown(), "Draft input berhasil disalin.");
+}
+
+function renderReviewSummary() {
+  const container = document.getElementById("review-summary");
+  if (!container) return;
+  const data = collectData();
+  container.innerHTML = steps.filter((step) => !step.review).map((step) => `
+    <div class="review-card">
+      <h3>${escapeHtml(step.title)}</h3>
+      <div class="review-list">
+        ${(step.fields || []).map((field) => `
+          <div class="review-item">
+            <strong>${escapeHtml(field.label)}</strong>
+            <div>${escapeHtml(displayValue(field, data[field.id]))}</div>
+          </div>`).join("")}
+      </div>
+    </div>`).join("");
+}
+
+function stripTags(value) {
+  return cleanText(String(value || "").replace(/<[^>]*>/g, " "));
+}
+
+function toMarkdownCell(value) {
+  return stripTags(value).replace(/\|/g, "\\|");
+}
+
+function tableBlock(headers, rows) {
+  const html = `<div class="tbl-wrap"><table><thead><tr>${headers.map((head) => `<th>${escapeHtml(head)}</th>`).join("")}</tr></thead><tbody>${rows.map((row) => `<tr>${row.map((cell) => `<td>${cell}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+  const markdown = [`| ${headers.map(toMarkdownCell).join(" | ")} |`, `| ${headers.map(() => "---").join(" | ")} |`, ...rows.map((row) => `| ${row.map(toMarkdownCell).join(" | ")} |`)].join("\n");
+  return { html, markdown };
+}
+
+function listBlock(items, className = "bullet-list") {
+  const safeItems = items.filter(Boolean);
+  return { html: `<ul class="${className}">${safeItems.map((item) => `<li>${item}</li>`).join("")}</ul>`, markdown: safeItems.map((item) => `- ${stripTags(item)}`).join("\n") };
+}
+
+function cardBlock(cards) {
+  return { html: `<div class="cards">${cards.map((card) => `<div class="card"><div class="card-title">${card.title}</div><div class="card-desc">${card.desc}</div></div>`).join("")}</div>`, markdown: cards.map((card) => `- **${stripTags(card.title)}**: ${stripTags(card.desc)}`).join("\n") };
+}
+
+function statBlock(stats) {
+  return { html: `<div class="stat-grid">${stats.map((stat) => `<div class="stat-card"><div class="stat-label">${stat.label}</div><div class="stat-value">${stat.value}</div></div>`).join("")}</div>`, markdown: stats.map((stat) => `- ${stripTags(stat.label)}: ${stripTags(stat.value)}`).join("\n") };
+}
+
+function calloutBlock(className, content) {
+  return { html: `<div class="callout ${className}">${content}</div>`, markdown: `> ${stripTags(content)}` };
+}
+
+function derivedData(data) {
+  const offers = splitItems(data.core_offer);
+  const supportOffers = splitItems(data.supporting_offer);
+  const moneyPages = splitItems(data.flagship_pages);
+  const primaryLocations = splitItems(data.primary_locations);
+  const targetLocations = splitItems(data.target_locations);
+  const allLocations = [...new Set([...targetLocations, ...primaryLocations])];
+  const topics = splitItems(data.seed_topics);
+  const problems = splitItems(data.core_problems);
+  const faqTopics = splitItems(data.faq_topics);
+  const competitors = splitItems(data.competitor_refs);
+  const trustSignals = splitItems(data.trust_signals);
+  const proofAssets = splitItems(data.proof_assets);
+  const channels = Array.isArray(data.distribution_channels) ? data.distribution_channels : [];
+  const conversions = Array.isArray(data.conversion_methods) ? data.conversion_methods : [];
+  const contentFormats = Array.isArray(data.content_formats) ? data.content_formats : [];
+  const intents = Array.isArray(data.priority_intents) ? data.priority_intents : [];
+  const languages = Array.isArray(data.content_languages) ? data.content_languages : [];
+  const kpis = splitItems(data.kpi_targets);
+  const firstLocation = allLocations[0] || (data.market_scope === "Internasional" ? "market global" : "Indonesia");
+  const firstTopic = topics[0] || data.industry || "layanan utama";
+  const firstProblem = problems[0] || "kebutuhan utama audience";
+  const audienceShort = splitItems(data.primary_audience)[0] || data.primary_audience || "target buyer utama";
+  const existingCorpus = [data.existing_assets, data.flagship_pages, data.core_offer, data.supporting_offer].join(" ").toLowerCase();
+  const outputTone = data.tone_of_voice || "Profesional dan edukatif";
+  const timeline = data.execution_timeline || "90 hari";
+  const queryFanout = topics.slice(0, 4).flatMap((topic) => {
+    const safeTopic = topic || firstTopic;
+    const locationText = firstLocation;
+    return [
+      [`${safeTopic}`, `apa solusi ${safeTopic} yang paling tepat untuk ${audienceShort}`, `Pillar / overview ${safeTopic}`, existingCorpus.includes(safeTopic.toLowerCase()) ? "Ada indikasi aset" : "Belum terlihat"],
+      [`${safeTopic}`, `berapa biaya atau paket ${safeTopic} di ${locationText}`, `Money page atau pricing page ${safeTopic}`, existingCorpus.includes("harga") ? "Ada indikasi aset" : "Perlu dibuat"]
+    ];
+  }).slice(0, 6);
+
+  const contentRows = [];
+  topics.slice(0, 3).forEach((topic, idx) => {
+    contentRows.push([
+      "Pillar / Hub",
+      `Blueprint utama: ${topic}`,
+      `${topic}`,
+      intents.includes("Informasional") ? "Informasional + komersial" : "Informasional",
+      "3000+ kata / 1 halaman inti",
+      idx === 0 ? '<span class="badge b-crit">Kritis</span>' : '<span class="badge b-warn">Penting</span>'
+    ]);
+    faqTopics.slice(0, 2).forEach((faq, faqIdx) => {
+      contentRows.push([
+        "Support / FAQ",
+        `${faq}`,
+        `${topic} ${faq}`.slice(0, 90),
+        "AEO / answer capture",
+        "FAQ / answer block",
+        faqIdx === 0 ? '<span class="badge b-warn">Penting</span>' : '<span class="badge b-info">Pendukung</span>'
+      ]);
+    });
+  });
+  if (!contentRows.length) {
+    contentRows.push(["Pillar / Hub", `Blueprint utama: ${firstTopic}`, firstTopic, "Informasional + komersial", "3000+ kata / 1 halaman inti", '<span class="badge b-crit">Kritis</span>']);
+  }
+  if (contentFormats.includes("Comparison page")) {
+    contentRows.push(["Comparison", `Perbandingan solusi ${firstTopic}`, `alternatif ${firstTopic}`, "Komersial", "Comparison / buying guide", '<span class="badge b-warn">Penting</span>']);
+  }
+  if (contentFormats.includes("Case study")) {
+    contentRows.push(["Trust content", `Studi kasus hasil ${firstTopic}`, `${firstTopic} studi kasus`, "Komersial + trust", "Case study", '<span class="badge b-warn">Penting</span>']);
+  }
+  if ((data.local_seo_scope || "").includes("Per") || (data.local_seo_scope || "").includes("Hybrid")) {
+    allLocations.slice(0, 3).forEach((location) => {
+      contentRows.push(["Local page", `${firstTopic} ${location}`, `${firstTopic} ${location}`, "Lokal + transaksi", "Money page lokal", '<span class="badge b-info">Pendukung</span>']);
+    });
+  }
+
+  const moneyPageRows = (moneyPages.length ? moneyPages : ["Homepage", `Halaman ${firstTopic}`, "Halaman kontak / CTA"]).map((page, idx) => [
+    page,
+    idx === 0 ? "Menjadi pintu masuk utama dan entity hub" : `Mendorong action untuk ${firstTopic}`,
+    conversions[0] || "WhatsApp / Chat",
+    idx === 0 ? "Primary entry" : "Commercial / transactional",
+    idx < 2 ? '<span class="badge b-crit">Kritis</span>' : '<span class="badge b-warn">Penting</span>'
+  ]);
+
+  const channelsRows = (channels.length ? channels : ["Website / Blog"]).map((channel) => {
+    let role = "Distribusi pendukung dan brand presence";
+    let asset = "Repurposed summary";
+    let cadence = "Mingguan";
+    if (channel === "Website / Blog") {
+      role = "Sumber utama indexable asset dan canonical reference";
+      asset = "Pillar, FAQ, glossary, money page";
+      cadence = "Konten inti bulanan + update berkala";
+    } else if (channel === "LinkedIn") {
+      role = "Authority B2B dan citasi profesional";
+      asset = "Ringkasan insight, opini, mini-case";
+      cadence = "2-3x per minggu";
+    } else if (channel === "YouTube") {
+      role = "Transcript, search support, dan repurposing";
+      asset = "Video explainers, walkthrough, Q&A";
+      cadence = "1-2x per minggu";
+    } else if (channel === "Google Business Profile") {
+      role = "Visibilitas lokal, review, dan trust";
+      asset = "Post update, review, FAQ lokal";
+      cadence = "Mingguan";
+    }
+    return [channel, role, asset, cadence];
+  });
+
+  const kpiRows = [
+    ["SEO", "Ranking halaman prioritas", "Top 10 untuk halaman inti", "GSC / rank tracker"],
+    ["Brand", "Branded search volume", "Naik konsisten dalam 90 hari", "GSC"],
+    ["Conversion", "Lead / booking / transaksi", conversions[0] ? `Jalur utama: ${conversions[0]}` : "Gunakan CTA primer", "GA4 / CRM / chat tracking"],
+    ["AI Visibility", "Citations atau mention di AI tools", "Muncul di prompt test prioritas", "Manual prompt testing"],
+    ["Content", "Coverage topical dan publish cadence", timeline === "30 hari" ? "Fondasi inti selesai" : "Pillar + support berjalan", "Calendar / dashboard internal"]
+  ];
+  kpis.slice(0, 4).forEach((metric) => {
+    kpiRows.push(["Custom KPI", metric, "Disesuaikan bisnis", "Dashboard internal"]);
+  });
+
+  const promptPack = [
+    `Jalankan audit input berdasarkan blueprint ${data.business_name || "brand ini"} dan tandai gap paling kritis.`,
+    `Buat keyword mapping untuk topik ${firstTopic} dengan intent ${intents.join(", ") || "informasional + komersial"}.`,
+    `Susun money page untuk ${moneyPages[0] || firstTopic} dengan CTA utama ${conversions[0] || "WhatsApp / Chat"}.`,
+    `Buat FAQ page berbasis pertanyaan: ${(faqTopics.slice(0, 4).join(", ")) || "pertanyaan sales paling sering"}.`,
+    `Buat roadmap konten 90 hari yang menyesuaikan kapasitas tim: ${data.team_capacity || "tim kecil / lean team"}.`
+  ];
+
+  return {
+    offers, supportOffers, moneyPages, topics, problems, faqTopics, competitors, trustSignals, proofAssets,
+    channels, conversions, contentFormats, intents, languages, kpis, primaryLocations, allLocations,
+    firstLocation, firstTopic, firstProblem, audienceShort, outputTone, timeline, queryFanout,
+    contentRows, moneyPageRows, channelsRows, kpiRows, promptPack
+  };
+}
+
+function buildAuditRows(data) {
+  return flattenFields().map((field) => {
+    const value = data[field.id];
+    const isFilled = Array.isArray(value) ? value.length > 0 : !!cleanText(value);
+    const status = isFilled ? '<span class="badge b-ok">Lengkap</span>' : field.required ? '<span class="badge b-crit">Kosong</span>' : '<span class="badge b-info">Asumsi</span>';
+    return [escapeHtml(field.label), status, escapeHtml(field.impact), escapeHtml(displayValue(field, value))];
+  });
+}
+
+function buildSections(data) {
+  const x = derivedData(data);
+  const brand = data.business_name || "Brand";
+  const overviewStats = statBlock([
+    { label: "Jenis Bisnis", value: data.business_type || "Belum ditentukan" },
+    { label: "Market", value: data.market_scope || "Butuh asumsi" },
+    { label: "Goal Utama", value: data.primary_goal || "Lead generation" },
+    { label: "Horizon", value: x.timeline }
+  ]);
+  const overviewCards = cardBlock([
+    { title: "Value Core", desc: escapeHtml(x.offers[0] || data.core_offer || "Belum ada layanan inti yang diprioritaskan.") },
+    { title: "Audience Utama", desc: escapeHtml(stripTags(data.primary_audience || "Belum diisi")) },
+    { title: "Problem Dominan", desc: escapeHtml(x.firstProblem) },
+    { title: "CTA Primer", desc: escapeHtml(x.conversions[0] || "Belum ditentukan") },
+    { title: "Topik Awal", desc: escapeHtml(x.topics.slice(0, 3).join(", ") || x.firstTopic) },
+    { title: "Tone Brand", desc: escapeHtml(x.outputTone) }
+  ]);
+  const overviewCallout = calloutBlock("c-gold", `<p><strong>Prinsip blueprint ini:</strong> dokumen harus universal, bisa dipakai ulang untuk banyak user, namun tetap personal terhadap konteks ${escapeHtml(brand)}. Karena itu, semua area kosong diberi asumsi kerja yang jelas, bukan dibiarkan generik.</p>`);
+  const auditTable = tableBlock(["Item", "Status", "Dampak jika kosong", "Asumsi / Placeholder"], buildAuditRows(data));
+  const assumptionList = listBlock([
+    `Asumsi bisnis: ${data.business_stage || "fase mulai bertumbuh"} dengan model ${data.business_type || "service business"} dan value utama pada ${x.offers[0] || x.firstTopic}.`,
+    `Asumsi SEO: fokus awal diarahkan ke ${x.topics.slice(0, 3).join(", ") || x.firstTopic} dengan intent ${x.intents.join(", ") || "informasional dan komersial"}.`,
+    `Asumsi konten: format prioritas adalah ${x.contentFormats.join(", ") || "pillar article, FAQ, dan money page"} dengan bahasa ${x.languages.join(", ") || "Indonesia"}.`,
+    `Asumsi konversi: CTA primer diarahkan ke ${x.conversions[0] || "jalur chat / form inquiry"} dan diperkuat oleh trust signal seperti ${x.trustSignals[0] || "testimoni, bukti kerja, dan kredibilitas brand"}.`,
+    `Asumsi AI visibility: brand perlu memastikan entity consistency, answer-ready passages, dan brand-managed distribution melalui ${x.channels.join(", ") || "website dan channel pendukung"}.`
+  ]);
+  const businessCoreTable = tableBlock(["Komponen", "Arah Blueprint", "Catatan Operasional"], [
+    ["Penawaran inti", escapeHtml(x.offers.join(", ") || x.firstTopic), escapeHtml(data.usp || "Perlu diferensiasi yang bisa dibuktikan")],
+    ["Penawaran pendukung", escapeHtml(x.supportOffers.join(", ") || "Belum ditegaskan"), escapeHtml(data.retention_offer || "Tambahkan cross-sell atau layanan lanjutan")],
+    ["Model monetisasi", escapeHtml(data.pricing_model || "Paket / project based"), escapeHtml(data.business_constraints || "Gunakan pricing logic yang sederhana dan mudah dikomunikasikan")],
+    ["Halaman penghasil uang", escapeHtml(x.moneyPages.join(", ") || "Homepage + halaman layanan inti"), escapeHtml((x.conversions[0] || "CTA primer") + " harus muncul konsisten")],
+    ["Area layanan", escapeHtml(x.allLocations.join(", ") || x.firstLocation), escapeHtml(data.delivery_area || "Pastikan janji delivery sesuai kemampuan aktual")]
+  ]);
+  const audienceTable = tableBlock(["Lapisan", "Ringkasan", "Implikasi terhadap blueprint"], [
+    ["Audience utama", escapeHtml(data.primary_audience || "Belum diisi"), "Menjadi basis positioning, CTA, dan argumen utama halaman."],
+    ["Audience sekunder", escapeHtml(data.secondary_audience || "Belum diprioritaskan"), "Digunakan untuk konten pendukung, distribusi tambahan, atau upsell."],
+    ["Masalah paling penting", escapeHtml(x.problems.join(", ") || x.firstProblem), "Setiap halaman utama harus menjawab problem ini lebih cepat dari kompetitor."],
+    ["Pemicu beli", escapeHtml(data.buying_triggers || "Asumsikan urgensi, risiko, atau target bisnis"), "CTA dan offer perlu menangkap momen action, bukan hanya memberi informasi."],
+    ["Keberatan", escapeHtml(data.objections || "Harga, kecepatan, kecocokan, atau trust"), "FAQ, bukti, dan trust block harus disusun untuk menurunkan friksi."],
+    ["Journey", escapeHtml(data.customer_journey || "Cari - evaluasi - kontak - closing"), "Blueprint konten harus melayani tiap tahap, bukan hanya awareness."]
+  ]);
+  const strategyTable = tableBlock(["Pilar", "Objective utama", "Win condition awal", "Aset pertama yang wajib ada"], [
+    ["SEO", "Menangkap demand yang sudah ada di search engine.", "Halaman prioritas ranking dan bisa diakses crawler.", `Homepage + ${x.moneyPages[0] || `halaman ${x.firstTopic}`}`],
+    ["AEO", "Membuat jawaban lebih mudah dipetik oleh answer engine.", "Ada answer capsule, FAQ, dan passage yang mandiri.", x.faqTopics[0] || "FAQ inti per layanan"],
+    ["GEO", "Meningkatkan peluang dikutip AI tools.", "Brand hadir di jawaban yang memerlukan konteks praktis dan bukti.", x.contentFormats.includes("Case study") ? "Case study" : "Pillar + evidence block"],
+    ["SGE / AI Overview", "Menjadi sumber yang jelas, ringkas, dan kredibel di hasil generatif.", "Konten self-contained, heading natural, data spesifik.", `Pillar ${x.firstTopic}`],
+    ["LLMO", "Memastikan brand dikenali sebagai entitas yang konsisten.", "Nama, klaim, lokasi, dan bukti konsisten lintas kanal.", "Entity summary + llms.txt plan"],
+    ["Conversion", "Mengubah trafik dan discovery menjadi lead atau pembelian.", "CTA primer jelas, trust signal cukup, friction menurun.", x.moneyPages[0] || "Halaman komersial utama"]
+  ]);
+  const strategyCallout = calloutBlock("c-blue", "<p><strong>Landasan 2026:</strong> blueprint ini menggabungkan ranking, answer capture, AI citation, brand entity, dan conversion dalam satu sistem. Fokusnya bukan hanya ditemukan, tetapi juga dipilih dan dipercaya.</p>");
+  const queryTable = tableBlock(["Query utama", "Sub-query AI / fan-out", "Aset yang disarankan", "Status aset"], x.queryFanout);
+  const paaList = listBlock([
+    `Apa yang harus dipertimbangkan sebelum memilih ${x.firstTopic}?`,
+    `Berapa kisaran biaya atau paket ${x.firstTopic}?`,
+    `Siapa yang paling cocok memakai ${x.firstTopic}?`,
+    `Apa perbedaan ${x.firstTopic} dengan alternatif lain di pasar?`,
+    `Bagaimana proses order atau implementasi ${x.firstTopic}?`,
+    `Apakah ${brand} melayani ${x.firstLocation}?`
+  ], "checklist");
+  const contentTable = tableBlock(["Tipe halaman", "Topik", "Target keyword", "Intent", "Format / depth", "Prioritas"], x.contentRows);
+  const moneyPageTable = tableBlock(["Halaman", "Peran", "CTA utama", "Intent dominan", "Prioritas"], x.moneyPageRows);
+  const sections = [
+    {
+      id: "bp0", navGroup: "Fondasi", navTitle: "Overview",
+      html: `<div class="result-section" id="bp0"><div class="rs-header"><div class="rs-tag">Bagian 00</div><h1 class="rs-title">Executive Overview</h1><p class="rs-sub">Ringkasan blueprint bisnis untuk ${escapeHtml(brand)} yang menggabungkan arah bisnis, search visibility, AI readiness, dan conversion system dalam satu fondasi kerja.</p></div>${overviewStats.html}<div style="height:16px"></div>${overviewCards.html}<div style="height:16px"></div>${overviewCallout.html}</div>`,
+      markdown: ["## 00 Executive Overview", "", `Blueprint bisnis untuk ${brand} yang menggabungkan arah bisnis, search visibility, AI readiness, dan conversion system dalam satu fondasi kerja.`, "", overviewStats.markdown, "", overviewCards.markdown, "", overviewCallout.markdown].join("\n")
+    },
+    {
+      id: "bp1", navGroup: "Fondasi", navTitle: "Audit Input",
+      html: `<div class="result-section" id="bp1"><div class="rs-header"><div class="rs-tag">Bagian 01</div><h1 class="rs-title">Audit Input & Gap Analysis</h1><p class="rs-sub">Semua field ditelaah untuk membedakan mana yang sudah solid, mana yang masih placeholder, dan apa dampaknya terhadap blueprint.</p></div>${auditTable.html}</div>`,
+      markdown: ["## 01 Audit Input & Gap Analysis", "", "Semua field ditelaah untuk membedakan mana yang sudah solid, mana yang masih placeholder, dan apa dampaknya terhadap blueprint.", "", auditTable.markdown].join("\n")
+    },
+    {
+      id: "bp2", navGroup: "Fondasi", navTitle: "Asumsi Kerja",
+      html: `<div class="result-section" id="bp2"><div class="rs-header"><div class="rs-tag">Bagian 02</div><h1 class="rs-title">Asumsi Kerja</h1><p class="rs-sub">Asumsi dibuat eksplisit agar blueprint tetap universal namun tidak kehilangan arah ketika sebagian data belum lengkap.</p></div>${assumptionList.html}</div>`,
+      markdown: ["## 02 Asumsi Kerja", "", "Asumsi dibuat eksplisit agar blueprint tetap universal namun tidak kehilangan arah ketika sebagian data belum lengkap.", "", assumptionList.markdown].join("\n")
+    },
+    {
+      id: "bp3", navGroup: "Bisnis", navTitle: "Business Core",
+      html: `<div class="result-section" id="bp3"><div class="rs-header"><div class="rs-tag">Bagian 03</div><h1 class="rs-title">Business Core & Offer Architecture</h1><p class="rs-sub">Blueprint inti bisnis untuk memastikan semua konten, CTA, dan struktur halaman benar-benar bertumpu pada penawaran yang menghasilkan dampak nyata.</p></div>${businessCoreTable.html}</div>`,
+      markdown: ["## 03 Business Core & Offer Architecture", "", "Blueprint inti bisnis untuk memastikan semua konten, CTA, dan struktur halaman benar-benar bertumpu pada penawaran yang menghasilkan dampak nyata.", "", businessCoreTable.markdown].join("\n")
+    },
+    {
+      id: "bp4", navGroup: "Bisnis", navTitle: "Audience & Journey",
+      html: `<div class="result-section" id="bp4"><div class="rs-header"><div class="rs-tag">Bagian 04</div><h1 class="rs-title">Audience, Intent & Buying Journey</h1><p class="rs-sub">Pemetaan siapa yang dicari, apa masalahnya, dan bagaimana ia bergerak dari awareness menuju action.</p></div>${audienceTable.html}</div>`,
+      markdown: ["## 04 Audience, Intent & Buying Journey", "", "Pemetaan siapa yang dicari, apa masalahnya, dan bagaimana ia bergerak dari awareness menuju action.", "", audienceTable.markdown].join("\n")
+    },
+    {
+      id: "bp5", navGroup: "Strategi", navTitle: "Strategic Foundation",
+      html: `<div class="result-section" id="bp5"><div class="rs-header"><div class="rs-tag">Bagian 05</div><h1 class="rs-title">Strategic Foundation: SEO + AEO + GEO + SGE + LLMO</h1><p class="rs-sub">Pilar strategi dijahit menjadi satu sistem agar penemuan, jawaban, citasi, dan konversi bisa saling memperkuat.</p></div>${strategyCallout.html}${strategyTable.html}</div>`,
+      markdown: ["## 05 Strategic Foundation: SEO + AEO + GEO + SGE + LLMO", "", "Pilar strategi dijahit menjadi satu sistem agar penemuan, jawaban, citasi, dan konversi bisa saling memperkuat.", "", strategyCallout.markdown, "", strategyTable.markdown].join("\n")
+    },
+    {
+      id: "bp6", navGroup: "Strategi", navTitle: "Query Fan-Out",
+      html: `<div class="result-section" id="bp6"><div class="rs-header"><div class="rs-tag">Bagian 06</div><h1 class="rs-title">Search Market Model & AI Query Fan-Out</h1><p class="rs-sub">Blueprint query ini membantu menghubungkan pola pencarian Google, jawaban AI, dan kebutuhan aset konten yang harus dibuat terlebih dahulu.</p></div>${queryTable.html}<h2 class="rs">PAA dan pertanyaan penting yang harus dijawab</h2>${paaList.html}</div>`,
+      markdown: ["## 06 Search Market Model & AI Query Fan-Out", "", "Blueprint query ini membantu menghubungkan pola pencarian Google, jawaban AI, dan kebutuhan aset konten yang harus dibuat terlebih dahulu.", "", queryTable.markdown, "", "### PAA dan pertanyaan penting yang harus dijawab", "", paaList.markdown].join("\n")
+    },
+    {
+      id: "bp7", navGroup: "Konten", navTitle: "Content Architecture",
+      html: `<div class="result-section" id="bp7"><div class="rs-header"><div class="rs-tag">Bagian 07</div><h1 class="rs-title">Master Content Architecture</h1><p class="rs-sub">Sistem konten disusun agar bisa mengakomodasi pillar, support, FAQ, money page, dan local expansion tanpa tumpang tindih intent.</p></div>${contentTable.html}</div>`,
+      markdown: ["## 07 Master Content Architecture", "", "Sistem konten disusun agar bisa mengakomodasi pillar, support, FAQ, money page, dan local expansion tanpa tumpang tindih intent.", "", contentTable.markdown].join("\n")
+    },
+    {
+      id: "bp8", navGroup: "Konten", navTitle: "Money Pages",
+      html: `<div class="result-section" id="bp8"><div class="rs-header"><div class="rs-tag">Bagian 08</div><h1 class="rs-title">Money Pages, CTA Logic & Conversion System</h1><p class="rs-sub">Setiap halaman prioritas harus punya peran, CTA primer, dan beban intent yang jelas agar konversi tidak menyebar tanpa arah.</p></div>${moneyPageTable.html}</div>`,
+      markdown: ["## 08 Money Pages, CTA Logic & Conversion System", "", "Setiap halaman prioritas harus punya peran, CTA primer, dan beban intent yang jelas agar konversi tidak menyebar tanpa arah.", "", moneyPageTable.markdown].join("\n")
+    },
+  ];
+  const trustCards = cardBlock([
+    { title: "Entity Consistency", desc: `Gunakan nama brand "${escapeHtml(brand)}", klaim utama, dan lokasi utama secara konsisten di web, profil sosial, dan dokumen pendukung.` },
+    { title: "Trust Assets", desc: escapeHtml(x.trustSignals.join(", ") || x.proofAssets.join(", ") || "Siapkan testimonial, studi kasus, legal identity, dan proof of work.") },
+    { title: "Messaging Discipline", desc: `Tonjolkan ${escapeHtml(data.brand_claim || data.usp || "nilai paling berbeda")} dengan nada ${escapeHtml(x.outputTone)}.` },
+    { title: "Retention Layer", desc: escapeHtml(data.retention_offer || "Tambahkan penawaran lanjutan agar blueprint tidak berhenti di akuisisi awal.") }
+  ]);
+  const technicalTable = tableBlock(["Area", "Blueprint teknis", "Catatan"], [
+    ["Rendering", "Konten utama wajib hadir dalam HTML yang dapat dibaca tanpa ketergantungan JS berat.", "Penting untuk crawlability dan AI bot."],
+    ["Schema", "Prioritaskan Organization, Service/Product, FAQPage, Article, Breadcrumb, dan LocalBusiness bila relevan.", "Jangan pasang schema yang tidak sesuai."],
+    ["AI crawler access", "Pastikan robots.txt dan llms.txt memberi akses pada crawler yang relevan.", "Cek ulang sebelum launch."],
+    ["Analytics", "Hubungkan CTA primer ke event tracking sesuai jalur konversi.", `Minimal track: ${escapeHtml(x.conversions.join(", ") || "CTA utama")}`],
+    ["Data source", escapeHtml(data.data_sources || "Bangun baseline dari GSC, GA4, CRM, atau log internal."), "Data paling sederhana lebih baik daripada tidak ada baseline sama sekali."],
+    ["Compliance", escapeHtml(data.compliance_notes || "Gunakan review internal bila ada kategori sensitif."), "Konten sensitif wajib melewati validasi tambahan."]
+  ]);
+  const llmsCode = {
+    html: `<div class="code-block"># llms.txt - ${escapeHtml(brand)}
+## Brand
+${escapeHtml(cleanText(data.brand_summary || `${brand} beroperasi di bidang ${data.industry || x.firstTopic}.`))}
+
+## Core Offers
+${x.offers.slice(0, 5).map((item) => `- ${escapeHtml(item)}`).join("\n") || `- ${escapeHtml(x.firstTopic)}`}
+
+## Priority Pages
+${x.moneyPages.slice(0, 5).map((item) => `- ${escapeHtml(item)}`).join("\n") || "- Homepage"}
+
+## Main Market
+- ${escapeHtml(x.allLocations.join(", ") || x.firstLocation)}
+
+## Primary CTA
+- ${escapeHtml(x.conversions.join(", ") || "Hubungi via CTA utama")}</div>`,
+    markdown: ["```text", `# llms.txt - ${brand}`, "## Brand", cleanText(data.brand_summary || `${brand} beroperasi di bidang ${data.industry || x.firstTopic}.`), "", "## Core Offers", ...(x.offers.slice(0, 5).length ? x.offers.slice(0, 5).map((item) => `- ${item}`) : [`- ${x.firstTopic}`]), "", "## Priority Pages", ...(x.moneyPages.slice(0, 5).length ? x.moneyPages.slice(0, 5).map((item) => `- ${item}`) : ["- Homepage"]), "", "## Main Market", `- ${x.allLocations.join(", ") || x.firstLocation}`, "", "## Primary CTA", `- ${x.conversions.join(", ") || "Hubungi via CTA utama"}`, "```"].join("\n")
+  };
+  const workflowList = listBlock([
+    "Audit input dan gap terlebih dahulu sebelum menulis satu halaman pun.",
+    `Pilih 1-3 topik inti: ${x.topics.slice(0, 3).join(", ") || x.firstTopic}.`,
+    "Turunkan topik inti menjadi pillar, support content, FAQ, dan money page.",
+    "Buat content brief dengan intent, CTA, bukti, dan struktur jawaban mandiri.",
+    "Publikasikan halaman inti lebih dulu sebelum scale distribusi besar.",
+    "Repurpose ke channel aktif tanpa copy-paste mentah.",
+    "Review KPI, prompt test AI, dan friction conversion setiap siklus."
+  ], "checklist");
+  const workflowTable = tableBlock(["Fase", "Input", "Output", "PIC / catatan"], [
+    ["Audit & research", "Draft bisnis, seed topic, competitor note", "Gap analysis + objective", "Owner / strategist"],
+    ["Architecture", "Topik, intent, money page, lokasi", "Map halaman dan prioritas konten", "Strategist / editor"],
+    ["Production", "Brief dan proof asset", "Halaman publish-ready", "Writer / SME / reviewer"],
+    ["Distribution", "Konten final", "Versi channel-specific", "Social / content ops"],
+    ["Measurement", "GSC, GA4, CRM, prompt test", "Insight per 2-4 minggu", "Owner / analyst"]
+  ]);
+  const channelsTable = tableBlock(["Channel", "Peran", "Aset utama", "Ritme minimal"], x.channelsRows);
+  const kpiTable = tableBlock(["Kategori", "Metrik", "Target awal", "Tools"], x.kpiRows);
+  const roadmapCards = cardBlock([
+    { title: "30 Hari - Fondasi", desc: `Audit input, kunci entity summary, rapikan ${x.moneyPages[0] || "homepage"}, buat 1 pillar inti, 1 FAQ utama, dan siapkan baseline KPI.` },
+    { title: "60 Hari - Aktivasi", desc: `Tambah support content, landing komersial, dan distribusi terarah ke ${x.channels.slice(0, 3).join(", ") || "channel prioritas"}.` },
+    { title: "90 Hari - Optimasi", desc: "Review citation, update halaman prioritas, perluas topik cluster, dan kalibrasi CTA berdasarkan data conversion." },
+    { title: "90+ Hari - Scale", desc: "Bangun ritme editorial tetap, perluas wilayah/topik baru, dan dorong branded search serta recurring demand." }
+  ]);
+  const promptList = listBlock(x.promptPack, "checklist");
+  const acceptanceList = listBlock([
+    "Blueprint sudah memisahkan halaman inti, support content, FAQ, dan distribusi.",
+    "Setiap halaman penting punya intent dan CTA yang jelas.",
+    "Entity brand, lokasi, dan klaim utama konsisten lintas output.",
+    "Ada mekanisme capture jawaban cepat untuk AEO dan AI visibility.",
+    "Ada daftar trust signal dan proof asset yang siap dipakai.",
+    "Roadmap 30-60-90 memiliki prioritas yang sesuai kapasitas tim.",
+    "Target KPI tidak hanya traffic, tetapi juga brand dan conversion.",
+    "Output siap dipakai ulang untuk prompt turunan dan dokumen internal."
+  ], "checklist");
+  sections.push({
+    id: "bp9",
+    navGroup: "Brand",
+    navTitle: "Entity & Trust",
+    html: '<div class="result-section" id="bp9"><div class="rs-header"><div class="rs-tag">Bagian 09</div><h1 class="rs-title">Entity, Trust & Brand Presence Blueprint</h1><p class="rs-sub">Bagian ini merapikan bagaimana brand tampil sebagai entitas yang kredibel dan mudah dikenali di mesin pencari maupun sistem AI.</p></div>' + trustCards.html + "</div>",
+    markdown: ["## 09 Entity, Trust & Brand Presence Blueprint", "", "Bagian ini merapikan bagaimana brand tampil sebagai entitas yang kredibel dan mudah dikenali di mesin pencari maupun sistem AI.", "", trustCards.markdown].join("\n")
+  });
+  sections.push({
+    id: "bp10",
+    navGroup: "Eksekusi",
+    navTitle: "Technical Blueprint",
+    html: '<div class="result-section" id="bp10"><div class="rs-header"><div class="rs-tag">Bagian 10</div><h1 class="rs-title">Technical, Schema & AI Crawler Blueprint</h1><p class="rs-sub">Rencana teknis ini dibuat agar konten penting tetap terbaca, terstruktur, dan siap dipakai sebagai sumber jawaban yang stabil.</p></div>' + technicalTable.html + '<h2 class="rs">Draft llms.txt ringkas</h2>' + llmsCode.html + "</div>",
+    markdown: ["## 10 Technical, Schema & AI Crawler Blueprint", "", "Rencana teknis ini dibuat agar konten penting tetap terbaca, terstruktur, dan siap dipakai sebagai sumber jawaban yang stabil.", "", technicalTable.markdown, "", "### Draft llms.txt ringkas", "", llmsCode.markdown].join("\n")
+  });
+  sections.push({
+    id: "bp11",
+    navGroup: "Eksekusi",
+    navTitle: "Workflow",
+    html: '<div class="result-section" id="bp11"><div class="rs-header"><div class="rs-tag">Bagian 11</div><h1 class="rs-title">Editorial Workflow & Operating Rhythm</h1><p class="rs-sub">Flow kerja dibuat untuk tim kecil maupun tim lean agar blueprint tetap bisa dijalankan dengan disiplin yang wajar.</p></div>' + workflowList.html + '<div style="height:16px"></div><div class="flow"><div class="flow-step">Audit</div><div class="flow-arr">-&gt;</div><div class="flow-step">Architecture</div><div class="flow-arr">-&gt;</div><div class="flow-step">Brief</div><div class="flow-arr">-&gt;</div><div class="flow-step">Production</div><div class="flow-arr">-&gt;</div><div class="flow-step">Publish</div><div class="flow-arr">-&gt;</div><div class="flow-step">Distribute</div><div class="flow-arr">-&gt;</div><div class="flow-step">Review</div></div><div style="height:16px"></div>' + workflowTable.html + "</div>",
+    markdown: ["## 11 Editorial Workflow & Operating Rhythm", "", "Flow kerja dibuat untuk tim kecil maupun tim lean agar blueprint tetap bisa dijalankan dengan disiplin yang wajar.", "", workflowList.markdown, "", "Alur: Audit -> Architecture -> Brief -> Production -> Publish -> Distribute -> Review", "", workflowTable.markdown].join("\n")
+  });
+  sections.push({
+    id: "bp12",
+    navGroup: "Eksekusi",
+    navTitle: "Distribution",
+    html: '<div class="result-section" id="bp12"><div class="rs-header"><div class="rs-tag">Bagian 12</div><h1 class="rs-title">Multi-Channel Distribution & Repurposing</h1><p class="rs-sub">Distribusi tidak dibuat sebagai copy-paste, tetapi sebagai sistem turunan yang menjaga pesan brand tetap konsisten di channel yang berbeda.</p></div>' + channelsTable.html + "</div>",
+    markdown: ["## 12 Multi-Channel Distribution & Repurposing", "", "Distribusi tidak dibuat sebagai copy-paste, tetapi sebagai sistem turunan yang menjaga pesan brand tetap konsisten di channel yang berbeda.", "", channelsTable.markdown].join("\n")
+  });
+  sections.push({
+    id: "bp13",
+    navGroup: "Measurement",
+    navTitle: "KPI & Tracking",
+    html: '<div class="result-section" id="bp13"><div class="rs-header"><div class="rs-tag">Bagian 13</div><h1 class="rs-title">KPI, Dashboard & Measurement System</h1><p class="rs-sub">Bagian ini membantu memastikan blueprint tidak berhenti sebagai dokumen, tetapi hidup sebagai sistem yang bisa diukur.</p></div>' + kpiTable.html + "</div>",
+    markdown: ["## 13 KPI, Dashboard & Measurement System", "", "Bagian ini membantu memastikan blueprint tidak berhenti sebagai dokumen, tetapi hidup sebagai sistem yang bisa diukur.", "", kpiTable.markdown].join("\n")
+  });
+  sections.push({
+    id: "bp14",
+    navGroup: "Measurement",
+    navTitle: "Roadmap 30-60-90",
+    html: '<div class="result-section" id="bp14"><div class="rs-header"><div class="rs-tag">Bagian 14</div><h1 class="rs-title">Roadmap Implementasi 30-60-90 Hari</h1><p class="rs-sub">Roadmap ini menjaga blueprint tetap realistis dan membantu tim tahu apa yang perlu dikunci lebih dulu, bukan semuanya sekaligus.</p></div>' + roadmapCards.html + "</div>",
+    markdown: ["## 14 Roadmap Implementasi 30-60-90 Hari", "", "Roadmap ini menjaga blueprint tetap realistis dan membantu tim tahu apa yang perlu dikunci lebih dulu, bukan semuanya sekaligus.", "", roadmapCards.markdown].join("\n")
+  });
+  sections.push({
+    id: "bp15",
+    navGroup: "Measurement",
+    navTitle: "Prompt Pack",
+    html: '<div class="result-section" id="bp15"><div class="rs-header"><div class="rs-tag">Bagian 15</div><h1 class="rs-title">Prompt Activation Pack</h1><p class="rs-sub">Prompt ini bisa langsung dipakai untuk menurunkan blueprint menjadi riset, halaman, FAQ, atau roadmap kerja yang lebih detail.</p></div>' + promptList.html + "</div>",
+    markdown: ["## 15 Prompt Activation Pack", "", "Prompt ini bisa langsung dipakai untuk menurunkan blueprint menjadi riset, halaman, FAQ, atau roadmap kerja yang lebih detail.", "", promptList.markdown].join("\n")
+  });
+  sections.push({
+    id: "bp16",
+    navGroup: "Measurement",
+    navTitle: "Acceptance Criteria",
+    html: '<div class="result-section" id="bp16"><div class="rs-header"><div class="rs-tag">Bagian 16</div><h1 class="rs-title">Acceptance Criteria</h1><p class="rs-sub">Blueprint dianggap siap dipakai bila fondasi, eksekusi, dan pengukuran di bawah ini sudah terpenuhi atau masuk dalam rencana kerja eksplisit.</p></div>' + acceptanceList.html + "</div>",
+    markdown: ["## 16 Acceptance Criteria", "", "Blueprint dianggap siap dipakai bila fondasi, eksekusi, dan pengukuran di bawah ini sudah terpenuhi atau masuk dalam rencana kerja eksplisit.", "", acceptanceList.markdown].join("\n")
+  });
+  return sections;
+}
+
+function renderSidebar(sections) {
+  const sidebar = document.getElementById("result-sidebar");
+  const select = document.getElementById("mobile-section-nav");
+  const groups = {};
+  sections.forEach((section) => {
+    if (!groups[section.navGroup]) groups[section.navGroup] = [];
+    groups[section.navGroup].push(section);
+  });
+  sidebar.innerHTML = Object.entries(groups).map(([group, items]) => `
+    <div class="rsb-section">
+      <div class="rsb-label">${escapeHtml(group)}</div>
+      ${items.map((item) => `<button class="rsb-item" data-target="${item.id}" onclick="showSection('${item.id}')"><span class="rsb-num">${String(sections.indexOf(item)).padStart(2, "0")}</span>${escapeHtml(item.navTitle)}</button>`).join("")}
+    </div>`).join("");
+  select.innerHTML = sections.map((section, idx) => `<option value="${section.id}">${String(idx).padStart(2, "0")} · ${escapeHtml(section.navTitle)}</option>`).join("");
+}
+
+function buildMarkdownReportFromSections(sections, data) {
+  return ["# Master Blueprint Generator Output", "", `- Brand: ${data.business_name || "-"}`, `- Industri: ${data.industry || "-"}`, `- Dibuat: ${todayLong()}`, "", "---", "", sections.map((section) => section.markdown).join("\n\n---\n\n")].join("\n").replace(/\n{3,}/g, "\n\n");
+}
+
+function showSection(id) {
+  document.querySelectorAll(".result-section").forEach((section) => section.classList.remove("active"));
+  document.querySelectorAll(".rsb-item").forEach((button) => button.classList.remove("active"));
+  const section = document.getElementById(id);
+  if (!section) return;
+  section.classList.add("active");
+  const navButton = document.querySelector(`.rsb-item[data-target="${id}"]`);
+  if (navButton) navButton.classList.add("active");
+  const select = document.getElementById("mobile-section-nav");
+  if (select) select.value = id;
+  window.scrollTo(0, 0);
+}
+
+function renderResult() {
+  lastSections = buildSections(blueprintData);
+  lastMarkdown = buildMarkdownReportFromSections(lastSections, blueprintData);
+  document.getElementById("result-main").innerHTML = lastSections.map((section) => section.html).join("");
+  renderSidebar(lastSections);
+  showSection(lastSections[0]?.id || "bp0");
+}
+
+function generateBlueprint() {
+  const reviewStep = steps[steps.length - 2];
+  if (!validateStep(reviewStep)) return;
+  blueprintData = collectData();
+  saveDraft(false);
+  document.getElementById("result-brand").textContent = blueprintData.business_name || "Brand";
+  const loading = document.getElementById("loading");
+  const messages = [
+    "Menganalisis struktur bisnis dan audience...",
+    "Menyusun blueprint SEO, AEO, GEO, dan konversi...",
+    "Merakit output HTML, Markdown, dan PDF-ready report..."
+  ];
+  let idx = 0;
+  document.getElementById("loading-text").textContent = messages[0];
+  loading.classList.add("show");
+  const interval = setInterval(() => {
+    idx = Math.min(idx + 1, messages.length - 1);
+    document.getElementById("loading-text").textContent = messages[idx];
+  }, 650);
+  setTimeout(() => {
+    clearInterval(interval);
+    loading.classList.remove("show");
+    renderResult();
+    document.getElementById("app-form").style.display = "none";
+    document.getElementById("app-result").style.display = "block";
+    window.scrollTo(0, 0);
+  }, 1700);
+}
+
+function backToForm() {
+  document.getElementById("app-result").style.display = "none";
+  document.getElementById("app-form").style.display = "flex";
+  goStep(totalSteps);
+}
+
+function downloadBlob(text, type, filename) {
+  const blob = new Blob([text], { type });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
+}
+
+function copyMarkdownReport() {
+  if (!lastMarkdown) return alert("Belum ada output yang digenerate.");
+  copyToClipboard(lastMarkdown, "Markdown blueprint berhasil disalin.");
+}
+
+function downloadMarkdownReport() {
+  if (!lastMarkdown) return alert("Belum ada output yang digenerate.");
+  downloadBlob(lastMarkdown, "text/markdown;charset=utf-8", `master-blueprint-${slug(blueprintData.business_name || "brand")}.md`);
+}
+
+function standaloneReportHtml() {
+  return `<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Master Blueprint - ${escapeHtml(blueprintData.business_name || "Brand")}</title><style>body{font-family:Arial,sans-serif;background:#f7f4ee;color:#17130d;line-height:1.7;margin:0}header{padding:28px 32px;background:#17130d;color:#fff}header h1{margin:0 0 6px;font-size:32px}header p{margin:0;color:#d4cfc4}main{max-width:980px;margin:0 auto;padding:28px 20px 60px}section{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:18px;padding:24px;margin-bottom:22px}.tag{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#9a6c00;margin-bottom:10px}h2{font-size:30px;margin:0 0 10px;font-family:Georgia,serif}table{width:100%;border-collapse:collapse;margin-top:14px}th,td{border-bottom:1px solid rgba(0,0,0,.08);padding:10px 12px;text-align:left;vertical-align:top}th{font-size:12px;text-transform:uppercase;color:#666}ul{padding-left:20px}.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.card{border:1px solid rgba(0,0,0,.08);border-radius:16px;padding:16px;background:#fcfbf8}.callout{border:1px solid rgba(184,134,11,.24);background:#fbf4e2;border-radius:16px;padding:16px;margin:16px 0}.code-block{background:#12100d;color:#f5f0e2;border-radius:16px;padding:16px;white-space:pre-wrap;font-family:Courier New,monospace;font-size:12px}@media(max-width:760px){.cards{grid-template-columns:1fr}header{padding:22px 20px}}</style></head><body><header><h1>Master Blueprint - ${escapeHtml(blueprintData.business_name || "Brand")}</h1><p>Generated ${escapeHtml(todayLong())} • Universal blueprint report</p></header><main>${lastSections.map((section, idx) => `<section><div class="tag">${String(idx).padStart(2, "0")} • ${escapeHtml(section.navTitle)}</div>${section.html.replace(/<div class="result-section"[^>]*>/, "").replace(/<\/div>\s*$/, "")}</section>`).join("")}</main></body></html>`;
+}
+
+function downloadHtmlReport() {
+  if (!lastSections.length) return alert("Belum ada output yang digenerate.");
+  downloadBlob(standaloneReportHtml(), "text/html;charset=utf-8", `master-blueprint-${slug(blueprintData.business_name || "brand")}.html`);
+}
+
+function printAllPDF() {
+  if (!lastSections.length) return alert("Belum ada output yang digenerate.");
+  document.body.classList.add("print-all-mode");
+  let restored = false;
+  const restore = () => {
+    if (restored) return;
+    restored = true;
+    document.body.classList.remove("print-all-mode");
+  };
+  window.addEventListener("afterprint", restore, { once: true });
+  window.print();
+  setTimeout(restore, 1600);
+}
+
+function attachAutoSave() {
+  document.querySelectorAll("input, textarea, select").forEach((el) => {
+    el.addEventListener("input", () => {
+      const field = fieldById(el.id || el.name);
+      if (field) clearValidationState(field);
+      saveDraft(false);
+      if (currentStep === totalSteps) renderReviewSummary();
+    });
+    el.addEventListener("change", () => {
+      const field = fieldById(el.id || el.name);
+      if (field) clearValidationState(field);
+      saveDraft(false);
+      if (currentStep === totalSteps) renderReviewSummary();
+    });
+  });
+}
+
+renderFormSteps();
+disableInputHistory();
+renderPills();
+updateProgress();
+attachAutoSave();
+updateDraftStatus();
+loadDraft(false);
+</script>
+</body>
+</html>
