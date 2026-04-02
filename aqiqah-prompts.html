@@ -256,6 +256,71 @@ input:focus, textarea:focus, select:focus {
   .um-preview { min-height: 360px; padding: 12px; }
   .um-preview pre { font-size: 11px; line-height: 1.6; }
 }
+
+
+/* Mobile usability patch: compact action badges and avoid blocking form fields */
+@media (max-width: 980px) {
+  .fb-header,
+  .um-header,
+  .ig-header,
+  .adv-header,
+  .kw-header,
+  .prd-header,
+  .page-header,
+  .app-header,
+  .result-header,
+  .header {
+    position: static !important;
+    top: auto !important;
+  }
+
+  .fb-header .fb-actions,
+  .um-header .um-actions,
+  .ig-header .ig-actions,
+  .adv-header .adv-actions,
+  .kw-header .kw-actions,
+  .prd-header .prd-actions,
+  .page-header .page-actions,
+  .app-header .app-nav-links,
+  .result-header .result-actions,
+  .header .actions {
+    width: 100%;
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    justify-content: flex-start !important;
+    gap: 8px;
+    padding-bottom: 2px;
+    scrollbar-width: thin;
+  }
+
+  .fb-header .btn,
+  .um-header .btn,
+  .ig-header .btn,
+  .adv-header .btn,
+  .kw-header .btn,
+  .prd-header .btn,
+  .page-header .btn,
+  .header .btn,
+  .result-header .btn,
+  .app-header .app-nav-link {
+    width: auto !important;
+    flex: 0 0 auto;
+    white-space: nowrap;
+    font-size: 11.5px;
+    padding: 8px 11px;
+    min-height: 34px;
+    text-align: center;
+  }
+
+  .field-group,
+  .field,
+  .group {
+    scroll-margin-top: 18px !important;
+    scroll-margin-bottom: 110px !important;
+  }
+}
 </style>
 </head>
 <body>

@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Framework Bisnis Bab 5 - Offer Design Marketing Mix 7P</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0f1117;--ink2:#1f2532;--ink3:#3e4657;--muted:#747d90;--paper:#f5f7fb;--paper3:#fff;--blue:#1f5cb7;--blue2:#2f74d4;--blue-soft:#eaf1fd;--red:#a53030;--border:rgba(15,17,23,.16);--border-soft:rgba(15,17,23,.08);--shadow:0 10px 30px rgba(16,23,45,.08),0 2px 10px rgba(16,23,45,.08);--radius:12px;--radius-lg:18px;--font-display:'Playfair Display',Georgia,serif;--font-body:'DM Sans','Helvetica Neue',sans-serif;--font-mono:'DM Mono','Courier New',monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:radial-gradient(circle at 12% 0%,rgba(31,116,212,.12) 0,rgba(31,116,212,0) 36%),radial-gradient(circle at 100% 100%,rgba(31,122,79,.12) 0,rgba(31,122,79,0) 40%),var(--paper);color:var(--ink);font-family:var(--font-body);line-height:1.6}
+.fb-header{position:sticky;top:0;z-index:60;padding:16px 34px;background:#121826;display:flex;align-items:center;justify-content:space-between;gap:14px;border-bottom:1px solid rgba(255,255,255,.08)}
+.fb-logo{font-family:var(--font-display);color:#f2f5fb;font-size:17px;letter-spacing:.01em}.fb-logo span{color:#8fb5f0;font-style:italic}
+.fb-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.btn{border:none;border-radius:10px;padding:9px 13px;font-size:12.5px;cursor:pointer;font-family:var(--font-body);text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.btn-ghost{background:transparent;color:rgba(255,255,255,.86);border:1px solid rgba(255,255,255,.3)}.btn-ghost:hover{color:#fff;border-color:rgba(255,255,255,.5)}
+.btn-primary{background:var(--blue);color:#fff}.btn-primary:hover{background:var(--blue2)}.btn-light{background:#fff;color:var(--ink2);border:1px solid var(--border)}
+.fb-main{max-width:1400px;margin:0 auto;padding:28px 34px 66px}
+.hero-card{background:linear-gradient(130deg,#102038 0%,#17355f 42%,#26558f 100%);color:#f2f5fb;border-radius:var(--radius-lg);padding:26px 24px;box-shadow:var(--shadow);margin-bottom:18px;border:1px solid rgba(255,255,255,.16)}
+.hero-tag{font-size:11px;text-transform:uppercase;letter-spacing:.11em;font-family:var(--font-mono);color:rgba(229,238,255,.82);margin-bottom:8px}
+.hero-title{font-family:var(--font-display);font-size:33px;font-weight:500;line-height:1.2;margin-bottom:10px}.hero-title em{color:#b9d0fb;font-style:italic}.hero-sub{color:rgba(236,242,255,.9);font-size:14px;max-width:980px}
+.fb-grid{display:grid;grid-template-columns:minmax(350px,1fr) minmax(390px,1fr);gap:18px;align-items:start}
+.card{background:var(--paper3);border:1px solid var(--border-soft);border-radius:var(--radius-lg);box-shadow:var(--shadow);padding:18px}
+.card h2{font-family:var(--font-display);font-size:24px;font-weight:500;margin-bottom:8px}.card-sub{font-size:13px;color:var(--muted);margin-bottom:16px}
+.helper-box{border:1px dashed rgba(31,92,183,.33);border-radius:10px;background:var(--blue-soft);color:#24467d;font-size:12.5px;padding:10px 11px;margin-bottom:12px}
+.group{border:1px solid var(--border-soft);border-radius:var(--radius);background:#fff;padding:14px;margin-bottom:14px}
+.group-title{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--blue);font-family:var(--font-mono);margin-bottom:12px}
+.field-group{margin-bottom:12px}.field-group:last-child{margin-bottom:0}
+.field-label{display:block;font-size:13px;font-weight:600;color:var(--ink2);margin-bottom:6px}.field-label span{margin-left:6px;color:var(--blue2);font-size:11px;font-family:var(--font-mono)}
+.field-hint{font-size:12px;color:var(--muted);margin-bottom:6px;line-height:1.5}
+.field-error{display:none;margin-top:6px;font-size:12px;color:var(--red)}.field-error.visible{display:block}
+input[type="text"],select,textarea{width:100%;border:1.4px solid var(--border);border-radius:10px;padding:10px 12px;font-size:14px;color:var(--ink2);background:#fff;font-family:var(--font-body)}
+textarea{resize:vertical;min-height:82px}
+input[type="text"]:focus,select:focus,textarea:focus{outline:none;border-color:var(--blue2);box-shadow:0 0 0 3px rgba(47,116,212,.13)}
+input.invalid,select.invalid,textarea.invalid{border-color:var(--red);box-shadow:0 0 0 3px rgba(165,48,48,.12)}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.chip-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px}
+.chip{border:1.4px solid var(--border);border-radius:10px;background:#fff;padding:9px 10px;display:flex;gap:8px;align-items:flex-start;cursor:pointer}.chip:hover{border-color:rgba(31,92,183,.4);background:#f8fbff}.chip input{margin-top:2px}.chip-text{font-size:12.5px;color:var(--ink3);line-height:1.45}
+.form-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.preview-tabs{display:inline-flex;gap:6px;border:1px solid var(--border-soft);background:#f6f8fb;border-radius:10px;padding:4px;margin-bottom:12px}
+.tab-btn{border:none;background:transparent;color:var(--ink3);font-size:12px;padding:7px 10px;border-radius:7px;cursor:pointer;font-family:var(--font-body)}.tab-btn.active{background:#fff;color:var(--blue);box-shadow:0 1px 4px rgba(15,17,23,.08)}
+.preview-wrap{border:1px solid rgba(15,17,23,.14);border-radius:12px;overflow:hidden}
+.preview-markdown{background:#121826;color:#e6edff;font-family:var(--font-mono);font-size:12px;line-height:1.68;min-height:560px;max-height:760px;overflow:auto;padding:14px;white-space:pre-wrap;word-break:break-word}
+.preview-html{background:#fff;min-height:560px;max-height:760px;overflow:auto;padding:16px;color:var(--ink2)}
+.preview-html h1,.preview-html h2,.preview-html h3{font-family:var(--font-display);font-weight:500;line-height:1.3;margin-bottom:8px;color:var(--ink)}.preview-html h1{font-size:28px}.preview-html h2{font-size:22px;margin-top:22px}.preview-html h3{font-size:17px;margin-top:14px}
+.preview-html p,.preview-html li{font-size:14px;color:var(--ink3);margin-bottom:7px}.preview-html ul,.preview-html ol{margin-left:20px}.preview-html table{width:100%;border-collapse:collapse;margin-top:8px;margin-bottom:16px}.preview-html th,.preview-html td{border:1px solid rgba(15,17,23,.15);text-align:left;padding:8px 10px;font-size:13px}.preview-html th{font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.04em;color:var(--ink3);background:#f5f8fd}
+.inline-note{margin-top:8px;font-size:12px;color:var(--muted);background:#f8fafd;border:1px dashed rgba(31,92,183,.24);border-radius:8px;padding:8px 9px}
+.site-credit{margin:20px auto 32px;max-width:1400px;padding:0 34px;text-align:center;font-size:12px;color:var(--ink3)}
+@media (max-width:980px){.fb-header,.fb-main,.site-credit{padding-left:18px;padding-right:18px}.fb-header{flex-wrap:wrap;align-items:stretch;gap:10px}.fb-logo{width:100%}.fb-actions{width:100%;display:grid;grid-template-columns:1fr;gap:8px}.fb-actions .btn{width:100%;font-size:12px;padding:10px}.hero-title{font-size:29px}.fb-grid{grid-template-columns:1fr}.preview-markdown,.preview-html{min-height:420px;max-height:560px}}
+@media (max-width:640px){.hero-card{padding:18px 15px}.hero-title{font-size:26px}.hero-sub{font-size:13px}.card{padding:12px;border-radius:12px}.card h2{font-size:20px}.group{padding:10px}.two-col{grid-template-columns:1fr}.chip-grid{grid-template-columns:1fr}.form-actions .btn{width:100%}.preview-markdown,.preview-html{min-height:320px;max-height:440px}input[type="text"],select,textarea{font-size:16px}}
+@media (max-width:980px){.fb-header,.um-header,.ig-header,.adv-header,.kw-header,.prd-header,.page-header,.app-header,.result-header,.header{position:static!important;top:auto!important}.fb-header .fb-actions,.um-header .um-actions,.ig-header .ig-actions,.adv-header .adv-actions,.kw-header .kw-actions,.prd-header .prd-actions,.page-header .page-actions,.app-header .app-nav-links,.result-header .result-actions,.header .actions{width:100%;display:flex!important;flex-wrap:nowrap!important;overflow-x:auto;-webkit-overflow-scrolling:touch;justify-content:flex-start!important;gap:8px;padding-bottom:2px;scrollbar-width:thin}.fb-header .btn,.um-header .btn,.ig-header .btn,.adv-header .btn,.kw-header .btn,.prd-header .btn,.page-header .btn,.header .btn,.result-header .btn,.app-header .app-nav-link{width:auto!important;flex:0 0 auto;white-space:nowrap;font-size:11.5px;padding:8px 11px;min-height:34px;text-align:center}.field-group,.field,.group{scroll-margin-top:18px!important;scroll-margin-bottom:110px!important}}
+</style>
+</head>
+<body>
+<header class="fb-header">
+  <div class="fb-logo">Framework Bisnis Bab 5 - <span>Offer Design Marketing Mix 7P</span></div>
+  <div class="fb-actions">
+    <a class="btn btn-ghost" href="index.html">Kembali ke Index</a>
+    <button class="btn btn-ghost" type="button" onclick="copyMarkdown()">Copy Markdown</button>
+    <button class="btn btn-ghost" type="button" onclick="downloadMarkdown()">Download .md</button>
+    <button class="btn btn-ghost" type="button" onclick="downloadHtml()">Download .html</button>
+    <button class="btn btn-primary" type="button" onclick="downloadPdf()">Download PDF</button>
+  </div>
+</header>
+<main class="fb-main">
+  <section class="hero-card">
+    <div class="hero-tag">Fundamental Business Growth Framework</div>
+    <h1 class="hero-title">Workbook Bab 5: <em>Offer Design Marketing Mix 7P</em></h1>
+    <p class="hero-sub">Halaman ini membantu menyusun penawaran bisnis secara utuh lewat 7 elemen: Product, Price, Place, Promotion, People, Process, dan Physical Evidence.</p>
+  </section>
+  <div class="fb-grid">
+    <section class="card">
+      <h2>Form Input</h2>
+      <p class="card-sub">Semua field mengikuti FORMAT INPUT Bab 5. Isi sejelas mungkin agar analisis 7P dan rekomendasinya benar-benar relevan.</p>
+      <div class="helper-box">Tips: hindari jawaban terlalu umum seperti "harga kompetitif" atau "pelayanan terbaik". Tulis dalam bentuk konkret yang bisa diuji.</div>
+      <form id="offer7p-form" novalidate>
+        <div class="group">
+          <div class="group-title">1) Identitas Bisnis</div>
+          <div class="two-col">
+            <div class="field-group">
+              <label class="field-label" for="brand_name">Nama Bisnis / Brand <span>Wajib</span></label>
+              <p class="field-hint">Nama brand yang dipakai konsisten di output workbook.</p>
+              <input type="text" id="brand_name" placeholder="Contoh: Maju Tumbuh Konsultan">
+              <div class="field-error" id="err-brand_name">Nama bisnis wajib diisi.</div>
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="industry">Industri / Kategori <span>Wajib</span></label>
+              <p class="field-hint">Kategori utama bisnis yang sedang dianalisis.</p>
+              <input type="text" id="industry" placeholder="Contoh: Konsultan Operasional UMKM">
+              <div class="field-error" id="err-industry">Industri wajib diisi.</div>
+            </div>
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="main_offer">Produk / Jasa Utama <span>Wajib</span></label>
+            <p class="field-hint">Penawaran utama yang dijual saat ini.</p>
+            <input type="text" id="main_offer" placeholder="Contoh: Pendampingan SOP implementatif 12 minggu">
+            <div class="field-error" id="err-main_offer">Produk/jasa utama wajib diisi.</div>
+          </div>
+        </div>
+
+        <div class="group">
+          <div class="group-title">2) Kondisi Penawaran Saat Ini</div>
+          <div class="field-group">
+            <label class="field-label" for="offer_thought">Apakah Sudah Pernah Memikirkan Penawaran Secara Utuh (7 Elemen)? <span>Wajib</span></label>
+            <p class="field-hint">Pilih kondisi aktual. Jika sudah, isi gambaran umumnya.</p>
+            <select id="offer_thought">
+              <option value="">Pilih kondisi</option>
+              <option>Ya</option>
+              <option>Belum, masih fokus pada produk dan harga saja</option>
+              <option>Sudah sebagian tapi belum lengkap</option>
+            </select>
+            <div class="field-error" id="err-offer_thought">Status pemikiran 7 elemen wajib dipilih.</div>
+          </div>
+          <div class="field-group" id="offer_thought_detail_wrap" style="display:none;">
+            <label class="field-label" for="offer_thought_detail">Jika Ya, Gambaran Umumnya</label>
+            <p class="field-hint">Tulis ringkasan desain penawaran yang sudah pernah dibuat.</p>
+            <textarea id="offer_thought_detail" placeholder="Contoh: sudah ada draft Product-Price-Promotion, tapi belum menyusun Process dan Physical Evidence secara jelas."></textarea>
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="offer_desc">Bagaimana Kamu Menggambarkan Penawaran Utama Bisnismu? <span>Wajib</span></label>
+            <p class="field-hint">Ceritakan apa yang dijual, untuk siapa, kisaran harga, dan cara mendapatkannya.</p>
+            <textarea id="offer_desc" placeholder="Contoh: program 12 minggu untuk owner UMKM kuliner, mulai dari audit sampai implementasi SOP, harga mulai Rp12 juta."></textarea>
+            <div class="field-error" id="err-offer_desc">Deskripsi penawaran utama wajib diisi.</div>
+          </div>
+        </div>
+        <div class="group">
+          <div class="group-title">3) 7 Elemen Penawaran - Isi Semampu Kamu</div>
+
+          <div class="field-group">
+            <label class="field-label" for="product_what">Product - Apa yang Dijual <span>Wajib</span></label>
+            <p class="field-hint">Definisikan produk/jasa inti secara spesifik, bukan slogan.</p>
+            <input type="text" id="product_what" placeholder="Contoh: pendampingan implementasi SOP outlet selama 12 minggu">
+            <div class="field-error" id="err-product_what">Elemen Product wajib diisi.</div>
+          </div>
+          <div class="two-col">
+            <div class="field-group">
+              <label class="field-label" for="product_result">Hasil Utama yang Diberikan</label>
+              <p class="field-hint">Outcome paling konkret yang diterima pelanggan.</p>
+              <input type="text" id="product_result" placeholder="Contoh: SOP berjalan konsisten di 2-3 cabang">
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="product_fit">Siapa yang Paling Cocok</label>
+              <p class="field-hint">Segmen pelanggan yang paling fit dengan offer ini.</p>
+              <input type="text" id="product_fit" placeholder="Contoh: owner UMKM kuliner fase scale 1-3 cabang">
+            </div>
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="product_diff">Pembeda Utama</label>
+            <p class="field-hint">Alasan offer Anda berbeda dibanding pilihan lain.</p>
+            <input type="text" id="product_diff" placeholder="Contoh: fokus implementasi lapangan, bukan hanya training teori">
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="price_main">Price - Harga Penawaran <span>Wajib</span></label>
+            <p class="field-hint">Tulis kisaran atau angka harga aktual yang dipakai.</p>
+            <input type="text" id="price_main" placeholder="Contoh: Rp12 juta / program 12 minggu">
+            <div class="field-error" id="err-price_main">Elemen Price wajib diisi.</div>
+          </div>
+          <div class="two-col">
+            <div class="field-group">
+              <label class="field-label" for="price_basis">Dasar Penentuan Harga</label>
+              <p class="field-hint">Dasar pricing: value, biaya, benchmark, dll.</p>
+              <input type="text" id="price_basis" placeholder="Contoh: value-based + benchmark konsultan sejenis">
+            </div>
+            <div class="field-group">
+              <label class="field-label">Struktur / Opsi Harga</label>
+              <p class="field-hint">Pilih model harga yang saat ini dipakai.</p>
+              <div class="chip-grid">
+                <label class="chip"><input type="checkbox" name="price_structure" value="Harga satuan"><span class="chip-text">Harga satuan</span></label>
+                <label class="chip"><input type="checkbox" name="price_structure" value="Paket"><span class="chip-text">Paket</span></label>
+                <label class="chip"><input type="checkbox" name="price_structure" value="Tiering"><span class="chip-text">Tiering</span></label>
+                <label class="chip"><input type="checkbox" name="price_structure" value="Subscription"><span class="chip-text">Subscription</span></label>
+                <label class="chip"><input type="checkbox" name="price_structure" value="Custom / negosiasi"><span class="chip-text">Custom / negosiasi</span></label>
+                <label class="chip"><input type="checkbox" name="price_structure" value="Belum ada struktur jelas"><span class="chip-text">Belum ada struktur jelas</span></label>
+              </div>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="place_channel">Place - Channel Distribusi <span>Wajib</span></label>
+            <p class="field-hint">Sebutkan kanal utama offer Anda tersedia/diakses.</p>
+            <input type="text" id="place_channel" placeholder="Contoh: website, WhatsApp consult call, referral komunitas">
+            <div class="field-error" id="err-place_channel">Elemen Place wajib diisi.</div>
+          </div>
+          <div class="two-col">
+            <div class="field-group">
+              <label class="field-label" for="place_discover">Di Mana Pelanggan Mengenal</label>
+              <p class="field-hint">Titik awal awareness pelanggan.</p>
+              <input type="text" id="place_discover" placeholder="Contoh: Instagram, webinar, referral klien">
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="place_buy">Di Mana Pelanggan Membeli</label>
+              <p class="field-hint">Titik transaksi/closing paling umum.</p>
+              <input type="text" id="place_buy" placeholder="Contoh: sales call + invoice langsung">
+            </div>
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="place_delivery">Bagaimana Produk/Jasa Dikirim atau Dijalankan</label>
+            <p class="field-hint">Jelaskan mekanisme delivery dari awal sampai berjalan.</p>
+            <textarea id="place_delivery" placeholder="Contoh: kickoff Zoom, audit onsite, implementasi mingguan, review KPI bulanan."></textarea>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="promo_way">Promotion - Cara Komunikasi</label>
+            <p class="field-hint">Bagaimana bisnis mengkomunikasikan offer ke pasar.</p>
+            <input type="text" id="promo_way" placeholder="Contoh: konten edukasi + studi kasus + sesi diagnosis gratis">
+          </div>
+          <div class="two-col">
+            <div class="field-group">
+              <label class="field-label" for="promo_message">Pesan Utama yang Disampaikan</label>
+              <p class="field-hint">Kalimat pesan inti yang paling sering dipakai.</p>
+              <input type="text" id="promo_message" placeholder="Contoh: stabilkan operasional tanpa owner jadi bottleneck">
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="promo_channels">Channel Promosi yang Dipakai</label>
+              <p class="field-hint">Media/channel aktif yang dipakai saat ini.</p>
+              <input type="text" id="promo_channels" placeholder="Contoh: Instagram, YouTube, webinar, komunitas owner">
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="people_team">People - Siapa yang Terlibat</label>
+            <p class="field-hint">Tim/role internal yang terlibat dalam delivery offer.</p>
+            <input type="text" id="people_team" placeholder="Contoh: founder, konsultan implementasi, admin support">
+          </div>
+          <div class="two-col">
+            <div class="field-group">
+              <label class="field-label" for="people_front">Peran yang Paling Sering Interaksi dengan Pelanggan</label>
+              <p class="field-hint">Role frontline yang memegang pengalaman pelanggan.</p>
+              <input type="text" id="people_front" placeholder="Contoh: consultant lead dan client success">
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="people_std">Standar Pelayanan yang Ada</label>
+              <p class="field-hint">SOP/standar service yang sudah diterapkan.</p>
+              <input type="text" id="people_std" placeholder="Contoh: SLA respon maksimal 1x24 jam + weekly progress report">
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="process_flow">Process - Alur Pengalaman Pelanggan Saat Ini</label>
+            <p class="field-hint">Flow end-to-end versi saat ini, dari lead sampai after-sales.</p>
+            <textarea id="process_flow" placeholder="Contoh: lead masuk -> call diagnosis -> proposal -> kickoff -> implementasi -> evaluasi."></textarea>
+          </div>
+          <div class="two-col">
+            <div class="field-group">
+              <label class="field-label" for="process_range">Dari Pertama Mengenal sampai Setelah Membeli</label>
+              <p class="field-hint">Ringkasan tahap pengalaman customer journey.</p>
+              <input type="text" id="process_range" placeholder="Contoh: awareness -> konsultasi -> closing -> onboarding -> support">
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="process_issue">Bagian yang Paling Sering Bermasalah</label>
+              <p class="field-hint">Bottleneck utama di proses saat ini.</p>
+              <input type="text" id="process_issue" placeholder="Contoh: jeda follow-up setelah proposal terlalu lama">
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="physical_evidence">Physical Evidence - Bukti Kepercayaan yang Dimiliki</label>
+            <p class="field-hint">Contoh: testimoni, portofolio, tampilan brand, kemasan, website, dokumentasi hasil.</p>
+            <textarea id="physical_evidence" placeholder="Contoh: 25 testimoni video, portfolio PDF, website dengan case study, highlight before-after."></textarea>
+          </div>
+        </div>
+
+        <div class="group">
+          <div class="group-title">4) Evaluasi Diri</div>
+          <div class="field-group">
+            <label class="field-label">Elemen Mana yang Paling Yakin Sudah Kuat? <span>Wajib</span></label>
+            <p class="field-hint">Pilih minimal satu elemen 7P yang paling kuat saat ini.</p>
+            <div class="chip-grid">
+              <label class="chip"><input type="checkbox" name="strong_elements" value="Product"><span class="chip-text">Product</span></label>
+              <label class="chip"><input type="checkbox" name="strong_elements" value="Price"><span class="chip-text">Price</span></label>
+              <label class="chip"><input type="checkbox" name="strong_elements" value="Place"><span class="chip-text">Place</span></label>
+              <label class="chip"><input type="checkbox" name="strong_elements" value="Promotion"><span class="chip-text">Promotion</span></label>
+              <label class="chip"><input type="checkbox" name="strong_elements" value="People"><span class="chip-text">People</span></label>
+              <label class="chip"><input type="checkbox" name="strong_elements" value="Process"><span class="chip-text">Process</span></label>
+              <label class="chip"><input type="checkbox" name="strong_elements" value="Physical Evidence"><span class="chip-text">Physical Evidence</span></label>
+            </div>
+            <div class="field-error" id="err-strong_elements">Pilih minimal satu elemen yang kuat.</div>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label">Elemen Mana yang Paling Lemah / Tidak Jelas? <span>Wajib</span></label>
+            <p class="field-hint">Pilih minimal satu elemen 7P yang paling perlu diperbaiki.</p>
+            <div class="chip-grid">
+              <label class="chip"><input type="checkbox" name="weak_elements" value="Product"><span class="chip-text">Product</span></label>
+              <label class="chip"><input type="checkbox" name="weak_elements" value="Price"><span class="chip-text">Price</span></label>
+              <label class="chip"><input type="checkbox" name="weak_elements" value="Place"><span class="chip-text">Place</span></label>
+              <label class="chip"><input type="checkbox" name="weak_elements" value="Promotion"><span class="chip-text">Promotion</span></label>
+              <label class="chip"><input type="checkbox" name="weak_elements" value="People"><span class="chip-text">People</span></label>
+              <label class="chip"><input type="checkbox" name="weak_elements" value="Process"><span class="chip-text">Process</span></label>
+              <label class="chip"><input type="checkbox" name="weak_elements" value="Physical Evidence"><span class="chip-text">Physical Evidence</span></label>
+            </div>
+            <div class="field-error" id="err-weak_elements">Pilih minimal satu elemen yang lemah.</div>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label">Masalah Utama yang Paling Dirasakan Terkait Penawaran <span>Wajib</span></label>
+            <p class="field-hint">Pilih minimal satu masalah paling dominan saat ini.</p>
+            <div class="chip-grid">
+              <label class="chip"><input type="checkbox" name="offer_issues" value="Penawaran sulit dijelaskan kepada orang lain"><span class="chip-text">Penawaran sulit dijelaskan</span></label>
+              <label class="chip"><input type="checkbox" name="offer_issues" value="Harga sering dipertanyakan atau tidak meyakinkan"><span class="chip-text">Harga sering dipertanyakan</span></label>
+              <label class="chip"><input type="checkbox" name="offer_issues" value="Pelanggan susah menemukan atau mengakses penawaran"><span class="chip-text">Akses penawaran sulit</span></label>
+              <label class="chip"><input type="checkbox" name="offer_issues" value="Promosi jalan tapi konversi rendah"><span class="chip-text">Promosi jalan, konversi rendah</span></label>
+              <label class="chip"><input type="checkbox" name="offer_issues" value="Pelayanan tidak konsisten tergantung siapa yang jaga"><span class="chip-text">Pelayanan tidak konsisten</span></label>
+              <label class="chip"><input type="checkbox" name="offer_issues" value="Proses pembelian terasa rumit atau lambat"><span class="chip-text">Proses pembelian rumit/lambat</span></label>
+              <label class="chip"><input type="checkbox" name="offer_issues" value="Pelanggan baru sulit percaya tanpa referensi"><span class="chip-text">Pelanggan baru sulit percaya</span></label>
+              <label class="chip"><input type="checkbox" id="offer_issue_other_check" name="offer_issues" value="Lainnya"><span class="chip-text">Lainnya</span></label>
+            </div>
+            <input type="text" id="offer_issue_other_text" placeholder="Tulis masalah lainnya" style="margin-top:8px;display:none;">
+            <div class="field-error" id="err-offer_issues">Pilih minimal satu masalah utama.</div>
+          </div>
+        </div>
+
+        <div class="group">
+          <div class="group-title">5) Konteks Tambahan</div>
+          <div class="field-group">
+            <label class="field-label" for="bab2_output">Output Bab 2 yang Relevan</label>
+            <p class="field-hint">Contoh: celah pasar dari Bab 2.</p>
+            <textarea id="bab2_output" placeholder="Contoh: segmen prioritas owner UMKM kuliner dengan pain operasional."></textarea>
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="bab3_output">Output Bab 3 yang Relevan</label>
+            <p class="field-hint">Contoh: value proposition statement final dari Bab 3.</p>
+            <textarea id="bab3_output" placeholder="Contoh: menstabilkan operasional tanpa owner jadi bottleneck."></textarea>
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="bab4_output">Output Bab 4 yang Relevan</label>
+            <p class="field-hint">Contoh: BMC summary sheet dari Bab 4.</p>
+            <textarea id="bab4_output" placeholder="Contoh: model pendapatan masih dominan one-off project, repeat revenue rendah."></textarea>
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="offer_competitor">Kompetitor dengan Penawaran Menarik</label>
+            <p class="field-hint">Jika ada, tulis kompetitor dan elemen penawaran yang menarik.</p>
+            <textarea id="offer_competitor" placeholder="Contoh: brand X kuat di paket tiering + testimoni before-after yang jelas."></textarea>
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="output_mode">Mode Output yang Diminta</label>
+            <p class="field-hint">Jika tidak memilih, default ke Mode Penuh.</p>
+            <select id="output_mode">
+              <option>Mode Penuh (A-F)</option>
+              <option>Mode Diagnosis Cepat</option>
+              <option>Mode Peta 7P</option>
+              <option>Mode Workbook Saja</option>
+              <option>Mode Coaching</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="notes">Catatan Tambahan</label>
+            <p class="field-hint">Masukkan konteks penting tambahan yang perlu diperhatikan saat analisis.</p>
+            <textarea id="notes" placeholder="Contoh: target 90 hari adalah memperbaiki konversi dan repeat buying."></textarea>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button class="btn btn-primary" type="button" onclick="generateOutput()">Generate Output Bab 5</button>
+          <button class="btn btn-light" type="button" onclick="resetForm()">Reset Form</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="card">
+      <h2>Preview Output</h2>
+      <p class="card-sub">Output ini siap dipakai sebagai brief AI untuk analisis offer design 7P sesuai mode yang dipilih.</p>
+      <div class="preview-tabs">
+        <button class="tab-btn active" id="tab-md" type="button" onclick="showTab('md')">Markdown</button>
+        <button class="tab-btn" id="tab-html" type="button" onclick="showTab('html')">HTML</button>
+      </div>
+      <div class="preview-wrap">
+        <pre class="preview-markdown" id="markdown-preview">Belum ada output. Isi form lalu klik "Generate Output Bab 5".</pre>
+        <div class="preview-html" id="html-preview" style="display:none;"><p>Belum ada output HTML.</p></div>
+      </div>
+      <p class="inline-note">Catatan: ringkasan ini dipakai untuk diagnosis 7P, audit koherensi antar elemen, gap prioritas, dan rencana perbaikan sebelum Go-to-Market.</p>
+    </section>
+  </div>
+</main>
+<p class="site-credit">Dibangun untuk framework internal FBGF. Alur ideal: Bab 3 -> Bab 4 -> Bab 5.</p>
+<script>
+let activeTab = 'md';
+let lastOutput = { markdown: '', html: '' };
+function cleanText(value){return String(value||'').replace(/\s+/g,' ').trim();}
+function slug(text){return cleanText(text).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'')||'dokumen';}
+function escapeHtml(value){return String(value||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\"/g,'&quot;').replace(/'/g,'&#039;');}
+function setError(fieldId,hasError){const field=document.getElementById(fieldId);const err=document.getElementById('err-'+fieldId);if(field)field.classList.toggle('invalid',hasError);if(err)err.classList.toggle('visible',hasError);}
+function checkedValues(name){return Array.from(document.querySelectorAll('input[name="'+name+'"]:checked')).map((node)=>cleanText(node.value));}
+function collectData(){
+  const issues=checkedValues('offer_issues');
+  const issueOtherChecked=document.getElementById('offer_issue_other_check').checked;
+  const issueOtherText=cleanText(document.getElementById('offer_issue_other_text').value);
+  const mappedIssues=issues.filter((item)=>item!=='Lainnya').concat(issueOtherChecked&&issueOtherText?['Lainnya: '+issueOtherText]:issueOtherChecked?['Lainnya']:[]);
+  return {
+    brandName:cleanText(document.getElementById('brand_name').value),
+    industry:cleanText(document.getElementById('industry').value),
+    mainOffer:cleanText(document.getElementById('main_offer').value),
+    offerThought:cleanText(document.getElementById('offer_thought').value),
+    offerThoughtDetail:cleanText(document.getElementById('offer_thought_detail').value),
+    offerDesc:cleanText(document.getElementById('offer_desc').value),
+    productWhat:cleanText(document.getElementById('product_what').value),
+    productResult:cleanText(document.getElementById('product_result').value),
+    productFit:cleanText(document.getElementById('product_fit').value),
+    productDiff:cleanText(document.getElementById('product_diff').value),
+    priceMain:cleanText(document.getElementById('price_main').value),
+    priceBasis:cleanText(document.getElementById('price_basis').value),
+    priceStructure:checkedValues('price_structure'),
+    placeChannel:cleanText(document.getElementById('place_channel').value),
+    placeDiscover:cleanText(document.getElementById('place_discover').value),
+    placeBuy:cleanText(document.getElementById('place_buy').value),
+    placeDelivery:cleanText(document.getElementById('place_delivery').value),
+    promoWay:cleanText(document.getElementById('promo_way').value),
+    promoMessage:cleanText(document.getElementById('promo_message').value),
+    promoChannels:cleanText(document.getElementById('promo_channels').value),
+    peopleTeam:cleanText(document.getElementById('people_team').value),
+    peopleFront:cleanText(document.getElementById('people_front').value),
+    peopleStd:cleanText(document.getElementById('people_std').value),
+    processFlow:cleanText(document.getElementById('process_flow').value),
+    processRange:cleanText(document.getElementById('process_range').value),
+    processIssue:cleanText(document.getElementById('process_issue').value),
+    physicalEvidence:cleanText(document.getElementById('physical_evidence').value),
+    strongElements:checkedValues('strong_elements'),
+    weakElements:checkedValues('weak_elements'),
+    offerIssues:mappedIssues,
+    bab2Output:cleanText(document.getElementById('bab2_output').value),
+    bab3Output:cleanText(document.getElementById('bab3_output').value),
+    bab4Output:cleanText(document.getElementById('bab4_output').value),
+    offerCompetitor:cleanText(document.getElementById('offer_competitor').value),
+    outputMode:cleanText(document.getElementById('output_mode').value),
+    notes:cleanText(document.getElementById('notes').value)
+  };
+}
+function validateForm(data){
+  let valid=true;
+  ['brand_name','industry','main_offer','offer_thought','offer_desc','product_what','price_main','place_channel'].forEach((id)=>{const el=document.getElementById(id);const ok=el&&cleanText(el.value);setError(id,!ok);if(!ok)valid=false;});
+  const strongOk=data.strongElements.length>0;const weakOk=data.weakElements.length>0;const issueOk=data.offerIssues.length>0;
+  document.getElementById('err-strong_elements').classList.toggle('visible',!strongOk);
+  document.getElementById('err-weak_elements').classList.toggle('visible',!weakOk);
+  document.getElementById('err-offer_issues').classList.toggle('visible',!issueOk);
+  if(!strongOk||!weakOk||!issueOk) valid=false;
+  if(data.offerThought==='Ya'){const ok=!!data.offerThoughtDetail;document.getElementById('offer_thought_detail').classList.toggle('invalid',!ok);if(!ok)valid=false;} else document.getElementById('offer_thought_detail').classList.remove('invalid');
+  if(document.getElementById('offer_issue_other_check').checked){const ok=!!cleanText(document.getElementById('offer_issue_other_text').value);document.getElementById('offer_issue_other_text').classList.toggle('invalid',!ok);if(!ok)valid=false;} else document.getElementById('offer_issue_other_text').classList.remove('invalid');
+  return valid;
+}
+function mdLine(label,value){return '- '+label+': '+(value||'-');}
+function mdList(items,fallback){if(!items||!items.length)return '- '+(fallback||'-');return items.map((item)=>'- '+item).join('\n');}
+function buildMarkdown(data){
+  return [
+    '# Framework Bisnis Bab 5 - Offer Design Marketing Mix 7P',
+    '',
+    '## Ringkasan Input User',
+    '',
+    '### 1) Identitas Bisnis',
+    mdLine('Nama bisnis / brand',data.brandName),
+    mdLine('Industri / kategori',data.industry),
+    mdLine('Produk / jasa utama',data.mainOffer),
+    '',
+    '### 2) Kondisi Penawaran Saat Ini',
+    mdLine('Sudah memikirkan penawaran 7 elemen',data.offerThought),
+    mdLine('Gambaran penawaran yang pernah dibuat',data.offerThoughtDetail||'-'),
+    mdLine('Deskripsi penawaran utama',data.offerDesc),
+    '',
+    '### 3) Peta 7P Saat Ini',
+    mdLine('Product - Apa yang dijual',data.productWhat),
+    mdLine('Product - Hasil utama',data.productResult||'-'),
+    mdLine('Product - Siapa paling cocok',data.productFit||'-'),
+    mdLine('Product - Pembeda utama',data.productDiff||'-'),
+    mdLine('Price - Harga penawaran',data.priceMain),
+    mdLine('Price - Dasar harga',data.priceBasis||'-'),
+    '- Price - Struktur harga:',
+    mdList(data.priceStructure,'Belum dipilih'),
+    mdLine('Place - Channel distribusi',data.placeChannel),
+    mdLine('Place - Di mana pelanggan mengenal',data.placeDiscover||'-'),
+    mdLine('Place - Di mana pelanggan membeli',data.placeBuy||'-'),
+    mdLine('Place - Cara delivery',data.placeDelivery||'-'),
+    mdLine('Promotion - Cara komunikasi',data.promoWay||'-'),
+    mdLine('Promotion - Pesan utama',data.promoMessage||'-'),
+    mdLine('Promotion - Channel promosi',data.promoChannels||'-'),
+    mdLine('People - Siapa yang terlibat',data.peopleTeam||'-'),
+    mdLine('People - Peran frontline',data.peopleFront||'-'),
+    mdLine('People - Standar pelayanan',data.peopleStd||'-'),
+    mdLine('Process - Alur pengalaman pelanggan',data.processFlow||'-'),
+    mdLine('Process - Rentang proses',data.processRange||'-'),
+    mdLine('Process - Titik masalah',data.processIssue||'-'),
+    mdLine('Physical Evidence - Bukti kepercayaan',data.physicalEvidence||'-'),
+    '',
+    '### 4) Evaluasi Diri',
+    '- Elemen paling kuat:',
+    mdList(data.strongElements,'Belum dipilih'),
+    '- Elemen paling lemah:',
+    mdList(data.weakElements,'Belum dipilih'),
+    '- Masalah utama penawaran:',
+    mdList(data.offerIssues,'Belum dipilih'),
+    '',
+    '### 5) Konteks Tambahan',
+    mdLine('Output Bab 2 yang relevan',data.bab2Output||'-'),
+    mdLine('Output Bab 3 yang relevan',data.bab3Output||'-'),
+    mdLine('Output Bab 4 yang relevan',data.bab4Output||'-'),
+    mdLine('Kompetitor dengan penawaran menarik',data.offerCompetitor||'-'),
+    mdLine('Mode output',data.outputMode||'Mode Penuh (A-F)'),
+    mdLine('Catatan tambahan',data.notes||'-'),
+    '',
+    '---',
+    '',
+    '## Instruksi Tugas untuk AI (Bab 5)',
+    '',
+    'Gunakan input di atas untuk menjalankan analisis **Framework Membangun Bisnis - Bab 5 (Offer Design Marketing Mix 7P)**.',
+    '',
+    '### Tujuan Analisis',
+    '1. Diagnosis kondisi penawaran saat ini.',
+    '2. Evaluasi kekuatan/kelemahan tiap elemen 7P.',
+    '3. Audit koherensi antar elemen dan terhadap value proposition.',
+    '4. Identifikasi gap dan risiko kritis penawaran.',
+    '5. Susun workbook 7P terpersonalisasi dan actionable.',
+    '',
+    '### Output Wajib',
+    'A. Diagnosis Kondisi Penawaran',
+    'B. Evaluasi 7 Elemen 7P',
+    'C. Audit Koherensi 7P',
+    'D. Gap & Risiko Kritis',
+    'E. Workbook Bab 5 Terpersonalisasi',
+    'F. Ringkasan & Next Step',
+    '',
+    '### Aturan Wajib',
+    '- Tautkan setiap rekomendasi ke konteks bisnis user.',
+    '- Tandai kontradiksi penawaran bila ada (misalnya value premium tapi harga/pengalaman tidak premium).',
+    '- Berikan prioritas tindakan realistis sebelum Bab 6.',
+    '',
+    '### Mode Eksekusi',
+    '- Mode yang diminta user: **'+(data.outputMode||'Mode Penuh (A-F)')+'**'
+  ].join('\n');
+}
+function buildHtml(data){
+  const rows=[
+    ['Nama bisnis / brand',data.brandName],['Industri / kategori',data.industry],['Produk / jasa utama',data.mainOffer],['Status memikirkan 7 elemen',data.offerThought],['Gambaran 7 elemen yang pernah dibuat',data.offerThoughtDetail||'-'],['Deskripsi penawaran utama',data.offerDesc],
+    ['Product - apa dijual',data.productWhat],['Product - hasil utama',data.productResult||'-'],['Product - siapa paling cocok',data.productFit||'-'],['Product - pembeda utama',data.productDiff||'-'],
+    ['Price - harga',data.priceMain],['Price - dasar harga',data.priceBasis||'-'],['Price - struktur',data.priceStructure.join(', ')||'-'],
+    ['Place - channel',data.placeChannel],['Place - mengenal',data.placeDiscover||'-'],['Place - membeli',data.placeBuy||'-'],['Place - delivery',data.placeDelivery||'-'],
+    ['Promotion - cara komunikasi',data.promoWay||'-'],['Promotion - pesan utama',data.promoMessage||'-'],['Promotion - channel promosi',data.promoChannels||'-'],
+    ['People - tim terlibat',data.peopleTeam||'-'],['People - frontline',data.peopleFront||'-'],['People - standar pelayanan',data.peopleStd||'-'],
+    ['Process - alur pengalaman',data.processFlow||'-'],['Process - rentang proses',data.processRange||'-'],['Process - titik masalah',data.processIssue||'-'],
+    ['Physical Evidence',data.physicalEvidence||'-'],['Elemen terkuat',data.strongElements.join(', ')||'-'],['Elemen terlemah',data.weakElements.join(', ')||'-'],['Masalah utama',data.offerIssues.join(', ')||'-'],
+    ['Output Bab 2',data.bab2Output||'-'],['Output Bab 3',data.bab3Output||'-'],['Output Bab 4',data.bab4Output||'-'],['Kompetitor penawaran menarik',data.offerCompetitor||'-'],['Mode output',data.outputMode||'Mode Penuh (A-F)'],['Catatan tambahan',data.notes||'-']
+  ];
+  return ['<article>','<h1>Framework Bisnis Bab 5 - Offer Design Marketing Mix 7P</h1>','<p>Dokumen ini berisi brief input untuk diagnosis penawaran dan penyusunan marketing mix 7P.</p>','<h2>Ringkasan Input User</h2>','<table><thead><tr><th>Field</th><th>Isi</th></tr></thead><tbody>',rows.map((row)=>'<tr><td>'+escapeHtml(row[0])+'</td><td>'+escapeHtml(row[1]||'-')+'</td></tr>').join(''),'</tbody></table>','<h2>Instruksi Tugas untuk AI</h2>','<p>Lakukan analisis Bab 5: diagnosis penawaran, evaluasi 7P, audit koherensi, gap/risiko, workbook, dan next step.</p>','<p><strong>Mode output:</strong> '+escapeHtml(data.outputMode||'Mode Penuh (A-F)')+'</p>','</article>'].join('');
+}
+function showTab(tabName){activeTab=tabName;const md=document.getElementById('markdown-preview');const html=document.getElementById('html-preview');const mdTab=document.getElementById('tab-md');const htmlTab=document.getElementById('tab-html');if(tabName==='md'){md.style.display='block';html.style.display='none';mdTab.classList.add('active');htmlTab.classList.remove('active');}else{md.style.display='none';html.style.display='block';mdTab.classList.remove('active');htmlTab.classList.add('active');}}
+function generateOutput(){const data=collectData();if(!validateForm(data)){alert('Masih ada field wajib yang belum lengkap. Mohon cek bagian yang ditandai merah.');return false;}lastOutput.markdown=buildMarkdown(data);lastOutput.html=buildHtml(data);document.getElementById('markdown-preview').textContent=lastOutput.markdown;document.getElementById('html-preview').innerHTML=lastOutput.html;showTab(activeTab);return true;}
+function ensureOutput(){if(lastOutput.markdown&&lastOutput.html)return true;return generateOutput();}
+function copyMarkdown(){if(!ensureOutput())return;navigator.clipboard.writeText(lastOutput.markdown).then(()=>alert('Markdown berhasil disalin.')).catch(()=>alert('Gagal menyalin otomatis. Silakan copy manual dari preview.'));}
+function downloadMarkdown(){if(!ensureOutput())return;const brand=cleanText(document.getElementById('brand_name').value)||'brand';const fileName='framework-bisnis-bab5-offer-7p-'+slug(brand)+'-'+new Date().toISOString().slice(0,10)+'.md';const blob=new Blob([lastOutput.markdown],{type:'text/markdown;charset=utf-8'});const url=URL.createObjectURL(blob);const link=document.createElement('a');link.href=url;link.download=fileName;document.body.appendChild(link);link.click();link.remove();URL.revokeObjectURL(url);}
+function buildExportHtmlDocument(bodyHtml){return ['<!DOCTYPE html>','<html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">','<title>Framework Bisnis Bab 5 - Offer Design Marketing Mix 7P</title>','<style>','body{font-family:Arial,sans-serif;margin:28px;color:#1f2532;line-height:1.65;}','h1,h2,h3{color:#0f1117;line-height:1.3;}','h1{font-size:30px;margin-bottom:10px;} h2{font-size:23px;margin-top:22px;} h3{font-size:18px;margin-top:14px;}','p,li,td,th{font-size:14px;} ul,ol{margin-left:22px;}','table{width:100%;border-collapse:collapse;margin:10px 0 16px;}','th,td{border:1px solid #d2d9e8;padding:8px 10px;text-align:left;vertical-align:top;}','th{background:#eff3fc;font-size:12px;text-transform:uppercase;letter-spacing:.03em;}','@media print{body{margin:14mm;}}','\n</style></head><body>',bodyHtml,'</body></html>'].join('');}
+function downloadHtml(){if(!ensureOutput())return;const brand=cleanText(document.getElementById('brand_name').value)||'brand';const fileName='framework-bisnis-bab5-offer-7p-'+slug(brand)+'-'+new Date().toISOString().slice(0,10)+'.html';const htmlDoc=buildExportHtmlDocument(lastOutput.html);const blob=new Blob([htmlDoc],{type:'text/html;charset=utf-8'});const url=URL.createObjectURL(blob);const link=document.createElement('a');link.href=url;link.download=fileName;document.body.appendChild(link);link.click();link.remove();URL.revokeObjectURL(url);}
+function downloadPdf(){if(!ensureOutput())return;const htmlDoc=buildExportHtmlDocument(lastOutput.html);const printWin=window.open('','_blank');if(!printWin){alert('Pop-up diblokir browser. Izinkan pop-up lalu coba lagi untuk ekspor PDF.');return;}printWin.document.open();printWin.document.write(htmlDoc);printWin.document.close();printWin.focus();setTimeout(function(){printWin.print();},320);}
+function resetForm(){document.getElementById('offer7p-form').reset();document.querySelectorAll('.field-error').forEach((el)=>el.classList.remove('visible'));document.querySelectorAll('input,select,textarea').forEach((el)=>el.classList.remove('invalid'));document.getElementById('offer_thought_detail_wrap').style.display='none';document.getElementById('offer_issue_other_text').style.display='none';document.getElementById('offer_issue_other_text').value='';lastOutput={markdown:'',html:''};document.getElementById('markdown-preview').textContent='Belum ada output. Isi form lalu klik "Generate Output Bab 5".';document.getElementById('html-preview').innerHTML='<p>Belum ada output HTML.</p>';showTab('md');}
+function initEventHandlers(){document.getElementById('offer_thought').addEventListener('change',function(){const show=cleanText(this.value)==='Ya';document.getElementById('offer_thought_detail_wrap').style.display=show?'block':'none';if(!show){document.getElementById('offer_thought_detail').value='';document.getElementById('offer_thought_detail').classList.remove('invalid');}});document.getElementById('offer_issue_other_check').addEventListener('change',function(){const show=this.checked;document.getElementById('offer_issue_other_text').style.display=show?'block':'none';if(!show){document.getElementById('offer_issue_other_text').value='';document.getElementById('offer_issue_other_text').classList.remove('invalid');}});document.querySelectorAll('input,select,textarea').forEach((node)=>{node.setAttribute('autocomplete','off');node.setAttribute('autocorrect','off');node.setAttribute('autocapitalize','off');node.setAttribute('spellcheck','false');});}
+initEventHandlers();
+</script>
+</body>
+</html>

@@ -238,6 +238,71 @@ input:focus, select:focus, textarea:focus {
   .field-group { scroll-margin-top: 88px; scroll-margin-bottom: 190px; }
   #prd-dynamic-fields { padding-bottom: 28px; }
 }
+
+
+/* Mobile usability patch: compact action badges and avoid blocking form fields */
+@media (max-width: 980px) {
+  .fb-header,
+  .um-header,
+  .ig-header,
+  .adv-header,
+  .kw-header,
+  .prd-header,
+  .page-header,
+  .app-header,
+  .result-header,
+  .header {
+    position: static !important;
+    top: auto !important;
+  }
+
+  .fb-header .fb-actions,
+  .um-header .um-actions,
+  .ig-header .ig-actions,
+  .adv-header .adv-actions,
+  .kw-header .kw-actions,
+  .prd-header .prd-actions,
+  .page-header .page-actions,
+  .app-header .app-nav-links,
+  .result-header .result-actions,
+  .header .actions {
+    width: 100%;
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    justify-content: flex-start !important;
+    gap: 8px;
+    padding-bottom: 2px;
+    scrollbar-width: thin;
+  }
+
+  .fb-header .btn,
+  .um-header .btn,
+  .ig-header .btn,
+  .adv-header .btn,
+  .kw-header .btn,
+  .prd-header .btn,
+  .page-header .btn,
+  .header .btn,
+  .result-header .btn,
+  .app-header .app-nav-link {
+    width: auto !important;
+    flex: 0 0 auto;
+    white-space: nowrap;
+    font-size: 11.5px;
+    padding: 8px 11px;
+    min-height: 34px;
+    text-align: center;
+  }
+
+  .field-group,
+  .field,
+  .group {
+    scroll-margin-top: 18px !important;
+    scroll-margin-bottom: 110px !important;
+  }
+}
 </style>
 </head>
 <body>
@@ -281,7 +346,7 @@ input:focus, select:focus, textarea:focus {
           </div>
           <div class="two-col">
             <div class="field-group"><label class="field-label" for="core_tagline">Tagline</label><input type="text" id="core_tagline"></div>
-            <div class="field-group"><label class="field-label" for="core_language">Bahasa Website</label><select id="core_language"><option value="">Pilih Bahasa</option><option>Indonesia</option><option>Inggris</option><option>bilingual</option><option>lainnya</option></select></div>
+            <div class="field-group"><label class="field-label" for="core_language">Bahasa Website</label><select id="core_language"><option value="">Pilih Bahasa</option><option>Indonesia</option><option>Inggris</option><option>bilingual</option><option>lainnya</option></select><input type="text" id="core_language_other" placeholder="Tulis bahasa lainnya" style="display:none; margin-top:8px;"></div>
           </div>
           <div class="field-group"><label class="field-label" for="core_device">Target Device Dominan</label><select id="core_device"><option value="">Pilih Device</option><option>Mobile</option><option>Desktop</option><option>Balanced</option></select></div>
 
@@ -314,7 +379,7 @@ input:focus, select:focus, textarea:focus {
             <div class="field-group"><label class="field-label" for="core_tech_stack">Tech Stack</label><input type="text" id="core_tech_stack" value="Bootstrap HTML static"></div>
             <div class="field-group"><label class="field-label" for="core_bootstrap_version">Versi Bootstrap</label><select id="core_bootstrap_version"><option value="">Pilih Versi</option><option>Bootstrap 5.x</option><option>Rekomendasikan</option></select></div>
           </div>
-          <div class="field-group"><label class="field-label" for="core_hosting">Hosting & Deployment</label><select id="core_hosting"><option value="">Pilih Hosting</option><option>Shared Hosting</option><option>cPanel</option><option>GitHub Pages</option><option>Netlify</option><option>Cloudflare Pages</option><option>Lainnya</option></select></div>
+          <div class="field-group"><label class="field-label" for="core_hosting">Hosting & Deployment</label><select id="core_hosting"><option value="">Pilih Hosting</option><option>Shared Hosting</option><option>cPanel</option><option>GitHub Pages</option><option>Netlify</option><option>Cloudflare Pages</option><option>Lainnya</option></select><input type="text" id="core_hosting_other" placeholder="Tulis hosting/deployment lainnya" style="display:none; margin-top:8px;"></div>
           <div class="field-group"><label class="field-label" for="core_tech_constraints">Batasan Teknis Penting</label><textarea id="core_tech_constraints"></textarea></div>
           <div class="field-group"><label class="field-label" for="core_integrations">Integrasi Penting (pisah koma/baris)</label><textarea id="core_integrations" placeholder="WhatsApp&#10;Maps&#10;Form email&#10;GA4&#10;Pixel"></textarea></div>
 
@@ -6136,6 +6201,67 @@ function getPrdTemplateRawById(id) {
   return el ? (el.value || '') : '';
 }
 
+function isOtherCoreChoice(value) {
+  const v = cleanText(value).toLowerCase();
+  return v === 'lainnya' || v === 'other';
+}
+
+function toggleCoreOtherInput(selectId, otherInputId) {
+  const selectEl = document.getElementById(selectId);
+  const otherEl = document.getElementById(otherInputId);
+  if (!selectEl || !otherEl) return;
+  const show = isOtherCoreChoice(selectEl.value);
+  otherEl.style.display = show ? 'block' : 'none';
+  if (!show) otherEl.value = '';
+}
+
+function readCoreSelectWithOther(selectId, otherInputId) {
+  const selectEl = document.getElementById(selectId);
+  const otherEl = document.getElementById(otherInputId);
+  const selected = cleanText(selectEl ? selectEl.value : '');
+  if (!isOtherCoreChoice(selected)) return selected;
+  const manual = cleanText(otherEl ? otherEl.value : '');
+  return manual ? `Lainnya: ${manual}` : selected;
+}
+
+function setCoreSelectWithOther(selectId, otherInputId, rawValue) {
+  const selectEl = document.getElementById(selectId);
+  const otherEl = document.getElementById(otherInputId);
+  if (!selectEl) return;
+
+  let value = cleanText(rawValue);
+  if (!value) {
+    selectEl.value = '';
+    if (otherEl) otherEl.value = '';
+    toggleCoreOtherInput(selectId, otherInputId);
+    return;
+  }
+
+  if (selectId === 'core_language') {
+    const lower = value.toLowerCase();
+    if (lower.includes('indonesia')) value = 'Indonesia';
+    else if (lower.includes('inggris') || lower.includes('english')) value = 'Inggris';
+    else if (lower.includes('bilingual') || lower.includes('bilingual')) value = 'bilingual';
+  }
+
+  const options = Array.from(selectEl.options).map((opt) => cleanText(opt.value));
+  const exact = options.find((opt) => opt.toLowerCase() === value.toLowerCase());
+
+  if (exact) {
+    selectEl.value = exact;
+    if (!isOtherCoreChoice(exact) && otherEl) otherEl.value = '';
+  } else {
+    const otherOption = options.find((opt) => isOtherCoreChoice(opt));
+    if (otherOption) {
+      selectEl.value = otherOption;
+      if (otherEl) otherEl.value = value.replace(/^lainnya\s*:\s*/i, '');
+    } else {
+      selectEl.value = value;
+    }
+  }
+  toggleCoreOtherInput(selectId, otherInputId);
+}
+
 function getCorePrdInputs() {
   const get = (id) => cleanText((document.getElementById(id) || {}).value || '');
   return {
@@ -6144,7 +6270,7 @@ function getCorePrdInputs() {
     industry: get('core_industry'),
     location: get('core_location'),
     tagline: get('core_tagline'),
-    language: get('core_language'),
+    language: readCoreSelectWithOther('core_language', 'core_language_other'),
     device: get('core_device'),
     goals: splitLines((document.getElementById('core_goals') || {}).value || ''),
     targetUser: get('core_target_user'),
@@ -6161,7 +6287,7 @@ function getCorePrdInputs() {
     visualStyle: get('core_visual_style'),
     techStack: get('core_tech_stack'),
     bootstrapVersion: get('core_bootstrap_version'),
-    hosting: get('core_hosting'),
+    hosting: readCoreSelectWithOther('core_hosting', 'core_hosting_other'),
     techConstraints: get('core_tech_constraints'),
     integrations: get('core_integrations'),
     analyticsTools: get('core_analytics_tools'),
@@ -6188,7 +6314,7 @@ function setCorePrdInputs(core) {
   set('core_industry', core.industry);
   set('core_location', core.location);
   set('core_tagline', core.tagline);
-  set('core_language', core.language);
+  setCoreSelectWithOther('core_language', 'core_language_other', core.language);
   set('core_device', core.device);
   set('core_goals', Array.isArray(core.goals) ? core.goals.join('\n') : core.goals);
   set('core_target_user', core.targetUser);
@@ -6205,7 +6331,7 @@ function setCorePrdInputs(core) {
   set('core_visual_style', core.visualStyle);
   set('core_tech_stack', core.techStack || 'Bootstrap HTML static');
   set('core_bootstrap_version', core.bootstrapVersion);
-  set('core_hosting', core.hosting);
+  setCoreSelectWithOther('core_hosting', 'core_hosting_other', core.hosting);
   set('core_tech_constraints', core.techConstraints);
   set('core_integrations', core.integrations);
   set('core_analytics_tools', core.analyticsTools);
@@ -6217,6 +6343,8 @@ function setCorePrdInputs(core) {
   set('core_team_resources', core.teamResources);
   set('core_asset_constraints', core.assetConstraints);
   set('core_existing_assets', core.existingAssets);
+  toggleCoreOtherInput('core_language', 'core_language_other');
+  toggleCoreOtherInput('core_hosting', 'core_hosting_other');
 }
 
 function toBulletFromLines(value, fallback = '-') {
@@ -6581,7 +6709,9 @@ function fillCoreFromSessionPrefill() {
   setIfEmpty('core_project_name', p.brand || '');
   setIfEmpty('core_industry', p.industry || '');
   setIfEmpty('core_location', p.targetMarket || '');
-  setIfEmpty('core_language', p.language || 'Bahasa Indonesia');
+  if (!cleanText(readCoreSelectWithOther('core_language', 'core_language_other'))) {
+    setCoreSelectWithOther('core_language', 'core_language_other', p.language || 'Indonesia');
+  }
   setIfEmpty('core_target_user', p.audience || '');
   setIfEmpty('core_conversion', p.conversion || '');
   setIfEmpty('core_products', Array.isArray(p.products) ? p.products.join('\n') : '');
@@ -6606,6 +6736,23 @@ function initCoreInputBindings() {
     nameEl.addEventListener('input', sync);
     sync();
   }
+  const bindCoreOther = (selectId, otherInputId) => {
+    const selectEl = document.getElementById(selectId);
+    const otherEl = document.getElementById(otherInputId);
+    if (!selectEl || !otherEl) return;
+    selectEl.addEventListener('change', () => {
+      toggleCoreOtherInput(selectId, otherInputId);
+      queuePrdAutoSave();
+      refreshPrdRecommendationHint();
+    });
+    otherEl.addEventListener('input', queuePrdAutoSave);
+    otherEl.addEventListener('change', queuePrdAutoSave);
+    otherEl.addEventListener('input', refreshPrdRecommendationHint);
+    otherEl.addEventListener('change', refreshPrdRecommendationHint);
+    toggleCoreOtherInput(selectId, otherInputId);
+  };
+  bindCoreOther('core_language', 'core_language_other');
+  bindCoreOther('core_hosting', 'core_hosting_other');
   refreshPrdRecommendationHint();
 }
 
@@ -6861,6 +7008,12 @@ function resetPrdTemplateForm() {
   });
   const techStack = document.getElementById('core_tech_stack');
   if (techStack) techStack.value = 'Bootstrap HTML static';
+  const coreLanguageOther = document.getElementById('core_language_other');
+  if (coreLanguageOther) coreLanguageOther.value = '';
+  const coreHostingOther = document.getElementById('core_hosting_other');
+  if (coreHostingOther) coreHostingOther.value = '';
+  toggleCoreOtherInput('core_language', 'core_language_other');
+  toggleCoreOtherInput('core_hosting', 'core_hosting_other');
 
   currentPrdFields.forEach((f) => {
     const el = document.getElementById(`prd_${f.key}`);

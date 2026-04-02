@@ -1216,6 +1216,77 @@ tr:hover td { background: var(--paper2); }
   border-bottom-color: rgba(26,58,107,0.65);
 }
 
+.framework-links-section {
+  margin: 14px auto 12px;
+  max-width: 1320px;
+  padding: 0 40px;
+}
+
+.framework-links-shell {
+  border: 1px solid var(--border2);
+  border-radius: 14px;
+  background: linear-gradient(145deg, #fff 0%, #f9f7f1 100%);
+  box-shadow: var(--shadow);
+  padding: 14px;
+}
+
+.framework-links-title {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink2);
+  margin-bottom: 6px;
+  text-align: center;
+}
+
+.framework-links-sub {
+  display: block;
+  font-size: 12px;
+  color: var(--muted);
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.framework-links-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(198px, 1fr));
+  gap: 8px;
+}
+
+.framework-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  width: 100%;
+  border-radius: 10px;
+  padding: 9px 12px;
+  text-decoration: none;
+  border-bottom: none !important;
+  font-size: 12.5px;
+  font-weight: 500;
+  line-height: 1.3;
+  text-align: center;
+}
+
+.framework-badge.live {
+  border: 1px solid rgba(31,92,183,0.36);
+  background: rgba(232,240,253,0.96);
+  color: #1f5cb7;
+}
+
+.framework-badge.live:hover {
+  border-color: rgba(31,92,183,0.55);
+  background: #dfeafb;
+}
+
+.framework-badge.soon {
+  border: 1px solid rgba(14,13,11,0.16);
+  background: #f7f4ee;
+  color: var(--ink3);
+  cursor: default;
+}
+
 .niche-links-section {
   margin: 10px auto 12px;
   max-width: 1320px;
@@ -1270,6 +1341,22 @@ tr:hover td { background: var(--paper2); }
 }
 
 @media (max-width: 700px) {
+  .framework-links-section {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .framework-links-shell {
+    padding: 10px;
+  }
+  .framework-links-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 7px;
+  }
+  .framework-badge {
+    min-height: 38px;
+    font-size: 12px;
+    padding: 8px 10px;
+  }
   .niche-links-section {
     padding-left: 20px;
     padding-right: 20px;
@@ -1293,8 +1380,83 @@ tr:hover td { background: var(--paper2); }
 }
 
 @media (max-width: 460px) {
+  .framework-links-grid {
+    grid-template-columns: 1fr;
+  }
   .niche-links-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+
+/* Mobile usability patch: compact action badges and avoid blocking form fields */
+@media (max-width: 980px) {
+  .fb-header,
+  .um-header,
+  .ig-header,
+  .adv-header,
+  .kw-header,
+  .prd-header,
+  .page-header,
+  .app-header,
+  .result-header,
+  .header {
+    position: static !important;
+    top: auto !important;
+  }
+
+  .fb-header .fb-actions,
+  .um-header .um-actions,
+  .ig-header .ig-actions,
+  .adv-header .adv-actions,
+  .kw-header .kw-actions,
+  .prd-header .prd-actions,
+  .page-header .page-actions,
+  .app-header .app-nav-links,
+  .result-header .result-actions,
+  .header .actions {
+    width: 100%;
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    justify-content: flex-start !important;
+    gap: 8px;
+    padding-bottom: 2px;
+    scrollbar-width: thin;
+  }
+
+  .fb-header .btn,
+  .um-header .btn,
+  .ig-header .btn,
+  .adv-header .btn,
+  .kw-header .btn,
+  .prd-header .btn,
+  .page-header .btn,
+  .header .btn,
+  .result-header .btn,
+  .app-header .app-nav-link {
+    width: auto !important;
+    flex: 0 0 auto;
+    white-space: nowrap;
+    font-size: 11.5px;
+    padding: 8px 11px;
+    min-height: 34px;
+    text-align: center;
+  }
+
+  .framework-badge,
+  .footer-badge {
+    min-height: 34px !important;
+    font-size: 11.5px !important;
+    padding: 7px 10px !important;
+  }
+
+  .field-group,
+  .field,
+  .group {
+    scroll-margin-top: 18px !important;
+    scroll-margin-bottom: 110px !important;
   }
 }
 </style>
@@ -1747,6 +1909,25 @@ tr:hover td { background: var(--paper2); }
     </section>
   </main>
 </div>
+
+<section class="framework-links-section" aria-label="Halaman framework bisnis">
+  <div class="framework-links-shell">
+    <span class="framework-links-title">Framework Bisnis — 10 Bab</span>
+    <span class="framework-links-sub">Mulai dari Bab 1: Diagnosis Bisnis. Bab berikutnya disiapkan bertahap.</span>
+    <div class="framework-links-grid">
+      <a class="framework-badge live" href="diagnosis-bisnis.html">Bab 1 · Diagnosis Bisnis</a>
+      <a class="framework-badge live" href="customer-market-understanding.html">Bab 2 · Customer &amp; Market Understanding</a>
+      <a class="framework-badge live" href="value-proposition-canvas.html">Bab 3 · Value Proposition Canvas</a>
+      <a class="framework-badge live" href="business-model-canvas.html">Bab 4 · Business Model Canvas</a>
+      <a class="framework-badge live" href="offer-design-marketing-mix-7p.html">Bab 5 · Offer Design dengan 7P</a>
+      <a class="framework-badge live" href="go-to-market-brand-message.html">Bab 6 · Go-To-Market &amp; Brand Message</a>
+      <a class="framework-badge live" href="acquisition-system.html">Bab 7 · Acquisition System</a>
+      <a class="framework-badge live" href="conversion-system.html">Bab 8 · Conversion System</a>
+      <a class="framework-badge live" href="retention-loyalty-advocacy.html">Bab 9 · Retention, Loyalty &amp; Advocacy</a>
+      <a class="framework-badge live" href="data-optimization-scale.html">Bab 10 · Data, Optimization &amp; Scale</a>
+    </div>
+  </div>
+</section>
 
 <section class="niche-links-section" aria-label="Halaman niche">
   <div class="niche-links-shell">

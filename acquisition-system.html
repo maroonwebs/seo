@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Framework Bisnis Bab 7 - Acquisition System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0f1117;--ink2:#1f2532;--ink3:#3e4657;--muted:#747d90;--paper:#f5f7fb;--paper3:#fff;--blue:#1f5cb7;--blue2:#2f74d4;--blue-soft:#eaf1fd;--red:#a53030;--border:rgba(15,17,23,.16);--border-soft:rgba(15,17,23,.08);--shadow:0 10px 30px rgba(16,23,45,.08),0 2px 10px rgba(16,23,45,.08);--radius:12px;--radius-lg:18px;--font-display:'Playfair Display',Georgia,serif;--font-body:'DM Sans','Helvetica Neue',sans-serif;--font-mono:'DM Mono','Courier New',monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:radial-gradient(circle at 12% 0%,rgba(31,116,212,.12) 0,rgba(31,116,212,0) 36%),radial-gradient(circle at 100% 100%,rgba(31,122,79,.12) 0,rgba(31,122,79,0) 40%),var(--paper);color:var(--ink);font-family:var(--font-body);line-height:1.6}
+.fb-header{position:sticky;top:0;z-index:60;padding:16px 34px;background:#121826;display:flex;align-items:center;justify-content:space-between;gap:14px;border-bottom:1px solid rgba(255,255,255,.08)}
+.fb-logo{font-family:var(--font-display);color:#f2f5fb;font-size:17px;letter-spacing:.01em}.fb-logo span{color:#8fb5f0;font-style:italic}
+.fb-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.btn{border:none;border-radius:10px;padding:9px 13px;font-size:12.5px;cursor:pointer;font-family:var(--font-body);text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.btn-ghost{background:transparent;color:rgba(255,255,255,.86);border:1px solid rgba(255,255,255,.3)}.btn-ghost:hover{color:#fff;border-color:rgba(255,255,255,.5)}
+.btn-primary{background:var(--blue);color:#fff}.btn-primary:hover{background:var(--blue2)}.btn-light{background:#fff;color:var(--ink2);border:1px solid var(--border)}
+.fb-main{max-width:1400px;margin:0 auto;padding:28px 34px 66px}
+.hero-card{background:linear-gradient(130deg,#102038 0%,#17355f 42%,#26558f 100%);color:#f2f5fb;border-radius:var(--radius-lg);padding:26px 24px;box-shadow:var(--shadow);margin-bottom:18px;border:1px solid rgba(255,255,255,.16)}
+.hero-tag{font-size:11px;text-transform:uppercase;letter-spacing:.11em;font-family:var(--font-mono);color:rgba(229,238,255,.82);margin-bottom:8px}
+.hero-title{font-family:var(--font-display);font-size:33px;font-weight:500;line-height:1.2;margin-bottom:10px}.hero-title em{color:#b9d0fb;font-style:italic}.hero-sub{color:rgba(236,242,255,.9);font-size:14px;max-width:980px}
+.fb-grid{display:grid;grid-template-columns:minmax(350px,1fr) minmax(390px,1fr);gap:18px;align-items:start}
+.card{background:var(--paper3);border:1px solid var(--border-soft);border-radius:var(--radius-lg);box-shadow:var(--shadow);padding:18px}
+.card h2{font-family:var(--font-display);font-size:24px;font-weight:500;margin-bottom:8px}.card-sub{font-size:13px;color:var(--muted);margin-bottom:16px}
+.helper-box{border:1px dashed rgba(31,92,183,.33);border-radius:10px;background:var(--blue-soft);color:#24467d;font-size:12.5px;padding:10px 11px;margin-bottom:12px}
+.group{border:1px solid var(--border-soft);border-radius:var(--radius);background:#fff;padding:14px;margin-bottom:14px}
+.group-title{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--blue);font-family:var(--font-mono);margin-bottom:12px}
+.field-group{margin-bottom:12px}.field-group:last-child{margin-bottom:0}
+.field-label{display:block;font-size:13px;font-weight:600;color:var(--ink2);margin-bottom:6px}.field-label span{margin-left:6px;color:var(--blue2);font-size:11px;font-family:var(--font-mono)}
+.field-hint{font-size:12px;color:var(--muted);margin-bottom:6px;line-height:1.5}
+.field-error{display:none;margin-top:6px;font-size:12px;color:var(--red)}.field-error.visible{display:block}
+input[type="text"],select,textarea{width:100%;border:1.4px solid var(--border);border-radius:10px;padding:10px 12px;font-size:14px;color:var(--ink2);background:#fff;font-family:var(--font-body)}
+textarea{resize:vertical;min-height:82px}
+input[type="text"]:focus,select:focus,textarea:focus{outline:none;border-color:var(--blue2);box-shadow:0 0 0 3px rgba(47,116,212,.13)}
+input.invalid,select.invalid,textarea.invalid{border-color:var(--red);box-shadow:0 0 0 3px rgba(165,48,48,.12)}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.chip-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px}
+.chip{border:1.4px solid var(--border);border-radius:10px;background:#fff;padding:9px 10px;display:flex;gap:8px;align-items:flex-start;cursor:pointer}.chip:hover{border-color:rgba(31,92,183,.4);background:#f8fbff}.chip input{margin-top:2px}.chip-text{font-size:12.5px;color:var(--ink3);line-height:1.45}
+.form-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.preview-tabs{display:inline-flex;gap:6px;border:1px solid var(--border-soft);background:#f6f8fb;border-radius:10px;padding:4px;margin-bottom:12px}
+.tab-btn{border:none;background:transparent;color:var(--ink3);font-size:12px;padding:7px 10px;border-radius:7px;cursor:pointer;font-family:var(--font-body)}.tab-btn.active{background:#fff;color:var(--blue);box-shadow:0 1px 4px rgba(15,17,23,.08)}
+.preview-wrap{border:1px solid rgba(15,17,23,.14);border-radius:12px;overflow:hidden}
+.preview-markdown{background:#121826;color:#e6edff;font-family:var(--font-mono);font-size:12px;line-height:1.68;min-height:560px;max-height:760px;overflow:auto;padding:14px;white-space:pre-wrap;word-break:break-word}
+.preview-html{background:#fff;min-height:560px;max-height:760px;overflow:auto;padding:16px;color:var(--ink2)}
+.preview-html h1,.preview-html h2,.preview-html h3{font-family:var(--font-display);font-weight:500;line-height:1.3;margin-bottom:8px;color:var(--ink)}.preview-html h1{font-size:28px}.preview-html h2{font-size:22px;margin-top:22px}.preview-html h3{font-size:17px;margin-top:14px}
+.preview-html p,.preview-html li{font-size:14px;color:var(--ink3);margin-bottom:7px}.preview-html ul,.preview-html ol{margin-left:20px}.preview-html table{width:100%;border-collapse:collapse;margin-top:8px;margin-bottom:16px}.preview-html th,.preview-html td{border:1px solid rgba(15,17,23,.15);text-align:left;padding:8px 10px;font-size:13px}.preview-html th{font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.04em;color:var(--ink3);background:#f5f8fd}
+.inline-note{margin-top:8px;font-size:12px;color:var(--muted);background:#f8fafd;border:1px dashed rgba(31,92,183,.24);border-radius:8px;padding:8px 9px}
+.site-credit{margin:20px auto 32px;max-width:1400px;padding:0 34px;text-align:center;font-size:12px;color:var(--ink3)}
+@media (max-width:980px){.fb-header,.fb-main,.site-credit{padding-left:18px;padding-right:18px}.fb-header{flex-wrap:wrap;align-items:stretch;gap:10px}.fb-logo{width:100%}.fb-actions{width:100%;display:grid;grid-template-columns:1fr;gap:8px}.fb-actions .btn{width:100%;font-size:12px;padding:10px}.hero-title{font-size:29px}.fb-grid{grid-template-columns:1fr}.preview-markdown,.preview-html{min-height:420px;max-height:560px}}
+@media (max-width:640px){.hero-card{padding:18px 15px}.hero-title{font-size:26px}.hero-sub{font-size:13px}.card{padding:12px;border-radius:12px}.card h2{font-size:20px}.group{padding:10px}.two-col{grid-template-columns:1fr}.chip-grid{grid-template-columns:1fr}.form-actions .btn{width:100%}.preview-markdown,.preview-html{min-height:320px;max-height:440px}input[type="text"],select,textarea{font-size:16px}}
+@media (max-width:980px){.fb-header,.um-header,.ig-header,.adv-header,.kw-header,.prd-header,.page-header,.app-header,.result-header,.header{position:static!important;top:auto!important}.fb-header .fb-actions,.um-header .um-actions,.ig-header .ig-actions,.adv-header .adv-actions,.kw-header .kw-actions,.prd-header .prd-actions,.page-header .page-actions,.app-header .app-nav-links,.result-header .result-actions,.header .actions{width:100%;display:flex!important;flex-wrap:nowrap!important;overflow-x:auto;-webkit-overflow-scrolling:touch;justify-content:flex-start!important;gap:8px;padding-bottom:2px;scrollbar-width:thin}.fb-header .btn,.um-header .btn,.ig-header .btn,.adv-header .btn,.kw-header .btn,.prd-header .btn,.page-header .btn,.header .btn,.result-header .btn,.app-header .app-nav-link{width:auto!important;flex:0 0 auto;white-space:nowrap;font-size:11.5px;padding:8px 11px;min-height:34px;text-align:center}.field-group,.field,.group{scroll-margin-top:18px!important;scroll-margin-bottom:110px!important}}
+</style>
+</head>
+<body>
+<header class="fb-header">
+  <div class="fb-logo">Framework Bisnis Bab 7 - <span>Acquisition System</span></div>
+  <div class="fb-actions">
+    <a class="btn btn-ghost" href="index.html">Kembali ke Index</a>
+    <button class="btn btn-ghost" type="button" onclick="copyMarkdown()">Copy Markdown</button>
+    <button class="btn btn-ghost" type="button" onclick="downloadMarkdown()">Download .md</button>
+    <button class="btn btn-ghost" type="button" onclick="downloadHtml()">Download .html</button>
+    <button class="btn btn-primary" type="button" onclick="downloadPdf()">Download PDF</button>
+  </div>
+</header>
+<main class="fb-main">
+  <section class="hero-card">
+    <div class="hero-tag">Fundamental Business Growth Framework</div>
+    <h1 class="hero-title">Workbook Bab 7: <em>Acquisition System</em></h1>
+    <p class="hero-sub">Halaman ini membantu menyusun mesin akuisisi yang lebih sistematis: channel, konten, ritme produksi, dan cara mengubah awareness menjadi traffic/lead yang konsisten.</p>
+  </section>
+  <div class="fb-grid">
+    <section class="card">
+      <h2>Form Input</h2>
+      <p class="card-sub">Isi berdasarkan kondisi akuisisi saat ini. Sistem akan bantu memetakan kekuatan, gap, dan prioritas channel yang realistis.</p>
+      <div class="helper-box">Tips: fokus ke data/aktivitas yang benar-benar jalan minggu ini. Input realistis akan menghasilkan roadmap akuisisi yang bisa langsung dieksekusi.</div>
+      <form id="acq-form" novalidate>
+        <div class="group">
+          <div class="group-title">1) Identitas Bisnis</div>
+          <div class="two-col">
+            <div class="field-group"><label class="field-label" for="brand_name">Nama Bisnis / Brand <span>Wajib</span></label><p class="field-hint">Nama bisnis yang digunakan konsisten di output.</p><input type="text" id="brand_name" placeholder="Contoh: Maju Tumbuh Konsultan"><div class="field-error" id="err-brand_name">Nama bisnis wajib diisi.</div></div>
+            <div class="field-group"><label class="field-label" for="industry">Industri / Kategori <span>Wajib</span></label><p class="field-hint">Kategori utama bisnis Anda saat ini.</p><input type="text" id="industry" placeholder="Contoh: Konsultan Operasional UMKM"><div class="field-error" id="err-industry">Industri wajib diisi.</div></div>
+          </div>
+          <div class="field-group"><label class="field-label" for="main_offer">Produk / Jasa Utama <span>Wajib</span></label><p class="field-hint">Offer utama yang ingin didorong oleh sistem akuisisi.</p><input type="text" id="main_offer" placeholder="Contoh: Pendampingan implementasi SOP 12 minggu"><div class="field-error" id="err-main_offer">Produk/jasa utama wajib diisi.</div></div>
+        </div>
+
+        <div class="group">
+          <div class="group-title">2) Kondisi Akuisisi Saat Ini</div>
+          <div class="field-group"><label class="field-label" for="acq_system_clear">Apakah Sudah Punya Sistem Akuisisi yang Jelas? <span>Wajib</span></label><p class="field-hint">Pilih kondisi saat ini. Jika sudah, tulis ringkasan sistemnya.</p><select id="acq_system_clear"><option value="">Pilih kondisi</option><option>Sudah</option><option>Belum, masih bergantung kebetulan/mulut ke mulut</option><option>Sudah sebagian tapi tidak konsisten</option></select><div class="field-error" id="err-acq_system_clear">Status sistem akuisisi wajib dipilih.</div></div>
+          <div class="field-group" id="acq_system_detail_wrap" style="display:none;"><label class="field-label" for="acq_system_detail">Jika Sudah, Sistemnya Seperti Ini</label><p class="field-hint">Tulis gambaran alur akuisisi saat ini.</p><textarea id="acq_system_detail" placeholder="Contoh: konten mingguan -> inbound WA -> call diagnosis -> closing."></textarea></div>
+          <div class="field-group"><label class="field-label" for="acq_source">Dari Mana Orang Biasanya Mengenal Bisnis Ini? <span>Wajib</span></label><p class="field-hint">Ceritakan channel, frekuensi, dan apakah hasilnya bisa diprediksi.</p><textarea id="acq_source" placeholder="Contoh: referral komunitas dan Instagram, tapi volumenya naik-turun."></textarea><div class="field-error" id="err-acq_source">Sumber akuisisi saat ini wajib diisi.</div></div>
+          <div class="field-group"><label class="field-label" for="acq_as_system">Apakah Sudah Pernah Memikirkan Akuisisi Sebagai Sistem? <span>Wajib</span></label><p class="field-hint">Pilih kondisi saat ini. Jika sudah, isi hasil ringkasnya.</p><select id="acq_as_system"><option value="">Pilih kondisi</option><option>Sudah</option><option>Belum, masih dianggap promosi biasa</option><option>Sudah tapi belum terstruktur</option></select><div class="field-error" id="err-acq_as_system">Status pemikiran sistem akuisisi wajib dipilih.</div></div>
+          <div class="field-group" id="acq_as_system_detail_wrap" style="display:none;"><label class="field-label" for="acq_as_system_detail">Jika Sudah, Hasil Pemikirannya</label><p class="field-hint">Ringkas draft sistem yang pernah dibuat.</p><input type="text" id="acq_as_system_detail" placeholder="Contoh: sudah tentukan channel utama, tapi belum ada ritme konten konsisten."></div>
+        </div>
+        <div class="group">
+          <div class="group-title">3) Kondisi Channel - Isi Semampu Kamu</div>
+          <div class="field-group"><label class="field-label" for="content_assets">Content (Blog/Artikel/Video Panjang) yang Sudah Ada</label><p class="field-hint">Sebutkan aset konten yang sudah tersedia saat ini.</p><textarea id="content_assets" placeholder="Contoh: 12 artikel blog, 8 video YouTube, 3 webinar rekaman."></textarea></div>
+          <div class="two-col">
+            <div class="field-group"><label class="field-label" for="content_freq">Frekuensi Produksi Konten</label><p class="field-hint">Seberapa sering konten diproduksi secara realistis.</p><input type="text" id="content_freq" placeholder="Contoh: 2 konten/minggu"></div>
+            <div class="field-group"><label class="field-label" for="content_topics">Topik yang Biasa Dibahas</label><p class="field-hint">Tema konten dominan yang sering dibuat.</p><input type="text" id="content_topics" placeholder="Contoh: SOP tim, kontrol operasional, studi kasus klien"></div>
+          </div>
+
+          <div class="field-group"><label class="field-label" for="seo_status">SEO - Apakah Sudah Dipikirkan?</label><p class="field-hint">Jika sudah aktif, tulis kata kunci yang sedang dioptimalkan.</p><select id="seo_status"><option value="">Pilih status</option><option>Sudah aktif</option><option>Sudah sedikit tapi belum sistematis</option><option>Belum sama sekali</option></select></div>
+          <div class="field-group" id="seo_keywords_wrap" style="display:none;"><label class="field-label" for="seo_keywords">Kata Kunci yang Dioptimalkan</label><p class="field-hint">Tulis 3-10 keyword utama yang sedang ditarget.</p><input type="text" id="seo_keywords" placeholder="Contoh: SOP outlet, sistem operasional UMKM, audit operasional kuliner"></div>
+
+          <div class="field-group"><label class="field-label">Social Media - Platform yang Aktif</label><p class="field-hint">Centang platform aktif dan isi frekuensinya jika ada.</p>
+            <div class="chip-grid">
+              <label class="chip"><input type="checkbox" id="sm_ig"><span class="chip-text">Instagram aktif</span></label>
+              <label class="chip"><input type="checkbox" id="sm_tt"><span class="chip-text">TikTok aktif</span></label>
+              <label class="chip"><input type="checkbox" id="sm_yt"><span class="chip-text">YouTube aktif</span></label>
+              <label class="chip"><input type="checkbox" id="sm_li"><span class="chip-text">LinkedIn aktif</span></label>
+              <label class="chip"><input type="checkbox" id="sm_fb"><span class="chip-text">Facebook aktif</span></label>
+              <label class="chip"><input type="checkbox" id="sm_other_check"><span class="chip-text">Lainnya</span></label>
+              <label class="chip"><input type="checkbox" id="sm_none"><span class="chip-text">Belum ada yang aktif</span></label>
+            </div>
+            <div class="two-col" style="margin-top:8px;">
+              <input type="text" id="sm_ig_freq" placeholder="Frekuensi Instagram (contoh: 4x/minggu)">
+              <input type="text" id="sm_tt_freq" placeholder="Frekuensi TikTok">
+              <input type="text" id="sm_yt_freq" placeholder="Frekuensi YouTube">
+              <input type="text" id="sm_li_freq" placeholder="Frekuensi LinkedIn">
+              <input type="text" id="sm_fb_freq" placeholder="Frekuensi Facebook">
+              <input type="text" id="sm_other" placeholder="Platform lain + frekuensi" style="display:none;">
+            </div>
+          </div>
+
+          <div class="field-group"><label class="field-label">Format Konten yang Biasa Dipakai</label><p class="field-hint">Pilih format konten yang paling sering digunakan.</p>
+            <div class="chip-grid">
+              <label class="chip"><input type="checkbox" name="content_formats" value="Foto produk / layanan"><span class="chip-text">Foto produk / layanan</span></label>
+              <label class="chip"><input type="checkbox" name="content_formats" value="Edukasi singkat"><span class="chip-text">Edukasi singkat</span></label>
+              <label class="chip"><input type="checkbox" name="content_formats" value="Carousel"><span class="chip-text">Carousel</span></label>
+              <label class="chip"><input type="checkbox" name="content_formats" value="Short video / Reels"><span class="chip-text">Short video / Reels</span></label>
+              <label class="chip"><input type="checkbox" name="content_formats" value="Behind the scenes"><span class="chip-text">Behind the scenes</span></label>
+              <label class="chip"><input type="checkbox" name="content_formats" value="Testimoni"><span class="chip-text">Testimoni</span></label>
+              <label class="chip"><input type="checkbox" id="content_format_other_check" name="content_formats" value="Lainnya"><span class="chip-text">Lainnya</span></label>
+            </div>
+            <input type="text" id="content_format_other_text" placeholder="Tulis format konten lainnya" style="margin-top:8px;display:none;">
+          </div>
+
+          <div class="field-group"><label class="field-label">Email / Direct Channel</label><p class="field-hint">Pilih channel direct yang sudah dimiliki.</p>
+            <div class="chip-grid">
+              <label class="chip"><input type="checkbox" id="email_list_check"><span class="chip-text">Punya email list</span></label>
+              <label class="chip"><input type="checkbox" id="wa_list_check"><span class="chip-text">Punya WA list / broadcast</span></label>
+              <label class="chip"><input type="checkbox" id="direct_none_check"><span class="chip-text">Belum punya direct channel</span></label>
+            </div>
+            <div class="two-col" style="margin-top:8px;"><input type="text" id="email_list_count" placeholder="Jumlah email list" style="display:none;"><input type="text" id="wa_list_count" placeholder="Jumlah WA list" style="display:none;"></div>
+          </div>
+
+          <div class="field-group"><label class="field-label" for="referral_status">Referral / Komunitas</label><p class="field-hint">Pilih kondisi referral/komunitas saat ini.</p><select id="referral_status"><option value="">Pilih kondisi</option><option>Sudah ada</option><option>Belum ada</option><option>Ada tapi tidak dikelola</option></select></div>
+          <div class="field-group" id="referral_detail_wrap" style="display:none;"><label class="field-label" for="referral_detail">Jika Sudah Ada, Bentuknya</label><p class="field-hint">Tulis bentuk program referral/komunitas yang berjalan.</p><input type="text" id="referral_detail" placeholder="Contoh: referral fee 10% + komunitas alumni klien"></div>
+        </div>
+
+        <div class="group">
+          <div class="group-title">4) Kondisi Konten</div>
+          <div class="field-group"><label class="field-label" for="pillar_status">Apakah Sudah Punya Pilar Konten yang Jelas? <span>Wajib</span></label><p class="field-hint">Jika sudah, tulis pilar konten utamanya.</p><select id="pillar_status"><option value="">Pilih kondisi</option><option>Sudah</option><option>Belum, konten berdasarkan ide spontan</option><option>Sudah sebagian tapi belum lengkap</option></select><div class="field-error" id="err-pillar_status">Status pilar konten wajib dipilih.</div></div>
+          <div class="field-group" id="pillar_detail_wrap" style="display:none;"><label class="field-label" for="pillar_detail">Jika Sudah, Pilar Kontennya</label><p class="field-hint">Tuliskan 3-5 pilar konten utama.</p><input type="text" id="pillar_detail" placeholder="Contoh: edukasi SOP, studi kasus, kesalahan umum owner, tools operasional"></div>
+          <div class="field-group"><label class="field-label" for="idea_source">Dari Mana Ide Konten Biasanya Berasal? <span>Wajib</span></label><p class="field-hint">Pilih sumber ide konten yang paling sering dipakai.</p><select id="idea_source"><option value="">Pilih sumber ide</option><option>Tren yang sedang ramai</option><option>Pertanyaan dan masalah pelanggan</option><option>Konten kompetitor</option><option>Inspirasi pribadi</option><option>Kombinasi</option></select><div class="field-error" id="err-idea_source">Sumber ide konten wajib dipilih.</div></div>
+          <div class="field-group" id="idea_source_combo_wrap" style="display:none;"><label class="field-label" for="idea_source_combo">Detail Kombinasi Sumber Ide</label><p class="field-hint">Jelaskan kombinasi sumber ide yang biasa dipakai.</p><input type="text" id="idea_source_combo" placeholder="Contoh: masalah pelanggan + tren + benchmark kompetitor"></div>
+          <div class="field-group"><label class="field-label" for="content_consistency">Seberapa Konsisten Output Konten Saat Ini? <span>Wajib</span></label><p class="field-hint">Pilih kondisi konsistensi produksi konten saat ini.</p><select id="content_consistency"><option value="">Pilih kondisi</option><option>Sangat konsisten - jadwal sudah jelas</option><option>Cukup konsisten - kadang terlewat</option><option>Tidak konsisten - tergantung mood/waktu</option></select><div class="field-error" id="err-content_consistency">Konsistensi konten wajib dipilih.</div></div>
+          <div class="field-group"><label class="field-label" for="repurpose_status">Apakah Sudah Pernah Melakukan Repurposing Konten?</label><p class="field-hint">Jika sudah, tulis cara repurposing yang biasa dilakukan.</p><select id="repurpose_status"><option value="">Pilih kondisi</option><option>Sudah</option><option>Belum</option><option>Belum tapi ingin coba</option></select></div>
+          <div class="field-group" id="repurpose_detail_wrap" style="display:none;"><label class="field-label" for="repurpose_detail">Cara Repurposing yang Dilakukan</label><p class="field-hint">Contoh: artikel jadi carousel, webinar jadi short clips.</p><input type="text" id="repurpose_detail" placeholder="Contoh: video panjang dipotong jadi 5 reels + 1 carousel ringkas"></div>
+        </div>
+
+        <div class="group">
+          <div class="group-title">5) Evaluasi Diri</div>
+          <div class="field-group"><label class="field-label" for="main_engine">Mesin Akuisisi yang Paling Diandalkan Saat Ini? <span>Wajib</span></label><p class="field-hint">Pilih mesin akuisisi yang paling sering memberi hasil.</p><select id="main_engine"><option value="">Pilih mesin utama</option><option>Content (blog/video panjang)</option><option>SEO</option><option>Social Media</option><option>Email / WA Direct</option><option>Referral / komunitas</option><option>Iklan berbayar</option><option>Belum ada yang konsisten</option></select><div class="field-error" id="err-main_engine">Mesin akuisisi utama wajib dipilih.</div></div>
+          <div class="field-group"><label class="field-label">Masalah Utama Terkait Akuisisi <span>Wajib</span></label><p class="field-hint">Pilih minimal satu masalah paling dominan.</p>
+            <div class="chip-grid">
+              <label class="chip"><input type="checkbox" name="acq_issues" value="Tidak tahu channel paling efektif"><span class="chip-text">Tidak tahu channel paling efektif</span></label>
+              <label class="chip"><input type="checkbox" name="acq_issues" value="Sudah buat konten tapi tidak ada yang datang"><span class="chip-text">Konten dibuat tapi tidak menarik traffic/lead</span></label>
+              <label class="chip"><input type="checkbox" name="acq_issues" value="Traffic/lead datang tapi tidak bisa diprediksi"><span class="chip-text">Traffic/lead tidak stabil</span></label>
+              <label class="chip"><input type="checkbox" name="acq_issues" value="Terlalu bergantung satu channel"><span class="chip-text">Terlalu bergantung satu channel</span></label>
+              <label class="chip"><input type="checkbox" name="acq_issues" value="Konten banyak tapi sistem tidak jelas"><span class="chip-text">Konten banyak tapi sistem tidak jelas</span></label>
+              <label class="chip"><input type="checkbox" name="acq_issues" value="Tidak punya direct audience"><span class="chip-text">Tidak punya direct audience</span></label>
+              <label class="chip"><input type="checkbox" name="acq_issues" value="Tidak tahu cara mengukur hasil akuisisi"><span class="chip-text">Tidak tahu mengukur hasil akuisisi</span></label>
+              <label class="chip"><input type="checkbox" id="acq_issue_other_check" name="acq_issues" value="Lainnya"><span class="chip-text">Lainnya</span></label>
+            </div>
+            <input type="text" id="acq_issue_other_text" placeholder="Tulis masalah lainnya" style="margin-top:8px;display:none;">
+            <div class="field-error" id="err-acq_issues">Pilih minimal satu masalah utama.</div>
+          </div>
+        </div>
+        <div class="group">
+          <div class="group-title">6) Konteks Tambahan</div>
+          <div class="field-group"><label class="field-label" for="bab5_output">Output Bab 5 yang Relevan</label><p class="field-hint">Contoh: Promotion dan Place dari Bab 5.</p><textarea id="bab5_output" placeholder="Contoh: channel utama Instagram + webinar, promotion angle edukasi studi kasus."></textarea></div>
+          <div class="field-group"><label class="field-label" for="bab6_output">Output Bab 6 yang Relevan</label><p class="field-hint">Contoh: positioning statement, brand message, jalur masuk pasar.</p><textarea id="bab6_output" placeholder="Contoh: positioning untuk owner UMKM kuliner yang ingin stabilkan operasional."></textarea></div>
+          <div class="field-group"><label class="field-label" for="bab2_output">Output Bab 2 yang Relevan</label><p class="field-hint">Contoh: profil segmen dan search behavior target pasar.</p><textarea id="bab2_output" placeholder="Contoh: target sering cari solusi cepat via Google/YouTube sebelum konsultasi."></textarea></div>
+          <div class="field-group"><label class="field-label" for="competitor_acq">Kompetitor dengan Akuisisi Efektif</label><p class="field-hint">Jika ada, tulis brand dan pendekatan akuisisinya.</p><textarea id="competitor_acq" placeholder="Contoh: brand X konsisten edukasi reel + webinar mingguan + list WA nurtured."></textarea></div>
+          <div class="field-group"><label class="field-label" for="content_capacity">Kapasitas Produksi Konten Saat Ini</label><p class="field-hint">Berapa jam per minggu yang realistis untuk aktivitas akuisisi.</p><input type="text" id="content_capacity" placeholder="Contoh: 6-8 jam/minggu untuk produksi + distribusi konten"></div>
+          <div class="field-group"><label class="field-label" for="output_mode">Mode Output yang Diminta</label><p class="field-hint">Jika belum yakin, gunakan Mode Penuh.</p><select id="output_mode"><option>Mode Penuh (A-F)</option><option>Mode Diagnosis Cepat</option><option>Mode Peta Akuisisi</option><option>Mode Workbook Saja</option><option>Mode Coaching</option></select></div>
+          <div class="field-group"><label class="field-label" for="notes">Catatan Tambahan</label><p class="field-hint">Tambahkan konteks operasional penting lainnya.</p><textarea id="notes" placeholder="Contoh: tim kecil, jadi perlu sistem akuisisi yang low-maintenance tapi konsisten."></textarea></div>
+        </div>
+
+        <div class="form-actions">
+          <button class="btn btn-primary" type="button" onclick="generateOutput()">Generate Output Bab 7</button>
+          <button class="btn btn-light" type="button" onclick="resetForm()">Reset Form</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="card">
+      <h2>Preview Output</h2>
+      <p class="card-sub">Output ini siap dipakai untuk analisis mesin akuisisi, peta channel, strategi konten, dan prioritas implementasi.</p>
+      <div class="preview-tabs"><button class="tab-btn active" id="tab-md" type="button" onclick="showTab('md')">Markdown</button><button class="tab-btn" id="tab-html" type="button" onclick="showTab('html')">HTML</button></div>
+      <div class="preview-wrap"><pre class="preview-markdown" id="markdown-preview">Belum ada output. Isi form lalu klik "Generate Output Bab 7".</pre><div class="preview-html" id="html-preview" style="display:none;"><p>Belum ada output HTML.</p></div></div>
+      <p class="inline-note">Catatan: hasil ini bisa langsung dipakai untuk merancang prioritas channel utama, content engine, dan sistem akuisisi 30-90 hari.</p>
+    </section>
+  </div>
+</main>
+<p class="site-credit">Dibangun untuk framework internal FBGF. Alur ideal: Bab 6 -> Bab 7 -> Bab 8.</p>
+<script>
+let activeTab='md';
+let lastOutput={markdown:'',html:''};
+function cleanText(value){return String(value||'').replace(/\s+/g,' ').trim();}
+function slug(text){return cleanText(text).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'')||'dokumen';}
+function escapeHtml(value){return String(value||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\"/g,'&quot;').replace(/'/g,'&#039;');}
+function setError(fieldId,hasError){const f=document.getElementById(fieldId);const e=document.getElementById('err-'+fieldId);if(f)f.classList.toggle('invalid',hasError);if(e)e.classList.toggle('visible',hasError);}
+function checkedValues(name){return Array.from(document.querySelectorAll('input[name="'+name+'"]:checked')).map((n)=>cleanText(n.value));}
+function mdLine(label,value){return '- '+label+': '+(value||'-');}
+function mdList(items,fallback){if(!items||!items.length)return '- '+(fallback||'-');return items.map((x)=>'- '+x).join('\n');}
+function collectData(){
+  const formats=checkedValues('content_formats');
+  const formatOtherChecked=document.getElementById('content_format_other_check').checked;
+  const formatOtherText=cleanText(document.getElementById('content_format_other_text').value);
+  const mappedFormats=formats.filter((x)=>x!=='Lainnya').concat(formatOtherChecked&&formatOtherText?['Lainnya: '+formatOtherText]:formatOtherChecked?['Lainnya']:[]);
+
+  const acqIssues=checkedValues('acq_issues');
+  const acqIssueOtherChecked=document.getElementById('acq_issue_other_check').checked;
+  const acqIssueOtherText=cleanText(document.getElementById('acq_issue_other_text').value);
+  const mappedIssues=acqIssues.filter((x)=>x!=='Lainnya').concat(acqIssueOtherChecked&&acqIssueOtherText?['Lainnya: '+acqIssueOtherText]:acqIssueOtherChecked?['Lainnya']:[]);
+
+  const social=[];
+  if(document.getElementById('sm_ig').checked) social.push('Instagram: '+(cleanText(document.getElementById('sm_ig_freq').value)||'-'));
+  if(document.getElementById('sm_tt').checked) social.push('TikTok: '+(cleanText(document.getElementById('sm_tt_freq').value)||'-'));
+  if(document.getElementById('sm_yt').checked) social.push('YouTube: '+(cleanText(document.getElementById('sm_yt_freq').value)||'-'));
+  if(document.getElementById('sm_li').checked) social.push('LinkedIn: '+(cleanText(document.getElementById('sm_li_freq').value)||'-'));
+  if(document.getElementById('sm_fb').checked) social.push('Facebook: '+(cleanText(document.getElementById('sm_fb_freq').value)||'-'));
+  if(document.getElementById('sm_other_check').checked) social.push('Lainnya: '+(cleanText(document.getElementById('sm_other').value)||'-'));
+  if(document.getElementById('sm_none').checked) social.push('Belum ada yang aktif');
+
+  const direct=[];
+  if(document.getElementById('email_list_check').checked) direct.push('Email list: '+(cleanText(document.getElementById('email_list_count').value)||'-'));
+  if(document.getElementById('wa_list_check').checked) direct.push('WA list/broadcast: '+(cleanText(document.getElementById('wa_list_count').value)||'-'));
+  if(document.getElementById('direct_none_check').checked) direct.push('Belum memiliki direct channel');
+
+  return {
+    brandName:cleanText(document.getElementById('brand_name').value),industry:cleanText(document.getElementById('industry').value),mainOffer:cleanText(document.getElementById('main_offer').value),
+    acqSystemClear:cleanText(document.getElementById('acq_system_clear').value),acqSystemDetail:cleanText(document.getElementById('acq_system_detail').value),acqSource:cleanText(document.getElementById('acq_source').value),acqAsSystem:cleanText(document.getElementById('acq_as_system').value),acqAsSystemDetail:cleanText(document.getElementById('acq_as_system_detail').value),
+    contentAssets:cleanText(document.getElementById('content_assets').value),contentFreq:cleanText(document.getElementById('content_freq').value),contentTopics:cleanText(document.getElementById('content_topics').value),seoStatus:cleanText(document.getElementById('seo_status').value),seoKeywords:cleanText(document.getElementById('seo_keywords').value),socialStatus:social,contentFormats:mappedFormats,directChannels:direct,referralStatus:cleanText(document.getElementById('referral_status').value),referralDetail:cleanText(document.getElementById('referral_detail').value),
+    pillarStatus:cleanText(document.getElementById('pillar_status').value),pillarDetail:cleanText(document.getElementById('pillar_detail').value),ideaSource:cleanText(document.getElementById('idea_source').value),ideaSourceCombo:cleanText(document.getElementById('idea_source_combo').value),contentConsistency:cleanText(document.getElementById('content_consistency').value),repurposeStatus:cleanText(document.getElementById('repurpose_status').value),repurposeDetail:cleanText(document.getElementById('repurpose_detail').value),
+    mainEngine:cleanText(document.getElementById('main_engine').value),acqIssues:mappedIssues,bab5Output:cleanText(document.getElementById('bab5_output').value),bab6Output:cleanText(document.getElementById('bab6_output').value),bab2Output:cleanText(document.getElementById('bab2_output').value),competitorAcq:cleanText(document.getElementById('competitor_acq').value),contentCapacity:cleanText(document.getElementById('content_capacity').value),outputMode:cleanText(document.getElementById('output_mode').value),notes:cleanText(document.getElementById('notes').value)
+  };
+}
+function validateForm(data){
+  let valid=true;
+  ['brand_name','industry','main_offer','acq_system_clear','acq_source','acq_as_system','pillar_status','idea_source','content_consistency','main_engine'].forEach((id)=>{const el=document.getElementById(id);const ok=el&&cleanText(el.value);setError(id,!ok);if(!ok)valid=false;});
+  const issueOk=data.acqIssues.length>0;document.getElementById('err-acq_issues').classList.toggle('visible',!issueOk);if(!issueOk)valid=false;
+  if(data.acqSystemClear==='Sudah'){const ok=!!data.acqSystemDetail;document.getElementById('acq_system_detail').classList.toggle('invalid',!ok);if(!ok)valid=false;} else document.getElementById('acq_system_detail').classList.remove('invalid');
+  if(data.acqAsSystem==='Sudah'){const ok=!!data.acqAsSystemDetail;document.getElementById('acq_as_system_detail').classList.toggle('invalid',!ok);if(!ok)valid=false;} else document.getElementById('acq_as_system_detail').classList.remove('invalid');
+  if(data.seoStatus==='Sudah aktif'){const ok=!!data.seoKeywords;document.getElementById('seo_keywords').classList.toggle('invalid',!ok);if(!ok)valid=false;} else document.getElementById('seo_keywords').classList.remove('invalid');
+  if(data.pillarStatus==='Sudah'){const ok=!!data.pillarDetail;document.getElementById('pillar_detail').classList.toggle('invalid',!ok);if(!ok)valid=false;} else document.getElementById('pillar_detail').classList.remove('invalid');
+  if(data.ideaSource==='Kombinasi'){const ok=!!data.ideaSourceCombo;document.getElementById('idea_source_combo').classList.toggle('invalid',!ok);if(!ok)valid=false;} else document.getElementById('idea_source_combo').classList.remove('invalid');
+  if(data.repurposeStatus==='Sudah'){const ok=!!data.repurposeDetail;document.getElementById('repurpose_detail').classList.toggle('invalid',!ok);if(!ok)valid=false;} else document.getElementById('repurpose_detail').classList.remove('invalid');
+  if(document.getElementById('content_format_other_check').checked){const ok=!!cleanText(document.getElementById('content_format_other_text').value);document.getElementById('content_format_other_text').classList.toggle('invalid',!ok);if(!ok)valid=false;} else document.getElementById('content_format_other_text').classList.remove('invalid');
+  if(document.getElementById('acq_issue_other_check').checked){const ok=!!cleanText(document.getElementById('acq_issue_other_text').value);document.getElementById('acq_issue_other_text').classList.toggle('invalid',!ok);if(!ok)valid=false;} else document.getElementById('acq_issue_other_text').classList.remove('invalid');
+  return valid;
+}
+function buildMarkdown(data){return ['# Framework Bisnis Bab 7 - Acquisition System','','## Ringkasan Input User','','### 1) Identitas Bisnis',mdLine('Nama bisnis / brand',data.brandName),mdLine('Industri / kategori',data.industry),mdLine('Produk / jasa utama',data.mainOffer),'','### 2) Kondisi Akuisisi Saat Ini',mdLine('Status sistem akuisisi',data.acqSystemClear),mdLine('Detail sistem akuisisi',data.acqSystemDetail||'-'),mdLine('Sumber orang mengenal bisnis',data.acqSource),mdLine('Akuisisi dipikirkan sebagai sistem',data.acqAsSystem),mdLine('Detail hasil pemikiran sistem',data.acqAsSystemDetail||'-'),'','### 3) Kondisi Channel',mdLine('Aset content yang ada',data.contentAssets||'-'),mdLine('Frekuensi produksi',data.contentFreq||'-'),mdLine('Topik konten',data.contentTopics||'-'),mdLine('Status SEO',data.seoStatus||'-'),mdLine('Keyword SEO',data.seoKeywords||'-'),'- Social media aktif:',mdList(data.socialStatus,'Belum diisi'),'- Format konten:',mdList(data.contentFormats,'Belum diisi'),'- Email/direct channel:',mdList(data.directChannels,'Belum diisi'),mdLine('Status referral/komunitas',data.referralStatus||'-'),mdLine('Detail referral',data.referralDetail||'-'),'','### 4) Kondisi Konten',mdLine('Status pilar konten',data.pillarStatus),mdLine('Pilar konten',data.pillarDetail||'-'),mdLine('Sumber ide konten',data.ideaSource),mdLine('Detail kombinasi ide',data.ideaSourceCombo||'-'),mdLine('Konsistensi output konten',data.contentConsistency),mdLine('Status repurposing',data.repurposeStatus||'-'),mdLine('Detail repurposing',data.repurposeDetail||'-'),'','### 5) Evaluasi Diri',mdLine('Mesin akuisisi paling diandalkan',data.mainEngine),'- Masalah utama akuisisi:',mdList(data.acqIssues,'Belum diisi'),'','### 6) Konteks Tambahan',mdLine('Output Bab 5',data.bab5Output||'-'),mdLine('Output Bab 6',data.bab6Output||'-'),mdLine('Output Bab 2',data.bab2Output||'-'),mdLine('Kompetitor akuisisi efektif',data.competitorAcq||'-'),mdLine('Kapasitas produksi konten',data.contentCapacity||'-'),mdLine('Mode output',data.outputMode||'Mode Penuh (A-F)'),mdLine('Catatan tambahan',data.notes||'-'),'','---','','## Instruksi Tugas untuk AI (Bab 7)','', 'Gunakan data input di atas untuk menjalankan analisis **Framework Membangun Bisnis - Bab 7 (Acquisition System)**.','','### Tujuan Analisis','1. Diagnosis kondisi akuisisi saat ini.','2. Evaluasi kekuatan/kelemahan per mesin akuisisi.','3. Audit sistem konten dan channel.','4. Identifikasi gap dan risiko akuisisi.','5. Susun workbook akuisisi yang actionable.','','### Output Wajib','A. Diagnosis Akuisisi','B. Evaluasi Mesin Akuisisi','C. Peta Channel & Konten','D. Gap & Risiko','E. Workbook Bab 7','F. Ringkasan & Next Step','','### Mode Eksekusi','- Mode yang diminta user: **'+(data.outputMode||'Mode Penuh (A-F)')+'**'].join('\n');}
+function buildHtml(data){const rows=[['Nama bisnis / brand',data.brandName],['Industri / kategori',data.industry],['Produk / jasa utama',data.mainOffer],['Status sistem akuisisi',data.acqSystemClear],['Detail sistem akuisisi',data.acqSystemDetail||'-'],['Sumber mengenal bisnis',data.acqSource],['Akuisisi sebagai sistem',data.acqAsSystem],['Detail pemikiran sistem',data.acqAsSystemDetail||'-'],['Aset content',data.contentAssets||'-'],['Frekuensi konten',data.contentFreq||'-'],['Topik konten',data.contentTopics||'-'],['Status SEO',data.seoStatus||'-'],['Keyword SEO',data.seoKeywords||'-'],['Social media aktif',data.socialStatus.join(', ')||'-'],['Format konten',data.contentFormats.join(', ')||'-'],['Direct channels',data.directChannels.join(', ')||'-'],['Status referral',data.referralStatus||'-'],['Detail referral',data.referralDetail||'-'],['Status pilar konten',data.pillarStatus],['Pilar konten',data.pillarDetail||'-'],['Sumber ide',data.ideaSource],['Detail kombinasi ide',data.ideaSourceCombo||'-'],['Konsistensi konten',data.contentConsistency],['Status repurposing',data.repurposeStatus||'-'],['Detail repurposing',data.repurposeDetail||'-'],['Mesin utama',data.mainEngine],['Masalah utama akuisisi',data.acqIssues.join(', ')||'-'],['Output Bab 5',data.bab5Output||'-'],['Output Bab 6',data.bab6Output||'-'],['Output Bab 2',data.bab2Output||'-'],['Kompetitor efektif',data.competitorAcq||'-'],['Kapasitas konten',data.contentCapacity||'-'],['Mode output',data.outputMode||'Mode Penuh (A-F)'],['Catatan',data.notes||'-']];return ['<article>','<h1>Framework Bisnis Bab 7 - Acquisition System</h1>','<p>Dokumen ini berisi brief input untuk analisis mesin akuisisi dan sistem channel konten.</p>','<h2>Ringkasan Input User</h2>','<table><thead><tr><th>Field</th><th>Isi</th></tr></thead><tbody>',rows.map((r)=>'<tr><td>'+escapeHtml(r[0])+'</td><td>'+escapeHtml(r[1]||'-')+'</td></tr>').join(''),'</tbody></table>','<h2>Instruksi Tugas untuk AI</h2>','<p>Lakukan analisis Bab 7: diagnosis akuisisi, peta mesin/channel, gap prioritas, workbook, dan next step.</p>','<p><strong>Mode output:</strong> '+escapeHtml(data.outputMode||'Mode Penuh (A-F)')+'</p>','</article>'].join('');}
+function showTab(tab){activeTab=tab;const md=document.getElementById('markdown-preview');const html=document.getElementById('html-preview');const mdTab=document.getElementById('tab-md');const htmlTab=document.getElementById('tab-html');if(tab==='md'){md.style.display='block';html.style.display='none';mdTab.classList.add('active');htmlTab.classList.remove('active');}else{md.style.display='none';html.style.display='block';mdTab.classList.remove('active');htmlTab.classList.add('active');}}
+function generateOutput(){const data=collectData();if(!validateForm(data)){alert('Masih ada field wajib yang belum lengkap. Mohon cek bagian yang ditandai merah.');return false;}lastOutput.markdown=buildMarkdown(data);lastOutput.html=buildHtml(data);document.getElementById('markdown-preview').textContent=lastOutput.markdown;document.getElementById('html-preview').innerHTML=lastOutput.html;showTab(activeTab);return true;}
+function ensureOutput(){if(lastOutput.markdown&&lastOutput.html)return true;return generateOutput();}
+function copyMarkdown(){if(!ensureOutput())return;navigator.clipboard.writeText(lastOutput.markdown).then(()=>alert('Markdown berhasil disalin.')).catch(()=>alert('Gagal menyalin otomatis. Silakan copy manual dari preview.'));}
+function downloadMarkdown(){if(!ensureOutput())return;const brand=cleanText(document.getElementById('brand_name').value)||'brand';const fileName='framework-bisnis-bab7-acquisition-'+slug(brand)+'-'+new Date().toISOString().slice(0,10)+'.md';const blob=new Blob([lastOutput.markdown],{type:'text/markdown;charset=utf-8'});const url=URL.createObjectURL(blob);const link=document.createElement('a');link.href=url;link.download=fileName;document.body.appendChild(link);link.click();link.remove();URL.revokeObjectURL(url);}
+function buildExportHtmlDocument(bodyHtml){return ['<!DOCTYPE html>','<html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">','<title>Framework Bisnis Bab 7 - Acquisition System</title>','<style>','body{font-family:Arial,sans-serif;margin:28px;color:#1f2532;line-height:1.65;}','h1,h2,h3{color:#0f1117;line-height:1.3;}','h1{font-size:30px;margin-bottom:10px;} h2{font-size:23px;margin-top:22px;} h3{font-size:18px;margin-top:14px;}','p,li,td,th{font-size:14px;} ul,ol{margin-left:22px;}','table{width:100%;border-collapse:collapse;margin:10px 0 16px;}','th,td{border:1px solid #d2d9e8;padding:8px 10px;text-align:left;vertical-align:top;}','th{background:#eff3fc;font-size:12px;text-transform:uppercase;letter-spacing:.03em;}','@media print{body{margin:14mm;}}','\n</style></head><body>',bodyHtml,'</body></html>'].join('');}
+function downloadHtml(){if(!ensureOutput())return;const brand=cleanText(document.getElementById('brand_name').value)||'brand';const fileName='framework-bisnis-bab7-acquisition-'+slug(brand)+'-'+new Date().toISOString().slice(0,10)+'.html';const htmlDoc=buildExportHtmlDocument(lastOutput.html);const blob=new Blob([htmlDoc],{type:'text/html;charset=utf-8'});const url=URL.createObjectURL(blob);const link=document.createElement('a');link.href=url;link.download=fileName;document.body.appendChild(link);link.click();link.remove();URL.revokeObjectURL(url);}
+function downloadPdf(){if(!ensureOutput())return;const htmlDoc=buildExportHtmlDocument(lastOutput.html);const printWin=window.open('','_blank');if(!printWin){alert('Pop-up diblokir browser. Izinkan pop-up lalu coba lagi untuk ekspor PDF.');return;}printWin.document.open();printWin.document.write(htmlDoc);printWin.document.close();printWin.focus();setTimeout(function(){printWin.print();},320);}
+function resetForm(){document.getElementById('acq-form').reset();document.querySelectorAll('.field-error').forEach((e)=>e.classList.remove('visible'));document.querySelectorAll('input,select,textarea').forEach((e)=>e.classList.remove('invalid'));['acq_system_detail_wrap','acq_as_system_detail_wrap','seo_keywords_wrap','referral_detail_wrap','pillar_detail_wrap','idea_source_combo_wrap','repurpose_detail_wrap'].forEach((id)=>document.getElementById(id).style.display='none');['content_format_other_text','acq_issue_other_text','sm_other','email_list_count','wa_list_count'].forEach((id)=>{document.getElementById(id).style.display='none';document.getElementById(id).value='';});lastOutput={markdown:'',html:''};document.getElementById('markdown-preview').textContent='Belum ada output. Isi form lalu klik "Generate Output Bab 7".';document.getElementById('html-preview').innerHTML='<p>Belum ada output HTML.</p>';showTab('md');}
+function toggleOther(checkId,inputId){const c=document.getElementById(checkId).checked;const t=document.getElementById(inputId);t.style.display=c?'block':'none';if(!c){t.value='';t.classList.remove('invalid');}}
+function initEventHandlers(){document.getElementById('acq_system_clear').addEventListener('change',function(){const s=cleanText(this.value)==='Sudah';document.getElementById('acq_system_detail_wrap').style.display=s?'block':'none';if(!s){document.getElementById('acq_system_detail').value='';document.getElementById('acq_system_detail').classList.remove('invalid');}});document.getElementById('acq_as_system').addEventListener('change',function(){const s=cleanText(this.value)==='Sudah';document.getElementById('acq_as_system_detail_wrap').style.display=s?'block':'none';if(!s){document.getElementById('acq_as_system_detail').value='';document.getElementById('acq_as_system_detail').classList.remove('invalid');}});document.getElementById('seo_status').addEventListener('change',function(){const s=cleanText(this.value)==='Sudah aktif';document.getElementById('seo_keywords_wrap').style.display=s?'block':'none';if(!s){document.getElementById('seo_keywords').value='';document.getElementById('seo_keywords').classList.remove('invalid');}});document.getElementById('referral_status').addEventListener('change',function(){const s=cleanText(this.value)==='Sudah ada';document.getElementById('referral_detail_wrap').style.display=s?'block':'none';if(!s){document.getElementById('referral_detail').value='';}});document.getElementById('pillar_status').addEventListener('change',function(){const s=cleanText(this.value)==='Sudah';document.getElementById('pillar_detail_wrap').style.display=s?'block':'none';if(!s){document.getElementById('pillar_detail').value='';document.getElementById('pillar_detail').classList.remove('invalid');}});document.getElementById('idea_source').addEventListener('change',function(){const s=cleanText(this.value)==='Kombinasi';document.getElementById('idea_source_combo_wrap').style.display=s?'block':'none';if(!s){document.getElementById('idea_source_combo').value='';document.getElementById('idea_source_combo').classList.remove('invalid');}});document.getElementById('repurpose_status').addEventListener('change',function(){const s=cleanText(this.value)==='Sudah';document.getElementById('repurpose_detail_wrap').style.display=s?'block':'none';if(!s){document.getElementById('repurpose_detail').value='';document.getElementById('repurpose_detail').classList.remove('invalid');}});
+[['content_format_other_check','content_format_other_text'],['acq_issue_other_check','acq_issue_other_text'],['sm_other_check','sm_other'],['email_list_check','email_list_count'],['wa_list_check','wa_list_count']].forEach((p)=>{document.getElementById(p[0]).addEventListener('change',function(){toggleOther(p[0],p[1]);});});
+document.querySelectorAll('input,select,textarea').forEach((n)=>{n.setAttribute('autocomplete','off');n.setAttribute('autocorrect','off');n.setAttribute('autocapitalize','off');n.setAttribute('spellcheck','false');});}
+initEventHandlers();
+</script>
+</body>
+</html>

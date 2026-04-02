@@ -61,6 +61,71 @@ ul{padding-left:18px}
 @media (max-width:1080px){.grid{grid-template-columns:1fr}.form-panel{position:static;max-height:none}}
 @media (max-width:760px){.header,.hero,.shell{padding-left:16px;padding-right:16px}.actions,.form-actions,.report-actions{display:grid;grid-template-columns:1fr}.btn{width:100%}.form-grid,.checks{grid-template-columns:1fr}.hero h1{font-size:28px}}
 @media print{.header,.hero,.status,.form-panel,.report-actions{display:none!important}.shell{padding:0}.result-panel{border:none;box-shadow:none;padding:0}.report-wrap{border:none;padding:0}}
+
+
+/* Mobile usability patch: compact action badges and avoid blocking form fields */
+@media (max-width: 980px) {
+  .fb-header,
+  .um-header,
+  .ig-header,
+  .adv-header,
+  .kw-header,
+  .prd-header,
+  .page-header,
+  .app-header,
+  .result-header,
+  .header {
+    position: static !important;
+    top: auto !important;
+  }
+
+  .fb-header .fb-actions,
+  .um-header .um-actions,
+  .ig-header .ig-actions,
+  .adv-header .adv-actions,
+  .kw-header .kw-actions,
+  .prd-header .prd-actions,
+  .page-header .page-actions,
+  .app-header .app-nav-links,
+  .result-header .result-actions,
+  .header .actions {
+    width: 100%;
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    justify-content: flex-start !important;
+    gap: 8px;
+    padding-bottom: 2px;
+    scrollbar-width: thin;
+  }
+
+  .fb-header .btn,
+  .um-header .btn,
+  .ig-header .btn,
+  .adv-header .btn,
+  .kw-header .btn,
+  .prd-header .btn,
+  .page-header .btn,
+  .header .btn,
+  .result-header .btn,
+  .app-header .app-nav-link {
+    width: auto !important;
+    flex: 0 0 auto;
+    white-space: nowrap;
+    font-size: 11.5px;
+    padding: 8px 11px;
+    min-height: 34px;
+    text-align: center;
+  }
+
+  .field-group,
+  .field,
+  .group {
+    scroll-margin-top: 18px !important;
+    scroll-margin-bottom: 110px !important;
+  }
+}
 </style>
 </head>
 <body>
@@ -796,7 +861,9 @@ function build(d) {
   const selected = picked.length ? picked : all.filter((s) => structureKeys.includes(s.key));
   const contentBody = (picked.length ? picked : selected).map((s) => s.html).join("");
   const markdown = [`# Keyword Research Volume 3 - ${d.brand}`, "", `- Industri: ${d.industry}`, `- Tanggal: ${today()}`, `- Struktur Prompt: ${d.promptStructure}`, `- Mode: ${d.outputMode}`, "", "---", "", (picked.length ? picked : selected).map((s) => s.markdown).join("\n\n---\n\n")].join("\n");
-  const html = `<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Keyword Research Vol 3 - ${escapeHtml(d.brand)}</title><style>body{font-family:Arial,sans-serif;background:#f7f4ee;color:#17130d;line-height:1.65;margin:0}header{padding:26px 28px;background:#17130d;color:#fff}main{max-width:1020px;margin:0 auto;padding:26px 18px 54px}.section{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:16px;padding:20px;margin-bottom:16px}.section h3{font-family:Georgia,serif;font-size:30px;margin:0 0 10px}.section h4{font-size:20px;margin:14px 0 8px}table{width:100%;min-width:680px;border-collapse:collapse}th,td{padding:8px 10px;border-bottom:1px solid rgba(0,0,0,.08);text-align:left;vertical-align:top}th{font-size:12px;text-transform:uppercase;background:rgba(0,0,0,.03);color:#666}.tbl{overflow:auto;border:1px solid rgba(0,0,0,.09);border-radius:10px}ul{padding-left:18px}</style></head><body><header><h1>Keyword Research Vol 3 - ${escapeHtml(d.brand)}</h1><p>${escapeHtml(d.industry)} | ${today()} | ${escapeHtml(d.promptStructure)} | ${escapeHtml(d.outputMode)}</p></header><main>${contentBody}</main></body></html>`;
+  const html = `<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Keyword Research Vol 3 - ${escapeHtml(d.brand)}</title><style>body{font-family:Arial,sans-serif;background:#f7f4ee;color:#17130d;line-height:1.65;margin:0}header{padding:26px 28px;background:#17130d;color:#fff}main{max-width:1020px;margin:0 auto;padding:26px 18px 54px}.section{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:16px;padding:20px;margin-bottom:16px}.section h3{font-family:Georgia,serif;font-size:30px;margin:0 0 10px}.section h4{font-size:20px;margin:14px 0 8px}table{width:100%;min-width:680px;border-collapse:collapse}th,td{padding:8px 10px;border-bottom:1px solid rgba(0,0,0,.08);text-align:left;vertical-align:top}th{font-size:12px;text-transform:uppercase;background:rgba(0,0,0,.03);color:#666}.tbl{overflow:auto;border:1px solid rgba(0,0,0,.09);border-radius:10px}ul{padding-left:18px}
+
+</style></head><body><header><h1>Keyword Research Vol 3 - ${escapeHtml(d.brand)}</h1><p>${escapeHtml(d.industry)} | ${today()} | ${escapeHtml(d.promptStructure)} | ${escapeHtml(d.outputMode)}</p></header><main>${contentBody}</main></body></html>`;
   return { body: contentBody, markdown, html };
 }
 

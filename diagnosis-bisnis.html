@@ -1,0 +1,1448 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Framework Bisnis Bab 1 - Diagnosis Bisnis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0f1117;
+  --ink2: #1f2532;
+  --ink3: #3e4657;
+  --muted: #747d90;
+  --paper: #f5f7fb;
+  --paper2: #edf1f8;
+  --paper3: #ffffff;
+  --blue: #1f5cb7;
+  --blue2: #2f74d4;
+  --blue-soft: #eaf1fd;
+  --green: #1f7a4f;
+  --green-soft: #e9f6ef;
+  --amber: #b7791f;
+  --amber-soft: #fff5e8;
+  --red: #a53030;
+  --red-soft: #fff0f0;
+  --border: rgba(15,17,23,0.16);
+  --border-soft: rgba(15,17,23,0.08);
+  --shadow: 0 10px 30px rgba(16,23,45,0.08), 0 2px 10px rgba(16,23,45,0.08);
+  --radius: 12px;
+  --radius-lg: 18px;
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'DM Sans', 'Helvetica Neue', sans-serif;
+  --font-mono: 'DM Mono', 'Courier New', monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background:
+    radial-gradient(circle at 10% 0%, rgba(31,116,212,0.12) 0, rgba(31,116,212,0) 36%),
+    radial-gradient(circle at 100% 100%, rgba(31,122,79,0.12) 0, rgba(31,122,79,0) 40%),
+    var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  line-height: 1.6;
+}
+
+.fb-header {
+  position: sticky;
+  top: 0;
+  z-index: 60;
+  padding: 16px 34px;
+  background: #121826;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.fb-logo {
+  font-family: var(--font-display);
+  color: #f2f5fb;
+  font-size: 17px;
+  letter-spacing: 0.01em;
+}
+
+.fb-logo span {
+  color: #8fb5f0;
+  font-style: italic;
+}
+
+.fb-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  border: none;
+  border-radius: 10px;
+  padding: 9px 13px;
+  font-size: 12.5px;
+  cursor: pointer;
+  font-family: var(--font-body);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.btn-ghost {
+  background: transparent;
+  color: rgba(255,255,255,0.86);
+  border: 1px solid rgba(255,255,255,0.3);
+}
+
+.btn-ghost:hover {
+  color: #fff;
+  border-color: rgba(255,255,255,0.5);
+}
+
+.btn-primary {
+  background: var(--blue);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: var(--blue2);
+}
+
+.btn-light {
+  background: #fff;
+  color: var(--ink2);
+  border: 1px solid var(--border);
+}
+
+.btn-light:hover { border-color: rgba(15,17,23,0.28); }
+
+.fb-main {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 28px 34px 66px;
+}
+
+.hero-card {
+  background: linear-gradient(130deg, #16213d 0%, #22315e 40%, #304a89 100%);
+  color: #f2f5fb;
+  border-radius: var(--radius-lg);
+  padding: 26px 24px;
+  box-shadow: var(--shadow);
+  margin-bottom: 18px;
+  border: 1px solid rgba(255,255,255,0.16);
+}
+
+.hero-tag {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.11em;
+  font-family: var(--font-mono);
+  color: rgba(229,238,255,0.82);
+  margin-bottom: 8px;
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: 33px;
+  font-weight: 500;
+  line-height: 1.2;
+  margin-bottom: 10px;
+}
+
+.hero-title em { color: #b9d0fb; font-style: italic; }
+
+.hero-sub {
+  color: rgba(236,242,255,0.9);
+  font-size: 14px;
+  max-width: 940px;
+}
+
+.fb-grid {
+  display: grid;
+  grid-template-columns: minmax(350px, 1fr) minmax(390px, 1fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.card {
+  background: var(--paper3);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  padding: 18px;
+}
+
+.card h2 {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.card-sub {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+.group {
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  background: #fff;
+  padding: 14px;
+  margin-bottom: 14px;
+}
+
+.group-title {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--blue);
+  font-family: var(--font-mono);
+  margin-bottom: 12px;
+}
+
+.field-group { margin-bottom: 12px; }
+
+.field-group:last-child { margin-bottom: 0; }
+
+.field-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink2);
+  margin-bottom: 6px;
+}
+
+.field-label span {
+  margin-left: 6px;
+  color: var(--blue2);
+  font-size: 11px;
+  font-family: var(--font-mono);
+  font-weight: 500;
+}
+
+.field-hint {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 6px;
+  line-height: 1.5;
+}
+
+.field-error {
+  display: none;
+  margin-top: 6px;
+  font-size: 12px;
+  color: var(--red);
+}
+
+.field-error.visible { display: block; }
+
+input[type="text"],
+select,
+textarea {
+  width: 100%;
+  border: 1.4px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 14px;
+  color: var(--ink2);
+  background: #fff;
+  font-family: var(--font-body);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+input[type="text"]:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--blue2);
+  box-shadow: 0 0 0 3px rgba(47,116,212,0.13);
+}
+
+input.invalid,
+select.invalid,
+textarea.invalid {
+  border-color: var(--red);
+  box-shadow: 0 0 0 3px rgba(165,48,48,0.12);
+}
+
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.chip-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 8px;
+}
+
+.chip {
+  border: 1.4px solid var(--border);
+  border-radius: 10px;
+  background: #fff;
+  padding: 9px 10px;
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  cursor: pointer;
+}
+
+.chip:hover {
+  border-color: rgba(31,92,183,0.4);
+  background: #f8fbff;
+}
+
+.chip input {
+  margin-top: 2px;
+}
+
+.chip-text {
+  font-size: 12.5px;
+  color: var(--ink3);
+  line-height: 1.45;
+}
+
+.inline-note {
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--muted);
+  background: #f8fafd;
+  border: 1px dashed rgba(31,92,183,0.24);
+  border-radius: 8px;
+  padding: 8px 9px;
+}
+
+.mode-tip {
+  margin-top: 8px;
+  font-size: 12.5px;
+  color: var(--green);
+  background: var(--green-soft);
+  border-left: 3px solid var(--green);
+  border-radius: 8px;
+  padding: 9px 10px;
+}
+
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.preview-tabs {
+  display: inline-flex;
+  gap: 6px;
+  border: 1px solid var(--border-soft);
+  background: #f6f8fb;
+  border-radius: 10px;
+  padding: 4px;
+  margin-bottom: 12px;
+}
+
+.tab-btn {
+  border: none;
+  background: transparent;
+  color: var(--ink3);
+  font-size: 12px;
+  padding: 7px 10px;
+  border-radius: 7px;
+  cursor: pointer;
+  font-family: var(--font-body);
+}
+
+.tab-btn.active {
+  background: #fff;
+  color: var(--blue);
+  box-shadow: 0 1px 4px rgba(15,17,23,0.08);
+}
+
+.preview-wrap {
+  border: 1px solid rgba(15,17,23,0.14);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.preview-markdown {
+  background: #121826;
+  color: #e6edff;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.68;
+  min-height: 560px;
+  max-height: 760px;
+  overflow: auto;
+  padding: 14px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.preview-html {
+  background: #fff;
+  min-height: 560px;
+  max-height: 760px;
+  overflow: auto;
+  padding: 16px;
+  color: var(--ink2);
+}
+
+.preview-html h1,
+.preview-html h2,
+.preview-html h3 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  line-height: 1.3;
+  margin-bottom: 8px;
+  color: var(--ink);
+}
+
+.preview-html h1 { font-size: 28px; }
+.preview-html h2 { font-size: 22px; margin-top: 22px; }
+.preview-html h3 { font-size: 17px; margin-top: 14px; }
+
+.preview-html p,
+.preview-html li {
+  font-size: 14px;
+  color: var(--ink3);
+  margin-bottom: 7px;
+}
+
+.preview-html ul,
+.preview-html ol {
+  margin-left: 20px;
+}
+
+.preview-html table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 8px;
+  margin-bottom: 16px;
+}
+
+.preview-html th,
+.preview-html td {
+  border: 1px solid rgba(15,17,23,0.15);
+  text-align: left;
+  padding: 8px 10px;
+  font-size: 13px;
+}
+
+.preview-html th {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ink3);
+  background: #f5f8fd;
+}
+
+.helper-box {
+  border: 1px dashed rgba(31,92,183,0.33);
+  border-radius: 10px;
+  background: var(--blue-soft);
+  color: #24467d;
+  font-size: 12.5px;
+  padding: 10px 11px;
+  margin-bottom: 12px;
+}
+
+.site-credit {
+  margin: 20px auto 32px;
+  max-width: 1400px;
+  padding: 0 34px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--ink3);
+}
+
+.site-credit a {
+  color: var(--blue);
+  text-decoration: none;
+  border-bottom: 1px dashed rgba(31,92,183,0.36);
+}
+
+.site-credit a:hover {
+  border-bottom-color: rgba(31,92,183,0.62);
+}
+
+@media (max-width: 980px) {
+  .fb-header,
+  .fb-main,
+  .site-credit {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .fb-header {
+    flex-wrap: wrap;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .fb-logo { width: 100%; }
+
+  .fb-actions {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .fb-actions .btn {
+    width: 100%;
+    font-size: 12px;
+    padding: 10px;
+  }
+
+  .hero-title { font-size: 29px; }
+
+  .fb-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .preview-markdown,
+  .preview-html {
+    min-height: 420px;
+    max-height: 560px;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-card { padding: 18px 15px; }
+  .hero-title { font-size: 26px; }
+  .hero-sub { font-size: 13px; }
+  .card { padding: 12px; border-radius: 12px; }
+  .card h2 { font-size: 20px; }
+  .group { padding: 10px; }
+  .two-col { grid-template-columns: 1fr; }
+  .chip-grid { grid-template-columns: 1fr; }
+  .form-actions .btn { width: 100%; }
+  .preview-markdown,
+  .preview-html {
+    min-height: 320px;
+    max-height: 440px;
+  }
+  input[type="text"], select, textarea {
+    font-size: 16px;
+  }
+}
+
+
+/* Mobile usability patch: compact action badges and avoid blocking form fields */
+@media (max-width: 980px) {
+  .fb-header,
+  .um-header,
+  .ig-header,
+  .adv-header,
+  .kw-header,
+  .prd-header,
+  .page-header,
+  .app-header,
+  .result-header,
+  .header {
+    position: static !important;
+    top: auto !important;
+  }
+
+  .fb-header .fb-actions,
+  .um-header .um-actions,
+  .ig-header .ig-actions,
+  .adv-header .adv-actions,
+  .kw-header .kw-actions,
+  .prd-header .prd-actions,
+  .page-header .page-actions,
+  .app-header .app-nav-links,
+  .result-header .result-actions,
+  .header .actions {
+    width: 100%;
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    justify-content: flex-start !important;
+    gap: 8px;
+    padding-bottom: 2px;
+    scrollbar-width: thin;
+  }
+
+  .fb-header .btn,
+  .um-header .btn,
+  .ig-header .btn,
+  .adv-header .btn,
+  .kw-header .btn,
+  .prd-header .btn,
+  .page-header .btn,
+  .header .btn,
+  .result-header .btn,
+  .app-header .app-nav-link {
+    width: auto !important;
+    flex: 0 0 auto;
+    white-space: nowrap;
+    font-size: 11.5px;
+    padding: 8px 11px;
+    min-height: 34px;
+    text-align: center;
+  }
+
+  .field-group,
+  .field,
+  .group {
+    scroll-margin-top: 18px !important;
+    scroll-margin-bottom: 110px !important;
+  }
+}
+</style>
+</head>
+<body>
+  <header class="fb-header">
+    <div class="fb-logo">Framework Bisnis Bab 1 - <span>Diagnosis Bisnis</span></div>
+    <div class="fb-actions">
+      <a class="btn btn-ghost" href="index.html">Kembali ke Index</a>
+      <button class="btn btn-ghost" type="button" onclick="copyMarkdown()">Copy Markdown</button>
+      <button class="btn btn-ghost" type="button" onclick="downloadMarkdown()">Download .md</button>
+      <button class="btn btn-ghost" type="button" onclick="downloadHtml()">Download .html</button>
+      <button class="btn btn-primary" type="button" onclick="downloadPdf()">Download PDF</button>
+    </div>
+  </header>
+
+  <main class="fb-main">
+    <section class="hero-card">
+      <div class="hero-tag">Fundamental Business Growth Framework</div>
+      <h1 class="hero-title">Workbook Bab 1: <em>Diagnosis Bisnis</em></h1>
+      <p class="hero-sub">Isi form dengan data nyata bisnis Anda. Sistem akan membuat output brief terstruktur yang siap dipakai untuk analisis Bab 1 (A-E): diagnosis kondisi, pola pikir, audit aktivitas, workbook personal, dan prioritas tindakan.</p>
+    </section>
+
+    <div class="fb-grid">
+      <section class="card">
+        <h2>Form Input</h2>
+        <p class="card-sub">Setiap field sudah disusun sesuai FORMAT INPUT pada master prompt Bab 1. Field bertanda wajib harus diisi agar output valid.</p>
+        <div class="helper-box">Tips: isi sejujur mungkin agar diagnosis tidak generik. Hindari jawaban terlalu umum seperti "target semua orang".</div>
+
+        <form id="diagnosis-form" novalidate>
+          <div class="group">
+            <div class="group-title">1) Identitas Bisnis</div>
+
+            <div class="field-group">
+              <label class="field-label" for="brand_name">Nama Bisnis / Brand <span>Wajib</span></label>
+              <p class="field-hint">Gunakan nama yang konsisten dipakai saat evaluasi workbook.</p>
+              <input type="text" id="brand_name" placeholder="Contoh: CV Maju Tumbuh Digital">
+              <div class="field-error" id="err-brand_name">Nama bisnis wajib diisi.</div>
+            </div>
+
+            <div class="two-col">
+              <div class="field-group">
+                <label class="field-label" for="industry">Industri / Kategori <span>Wajib</span></label>
+                <p class="field-hint">Industri utama bisnis Anda.</p>
+                <input type="text" id="industry" placeholder="Contoh: Jasa Konsultan HR">
+                <div class="field-error" id="err-industry">Industri wajib diisi.</div>
+              </div>
+              <div class="field-group">
+                <label class="field-label" for="main_offer">Produk / Jasa Utama <span>Wajib</span></label>
+                <p class="field-hint">Penawaran utama yang saat ini dijual.</p>
+                <input type="text" id="main_offer" placeholder="Contoh: Recruitment outsourcing dan training SDM">
+                <div class="field-error" id="err-main_offer">Produk/jasa utama wajib diisi.</div>
+              </div>
+            </div>
+
+            <div class="two-col">
+              <div class="field-group">
+                <label class="field-label" for="business_age">Sudah Berapa Lama Berjalan? <span>Wajib</span></label>
+                <p class="field-hint">Pilih usia bisnis saat ini.</p>
+                <select id="business_age">
+                  <option value="">Pilih durasi</option>
+                  <option>Baru ide / belum mulai</option>
+                  <option>&lt; 6 bulan</option>
+                  <option>6 bulan - 2 tahun</option>
+                  <option>&gt; 2 tahun</option>
+                </select>
+                <div class="field-error" id="err-business_age">Durasi bisnis wajib dipilih.</div>
+              </div>
+              <div class="field-group">
+                <label class="field-label" for="business_status">Status Bisnis Saat Ini <span>Wajib</span></label>
+                <p class="field-hint">Pilih kondisi aktual operasional bisnis Anda.</p>
+                <select id="business_status">
+                  <option value="">Pilih status</option>
+                  <option>Baru mulai / baru ide</option>
+                  <option>Sudah jalan tapi belum stabil</option>
+                  <option>Sudah ada penjualan tapi belum terstruktur</option>
+                  <option>Sedang ingin scale</option>
+                </select>
+                <div class="field-error" id="err-business_status">Status bisnis wajib dipilih.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="group">
+            <div class="group-title">2) Target & Pasar</div>
+
+            <div class="field-group">
+              <label class="field-label" for="target_customer">Target Pelanggan <span>Wajib</span></label>
+              <p class="field-hint">Jelaskan siapa target Anda: profil, peran, usia, konteks, dan kondisi mereka.</p>
+              <textarea id="target_customer" placeholder="Contoh: Pemilik UMKM kuliner di kota besar, usia 25-45 tahun, butuh sistem operasional yang rapi untuk scale."></textarea>
+              <div class="field-error" id="err-target_customer">Target pelanggan wajib diisi.</div>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label" for="core_problem">Masalah yang Ingin Diselesaikan <span>Wajib</span></label>
+              <p class="field-hint">Fokus pada masalah pelanggan, bukan kelebihan produk Anda.</p>
+              <textarea id="core_problem" placeholder="Contoh: Pemilik bisnis kesulitan menjaga kualitas tim saat cabang bertambah."></textarea>
+              <div class="field-error" id="err-core_problem">Masalah utama pelanggan wajib diisi.</div>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label" for="market_research_status">Apakah Sudah Pernah Riset Pasar? <span>Wajib</span></label>
+              <p class="field-hint">Status riset pasar menentukan ketajaman diagnosis fondasi.</p>
+              <select id="market_research_status">
+                <option value="">Pilih status riset</option>
+                <option>Sudah - hasilnya tersedia</option>
+                <option>Belum</option>
+                <option>Belum tapi punya asumsi</option>
+              </select>
+              <div class="field-error" id="err-market_research_status">Status riset pasar wajib dipilih.</div>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label" for="market_research_detail">Detail Hasil Riset / Asumsi</label>
+              <p class="field-hint">Isi singkat temuan riset atau asumsi yang saat ini Anda pegang.</p>
+              <textarea id="market_research_detail" placeholder="Contoh: 12 wawancara pelanggan, masalah terbesar ada di turnover tim dan SOP yang tidak jelas."></textarea>
+            </div>
+          </div>
+
+          <div class="group">
+            <div class="group-title">3) Kondisi Saat Ini</div>
+
+            <div class="field-group">
+              <label class="field-label" for="activities_done">Apa yang Sudah Dilakukan untuk Bisnis Ini? <span>Wajib</span></label>
+              <p class="field-hint">List aktivitas yang sudah dijalankan: produk, konten, promosi, operasional, penjualan.</p>
+              <textarea id="activities_done" placeholder="Contoh: sudah memiliki 3 paket layanan, aktif posting Instagram, menjalankan iklan kecil, sudah ada 15 klien."></textarea>
+              <div class="field-error" id="err-activities_done">Aktivitas yang sudah dilakukan wajib diisi.</div>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label" for="activities_planned">Apa yang Belum Dilakukan Tapi Ingin Dilakukan?</label>
+              <p class="field-hint">Rencana terdekat yang ingin Anda eksekusi.</p>
+              <textarea id="activities_planned" placeholder="Contoh: ingin menyusun SOP layanan, bikin website lead generation, dan menaikkan harga paket premium."></textarea>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label">Masalah Utama yang Dirasakan <span>Wajib</span></label>
+              <p class="field-hint">Pilih minimal satu masalah yang paling terasa saat ini.</p>
+              <div class="chip-grid">
+                <label class="chip"><input type="checkbox" name="pain_point" value="Tidak tahu target pasarnya siapa"><span class="chip-text">Tidak tahu target pasarnya siapa</span></label>
+                <label class="chip"><input type="checkbox" name="pain_point" value="Sudah punya produk tapi tidak tahu cara jualnya"><span class="chip-text">Sudah punya produk tapi tidak tahu cara jualnya</span></label>
+                <label class="chip"><input type="checkbox" name="pain_point" value="Sudah promosi tapi hasilnya tidak konsisten"><span class="chip-text">Sudah promosi tapi hasilnya tidak konsisten</span></label>
+                <label class="chip"><input type="checkbox" name="pain_point" value="Merasa sibuk tapi arah bisnis belum jelas"><span class="chip-text">Merasa sibuk tapi arah bisnis belum jelas</span></label>
+                <label class="chip"><input type="checkbox" name="pain_point" value="Penjualan ada tapi tidak bisa scale"><span class="chip-text">Penjualan ada tapi tidak bisa scale</span></label>
+                <label class="chip"><input type="checkbox" id="pain_other_check" name="pain_point" value="Lainnya"><span class="chip-text">Lainnya (isi detail)</span></label>
+              </div>
+              <input type="text" id="pain_other_text" placeholder="Tulis masalah lainnya" style="margin-top:8px; display:none;">
+              <div class="field-error" id="err-pain_points">Pilih minimal satu masalah utama.</div>
+            </div>
+          </div>
+
+          <div class="group">
+            <div class="group-title">4) Pola Pikir & Kebiasaan</div>
+
+            <div class="two-col">
+              <div class="field-group">
+                <label class="field-label" for="idea_start">Biasanya Mulai dari Mana Saat Ada Ide? <span>Wajib</span></label>
+                <p class="field-hint">Ini membantu membaca urutan berpikir saat membangun bisnis.</p>
+                <select id="idea_start">
+                  <option value="">Pilih kebiasaan awal</option>
+                  <option>Langsung buat produk/konten</option>
+                  <option>Riset pasar dan masalah dulu</option>
+                  <option>Cari nama brand dan logo</option>
+                  <option>Tanya orang sekitar</option>
+                  <option>Lainnya</option>
+                </select>
+                <input type="text" id="idea_start_other" placeholder="Tulis jawaban lainnya" style="margin-top:8px; display:none;">
+                <div class="field-error" id="err-idea_start">Kebiasaan memulai wajib dipilih.</div>
+              </div>
+
+              <div class="field-group">
+                <label class="field-label" for="decision_basis">Keputusan Bisnis Biasanya Berdasarkan Apa? <span>Wajib</span></label>
+                <p class="field-hint">Pilih basis dominan pengambilan keputusan.</p>
+                <select id="decision_basis">
+                  <option value="">Pilih basis keputusan</option>
+                  <option>Data dan riset</option>
+                  <option>Perasaan dan intuisi</option>
+                  <option>Tren yang sedang ramai</option>
+                  <option>Saran orang lain</option>
+                  <option>Kombinasi</option>
+                </select>
+                <input type="text" id="decision_basis_other" placeholder="Tulis kombinasi keputusan" style="margin-top:8px; display:none;">
+                <div class="field-error" id="err-decision_basis">Basis keputusan wajib dipilih.</div>
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label">Tingkat Familiar Konsep Inti <span>Wajib</span></label>
+              <p class="field-hint">Untuk tiap konsep, pilih: Belum tahu, Pernah dengar, Sudah paham, atau Sudah praktik.</p>
+              <div class="two-col">
+                <div>
+                  <label class="field-label" for="fam_value_prop">Value Proposition</label>
+                  <select id="fam_value_prop">
+                    <option value="">Pilih tingkat familiar</option>
+                    <option>Belum tahu</option>
+                    <option>Pernah dengar</option>
+                    <option>Sudah paham</option>
+                    <option>Sudah praktik</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="field-label" for="fam_target_segment">Target Segmen</label>
+                  <select id="fam_target_segment">
+                    <option value="">Pilih tingkat familiar</option>
+                    <option>Belum tahu</option>
+                    <option>Pernah dengar</option>
+                    <option>Sudah paham</option>
+                    <option>Sudah praktik</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="field-label" for="fam_business_model">Model Bisnis</label>
+                  <select id="fam_business_model">
+                    <option value="">Pilih tingkat familiar</option>
+                    <option>Belum tahu</option>
+                    <option>Pernah dengar</option>
+                    <option>Sudah paham</option>
+                    <option>Sudah praktik</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="field-label" for="fam_pain_gain">Customer Pain & Gain</label>
+                  <select id="fam_pain_gain">
+                    <option value="">Pilih tingkat familiar</option>
+                    <option>Belum tahu</option>
+                    <option>Pernah dengar</option>
+                    <option>Sudah paham</option>
+                    <option>Sudah praktik</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="field-label" for="fam_unit_econ">Unit Economics</label>
+                  <select id="fam_unit_econ">
+                    <option value="">Pilih tingkat familiar</option>
+                    <option>Belum tahu</option>
+                    <option>Pernah dengar</option>
+                    <option>Sudah paham</option>
+                    <option>Sudah praktik</option>
+                  </select>
+                </div>
+              </div>
+              <div class="field-error" id="err-familiarity">Semua tingkat familiar konsep perlu dipilih.</div>
+            </div>
+          </div>
+          <div class="group">
+            <div class="group-title">5) Konteks Tambahan</div>
+
+            <div class="field-group">
+              <label class="field-label" for="competitors">Kompetitor yang Diketahui</label>
+              <p class="field-hint">Bisa nama brand atau URL kompetitor yang sering dilihat target Anda.</p>
+              <input type="text" id="competitors" placeholder="Contoh: brandA.co.id, brandB, brandC">
+            </div>
+
+            <div class="field-group">
+              <label class="field-label" for="difference">Apa yang Membuat Bisnis Ini Berbeda?</label>
+              <p class="field-hint">Persepsi pembeda Anda saat ini, walau masih awal.</p>
+              <textarea id="difference" placeholder="Contoh: pendekatan konsultatif, SLA layanan lebih cepat, dan pendampingan implementasi."></textarea>
+            </div>
+
+            <div class="two-col">
+              <div class="field-group">
+                <label class="field-label" for="workbook_goal">Tujuan Utama Mengerjakan Workbook Ini <span>Wajib</span></label>
+                <p class="field-hint">Pilih tujuan prioritas dari proses diagnosis Bab 1.</p>
+                <select id="workbook_goal">
+                  <option value="">Pilih tujuan</option>
+                  <option>Memperjelas arah bisnis</option>
+                  <option>Memperbaiki fondasi yang lemah</option>
+                  <option>Mempersiapkan diri sebelum scale</option>
+                  <option>Belajar dari awal yang benar</option>
+                  <option>Lainnya</option>
+                </select>
+                <input type="text" id="workbook_goal_other" placeholder="Tulis tujuan lainnya" style="margin-top:8px; display:none;">
+                <div class="field-error" id="err-workbook_goal">Tujuan workbook wajib dipilih.</div>
+              </div>
+
+              <div class="field-group">
+                <label class="field-label" for="output_mode">Mode Output yang Diinginkan</label>
+                <p class="field-hint">Pilih mode sesuai kebutuhan sesi kerja Anda.</p>
+                <select id="output_mode">
+                  <option>MODE PENUH (default)</option>
+                  <option>MODE DIAGNOSIS CEPAT</option>
+                  <option>MODE WORKBOOK SAJA</option>
+                  <option>MODE COACHING</option>
+                </select>
+                <div class="mode-tip">Mode bisa diubah kapan saja sebelum generate ulang output.</div>
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label" for="notes">Catatan Tambahan</label>
+              <p class="field-hint">Tambahkan konteks khusus yang perlu dipahami analyzer.</p>
+              <textarea id="notes" placeholder="Contoh: tim kecil 3 orang, budget terbatas, dan target validasi market dalam 90 hari."></textarea>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button class="btn btn-primary" type="button" onclick="generateOutput()">Generate Output Bab 1</button>
+            <button class="btn btn-light" type="button" onclick="resetForm()">Reset Form</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="card">
+        <h2>Preview Output</h2>
+        <p class="card-sub">Output siap copy-paste ke AI dan bisa diekspor ke Markdown, HTML, dan PDF.</p>
+
+        <div class="preview-tabs">
+          <button class="tab-btn active" id="tab-md" type="button" onclick="showTab('md')">Preview Markdown</button>
+          <button class="tab-btn" id="tab-html" type="button" onclick="showTab('html')">Preview HTML</button>
+        </div>
+
+        <div class="preview-wrap">
+          <pre class="preview-markdown" id="markdown-preview">Belum ada output. Isi form lalu klik "Generate Output Bab 1".</pre>
+          <div class="preview-html" id="html-preview" style="display:none;">
+            <p>Belum ada output HTML.</p>
+          </div>
+        </div>
+
+        <div class="inline-note">Catatan PDF: tombol Download PDF akan membuka dokumen print-ready. Lanjutkan dengan "Save as PDF" di dialog print browser.</div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-credit">
+    Credit : Dikembangkan oleh PixxelPro Digital, Hubungi via WA
+    <a href="https://wa.me/62895639068080" target="_blank" rel="noopener">0895-6390-68080</a>
+  </footer>
+
+<script>
+let lastOutput = { markdown: '', html: '' };
+let activeTab = 'md';
+
+function cleanText(value) {
+  return (value || '').replace(/\u00a0/g, ' ').replace(/[ \t]{2,}/g, ' ').trim();
+}
+
+function slug(value) {
+  return (value || '')
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '')
+    .substring(0, 70);
+}
+
+function escapeHtml(value) {
+  return String(value || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function setError(id, visible) {
+  const errorEl = document.getElementById('err-' + id);
+  const fieldEl = document.getElementById(id);
+  if (fieldEl) fieldEl.classList.toggle('invalid', visible);
+  if (errorEl) errorEl.classList.toggle('visible', visible);
+}
+
+function checkedValues(name) {
+  return Array.from(document.querySelectorAll('input[name="' + name + '"]:checked')).map((node) => cleanText(node.value));
+}
+
+function displayOtherField(triggerId, targetId, expectedValue) {
+  const trigger = document.getElementById(triggerId);
+  const target = document.getElementById(targetId);
+  if (!trigger || !target) return;
+  target.style.display = cleanText(trigger.value) === expectedValue ? 'block' : 'none';
+  if (target.style.display === 'none') target.value = '';
+}
+
+function collectData() {
+  const painPoints = checkedValues('pain_point');
+  const painOtherChecked = document.getElementById('pain_other_check').checked;
+  const painOtherText = cleanText(document.getElementById('pain_other_text').value);
+
+  const resultPainPoints = painPoints
+    .filter((item) => item !== 'Lainnya')
+    .concat(painOtherChecked && painOtherText ? ['Lainnya: ' + painOtherText] : []);
+
+  const ideaStartValue = cleanText(document.getElementById('idea_start').value);
+  const decisionBasisValue = cleanText(document.getElementById('decision_basis').value);
+  const workbookGoalValue = cleanText(document.getElementById('workbook_goal').value);
+
+  const ideaStartOther = cleanText(document.getElementById('idea_start_other').value);
+  const decisionBasisOther = cleanText(document.getElementById('decision_basis_other').value);
+  const workbookGoalOther = cleanText(document.getElementById('workbook_goal_other').value);
+
+  return {
+    brandName: cleanText(document.getElementById('brand_name').value),
+    industry: cleanText(document.getElementById('industry').value),
+    mainOffer: cleanText(document.getElementById('main_offer').value),
+    businessAge: cleanText(document.getElementById('business_age').value),
+    businessStatus: cleanText(document.getElementById('business_status').value),
+    targetCustomer: cleanText(document.getElementById('target_customer').value),
+    coreProblem: cleanText(document.getElementById('core_problem').value),
+    marketResearchStatus: cleanText(document.getElementById('market_research_status').value),
+    marketResearchDetail: cleanText(document.getElementById('market_research_detail').value),
+    activitiesDone: cleanText(document.getElementById('activities_done').value),
+    activitiesPlanned: cleanText(document.getElementById('activities_planned').value),
+    painPoints: resultPainPoints,
+    ideaStart: ideaStartValue === 'Lainnya' && ideaStartOther ? 'Lainnya: ' + ideaStartOther : ideaStartValue,
+    decisionBasis: decisionBasisValue === 'Kombinasi' && decisionBasisOther ? 'Kombinasi: ' + decisionBasisOther : decisionBasisValue,
+    famValueProp: cleanText(document.getElementById('fam_value_prop').value),
+    famTargetSegment: cleanText(document.getElementById('fam_target_segment').value),
+    famBusinessModel: cleanText(document.getElementById('fam_business_model').value),
+    famPainGain: cleanText(document.getElementById('fam_pain_gain').value),
+    famUnitEcon: cleanText(document.getElementById('fam_unit_econ').value),
+    competitors: cleanText(document.getElementById('competitors').value),
+    difference: cleanText(document.getElementById('difference').value),
+    workbookGoal: workbookGoalValue === 'Lainnya' && workbookGoalOther ? 'Lainnya: ' + workbookGoalOther : workbookGoalValue,
+    outputMode: cleanText(document.getElementById('output_mode').value),
+    notes: cleanText(document.getElementById('notes').value)
+  };
+}
+
+function validateForm(data) {
+  let valid = true;
+  const requiredFields = [
+    'brand_name',
+    'industry',
+    'main_offer',
+    'business_age',
+    'business_status',
+    'target_customer',
+    'core_problem',
+    'market_research_status',
+    'activities_done',
+    'idea_start',
+    'decision_basis',
+    'workbook_goal'
+  ];
+
+  requiredFields.forEach((id) => {
+    const el = document.getElementById(id);
+    const isFilled = el && cleanText(el.value);
+    setError(id, !isFilled);
+    if (!isFilled) valid = false;
+  });
+
+  const familiarity = [
+    data.famValueProp,
+    data.famTargetSegment,
+    data.famBusinessModel,
+    data.famPainGain,
+    data.famUnitEcon
+  ];
+  const familiarityOk = familiarity.every((item) => !!cleanText(item));
+  const familiarityError = document.getElementById('err-familiarity');
+  if (familiarityError) familiarityError.classList.toggle('visible', !familiarityOk);
+  if (!familiarityOk) valid = false;
+
+  const painOk = data.painPoints.length > 0;
+  const painError = document.getElementById('err-pain_points');
+  if (painError) painError.classList.toggle('visible', !painOk);
+  if (!painOk) valid = false;
+
+  if (cleanText(document.getElementById('idea_start').value) === 'Lainnya') {
+    const otherVal = cleanText(document.getElementById('idea_start_other').value);
+    if (!otherVal) {
+      valid = false;
+      document.getElementById('idea_start_other').classList.add('invalid');
+    } else {
+      document.getElementById('idea_start_other').classList.remove('invalid');
+    }
+  } else {
+    document.getElementById('idea_start_other').classList.remove('invalid');
+  }
+
+  if (cleanText(document.getElementById('decision_basis').value) === 'Kombinasi') {
+    const otherVal = cleanText(document.getElementById('decision_basis_other').value);
+    if (!otherVal) {
+      valid = false;
+      document.getElementById('decision_basis_other').classList.add('invalid');
+    } else {
+      document.getElementById('decision_basis_other').classList.remove('invalid');
+    }
+  } else {
+    document.getElementById('decision_basis_other').classList.remove('invalid');
+  }
+
+  if (cleanText(document.getElementById('workbook_goal').value) === 'Lainnya') {
+    const otherVal = cleanText(document.getElementById('workbook_goal_other').value);
+    if (!otherVal) {
+      valid = false;
+      document.getElementById('workbook_goal_other').classList.add('invalid');
+    } else {
+      document.getElementById('workbook_goal_other').classList.remove('invalid');
+    }
+  } else {
+    document.getElementById('workbook_goal_other').classList.remove('invalid');
+  }
+
+  if (document.getElementById('pain_other_check').checked) {
+    const otherPain = cleanText(document.getElementById('pain_other_text').value);
+    if (!otherPain) {
+      valid = false;
+      document.getElementById('pain_other_text').classList.add('invalid');
+    } else {
+      document.getElementById('pain_other_text').classList.remove('invalid');
+    }
+  } else {
+    document.getElementById('pain_other_text').classList.remove('invalid');
+  }
+
+  return valid;
+}
+
+function mdLine(label, value) {
+  return '- ' + label + ': ' + (value || '-');
+}
+
+function mdList(items, fallback) {
+  if (!items || !items.length) return '- ' + (fallback || '-');
+  return items.map((item) => '- ' + item).join('\n');
+}
+
+function buildMarkdown(data) {
+  return [
+    '# Framework Bisnis Bab 1 - Diagnosis Bisnis',
+    '',
+    '## Ringkasan Input User',
+    '',
+    '### 1) Identitas Bisnis',
+    mdLine('Nama bisnis / brand', data.brandName),
+    mdLine('Industri / kategori', data.industry),
+    mdLine('Produk / jasa utama', data.mainOffer),
+    mdLine('Sudah berapa lama berjalan', data.businessAge),
+    mdLine('Status bisnis saat ini', data.businessStatus),
+    '',
+    '### 2) Target dan Pasar',
+    mdLine('Target pelanggan', data.targetCustomer),
+    mdLine('Masalah yang ingin diselesaikan', data.coreProblem),
+    mdLine('Status riset pasar', data.marketResearchStatus),
+    mdLine('Detail hasil riset / asumsi', data.marketResearchDetail || '-'),
+    '',
+    '### 3) Kondisi Saat Ini',
+    mdLine('Aktivitas yang sudah dilakukan', data.activitiesDone),
+    mdLine('Aktivitas yang belum dilakukan tapi ingin dilakukan', data.activitiesPlanned || '-'),
+    '- Masalah utama yang dirasakan:',
+    mdList(data.painPoints, 'Belum diisi'),
+    '',
+    '### 4) Pola Pikir dan Kebiasaan',
+    mdLine('Biasanya mulai dari mana saat ada ide bisnis', data.ideaStart),
+    mdLine('Basis keputusan bisnis', data.decisionBasis),
+    '',
+    '| Konsep | Tingkat Familiar |',
+    '|---|---|',
+    '| Value Proposition | ' + (data.famValueProp || '-') + ' |',
+    '| Target Segmen | ' + (data.famTargetSegment || '-') + ' |',
+    '| Model Bisnis | ' + (data.famBusinessModel || '-') + ' |',
+    '| Customer Pain & Gain | ' + (data.famPainGain || '-') + ' |',
+    '| Unit Economics | ' + (data.famUnitEcon || '-') + ' |',
+    '',
+    '### 5) Konteks Tambahan',
+    mdLine('Kompetitor yang diketahui', data.competitors || '-'),
+    mdLine('Apa yang membuat bisnis ini berbeda', data.difference || '-'),
+    mdLine('Tujuan utama mengerjakan workbook', data.workbookGoal),
+    mdLine('Mode output yang diminta', data.outputMode),
+    mdLine('Catatan tambahan', data.notes || '-'),
+    '',
+    '---',
+    '',
+    '## Instruksi Tugas untuk AI (Bab 1)',
+    '',
+    'Gunakan data input di atas untuk menjalankan analisis **Framework Membangun Bisnis - Bab 1 (Realitas Bisnis & Mindset)**.',
+    '',
+    '### Peran AI',
+    '- Business Foundation Analyst',
+    '- Mindset & Mental Model Coach',
+    '- Business Diagnostician',
+    '- Workbook Facilitator',
+    '- Strategic Thinking Partner',
+    '',
+    '### Tujuan Analisis',
+    '1. Mendiagnosis urutan bisnis user saat ini berdasarkan 5 langkah urutan bisnis sehat.',
+    '2. Mengidentifikasi kesalahan pola pikir paling dominan dan dampaknya.',
+    '3. Memetakan aktivitas fondasional vs aktivitas sibuk.',
+    '4. Menilai kesiapan fondasi bisnis (5 dimensi, skor total 50).',
+    '5. Menentukan prioritas tindakan realistis sebelum masuk Bab 2.',
+    '',
+    '### Output Wajib (Urutan Tetap)',
+    'A. Diagnosis Kondisi Bisnis',
+    'B. Pola Pikir Dominan & Kesalahan Fondasi',
+    'C. Audit Aktivitas',
+    'D. Workbook Bab 1 Terpersonalisasi',
+    'E. Ringkasan & Next Step',
+    '',
+    '### Aturan Analisis Wajib',
+    '- Jangan memberi saran promosi/marketing sebelum fondasi jelas.',
+    '- Gunakan fakta dari input; hindari asumsi generik.',
+    '- Selalu gunakan nama bisnis user pada bagian workbook.',
+    '- Tandai kontradiksi input bila ada.',
+    '- Prioritas tindakan harus realistis untuk 1-2 minggu.',
+    '- Gunakan bahasa yang sama dengan bahasa input user.',
+    '',
+    '### Mode Eksekusi',
+    '- Mode yang diminta user: **' + data.outputMode + '**',
+    '- Jika mode tidak memungkinkan karena data kurang, jelaskan gap data terlebih dahulu lalu lanjutkan dengan rekomendasi mode terdekat.',
+    '',
+    '### Catatan Eksekusi',
+    '- Berikan diagnosis yang jujur, tajam, dan actionable.',
+    '- Hindari pujian berlebihan bila fondasi masih lemah.',
+    '- Pastikan output siap langsung dipakai sebagai workbook kerja.'
+  ].join('\n');
+}
+
+function buildHtml(data) {
+  const rows = [
+    ['Nama bisnis / brand', data.brandName],
+    ['Industri / kategori', data.industry],
+    ['Produk / jasa utama', data.mainOffer],
+    ['Sudah berapa lama berjalan', data.businessAge],
+    ['Status bisnis saat ini', data.businessStatus],
+    ['Target pelanggan', data.targetCustomer],
+    ['Masalah yang ingin diselesaikan', data.coreProblem],
+    ['Status riset pasar', data.marketResearchStatus],
+    ['Detail hasil riset / asumsi', data.marketResearchDetail || '-'],
+    ['Aktivitas yang sudah dilakukan', data.activitiesDone],
+    ['Aktivitas yang belum dilakukan tapi ingin dilakukan', data.activitiesPlanned || '-'],
+    ['Biasanya mulai dari mana saat ada ide bisnis', data.ideaStart],
+    ['Basis keputusan bisnis', data.decisionBasis],
+    ['Kompetitor yang diketahui', data.competitors || '-'],
+    ['Pembeda bisnis saat ini', data.difference || '-'],
+    ['Tujuan utama workbook', data.workbookGoal],
+    ['Mode output', data.outputMode],
+    ['Catatan tambahan', data.notes || '-']
+  ];
+
+  const familiarityRows = [
+    ['Value Proposition', data.famValueProp],
+    ['Target Segmen', data.famTargetSegment],
+    ['Model Bisnis', data.famBusinessModel],
+    ['Customer Pain & Gain', data.famPainGain],
+    ['Unit Economics', data.famUnitEcon]
+  ];
+
+  const painPointsHtml = data.painPoints.length
+    ? data.painPoints.map((item) => '<li>' + escapeHtml(item) + '</li>').join('')
+    : '<li>-</li>';
+
+  return [
+    '<article>',
+    '<h1>Framework Bisnis Bab 1 - Diagnosis Bisnis</h1>',
+    '<p>Dokumen ini berisi brief input terstruktur untuk menjalankan analisis Framework Bisnis Bab 1 secara terpersonalisasi.</p>',
+    '<h2>Ringkasan Input User</h2>',
+    '<table><thead><tr><th>Field</th><th>Isi</th></tr></thead><tbody>',
+    rows.map((row) => '<tr><td>' + escapeHtml(row[0]) + '</td><td>' + escapeHtml(row[1] || '-') + '</td></tr>').join(''),
+    '</tbody></table>',
+    '<h3>Masalah Utama yang Dirasakan</h3>',
+    '<ul>' + painPointsHtml + '</ul>',
+    '<h3>Tingkat Familiar Konsep Inti</h3>',
+    '<table><thead><tr><th>Konsep</th><th>Tingkat Familiar</th></tr></thead><tbody>',
+    familiarityRows.map((row) => '<tr><td>' + escapeHtml(row[0]) + '</td><td>' + escapeHtml(row[1] || '-') + '</td></tr>').join(''),
+    '</tbody></table>',
+    '<h2>Instruksi Tugas untuk AI</h2>',
+    '<p>Gunakan ringkasan input ini untuk mengeksekusi analisis Framework Membangun Bisnis Bab 1 (Realitas Bisnis dan Mindset).</p>',
+    '<h3>Output Wajib</h3>',
+    '<ol>',
+    '<li>Bagian A - Diagnosis Kondisi Bisnis</li>',
+    '<li>Bagian B - Pola Pikir Dominan dan Kesalahan Fondasi</li>',
+    '<li>Bagian C - Audit Aktivitas (Fondasional vs Sibuk)</li>',
+    '<li>Bagian D - Workbook Bab 1 Terpersonalisasi</li>',
+    '<li>Bagian E - Ringkasan dan Next Step sebelum Bab 2</li>',
+    '</ol>',
+    '<h3>Aturan Analisis</h3>',
+    '<ul>',
+    '<li>Jangan memberi saran promosi sebelum fondasi jelas.</li>',
+    '<li>Gunakan fakta dari input, bukan asumsi generik.</li>',
+    '<li>Tandai kontradiksi input bila ada.</li>',
+    '<li>Prioritas tindakan harus realistis 1-2 minggu.</li>',
+    '<li>Gunakan bahasa yang konsisten dengan bahasa user.</li>',
+    '</ul>',
+    '<p><strong>Mode output yang diminta:</strong> ' + escapeHtml(data.outputMode) + '</p>',
+    '</article>'
+  ].join('');
+}
+
+function showTab(tabName) {
+  activeTab = tabName;
+  const mdPreview = document.getElementById('markdown-preview');
+  const htmlPreview = document.getElementById('html-preview');
+  const mdTab = document.getElementById('tab-md');
+  const htmlTab = document.getElementById('tab-html');
+
+  if (tabName === 'md') {
+    mdPreview.style.display = 'block';
+    htmlPreview.style.display = 'none';
+    mdTab.classList.add('active');
+    htmlTab.classList.remove('active');
+  } else {
+    mdPreview.style.display = 'none';
+    htmlPreview.style.display = 'block';
+    mdTab.classList.remove('active');
+    htmlTab.classList.add('active');
+  }
+}
+
+function generateOutput() {
+  const data = collectData();
+  const valid = validateForm(data);
+  if (!valid) {
+    alert('Masih ada field wajib yang belum lengkap. Mohon cek lagi bagian yang ditandai merah.');
+    return false;
+  }
+
+  lastOutput.markdown = buildMarkdown(data);
+  lastOutput.html = buildHtml(data);
+
+  document.getElementById('markdown-preview').textContent = lastOutput.markdown;
+  document.getElementById('html-preview').innerHTML = lastOutput.html;
+
+  showTab(activeTab);
+  return true;
+}
+
+function ensureOutput() {
+  if (lastOutput.markdown && lastOutput.html) return true;
+  return generateOutput();
+}
+
+function copyMarkdown() {
+  if (!ensureOutput()) return;
+  navigator.clipboard.writeText(lastOutput.markdown).then(() => {
+    alert('Markdown berhasil disalin.');
+  }).catch(() => {
+    alert('Gagal menyalin otomatis. Silakan copy manual dari preview.');
+  });
+}
+
+function downloadMarkdown() {
+  if (!ensureOutput()) return;
+  const brand = cleanText(document.getElementById('brand_name').value) || 'brand';
+  const fileName = 'framework-bisnis-bab1-diagnosis-' + slug(brand) + '-' + new Date().toISOString().slice(0, 10) + '.md';
+  const blob = new Blob([lastOutput.markdown], { type: 'text/markdown;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = fileName;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
+}
+
+function buildExportHtmlDocument(bodyHtml) {
+  return [
+    '<!DOCTYPE html>',
+    '<html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">',
+    '<title>Framework Bisnis Bab 1 - Diagnosis Bisnis</title>',
+    '<style>',
+    'body{font-family:Arial,sans-serif;margin:28px;color:#1f2532;line-height:1.65;}',
+    'h1,h2,h3{color:#0f1117;line-height:1.3;}',
+    'h1{font-size:30px;margin-bottom:10px;} h2{font-size:23px;margin-top:22px;} h3{font-size:18px;margin-top:14px;}',
+    'p,li,td,th{font-size:14px;} ul,ol{margin-left:22px;}',
+    'table{width:100%;border-collapse:collapse;margin:10px 0 16px;}',
+    'th,td{border:1px solid #d2d9e8;padding:8px 10px;text-align:left;vertical-align:top;}',
+    'th{background:#eff3fc;font-size:12px;text-transform:uppercase;letter-spacing:.03em;}',
+    '@media print{body{margin:14mm;}}',
+    '\n</style></head><body>',
+    bodyHtml,
+    '</body></html>'
+  ].join('');
+}
+
+function downloadHtml() {
+  if (!ensureOutput()) return;
+  const brand = cleanText(document.getElementById('brand_name').value) || 'brand';
+  const fileName = 'framework-bisnis-bab1-diagnosis-' + slug(brand) + '-' + new Date().toISOString().slice(0, 10) + '.html';
+  const htmlDoc = buildExportHtmlDocument(lastOutput.html);
+  const blob = new Blob([htmlDoc], { type: 'text/html;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = fileName;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
+}
+
+function downloadPdf() {
+  if (!ensureOutput()) return;
+  const htmlDoc = buildExportHtmlDocument(lastOutput.html);
+  const printWin = window.open('', '_blank');
+  if (!printWin) {
+    alert('Pop-up diblokir browser. Izinkan pop-up lalu coba lagi untuk ekspor PDF.');
+    return;
+  }
+
+  printWin.document.open();
+  printWin.document.write(htmlDoc);
+  printWin.document.close();
+  printWin.focus();
+
+  setTimeout(function () {
+    printWin.print();
+  }, 320);
+}
+
+function resetForm() {
+  document.getElementById('diagnosis-form').reset();
+  document.querySelectorAll('.field-error').forEach((el) => el.classList.remove('visible'));
+  document.querySelectorAll('input,select,textarea').forEach((el) => el.classList.remove('invalid'));
+  document.getElementById('pain_other_text').style.display = 'none';
+  document.getElementById('idea_start_other').style.display = 'none';
+  document.getElementById('decision_basis_other').style.display = 'none';
+  document.getElementById('workbook_goal_other').style.display = 'none';
+  lastOutput = { markdown: '', html: '' };
+  document.getElementById('markdown-preview').textContent = 'Belum ada output. Isi form lalu klik "Generate Output Bab 1".';
+  document.getElementById('html-preview').innerHTML = '<p>Belum ada output HTML.</p>';
+  showTab('md');
+}
+
+function initEventHandlers() {
+  document.getElementById('pain_other_check').addEventListener('change', function (event) {
+    const target = document.getElementById('pain_other_text');
+    target.style.display = event.target.checked ? 'block' : 'none';
+    if (!event.target.checked) target.value = '';
+  });
+
+  document.getElementById('idea_start').addEventListener('change', function () {
+    displayOtherField('idea_start', 'idea_start_other', 'Lainnya');
+  });
+
+  document.getElementById('decision_basis').addEventListener('change', function () {
+    displayOtherField('decision_basis', 'decision_basis_other', 'Kombinasi');
+  });
+
+  document.getElementById('workbook_goal').addEventListener('change', function () {
+    displayOtherField('workbook_goal', 'workbook_goal_other', 'Lainnya');
+  });
+
+  document.querySelectorAll('input,select,textarea').forEach((node) => {
+    node.setAttribute('autocomplete', 'off');
+    node.setAttribute('autocorrect', 'off');
+    node.setAttribute('autocapitalize', 'off');
+    node.setAttribute('spellcheck', 'false');
+  });
+}
+
+initEventHandlers();
+</script>
+</body>
+</html>

@@ -246,6 +246,71 @@ input:focus, textarea:focus, select:focus {
   .field-group { scroll-margin-top: 88px; scroll-margin-bottom: 190px; }
   #adv-dynamic-fields { padding-bottom: 28px; }
 }
+
+
+/* Mobile usability patch: compact action badges and avoid blocking form fields */
+@media (max-width: 980px) {
+  .fb-header,
+  .um-header,
+  .ig-header,
+  .adv-header,
+  .kw-header,
+  .prd-header,
+  .page-header,
+  .app-header,
+  .result-header,
+  .header {
+    position: static !important;
+    top: auto !important;
+  }
+
+  .fb-header .fb-actions,
+  .um-header .um-actions,
+  .ig-header .ig-actions,
+  .adv-header .adv-actions,
+  .kw-header .kw-actions,
+  .prd-header .prd-actions,
+  .page-header .page-actions,
+  .app-header .app-nav-links,
+  .result-header .result-actions,
+  .header .actions {
+    width: 100%;
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    justify-content: flex-start !important;
+    gap: 8px;
+    padding-bottom: 2px;
+    scrollbar-width: thin;
+  }
+
+  .fb-header .btn,
+  .um-header .btn,
+  .ig-header .btn,
+  .adv-header .btn,
+  .kw-header .btn,
+  .prd-header .btn,
+  .page-header .btn,
+  .header .btn,
+  .result-header .btn,
+  .app-header .app-nav-link {
+    width: auto !important;
+    flex: 0 0 auto;
+    white-space: nowrap;
+    font-size: 11.5px;
+    padding: 8px 11px;
+    min-height: 34px;
+    text-align: center;
+  }
+
+  .field-group,
+  .field,
+  .group {
+    scroll-margin-top: 18px !important;
+    scroll-margin-bottom: 110px !important;
+  }
+}
 </style>
 </head>
 <body>
@@ -441,7 +506,6 @@ Meta Desc : [150-160 karakter — sertakan primary keyword + CTA]
 URL Slug : /[slug-bersih]
 Schema : [Article / FAQPage / HowTo / dll — dalam format JSON-LD]
 
-
 ---
 
 ### BAGIAN ARTIKEL
@@ -533,11 +597,9 @@ Diikuti CTA yang natural dan relevan.]
 Nama : [Nama Penulis]
 Keahlian: [2 kalimat tentang keahlian relevan penulis]
 
-
 **INFO ARTIKEL**
 Tanggal Publish : [DD Bulan YYYY]
 Terakhir Diupdate: [DD Bulan YYYY]
-
 
 ---
 
@@ -1319,7 +1381,6 @@ TOPIK INTI 2: [Nama Topik]
 ├── ❌ GAP BESAR: Pillar Page belum dibuat
 │ ├── ❌ GAP: [Cluster yang dibutuhkan]
 │ └── ❌ GAP: [Cluster yang dibutuhkan]
-
 
 ---
 
@@ -2545,7 +2606,6 @@ TUJUAN UTAMA (Update 2026)
 ATURAN OUTPUT (tidak berubah)
 ===========================
 
-
 ===========================
 MODE SEO + AEO + GEO (Update 2026 — Diperluas)
 ===========================
@@ -3070,7 +3130,6 @@ Fokus pada kategori, subkategori, use case, comparison, buyer guide, produk, dan
 
 Jika niche adalah YMYL:
 Gunakan bahasa netral, edukatif, aman, berbasis EEAT, hindari klaim absolut, dan prioritaskan trust-building.
-
 
 ==================================================
 ATURAN TAMBAHAN KHUSUS AEO DAN GEO (Update 2026)
@@ -6955,7 +7014,6 @@ NAMA PORTAL:
 URL ARTIKEL:
 KATEGORI:
 
-
 ---
 
 ## PANDUAN DESKRIPSI SENSORIS (Tetap + Update)
@@ -6981,7 +7039,6 @@ BUNYI → suara alam, musik, percakapan
 SKALA → seberapa luas, kapasitas, bisa parkir bis/rombongan
 WAKTU → pagi berbeda dari sore, weekday dari weekend
 
-
 ### Yang Tidak Boleh Ditulis:
 ✗ "Makanannya enak banget" → Jelaskan enak dalam aspek apa
 ✗ "Tempatnya indah" → Indah seperti apa? Dari sudut mana?
@@ -6989,7 +7046,6 @@ WAKTU → pagi berbeda dari sore, weekday dari weekend
 ✗ "Wajib dikunjungi" → Wajib untuk siapa? Kondisi apa?
 ✗ "Recommended banget" → Ini endorsement, bukan informasi
 ✗ "Rasanya autentik" → Autentik dibanding apa? Jelaskan
-
 
 ### Larangan Tambahan 2026 (BARU):
 ✗ "Di sini..." tanpa menyebut nama tempat eksplisit
@@ -6999,7 +7055,6 @@ WAKTU → pagi berbeda dari sore, weekday dari weekend
 ✗ "Harga bervariasi"
 → "Harga mulai Rp 15.000 untuk soto ayam kampung
 dan Rp 25.000 untuk soto daging (per Maret 2026)"
-
 
 ---
 
@@ -7022,7 +7077,6 @@ Pola yang berhasil:
 "Kuliner [Kota] [Why Now]: [N] Tempat yang Sayang Dilewatkan"
 "Di Balik [Makanan Khas]: [Fakta yang Belum Banyak Diketahui]"
 
-
 Contoh transformasi:
 ✗ "Makanan Enak di Malang yang Wajib Dicoba"
 ✓ "7 Kuliner Khas Malang di Bawah Rp20.000 yang
@@ -7035,7 +7089,6 @@ Bikin Antre Sejak 1987"
 ✗ "Wisata Alam yang Indah di Banyuwangi"
 ✓ "Taman Nasional Alas Purwo Banyuwangi: Panduan
 Lengkap Sebelum Berangkat"
-
 
 **A2. 3 ALTERNATIF HEADLINE**
 - Opsi 1: Keyword geo di depan — untuk Google Search
@@ -7272,7 +7325,6 @@ Musim atau jam terbaik
 
 Apakah bisa dibawa pulang / oleh-oleh
 
-
 ---
 
 #### MODE C — PROFIL TEMPAT MAKAN (Update 2026)
@@ -7352,7 +7404,6 @@ Cara ke sana + parkir
 Menerima reservasi atau tidak
 
 Freshness signal: "per [bulan tahun]"
-
 
 ---
 
@@ -7636,7 +7687,6 @@ Contoh pertanyaan FAQ yang baik:
 "Bagaimana cara ke [nama wisata] dari [kota terdekat]?"
 "Apakah [nama tempat] buka saat hari libur?"
 "Berapa budget wisata kuliner di [kota] untuk [segmen]?"
-
 
 **ATURAN FAQ 2026 (BARU):**
 - Setiap jawaban standalone — bisa dipahami tanpa membaca artikel
@@ -12774,7 +12824,6 @@ Sebelum output dianggap selesai, jawab pertanyaan ini:
 10. Apakah format long-form / Shorts / live yang dipilih
     benar-benar paling tepat untuk intent ini?</textarea>
 
-
   <textarea id="adv_template_35_raw" style="display:none;"># YOUTUBE KEYWORD RESEARCH PROMPT
 ## Search Intent · Topic Mapping · Query Fan-Out · Video Opportunity
 
@@ -16405,6 +16454,4 @@ keepFocusedFieldVisible('.adv-card', 900);
 </script>
 </body>
 </html>
-
-
 

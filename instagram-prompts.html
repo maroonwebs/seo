@@ -245,6 +245,71 @@ input:focus, textarea:focus, select:focus {
   .field-group { scroll-margin-top: 88px; scroll-margin-bottom: 190px; }
   #ig-dynamic-fields { padding-bottom: 28px; }
 }
+
+
+/* Mobile usability patch: compact action badges and avoid blocking form fields */
+@media (max-width: 980px) {
+  .fb-header,
+  .um-header,
+  .ig-header,
+  .adv-header,
+  .kw-header,
+  .prd-header,
+  .page-header,
+  .app-header,
+  .result-header,
+  .header {
+    position: static !important;
+    top: auto !important;
+  }
+
+  .fb-header .fb-actions,
+  .um-header .um-actions,
+  .ig-header .ig-actions,
+  .adv-header .adv-actions,
+  .kw-header .kw-actions,
+  .prd-header .prd-actions,
+  .page-header .page-actions,
+  .app-header .app-nav-links,
+  .result-header .result-actions,
+  .header .actions {
+    width: 100%;
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    justify-content: flex-start !important;
+    gap: 8px;
+    padding-bottom: 2px;
+    scrollbar-width: thin;
+  }
+
+  .fb-header .btn,
+  .um-header .btn,
+  .ig-header .btn,
+  .adv-header .btn,
+  .kw-header .btn,
+  .prd-header .btn,
+  .page-header .btn,
+  .header .btn,
+  .result-header .btn,
+  .app-header .app-nav-link {
+    width: auto !important;
+    flex: 0 0 auto;
+    white-space: nowrap;
+    font-size: 11.5px;
+    padding: 8px 11px;
+    min-height: 34px;
+    text-align: center;
+  }
+
+  .field-group,
+  .field,
+  .group {
+    scroll-margin-top: 18px !important;
+    scroll-margin-bottom: 110px !important;
+  }
+}
 </style>
 </head>
 <body>
@@ -337,7 +402,6 @@ Prompt ini saya susun agar fleksibel untuk:
 - personal branding
 - community building
 
-
 ## Cara pakai
 
 Isi variabel seperti:
@@ -394,7 +458,6 @@ Buat caption Instagram edukasi yang:
    - 5 hashtag relevan
 ```
 
-
 ***
 
 # 2) Prompt Caption Carousel Instagram
@@ -436,7 +499,6 @@ Buat caption Instagram untuk carousel yang:
    - CTA paling cocok
    - 5–10 hashtag relevan
 ```
-
 
 ***
 
@@ -485,7 +547,6 @@ Buat caption hard selling yang:
    - 5 hashtag relevan
 ```
 
-
 ***
 
 # 4) Prompt Caption Soft Selling Instagram
@@ -529,7 +590,6 @@ Buat caption soft selling yang:
    - 5 hashtag relevan
 ```
 
-
 ***
 
 # 5) Prompt Caption Storytelling Instagram
@@ -565,7 +625,6 @@ Buat caption storytelling yang:
 3. 3 opsi hook pembuka
 4. CTA yang sesuai tujuan
 ```
-
 
 ***
 
@@ -605,7 +664,6 @@ Buat caption Instagram yang:
    - tag teman
 3. Tambahkan 10 ide pertanyaan pemancing komentar
 ```
-
 
 ***
 
@@ -648,7 +706,6 @@ Buat caption launching Instagram yang:
    - 5 hashtag relevan
 ```
 
-
 ***
 
 # 8) Prompt Caption Testimoni / Social Proof
@@ -685,7 +742,6 @@ Buat caption Instagram berbasis testimoni yang:
    - CTA
    - 5 hashtag relevan
 ```
-
 
 ***
 
@@ -724,7 +780,6 @@ Buat caption promo Instagram yang:
    - 3 CTA
    - 5 hashtag
 ```
-
 
 ***
 
@@ -766,7 +821,6 @@ Buat caption personal branding yang:
    - hashtag relevan
 ```
 
-
 ***
 
 # 11) Prompt Caption Reels Instagram
@@ -807,7 +861,6 @@ Buat caption Reels Instagram yang:
    - 5 CTA pendek
    - hashtag relevan
 ```
-
 
 ***
 
@@ -853,7 +906,6 @@ Buat caption Instagram yang:
 5. CTA terbaik
 6. Hook terbaik
 ```
-
 
 ***
 
@@ -925,7 +977,6 @@ Buat rangkaian Instagram Story yang:
 5. CTA penutup
 ```
 
-
 ***
 
 ## 15) Prompt Story Soft Selling
@@ -960,7 +1011,6 @@ Buat Instagram Story soft selling yang:
 4. CTA akhir
 5. Saran sticker interaktif
 ```
-
 
 ***
 
@@ -997,7 +1047,6 @@ Buat rangkaian Story hard selling yang:
 5. 3 versi urutan story
 ```
 
-
 ***
 
 ## 17) Prompt Story Interaktif
@@ -1031,7 +1080,6 @@ Buat Story interaktif yang:
 4. Pertanyaan/polling/quiz copy
 5. CTA akhir
 ```
-
 
 ***
 
@@ -1068,7 +1116,6 @@ Buat rangkaian Story launching/promo yang:
 4. CTA swipe/link/DM
 5. Sticker yang direkomendasikan
 ```
-
 
 ***
 
@@ -1107,7 +1154,6 @@ Buat caption Instagram untuk UMKM yang:
 4. 5 hashtag lokal/relevan
 ```
 
-
 ***
 
 ## 20) Prompt Kalender Konten UMKM
@@ -1144,7 +1190,6 @@ Buat rencana konten 30 hari yang:
 5. CTA tiap ide
 ```
 
-
 ***
 
 ## 21) Prompt Konten Promo UMKM
@@ -1178,7 +1223,6 @@ Buat caption promo UMKM yang:
 3. 3 CTA
 4. 5 hashtag relevan
 ```
-
 
 ***
 
@@ -1247,7 +1291,6 @@ Buat caption yang:
 4. hashtag relevan
 ```
 
-
 ***
 
 ## 24) Prompt Niche Klinik / Kesehatan / Estetika
@@ -1283,7 +1326,6 @@ Buat caption yang:
 4. hashtag relevan
 ```
 
-
 ***
 
 ## 24) Prompt Niche Properti
@@ -1317,7 +1359,6 @@ Buat caption properti yang:
 3. CTA
 4. hashtag properti
 ```
-
 
 ***
 
@@ -1353,7 +1394,6 @@ Buat caption fashion yang:
 4. hashtag fashion
 ```
 
-
 ***
 
 ## 26) Prompt Niche Kuliner
@@ -1388,7 +1428,6 @@ Buat caption kuliner yang:
 4. hashtag kuliner lokal
 ```
 
-
 ***
 
 ## 27) Prompt Niche Pendidikan / Kursus / Pelatihan
@@ -1422,7 +1461,6 @@ Buat caption pendidikan yang:
 3. CTA daftar / konsultasi
 4. hashtag relevan
 ```
-
 
 ***
 
@@ -1530,7 +1568,6 @@ Masing-masing 5–10 hashtag.
 - Alasan kenapa kombinasi ini paling cocok
 ```
 
-
 ***
 
 ## 29)Prompt super singkat siap pakai
@@ -1559,13 +1596,11 @@ Output:
 5. Rekomendasi caption terbaik untuk target market ini
 ```
 
-
 ***
 
 ## Cara saya sarankan menyusun prompt harian
 
 Supaya lebih rapi, Anda bisa menyimpan prompt dalam 4 level kerja:
-
 
 | Level | Fungsi |
 | :-- | :-- |
@@ -1573,7 +1608,6 @@ Supaya lebih rapi, Anda bisa menyimpan prompt dalam 4 level kerja:
 | Prompt UMKM | untuk bisnis kecil/lokal |
 | Prompt Niche | untuk industri spesifik |
 | Prompt Sistem Lengkap | untuk produksi caption serius/campaign |
-
 
 ***
 
@@ -1587,7 +1621,6 @@ Untuk operasional paling efektif:
 - **Prompt sistem lengkap** dipakai untuk campaign, launching, promosi, dan konten penting.
 
 ***
-
 
 ## Saran penggunaan
 
@@ -1643,7 +1676,6 @@ Buat script Reels edukasi yang:
 7. 5 hashtag relevan
 ```
 
-
 ***
 
 # 31) Prompt Reels Soft Selling Lanjutan
@@ -1678,7 +1710,6 @@ Buat Reels soft selling yang:
 5. Caption
 6. CTA
 ```
-
 
 ***
 
@@ -1718,7 +1749,6 @@ Buat script Reels hard selling yang:
 6. Hashtag
 ```
 
-
 ***
 
 # 33) Prompt Reels Storytelling Lanjutan
@@ -1756,7 +1786,6 @@ Buat Reels storytelling yang:
 5. CTA
 ```
 
-
 ***
 
 # 34) Prompt Reels Viral / Engagement Lanjutan
@@ -1791,7 +1820,6 @@ Buat konsep Reels yang:
 4. CTA interaksi
 5. Caption singkat tiap ide
 ```
-
 
 ***
 
@@ -1841,7 +1869,6 @@ Buat kalender konten 30 hari yang:
    - social proof
 ```
 
-
 ***
 
 # 36) Prompt Kalender Konten 30 Hari Khusus Jualan Lanjutan
@@ -1887,7 +1914,6 @@ Buat kalender konten 30 hari yang:
    - closing
 ```
 
-
 ***
 
 # 37) Prompt Kalender Konten 30 Hari Personal Brand Lanjutan
@@ -1922,7 +1948,6 @@ Buat kalender konten 30 hari untuk personal brand yang:
 4. Angle utama
 5. CTA
 ```
-
 
 ***
 
@@ -1972,7 +1997,6 @@ Lakukan audit akun Instagram dari sisi:
 7. Strategi 30 hari
 ```
 
-
 ***
 
 # 39) Prompt Audit Konten Instagram Lanjutan
@@ -2014,7 +2038,6 @@ Audit konten Instagram dari sisi:
 6. rekomendasi perbaikan konten 30 hari
 ```
 
-
 ***
 
 # 40) Prompt Audit Conversion Instagram Lanjutan
@@ -2054,7 +2077,6 @@ Audit conversion Instagram dari sisi:
 5. Rekomendasi konten penjualan
 6. Strategi meningkatkan DM dan closing
 ```
-
 
 ***
 

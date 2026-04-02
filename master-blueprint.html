@@ -795,6 +795,71 @@ body.print-all-mode .result-section:not(:last-child) { page-break-after: always;
   .code-block,
   .callout { box-shadow: none; }
 }
+
+
+/* Mobile usability patch: compact action badges and avoid blocking form fields */
+@media (max-width: 980px) {
+  .fb-header,
+  .um-header,
+  .ig-header,
+  .adv-header,
+  .kw-header,
+  .prd-header,
+  .page-header,
+  .app-header,
+  .result-header,
+  .header {
+    position: static !important;
+    top: auto !important;
+  }
+
+  .fb-header .fb-actions,
+  .um-header .um-actions,
+  .ig-header .ig-actions,
+  .adv-header .adv-actions,
+  .kw-header .kw-actions,
+  .prd-header .prd-actions,
+  .page-header .page-actions,
+  .app-header .app-nav-links,
+  .result-header .result-actions,
+  .header .actions {
+    width: 100%;
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    justify-content: flex-start !important;
+    gap: 8px;
+    padding-bottom: 2px;
+    scrollbar-width: thin;
+  }
+
+  .fb-header .btn,
+  .um-header .btn,
+  .ig-header .btn,
+  .adv-header .btn,
+  .kw-header .btn,
+  .prd-header .btn,
+  .page-header .btn,
+  .header .btn,
+  .result-header .btn,
+  .app-header .app-nav-link {
+    width: auto !important;
+    flex: 0 0 auto;
+    white-space: nowrap;
+    font-size: 11.5px;
+    padding: 8px 11px;
+    min-height: 34px;
+    text-align: center;
+  }
+
+  .field-group,
+  .field,
+  .group {
+    scroll-margin-top: 18px !important;
+    scroll-margin-bottom: 110px !important;
+  }
+}
 </style>
 </head>
 <body>
@@ -1114,17 +1179,47 @@ function todayLong() {
   return new Date().toLocaleDateString("id-ID", { dateStyle: "full" });
 }
 
+function isOtherOptionValue(value) {
+  const v = cleanText(value).toLowerCase();
+  return v === "lainnya" || v === "other";
+}
+
+function fieldHasManualOther(field) {
+  if (!field || field.type !== "select") return false;
+  return (field.options || []).some((option) => {
+    const raw = typeof option === "string" ? option : option.value;
+    return isOtherOptionValue(raw);
+  });
+}
+
+function getFieldOtherInputId(field) {
+  return `${field.id}__other`;
+}
+
+function toggleFieldOtherInput(field) {
+  if (!fieldHasManualOther(field)) return;
+  const selectEl = document.getElementById(field.id);
+  const otherEl = document.getElementById(getFieldOtherInputId(field));
+  if (!selectEl || !otherEl) return;
+  const show = isOtherOptionValue(selectEl.value);
+  otherEl.style.display = show ? "block" : "none";
+  if (!show) otherEl.value = "";
+}
+
 function renderField(field) {
   const requiredTag = field.required ? '<span>Wajib</span>' : '<span class="opt">Opsional</span>';
   let inputHtml = "";
   if (field.type === "textarea") {
     inputHtml = `<textarea id="${field.id}" rows="${field.rows || 4}" placeholder="${escapeHtml(field.placeholder || "")}"></textarea>`;
   } else if (field.type === "select") {
+    const otherInputHtml = fieldHasManualOther(field)
+      ? `<input type="text" id="${getFieldOtherInputId(field)}" placeholder="${escapeHtml(field.manualOtherPlaceholder || "Tulis pilihan lainnya")}" style="display:none; margin-top:8px;">`
+      : "";
     inputHtml = `<select id="${field.id}">${(field.options || []).map((option) => {
       const value = typeof option === "string" ? option : option.value;
       const label = typeof option === "string" ? option : option.label;
       return `<option value="${escapeHtml(value)}">${escapeHtml(label)}</option>`;
-    }).join("")}</select>`;
+    }).join("")}</select>${otherInputHtml}`;
   } else if (field.type === "checkboxes") {
     inputHtml = `<div class="choice-grid" id="group-${field.id}">${(field.options || []).map((option, idx) => `
       <div class="choice-card">
@@ -1239,6 +1334,10 @@ function clearValidationState(field) {
   } else {
     const input = document.getElementById(field.id);
     if (input) input.classList.remove("invalid");
+    if (fieldHasManualOther(field)) {
+      const otherInput = document.getElementById(getFieldOtherInputId(field));
+      if (otherInput) otherInput.classList.remove("invalid");
+    }
   }
   if (error) error.classList.remove("visible");
 }
@@ -1259,6 +1358,12 @@ function getFieldValue(field) {
   if (field.type === "checkboxes") {
     return [...document.querySelectorAll(`input[name="${field.id}"]:checked`)].map((el) => el.value);
   }
+  if (field.type === "select" && fieldHasManualOther(field)) {
+    const selected = cleanText(document.getElementById(field.id)?.value || "");
+    if (!isOtherOptionValue(selected)) return selected;
+    const otherVal = cleanText(document.getElementById(getFieldOtherInputId(field))?.value || "");
+    return otherVal ? `Lainnya: ${otherVal}` : selected;
+  }
   return cleanText(document.getElementById(field.id)?.value || "");
 }
 
@@ -1271,7 +1376,27 @@ function setFieldValue(field, value) {
     return;
   }
   const input = document.getElementById(field.id);
-  if (input) input.value = value || "";
+  if (!input) return;
+  if (field.type === "select" && fieldHasManualOther(field)) {
+    const raw = cleanText(value || "");
+    const options = Array.from(input.options).map((opt) => cleanText(opt.value));
+    const exact = options.find((opt) => opt.toLowerCase() === raw.toLowerCase());
+    if (exact) {
+      input.value = exact;
+    } else {
+      const otherOption = options.find((opt) => isOtherOptionValue(opt));
+      if (otherOption && raw) {
+        input.value = otherOption;
+        const otherInput = document.getElementById(getFieldOtherInputId(field));
+        if (otherInput) otherInput.value = raw.replace(/^lainnya\s*:\s*/i, "");
+      } else {
+        input.value = raw || "";
+      }
+    }
+    toggleFieldOtherInput(field);
+    return;
+  }
+  input.value = value || "";
 }
 
 function validateStep(stepConfig) {
@@ -1284,6 +1409,18 @@ function validateStep(stepConfig) {
     if (!ok) {
       valid = false;
       markInvalid(field);
+    }
+    if (field.type === "select" && fieldHasManualOther(field)) {
+      const selected = cleanText(document.getElementById(field.id)?.value || "");
+      if (isOtherOptionValue(selected)) {
+        const otherInput = document.getElementById(getFieldOtherInputId(field));
+        const otherOk = !!cleanText(otherInput ? otherInput.value : "");
+        if (!otherOk) {
+          valid = false;
+          if (otherInput) otherInput.classList.add("invalid");
+          markInvalid(field);
+        }
+      }
     }
   });
   return valid;
@@ -1301,6 +1438,7 @@ function fillForm(data) {
   flattenFields().forEach((field) => {
     clearValidationState(field);
     setFieldValue(field, data[field.id]);
+    if (field.type === "select" && fieldHasManualOther(field)) toggleFieldOtherInput(field);
   });
 }
 
@@ -1308,6 +1446,7 @@ function resetFormState() {
   flattenFields().forEach((field) => {
     setFieldValue(field, field.type === "checkboxes" ? [] : "");
     clearValidationState(field);
+    if (field.type === "select" && fieldHasManualOther(field)) toggleFieldOtherInput(field);
   });
 }
 
@@ -1934,7 +2073,9 @@ function downloadMarkdownReport() {
 }
 
 function standaloneReportHtml() {
-  return `<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Master Blueprint - ${escapeHtml(blueprintData.business_name || "Brand")}</title><style>body{font-family:Arial,sans-serif;background:#f7f4ee;color:#17130d;line-height:1.7;margin:0}header{padding:28px 32px;background:#17130d;color:#fff}header h1{margin:0 0 6px;font-size:32px}header p{margin:0;color:#d4cfc4}main{max-width:980px;margin:0 auto;padding:28px 20px 60px}section{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:18px;padding:24px;margin-bottom:22px}.tag{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#9a6c00;margin-bottom:10px}h2{font-size:30px;margin:0 0 10px;font-family:Georgia,serif}table{width:100%;border-collapse:collapse;margin-top:14px}th,td{border-bottom:1px solid rgba(0,0,0,.08);padding:10px 12px;text-align:left;vertical-align:top}th{font-size:12px;text-transform:uppercase;color:#666}ul{padding-left:20px}.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.card{border:1px solid rgba(0,0,0,.08);border-radius:16px;padding:16px;background:#fcfbf8}.callout{border:1px solid rgba(184,134,11,.24);background:#fbf4e2;border-radius:16px;padding:16px;margin:16px 0}.code-block{background:#12100d;color:#f5f0e2;border-radius:16px;padding:16px;white-space:pre-wrap;font-family:Courier New,monospace;font-size:12px}@media(max-width:760px){.cards{grid-template-columns:1fr}header{padding:22px 20px}}</style></head><body><header><h1>Master Blueprint - ${escapeHtml(blueprintData.business_name || "Brand")}</h1><p>Generated ${escapeHtml(todayLong())} • Universal blueprint report</p></header><main>${lastSections.map((section, idx) => `<section><div class="tag">${String(idx).padStart(2, "0")} • ${escapeHtml(section.navTitle)}</div>${section.html.replace(/<div class="result-section"[^>]*>/, "").replace(/<\/div>\s*$/, "")}</section>`).join("")}</main></body></html>`;
+  return `<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Master Blueprint - ${escapeHtml(blueprintData.business_name || "Brand")}</title><style>body{font-family:Arial,sans-serif;background:#f7f4ee;color:#17130d;line-height:1.7;margin:0}header{padding:28px 32px;background:#17130d;color:#fff}header h1{margin:0 0 6px;font-size:32px}header p{margin:0;color:#d4cfc4}main{max-width:980px;margin:0 auto;padding:28px 20px 60px}section{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:18px;padding:24px;margin-bottom:22px}.tag{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#9a6c00;margin-bottom:10px}h2{font-size:30px;margin:0 0 10px;font-family:Georgia,serif}table{width:100%;border-collapse:collapse;margin-top:14px}th,td{border-bottom:1px solid rgba(0,0,0,.08);padding:10px 12px;text-align:left;vertical-align:top}th{font-size:12px;text-transform:uppercase;color:#666}ul{padding-left:20px}.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.card{border:1px solid rgba(0,0,0,.08);border-radius:16px;padding:16px;background:#fcfbf8}.callout{border:1px solid rgba(184,134,11,.24);background:#fbf4e2;border-radius:16px;padding:16px;margin:16px 0}.code-block{background:#12100d;color:#f5f0e2;border-radius:16px;padding:16px;white-space:pre-wrap;font-family:Courier New,monospace;font-size:12px}@media(max-width:760px){.cards{grid-template-columns:1fr}header{padding:22px 20px}}
+
+</style></head><body><header><h1>Master Blueprint - ${escapeHtml(blueprintData.business_name || "Brand")}</h1><p>Generated ${escapeHtml(todayLong())} • Universal blueprint report</p></header><main>${lastSections.map((section, idx) => `<section><div class="tag">${String(idx).padStart(2, "0")} • ${escapeHtml(section.navTitle)}</div>${section.html.replace(/<div class="result-section"[^>]*>/, "").replace(/<\/div>\s*$/, "")}</section>`).join("")}</main></body></html>`;
 }
 
 function downloadHtmlReport() {
@@ -1970,6 +2111,14 @@ function attachAutoSave() {
       saveDraft(false);
       if (currentStep === totalSteps) renderReviewSummary();
     });
+  });
+
+  flattenFields().forEach((field) => {
+    if (!fieldHasManualOther(field)) return;
+    const selectEl = document.getElementById(field.id);
+    if (!selectEl) return;
+    selectEl.addEventListener("change", () => toggleFieldOtherInput(field));
+    toggleFieldOtherInput(field);
   });
 }
 

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Framework Bisnis Bab 9 - Retention, Loyalty & Advocacy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0f1117;--ink2:#1f2532;--ink3:#3e4657;--muted:#747d90;--paper:#f5f7fb;--paper3:#fff;--blue:#1f5cb7;--blue2:#2f74d4;--blue-soft:#eaf1fd;--red:#a53030;--border:rgba(15,17,23,.16);--border-soft:rgba(15,17,23,.08);--shadow:0 10px 30px rgba(16,23,45,.08),0 2px 10px rgba(16,23,45,.08);--radius:12px;--radius-lg:18px;--font-display:'Playfair Display',Georgia,serif;--font-body:'DM Sans','Helvetica Neue',sans-serif;--font-mono:'DM Mono','Courier New',monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:radial-gradient(circle at 12% 0%,rgba(31,116,212,.12) 0,rgba(31,116,212,0) 36%),radial-gradient(circle at 100% 100%,rgba(31,122,79,.12) 0,rgba(31,122,79,0) 40%),var(--paper);color:var(--ink);font-family:var(--font-body);line-height:1.6}
+.fb-header{position:sticky;top:0;z-index:60;padding:16px 34px;background:#121826;display:flex;align-items:center;justify-content:space-between;gap:14px;border-bottom:1px solid rgba(255,255,255,.08)}
+.fb-logo{font-family:var(--font-display);color:#f2f5fb;font-size:17px;letter-spacing:.01em}.fb-logo span{color:#8fb5f0;font-style:italic}
+.fb-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.btn{border:none;border-radius:10px;padding:9px 13px;font-size:12.5px;cursor:pointer;font-family:var(--font-body);text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.btn-ghost{background:transparent;color:rgba(255,255,255,.86);border:1px solid rgba(255,255,255,.3)}.btn-ghost:hover{color:#fff;border-color:rgba(255,255,255,.5)}
+.btn-primary{background:var(--blue);color:#fff}.btn-primary:hover{background:var(--blue2)}.btn-light{background:#fff;color:var(--ink2);border:1px solid var(--border)}
+.fb-main{max-width:1400px;margin:0 auto;padding:28px 34px 66px}
+.hero-card{background:linear-gradient(130deg,#102038 0%,#17355f 42%,#26558f 100%);color:#f2f5fb;border-radius:var(--radius-lg);padding:26px 24px;box-shadow:var(--shadow);margin-bottom:18px;border:1px solid rgba(255,255,255,.16)}
+.hero-tag{font-size:11px;text-transform:uppercase;letter-spacing:.11em;font-family:var(--font-mono);color:rgba(229,238,255,.82);margin-bottom:8px}
+.hero-title{font-family:var(--font-display);font-size:33px;font-weight:500;line-height:1.2;margin-bottom:10px}.hero-title em{color:#b9d0fb;font-style:italic}.hero-sub{color:rgba(236,242,255,.9);font-size:14px;max-width:980px}
+.fb-grid{display:grid;grid-template-columns:minmax(350px,1fr) minmax(390px,1fr);gap:18px;align-items:start}
+.card{background:var(--paper3);border:1px solid var(--border-soft);border-radius:var(--radius-lg);box-shadow:var(--shadow);padding:18px}
+.card h2{font-family:var(--font-display);font-size:24px;font-weight:500;margin-bottom:8px}.card-sub{font-size:13px;color:var(--muted);margin-bottom:16px}
+.helper-box{border:1px dashed rgba(31,92,183,.33);border-radius:10px;background:var(--blue-soft);color:#24467d;font-size:12.5px;padding:10px 11px;margin-bottom:12px}
+.group{border:1px solid var(--border-soft);border-radius:var(--radius);background:#fff;padding:14px;margin-bottom:14px}
+.group-title{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--blue);font-family:var(--font-mono);margin-bottom:12px}
+.field-group{margin-bottom:12px}.field-group:last-child{margin-bottom:0}
+.field-label{display:block;font-size:13px;font-weight:600;color:var(--ink2);margin-bottom:6px}.field-label span{margin-left:6px;color:var(--blue2);font-size:11px;font-family:var(--font-mono)}
+.field-hint{font-size:12px;color:var(--muted);margin-bottom:6px;line-height:1.5}
+.field-error{display:none;margin-top:6px;font-size:12px;color:var(--red)}.field-error.visible{display:block}
+input[type="text"],select,textarea{width:100%;border:1.4px solid var(--border);border-radius:10px;padding:10px 12px;font-size:14px;color:var(--ink2);background:#fff;font-family:var(--font-body)}
+textarea{resize:vertical;min-height:82px}
+input[type="text"]:focus,select:focus,textarea:focus{outline:none;border-color:var(--blue2);box-shadow:0 0 0 3px rgba(47,116,212,.13)}
+input.invalid,select.invalid,textarea.invalid{border-color:var(--red);box-shadow:0 0 0 3px rgba(165,48,48,.12)}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.chip-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px}
+.chip{border:1.4px solid var(--border);border-radius:10px;background:#fff;padding:9px 10px;display:flex;gap:8px;align-items:flex-start;cursor:pointer}.chip:hover{border-color:rgba(31,92,183,.4);background:#f8fbff}.chip input{margin-top:2px}.chip-text{font-size:12.5px;color:var(--ink3);line-height:1.45}
+.form-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.preview-tabs{display:inline-flex;gap:6px;border:1px solid var(--border-soft);background:#f6f8fb;border-radius:10px;padding:4px;margin-bottom:12px}
+.tab-btn{border:none;background:transparent;color:var(--ink3);font-size:12px;padding:7px 10px;border-radius:7px;cursor:pointer;font-family:var(--font-body)}.tab-btn.active{background:#fff;color:var(--blue);box-shadow:0 1px 4px rgba(15,17,23,.08)}
+.preview-wrap{border:1px solid rgba(15,17,23,.14);border-radius:12px;overflow:hidden}
+.preview-markdown{background:#121826;color:#e6edff;font-family:var(--font-mono);font-size:12px;line-height:1.68;min-height:560px;max-height:760px;overflow:auto;padding:14px;white-space:pre-wrap;word-break:break-word}
+.preview-html{background:#fff;min-height:560px;max-height:760px;overflow:auto;padding:16px;color:var(--ink2)}
+.preview-html h1,.preview-html h2,.preview-html h3{font-family:var(--font-display);font-weight:500;line-height:1.3;margin-bottom:8px;color:var(--ink)}.preview-html h1{font-size:28px}.preview-html h2{font-size:22px;margin-top:22px}.preview-html h3{font-size:17px;margin-top:14px}
+.preview-html p,.preview-html li{font-size:14px;color:var(--ink3);margin-bottom:7px}.preview-html ul,.preview-html ol{margin-left:20px}.preview-html table{width:100%;border-collapse:collapse;margin-top:8px;margin-bottom:16px}.preview-html th,.preview-html td{border:1px solid rgba(15,17,23,.15);text-align:left;padding:8px 10px;font-size:13px}.preview-html th{font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.04em;color:var(--ink3);background:#f5f8fd}
+.inline-note{margin-top:8px;font-size:12px;color:var(--muted);background:#f8fafd;border:1px dashed rgba(31,92,183,.24);border-radius:8px;padding:8px 9px}
+.site-credit{margin:20px auto 32px;max-width:1400px;padding:0 34px;text-align:center;font-size:12px;color:var(--ink3)}
+@media (max-width:980px){.fb-header,.fb-main,.site-credit{padding-left:18px;padding-right:18px}.fb-header{flex-wrap:wrap;align-items:stretch;gap:10px}.fb-logo{width:100%}.fb-actions{width:100%;display:grid;grid-template-columns:1fr;gap:8px}.fb-actions .btn{width:100%;font-size:12px;padding:10px}.hero-title{font-size:29px}.fb-grid{grid-template-columns:1fr}.preview-markdown,.preview-html{min-height:420px;max-height:560px}}
+@media (max-width:640px){.hero-card{padding:18px 15px}.hero-title{font-size:26px}.hero-sub{font-size:13px}.card{padding:12px;border-radius:12px}.card h2{font-size:20px}.group{padding:10px}.two-col{grid-template-columns:1fr}.chip-grid{grid-template-columns:1fr}.form-actions .btn{width:100%}.preview-markdown,.preview-html{min-height:320px;max-height:440px}input[type="text"],select,textarea{font-size:16px}}
+@media (max-width:980px){.fb-header,.um-header,.ig-header,.adv-header,.kw-header,.prd-header,.page-header,.app-header,.result-header,.header{position:static!important;top:auto!important}.fb-header .fb-actions,.um-header .um-actions,.ig-header .ig-actions,.adv-header .adv-actions,.kw-header .kw-actions,.prd-header .prd-actions,.page-header .page-actions,.app-header .app-nav-links,.result-header .result-actions,.header .actions{width:100%;display:flex!important;flex-wrap:nowrap!important;overflow-x:auto;-webkit-overflow-scrolling:touch;justify-content:flex-start!important;gap:8px;padding-bottom:2px;scrollbar-width:thin}.fb-header .btn,.um-header .btn,.ig-header .btn,.adv-header .btn,.kw-header .btn,.prd-header .btn,.page-header .btn,.header .btn,.result-header .btn,.app-header .app-nav-link{width:auto!important;flex:0 0 auto;white-space:nowrap;font-size:11.5px;padding:8px 11px;min-height:34px;text-align:center}.field-group,.field,.group{scroll-margin-top:18px!important;scroll-margin-bottom:110px!important}}
+</style>
+</head>
+<body>
+<header class="fb-header">
+  <div class="fb-logo">Framework Bisnis Bab 9 - <span>Retention, Loyalty & Advocacy</span></div>
+  <div class="fb-actions">
+    <a class="btn btn-ghost" href="index.html">Kembali ke Index</a>
+    <button class="btn btn-ghost" type="button" onclick="copyMarkdown()">Copy Markdown</button>
+    <button class="btn btn-ghost" type="button" onclick="downloadMarkdown()">Download .md</button>
+    <button class="btn btn-ghost" type="button" onclick="downloadHtml()">Download .html</button>
+    <button class="btn btn-primary" type="button" onclick="downloadPdf()">Download PDF</button>
+  </div>
+</header>
+<main class="fb-main">
+  <section class="hero-card">
+    <div class="hero-tag">Fundamental Business Growth Framework</div>
+    <h1 class="hero-title">Workbook Bab 9: <em>Retention, Loyalty & Advocacy</em></h1>
+    <p class="hero-sub">Halaman ini membantu memperkuat sistem pasca-transaksi: menjaga pelanggan tetap aktif, mendorong repeat, dan membangun advocacy lewat testimoni serta referral.</p>
+  </section>
+  <div class="fb-grid">
+    <section class="card">
+      <h2>Form Input</h2>
+      <p class="card-sub">Isi berdasarkan kondisi retention yang benar-benar terjadi saat ini. Sistem akan membantu memetakan kebocoran dan blueprint perbaikannya.</p>
+      <div class="helper-box">Tips: jangan hanya lihat penjualan awal. Fokus pada apa yang terjadi setelah pembelian karena di situlah retention, loyalty, dan advocacy terbentuk.</div>
+      <form id="retention-form" novalidate>
+        <div class="group">
+          <div class="group-title">1) Identitas Bisnis</div>
+          <div class="two-col">
+            <div class="field-group"><label class="field-label" for="brand_name">Nama Bisnis / Brand <span>Wajib</span></label><p class="field-hint">Nama brand yang dipakai konsisten di output.</p><input type="text" id="brand_name" placeholder="Contoh: Maju Tumbuh Konsultan"><div class="field-error" id="err-brand_name">Nama bisnis wajib diisi.</div></div>
+            <div class="field-group"><label class="field-label" for="industry">Industri / Kategori <span>Wajib</span></label><p class="field-hint">Kategori utama bisnis Anda.</p><input type="text" id="industry" placeholder="Contoh: Konsultan Operasional UMKM"><div class="field-error" id="err-industry">Industri wajib diisi.</div></div>
+          </div>
+          <div class="field-group"><label class="field-label" for="main_offer">Produk / Jasa Utama <span>Wajib</span></label><p class="field-hint">Offer utama yang saat ini ingin diperkuat retensinya.</p><input type="text" id="main_offer" placeholder="Contoh: Pendampingan implementasi SOP 12 minggu"><div class="field-error" id="err-main_offer">Produk/jasa utama wajib diisi.</div></div>
+        </div>
+
+        <div class="group">
+          <div class="group-title">2) Kondisi Retention Saat Ini</div>
+          <div class="field-group"><label class="field-label" for="repeat_buy_status">Apakah Pelanggan Pernah Kembali Membeli? <span>Wajib</span></label><p class="field-hint">Pilih kondisi saat ini. Jika ya, isi estimasi persentasenya.</p><select id="repeat_buy_status"><option value="">Pilih kondisi</option><option>Ya</option><option>Jarang / sangat sedikit</option><option>Tidak pernah / belum diukur</option></select><div class="field-error" id="err-repeat_buy_status">Status repeat buy wajib dipilih.</div></div>
+          <div class="field-group" id="repeat_buy_percent_wrap" style="display:none;"><label class="field-label" for="repeat_buy_percent">Estimasi Persentase Pelanggan yang Kembali Membeli</label><p class="field-hint">Masukkan perkiraan persentase dari total pembeli.</p><input type="text" id="repeat_buy_percent" placeholder="Contoh: 18% dari total pembeli"></div>
+          <div class="field-group"><label class="field-label" for="after_purchase_flow">Apa yang Biasanya Terjadi Setelah Pelanggan Membeli? <span>Wajib</span></label><p class="field-hint">Jelaskan alur pasca-pembelian saat ini: follow-up, komunikasi, atau tidak ada.</p><textarea id="after_purchase_flow" placeholder="Contoh: setelah transaksi hanya kirim produk, belum ada follow-up terstruktur. Kadang check-in jika pelanggan komplain."></textarea><div class="field-error" id="err-after_purchase_flow">Alur pasca-pembelian wajib diisi.</div></div>
+          <div class="field-group"><label class="field-label" for="post_followup_status">Apakah Ada Sistem Follow-Up Setelah Pembelian? <span>Wajib</span></label><p class="field-hint">Jika ya, tulis bentuk follow-up yang berjalan.</p><select id="post_followup_status"><option value="">Pilih kondisi</option><option>Ya</option><option>Tidak ada sistem, hanya jika pelanggan tanya</option><option>Tidak ada sama sekali</option></select><div class="field-error" id="err-post_followup_status">Status follow-up pasca pembelian wajib dipilih.</div></div>
+          <div class="field-group" id="post_followup_detail_wrap" style="display:none;"><label class="field-label" for="post_followup_detail">Bentuk Follow-Up Saat Ini</label><p class="field-hint">Contoh: H+3 check-in, reminder penggunaan, update berkala.</p><textarea id="post_followup_detail" placeholder="Contoh: WA follow-up H+3 dan H+14 untuk cek progress + minta feedback awal."></textarea></div>
+          <div class="field-group"><label class="field-label" for="complaint_status">Apakah Sering Menerima Komplain?</label><p class="field-hint">Jika ya, sebutkan komplain yang paling sering muncul.</p><select id="complaint_status"><option value="">Pilih kondisi</option><option>Ya</option><option>Jarang</option><option>Tidak tahu / tidak diukur</option></select></div>
+          <div class="field-group" id="complaint_detail_wrap" style="display:none;"><label class="field-label" for="complaint_detail">Komplain yang Paling Sering</label><p class="field-hint">Tulis jenis komplain yang paling sering diterima.</p><input type="text" id="complaint_detail" placeholder="Contoh: respon support lambat, ekspektasi hasil tidak jelas"></div>
+        </div>
+        <div class="group">
+          <div class="group-title">3) Loyalty & Repeat</div>
+          <div class="field-group"><label class="field-label" for="return_reason_status">Apakah Ada Alasan yang Jelas bagi Pelanggan untuk Kembali? <span>Wajib</span></label><p class="field-hint">Jika ada, tulis alasan utama yang membuat pelanggan kembali.</p><select id="return_reason_status"><option value="">Pilih kondisi</option><option>Ya</option><option>Belum jelas</option><option>Bergantung pelanggan ingat sendiri</option></select><div class="field-error" id="err-return_reason_status">Status alasan kembali wajib dipilih.</div></div>
+          <div class="field-group" id="return_reason_detail_wrap" style="display:none;"><label class="field-label" for="return_reason_detail">Alasan Pelanggan Kembali</label><p class="field-hint">Contoh: program lanjutan, benefit member, kebutuhan berulang.</p><input type="text" id="return_reason_detail" placeholder="Contoh: ada paket lanjutan + bonus support untuk repeat customer"></div>
+
+          <div class="field-group"><label class="field-label" for="repeat_system_status">Apakah Ada Sistem Repeat Order yang Sudah Dirancang? <span>Wajib</span></label><p class="field-hint">Pilih kondisi. Isi detail jika sudah ada atau jika produk tidak memungkinkan repeat.</p><select id="repeat_system_status"><option value="">Pilih kondisi</option><option>Ya</option><option>Belum ada sistem, hanya menunggu pelanggan order lagi</option><option>Produk/jasa tidak memungkinkan repeat</option></select><div class="field-error" id="err-repeat_system_status">Status sistem repeat wajib dipilih.</div></div>
+          <div class="field-group" id="repeat_system_detail_wrap" style="display:none;"><label class="field-label" for="repeat_system_detail">Detail Sistem Repeat Order</label><p class="field-hint">Tulis cara sistem repeat dijalankan saat ini.</p><textarea id="repeat_system_detail" placeholder="Contoh: reminder H+30, penawaran paket lanjutan, script follow-up repeat tiap bulan."></textarea></div>
+          <div class="field-group" id="repeat_not_possible_wrap" style="display:none;"><label class="field-label" for="repeat_not_possible_detail">Jika Tidak Memungkinkan Repeat, Jelaskan</label><p class="field-hint">Jelaskan kenapa model produk/jasa tidak memungkinkan pembelian ulang.</p><textarea id="repeat_not_possible_detail" placeholder="Contoh: layanan one-off legal setup; repeat hanya dalam bentuk referral/upsell layanan lain."></textarea></div>
+        </div>
+
+        <div class="group">
+          <div class="group-title">4) Testimoni & Referral</div>
+          <div class="field-group"><label class="field-label" for="testi_status">Apakah Sudah Punya Testimoni dari Pelanggan? <span>Wajib</span></label><p class="field-hint">Pilih kondisi aktual pengumpulan testimoni.</p><select id="testi_status"><option value="">Pilih kondisi</option><option>Ya - sudah banyak dan aktif dikumpulkan</option><option>Ada beberapa tapi tidak sistematis</option><option>Hampir tidak ada</option></select><div class="field-error" id="err-testi_status">Status testimoni wajib dipilih.</div></div>
+          <div class="field-group"><label class="field-label" for="testi_method">Bagaimana Cara Mendapatkan Testimoni Saat Ini?</label><p class="field-hint">Jelaskan cara meminta dan mengelola testimoni saat ini.</p><textarea id="testi_method" placeholder="Contoh: minta testimoni manual lewat WA setelah proyek selesai, belum ada template khusus."></textarea></div>
+          <div class="field-group"><label class="field-label" for="referral_status">Apakah Sudah Ada Sistem Referral / Word of Mouth? <span>Wajib</span></label><p class="field-hint">Jika ya, tulis bentuk sistem referral yang berjalan.</p><select id="referral_status"><option value="">Pilih kondisi</option><option>Ya</option><option>Belum ada sistem, hanya jika pelanggan kebetulan cerita</option><option>Tidak pernah memikirkannya</option></select><div class="field-error" id="err-referral_status">Status referral wajib dipilih.</div></div>
+          <div class="field-group" id="referral_detail_wrap" style="display:none;"><label class="field-label" for="referral_detail">Bentuk Sistem Referral</label><p class="field-hint">Contoh: insentif referral, program member-get-member, dsb.</p><input type="text" id="referral_detail" placeholder="Contoh: reward referral Rp500 ribu per klien closing"></div>
+        </div>
+
+        <div class="group">
+          <div class="group-title">5) Pengalaman Pelanggan</div>
+          <div class="field-group"><label class="field-label">Nilai Pengalaman Pelanggan Saat Ini (1-5) <span>Wajib</span></label><p class="field-hint">Nilai tiap aspek secara jujur untuk membaca gap service experience.</p>
+            <div class="two-col">
+              <select id="exp_comm"><option value="">Kejelasan komunikasi</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select>
+              <select id="exp_speed"><option value="">Kecepatan respon</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select>
+              <select id="exp_quality"><option value="">Kualitas hasil</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select>
+              <select id="exp_timeliness"><option value="">Ketepatan waktu</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select>
+              <select id="exp_ease"><option value="">Kemudahan proses</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select>
+              <select id="exp_complaint"><option value="">Penanganan komplain</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select>
+            </div>
+            <div class="field-error" id="err-experience_scores">Semua nilai pengalaman pelanggan wajib diisi.</div>
+          </div>
+          <div class="field-group"><label class="field-label" for="experience_consistency">Apakah Pengalaman Pelanggan Sudah Konsisten? <span>Wajib</span></label><p class="field-hint">Pilih kondisi konsistensi pengalaman pelanggan saat ini.</p><select id="experience_consistency"><option value="">Pilih kondisi</option><option>Ya, cukup konsisten</option><option>Kadang bagus kadang tidak</option><option>Belum konsisten sama sekali</option></select><div class="field-error" id="err-experience_consistency">Status konsistensi pengalaman wajib dipilih.</div></div>
+        </div>
+
+        <div class="group">
+          <div class="group-title">6) Masalah Utama yang Dirasakan</div>
+          <div class="field-group"><label class="field-label">Masalah Retensi Paling Terasa <span>Wajib</span></label><p class="field-hint">Pilih minimal satu masalah paling dominan saat ini.</p>
+            <div class="chip-grid">
+              <label class="chip"><input type="checkbox" name="retention_issues" value="Pelanggan beli sekali lalu hilang"><span class="chip-text">Pelanggan beli sekali lalu hilang</span></label>
+              <label class="chip"><input type="checkbox" name="retention_issues" value="Tidak ada follow-up yang sistematis"><span class="chip-text">Tidak ada follow-up sistematis</span></label>
+              <label class="chip"><input type="checkbox" name="retention_issues" value="Tidak tahu kapan harus menghubungi pelanggan lagi"><span class="chip-text">Tidak tahu kapan follow-up lagi</span></label>
+              <label class="chip"><input type="checkbox" name="retention_issues" value="Tidak punya testimoni yang cukup"><span class="chip-text">Tidak punya testimoni cukup</span></label>
+              <label class="chip"><input type="checkbox" name="retention_issues" value="Tidak ada sistem referral"><span class="chip-text">Tidak ada sistem referral</span></label>
+              <label class="chip"><input type="checkbox" name="retention_issues" value="Komplain tidak ditangani dengan baik"><span class="chip-text">Komplain tidak tertangani baik</span></label>
+              <label class="chip"><input type="checkbox" name="retention_issues" value="Tidak tahu pelanggan yang paling berpotensi loyal"><span class="chip-text">Tidak tahu pelanggan paling potensial loyal</span></label>
+              <label class="chip"><input type="checkbox" id="retention_issue_other_check" name="retention_issues" value="Lainnya"><span class="chip-text">Lainnya</span></label>
+            </div>
+            <input type="text" id="retention_issue_other_text" placeholder="Tulis masalah lainnya" style="margin-top:8px;display:none;">
+            <div class="field-error" id="err-retention_issues">Pilih minimal satu masalah retensi.</div>
+          </div>
+        </div>
+        <div class="group">
+          <div class="group-title">7) Konteks Tambahan</div>
+          <div class="field-group"><label class="field-label" for="bab4_output">Output Bab 4 yang Relevan</label><p class="field-hint">Contoh: Customer Relationships dan Revenue Streams dari BMC.</p><textarea id="bab4_output" placeholder="Contoh: model relasi masih transaksional, recurring revenue masih rendah."></textarea></div>
+          <div class="field-group"><label class="field-label" for="bab8_output">Output Bab 8 yang Relevan</label><p class="field-hint">Contoh: conversion system dan post-purchase touchpoint.</p><textarea id="bab8_output" placeholder="Contoh: follow-up pasca deal belum konsisten, risk reducer masih minim."></textarea></div>
+          <div class="two-col">
+            <div class="field-group"><label class="field-label" for="avg_transaction">Rata-rata Nilai Transaksi per Pelanggan</label><p class="field-hint">Nilai rata-rata transaksi untuk estimasi dampak kebocoran retention.</p><input type="text" id="avg_transaction" placeholder="Contoh: Rp3.500.000"></div>
+            <div class="field-group"><label class="field-label" for="avg_purchase_year">Rata-rata Berapa Kali Pelanggan Bisa Membeli per Tahun?</label><p class="field-hint">Perkiraan frekuensi pembelian tahunan per pelanggan.</p><input type="text" id="avg_purchase_year" placeholder="Contoh: 2-3 kali / tahun"></div>
+          </div>
+          <div class="field-group"><label class="field-label" for="output_mode">Mode Output yang Diminta</label><p class="field-hint">Jika tidak memilih, gunakan Mode Penuh.</p><select id="output_mode"><option>Mode Penuh (A-E)</option><option>Mode Diagnosis Cepat</option><option>Mode Peta Sistem</option><option>Mode Workbook Saja</option><option>Mode Coaching</option></select></div>
+          <div class="field-group"><label class="field-label" for="notes">Catatan Tambahan</label><p class="field-hint">Tambahkan konteks bisnis yang penting untuk analisis retention.</p><textarea id="notes" placeholder="Contoh: ingin menaikkan repeat rate 2x dalam 6 bulan tanpa tambah budget iklan besar."></textarea></div>
+        </div>
+
+        <div class="form-actions">
+          <button class="btn btn-primary" type="button" onclick="generateOutput()">Generate Output Bab 9</button>
+          <button class="btn btn-light" type="button" onclick="resetForm()">Reset Form</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="card">
+      <h2>Preview Output</h2>
+      <p class="card-sub">Output ini siap dipakai untuk diagnosis retention, peta loyalty-advocacy, dan penyusunan retention blueprint.</p>
+      <div class="preview-tabs"><button class="tab-btn active" id="tab-md" type="button" onclick="showTab('md')">Markdown</button><button class="tab-btn" id="tab-html" type="button" onclick="showTab('html')">HTML</button></div>
+      <div class="preview-wrap"><pre class="preview-markdown" id="markdown-preview">Belum ada output. Isi form lalu klik "Generate Output Bab 9".</pre><div class="preview-html" id="html-preview" style="display:none;"><p>Belum ada output HTML.</p></div></div>
+      <p class="inline-note">Catatan: hasil ini dapat langsung dipakai untuk merancang sistem repeat, testimoni, referral, dan retention blueprint yang realistis.</p>
+    </section>
+  </div>
+</main>
+<p class="site-credit">Dibangun untuk framework internal FBGF. Alur ideal: Bab 8 -> Bab 9 -> Bab 10.</p>
+<script>
+let activeTab='md';
+let lastOutput={markdown:'',html:''};
+function cleanText(value){return String(value||'').replace(/\s+/g,' ').trim();}
+function parseList(value){return String(value||'').split(/\n|,|;/).map((x)=>cleanText(x)).filter(Boolean);}
+function slug(text){return cleanText(text).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'')||'dokumen';}
+function escapeHtml(value){return String(value||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\"/g,'&quot;').replace(/'/g,'&#039;');}
+function setError(fieldId,hasError){const f=document.getElementById(fieldId);const e=document.getElementById('err-'+fieldId);if(f)f.classList.toggle('invalid',hasError);if(e)e.classList.toggle('visible',hasError);}
+function checkedValues(name){return Array.from(document.querySelectorAll('input[name="'+name+'"]:checked')).map((n)=>cleanText(n.value));}
+function mdLine(label,value){return '- '+label+': '+(value||'-');}
+function mdList(items,fallback){if(!items||!items.length)return '- '+(fallback||'-');return items.map((x)=>'- '+x).join('\n');}
+function collectData(){
+  const issues=checkedValues('retention_issues');
+  const issueOtherChecked=document.getElementById('retention_issue_other_check').checked;
+  const issueOtherText=cleanText(document.getElementById('retention_issue_other_text').value);
+  const mappedIssues=issues.filter((x)=>x!=='Lainnya').concat(issueOtherChecked&&issueOtherText?['Lainnya: '+issueOtherText]:issueOtherChecked?['Lainnya']:[]);
+  return {
+    brandName:cleanText(document.getElementById('brand_name').value),industry:cleanText(document.getElementById('industry').value),mainOffer:cleanText(document.getElementById('main_offer').value),
+    repeatBuyStatus:cleanText(document.getElementById('repeat_buy_status').value),repeatBuyPercent:cleanText(document.getElementById('repeat_buy_percent').value),afterPurchaseFlow:cleanText(document.getElementById('after_purchase_flow').value),postFollowupStatus:cleanText(document.getElementById('post_followup_status').value),postFollowupDetail:cleanText(document.getElementById('post_followup_detail').value),complaintStatus:cleanText(document.getElementById('complaint_status').value),complaintDetail:cleanText(document.getElementById('complaint_detail').value),
+    returnReasonStatus:cleanText(document.getElementById('return_reason_status').value),returnReasonDetail:cleanText(document.getElementById('return_reason_detail').value),repeatSystemStatus:cleanText(document.getElementById('repeat_system_status').value),repeatSystemDetail:cleanText(document.getElementById('repeat_system_detail').value),repeatNotPossibleDetail:cleanText(document.getElementById('repeat_not_possible_detail').value),
+    testiStatus:cleanText(document.getElementById('testi_status').value),testiMethod:cleanText(document.getElementById('testi_method').value),referralStatus:cleanText(document.getElementById('referral_status').value),referralDetail:cleanText(document.getElementById('referral_detail').value),
+    expComm:cleanText(document.getElementById('exp_comm').value),expSpeed:cleanText(document.getElementById('exp_speed').value),expQuality:cleanText(document.getElementById('exp_quality').value),expTimeliness:cleanText(document.getElementById('exp_timeliness').value),expEase:cleanText(document.getElementById('exp_ease').value),expComplaint:cleanText(document.getElementById('exp_complaint').value),experienceConsistency:cleanText(document.getElementById('experience_consistency').value),
+    retentionIssues:mappedIssues,bab4Output:cleanText(document.getElementById('bab4_output').value),bab8Output:cleanText(document.getElementById('bab8_output').value),avgTransaction:cleanText(document.getElementById('avg_transaction').value),avgPurchaseYear:cleanText(document.getElementById('avg_purchase_year').value),outputMode:cleanText(document.getElementById('output_mode').value),notes:cleanText(document.getElementById('notes').value)
+  };
+}
+function validateForm(data){
+  let valid=true;
+  ['brand_name','industry','main_offer','repeat_buy_status','after_purchase_flow','post_followup_status','return_reason_status','repeat_system_status','testi_status','referral_status','experience_consistency'].forEach((id)=>{const el=document.getElementById(id);const ok=el&&cleanText(el.value);setError(id,!ok);if(!ok)valid=false;});
+  const scores=[data.expComm,data.expSpeed,data.expQuality,data.expTimeliness,data.expEase,data.expComplaint];
+  const scoreOk=scores.every((x)=>!!x);document.getElementById('err-experience_scores').classList.toggle('visible',!scoreOk);if(!scoreOk)valid=false;
+  const issuesOk=data.retentionIssues.length>0;document.getElementById('err-retention_issues').classList.toggle('visible',!issuesOk);if(!issuesOk)valid=false;
+
+  if(data.repeatBuyStatus==='Ya'){const ok=!!data.repeatBuyPercent;document.getElementById('repeat_buy_percent').classList.toggle('invalid',!ok);if(!ok)valid=false;} else document.getElementById('repeat_buy_percent').classList.remove('invalid');
+  if(data.postFollowupStatus==='Ya'){const ok=!!data.postFollowupDetail;document.getElementById('post_followup_detail').classList.toggle('invalid',!ok);if(!ok)valid=false;} else document.getElementById('post_followup_detail').classList.remove('invalid');
+  if(data.complaintStatus==='Ya'){const ok=!!data.complaintDetail;document.getElementById('complaint_detail').classList.toggle('invalid',!ok);if(!ok)valid=false;} else document.getElementById('complaint_detail').classList.remove('invalid');
+  if(data.returnReasonStatus==='Ya'){const ok=!!data.returnReasonDetail;document.getElementById('return_reason_detail').classList.toggle('invalid',!ok);if(!ok)valid=false;} else document.getElementById('return_reason_detail').classList.remove('invalid');
+  if(data.repeatSystemStatus==='Ya'){const ok=!!data.repeatSystemDetail;document.getElementById('repeat_system_detail').classList.toggle('invalid',!ok);if(!ok)valid=false;} else document.getElementById('repeat_system_detail').classList.remove('invalid');
+  if(data.repeatSystemStatus==='Produk/jasa tidak memungkinkan repeat'){const ok=!!data.repeatNotPossibleDetail;document.getElementById('repeat_not_possible_detail').classList.toggle('invalid',!ok);if(!ok)valid=false;} else document.getElementById('repeat_not_possible_detail').classList.remove('invalid');
+  if(data.referralStatus==='Ya'){const ok=!!data.referralDetail;document.getElementById('referral_detail').classList.toggle('invalid',!ok);if(!ok)valid=false;} else document.getElementById('referral_detail').classList.remove('invalid');
+  if(document.getElementById('retention_issue_other_check').checked){const ok=!!cleanText(document.getElementById('retention_issue_other_text').value);document.getElementById('retention_issue_other_text').classList.toggle('invalid',!ok);if(!ok)valid=false;} else document.getElementById('retention_issue_other_text').classList.remove('invalid');
+  return valid;
+}
+function buildMarkdown(data){return ['# Framework Bisnis Bab 9 - Retention, Loyalty dan Advocacy','','## Ringkasan Input User','','### 1) Identitas Bisnis',mdLine('Nama bisnis / brand',data.brandName),mdLine('Industri / kategori',data.industry),mdLine('Produk / jasa utama',data.mainOffer),'','### 2) Kondisi Retention Saat Ini',mdLine('Status pelanggan kembali membeli',data.repeatBuyStatus),mdLine('Estimasi persen repeat',data.repeatBuyPercent||'-'),mdLine('Yang terjadi setelah pembelian',data.afterPurchaseFlow),mdLine('Status follow-up setelah pembelian',data.postFollowupStatus),mdLine('Detail follow-up',data.postFollowupDetail||'-'),mdLine('Status komplain',data.complaintStatus||'-'),mdLine('Komplain paling sering',data.complaintDetail||'-'),'','### 3) Loyalty & Repeat',mdLine('Ada alasan jelas untuk kembali',data.returnReasonStatus),mdLine('Alasan pelanggan kembali',data.returnReasonDetail||'-'),mdLine('Status sistem repeat order',data.repeatSystemStatus),mdLine('Detail sistem repeat',data.repeatSystemDetail||'-'),mdLine('Penjelasan jika repeat tidak memungkinkan',data.repeatNotPossibleDetail||'-'),'','### 4) Testimoni & Referral',mdLine('Status testimoni',data.testiStatus),mdLine('Cara mendapatkan testimoni',data.testiMethod||'-'),mdLine('Status referral/word of mouth',data.referralStatus),mdLine('Detail sistem referral',data.referralDetail||'-'),'','### 5) Pengalaman Pelanggan',mdLine('Kejelasan komunikasi (1-5)',data.expComm),mdLine('Kecepatan respon (1-5)',data.expSpeed),mdLine('Kualitas hasil (1-5)',data.expQuality),mdLine('Ketepatan waktu (1-5)',data.expTimeliness),mdLine('Kemudahan proses (1-5)',data.expEase),mdLine('Penanganan komplain (1-5)',data.expComplaint),mdLine('Konsistensi pengalaman pelanggan',data.experienceConsistency),'','### 6) Masalah Utama Retensi','- Masalah retensi paling terasa:',mdList(data.retentionIssues,'Belum diisi'),'','### 7) Konteks Tambahan',mdLine('Output Bab 4 relevan',data.bab4Output||'-'),mdLine('Output Bab 8 relevan',data.bab8Output||'-'),mdLine('Rata-rata nilai transaksi',data.avgTransaction||'-'),mdLine('Rata-rata frekuensi pembelian/tahun',data.avgPurchaseYear||'-'),mdLine('Mode output',data.outputMode||'Mode Penuh (A-E)'),mdLine('Catatan tambahan',data.notes||'-'),'','---','','## Instruksi Tugas untuk AI (Bab 9)','', 'Gunakan data input di atas untuk menjalankan analisis **Framework Membangun Bisnis - Bab 9 (Retention, Loyalty, dan Advocacy)**.','','### Tujuan Analisis','1. Diagnosis kondisi retention, loyalty, dan advocacy saat ini.','2. Identifikasi titik kebocoran paling kritis.','3. Evaluasi pengalaman pasca-pembelian.','4. Pemetaan peluang repeat, testimoni, dan referral.','5. Penyusunan Retention Blueprint yang realistis.','','### Output Wajib','A. Diagnosis Awal Retention','B. Evaluasi Mendalam','C. Peta Sistem Retention','D. Workbook Bab 9','E. Ringkasan & Next Step','','### Mode Eksekusi','- Mode yang diminta user: **'+(data.outputMode||'Mode Penuh (A-E)')+'**'].join('\n');}
+function buildHtml(data){const rows=[['Nama bisnis / brand',data.brandName],['Industri / kategori',data.industry],['Produk / jasa utama',data.mainOffer],['Status repeat buy',data.repeatBuyStatus],['Estimasi persen repeat',data.repeatBuyPercent||'-'],['Yang terjadi setelah pembelian',data.afterPurchaseFlow],['Status follow-up',data.postFollowupStatus],['Detail follow-up',data.postFollowupDetail||'-'],['Status komplain',data.complaintStatus||'-'],['Komplain paling sering',data.complaintDetail||'-'],['Alasan jelas pelanggan kembali',data.returnReasonStatus],['Detail alasan kembali',data.returnReasonDetail||'-'],['Status sistem repeat',data.repeatSystemStatus],['Detail sistem repeat',data.repeatSystemDetail||'-'],['Detail tidak memungkinkan repeat',data.repeatNotPossibleDetail||'-'],['Status testimoni',data.testiStatus],['Cara dapat testimoni',data.testiMethod||'-'],['Status referral',data.referralStatus],['Detail referral',data.referralDetail||'-'],['Skor komunikasi',data.expComm],['Skor respon',data.expSpeed],['Skor kualitas',data.expQuality],['Skor ketepatan waktu',data.expTimeliness],['Skor kemudahan proses',data.expEase],['Skor penanganan komplain',data.expComplaint],['Konsistensi pengalaman',data.experienceConsistency],['Masalah retensi utama',data.retentionIssues.join(', ')||'-'],['Output Bab 4',data.bab4Output||'-'],['Output Bab 8',data.bab8Output||'-'],['Nilai transaksi rata-rata',data.avgTransaction||'-'],['Frekuensi beli/tahun',data.avgPurchaseYear||'-'],['Mode output',data.outputMode||'Mode Penuh (A-E)'],['Catatan',data.notes||'-']];return ['<article>','<h1>Framework Bisnis Bab 9 - Retention, Loyalty dan Advocacy</h1>','<p>Dokumen ini berisi brief input untuk audit retention serta penyusunan loyalty/advocacy system.</p>','<h2>Ringkasan Input User</h2>','<table><thead><tr><th>Field</th><th>Isi</th></tr></thead><tbody>',rows.map((r)=>'<tr><td>'+escapeHtml(r[0])+'</td><td>'+escapeHtml(r[1]||'-')+'</td></tr>').join(''),'</tbody></table>','<h2>Instruksi Tugas untuk AI</h2>','<p>Lakukan analisis Bab 9: diagnosis retention, peta sistem repeat/referral, workbook, dan next step.</p>','<p><strong>Mode output:</strong> '+escapeHtml(data.outputMode||'Mode Penuh (A-E)')+'</p>','</article>'].join('');}
+function showTab(tab){activeTab=tab;const md=document.getElementById('markdown-preview');const html=document.getElementById('html-preview');const mdTab=document.getElementById('tab-md');const htmlTab=document.getElementById('tab-html');if(tab==='md'){md.style.display='block';html.style.display='none';mdTab.classList.add('active');htmlTab.classList.remove('active');}else{md.style.display='none';html.style.display='block';mdTab.classList.remove('active');htmlTab.classList.add('active');}}
+function generateOutput(){const data=collectData();if(!validateForm(data)){alert('Masih ada field wajib yang belum lengkap. Mohon cek bagian yang ditandai merah.');return false;}lastOutput.markdown=buildMarkdown(data);lastOutput.html=buildHtml(data);document.getElementById('markdown-preview').textContent=lastOutput.markdown;document.getElementById('html-preview').innerHTML=lastOutput.html;showTab(activeTab);return true;}
+function ensureOutput(){if(lastOutput.markdown&&lastOutput.html)return true;return generateOutput();}
+function copyMarkdown(){if(!ensureOutput())return;navigator.clipboard.writeText(lastOutput.markdown).then(()=>alert('Markdown berhasil disalin.')).catch(()=>alert('Gagal menyalin otomatis. Silakan copy manual dari preview.'));}
+function downloadMarkdown(){if(!ensureOutput())return;const brand=cleanText(document.getElementById('brand_name').value)||'brand';const fileName='framework-bisnis-bab9-retention-'+slug(brand)+'-'+new Date().toISOString().slice(0,10)+'.md';const blob=new Blob([lastOutput.markdown],{type:'text/markdown;charset=utf-8'});const url=URL.createObjectURL(blob);const link=document.createElement('a');link.href=url;link.download=fileName;document.body.appendChild(link);link.click();link.remove();URL.revokeObjectURL(url);}
+function buildExportHtmlDocument(bodyHtml){return ['<!DOCTYPE html>','<html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">','<title>Framework Bisnis Bab 9 - Retention, Loyalty & Advocacy</title>','<style>','body{font-family:Arial,sans-serif;margin:28px;color:#1f2532;line-height:1.65;}','h1,h2,h3{color:#0f1117;line-height:1.3;}','h1{font-size:30px;margin-bottom:10px;} h2{font-size:23px;margin-top:22px;} h3{font-size:18px;margin-top:14px;}','p,li,td,th{font-size:14px;} ul,ol{margin-left:22px;}','table{width:100%;border-collapse:collapse;margin:10px 0 16px;}','th,td{border:1px solid #d2d9e8;padding:8px 10px;text-align:left;vertical-align:top;}','th{background:#eff3fc;font-size:12px;text-transform:uppercase;letter-spacing:.03em;}','@media print{body{margin:14mm;}}','\n</style></head><body>',bodyHtml,'</body></html>'].join('');}
+function downloadHtml(){if(!ensureOutput())return;const brand=cleanText(document.getElementById('brand_name').value)||'brand';const fileName='framework-bisnis-bab9-retention-'+slug(brand)+'-'+new Date().toISOString().slice(0,10)+'.html';const htmlDoc=buildExportHtmlDocument(lastOutput.html);const blob=new Blob([htmlDoc],{type:'text/html;charset=utf-8'});const url=URL.createObjectURL(blob);const link=document.createElement('a');link.href=url;link.download=fileName;document.body.appendChild(link);link.click();link.remove();URL.revokeObjectURL(url);}
+function downloadPdf(){if(!ensureOutput())return;const htmlDoc=buildExportHtmlDocument(lastOutput.html);const printWin=window.open('','_blank');if(!printWin){alert('Pop-up diblokir browser. Izinkan pop-up lalu coba lagi untuk ekspor PDF.');return;}printWin.document.open();printWin.document.write(htmlDoc);printWin.document.close();printWin.focus();setTimeout(function(){printWin.print();},320);}
+function resetForm(){document.getElementById('retention-form').reset();document.querySelectorAll('.field-error').forEach((e)=>e.classList.remove('visible'));document.querySelectorAll('input,select,textarea').forEach((e)=>e.classList.remove('invalid'));['repeat_buy_percent_wrap','post_followup_detail_wrap','complaint_detail_wrap','return_reason_detail_wrap','repeat_system_detail_wrap','repeat_not_possible_wrap','referral_detail_wrap'].forEach((id)=>document.getElementById(id).style.display='none');document.getElementById('retention_issue_other_text').style.display='none';document.getElementById('retention_issue_other_text').value='';lastOutput={markdown:'',html:''};document.getElementById('markdown-preview').textContent='Belum ada output. Isi form lalu klik "Generate Output Bab 9".';document.getElementById('html-preview').innerHTML='<p>Belum ada output HTML.</p>';showTab('md');}
+function initEventHandlers(){document.getElementById('repeat_buy_status').addEventListener('change',function(){const s=cleanText(this.value)==='Ya';document.getElementById('repeat_buy_percent_wrap').style.display=s?'block':'none';if(!s){document.getElementById('repeat_buy_percent').value='';document.getElementById('repeat_buy_percent').classList.remove('invalid');}});document.getElementById('post_followup_status').addEventListener('change',function(){const s=cleanText(this.value)==='Ya';document.getElementById('post_followup_detail_wrap').style.display=s?'block':'none';if(!s){document.getElementById('post_followup_detail').value='';document.getElementById('post_followup_detail').classList.remove('invalid');}});document.getElementById('complaint_status').addEventListener('change',function(){const s=cleanText(this.value)==='Ya';document.getElementById('complaint_detail_wrap').style.display=s?'block':'none';if(!s){document.getElementById('complaint_detail').value='';document.getElementById('complaint_detail').classList.remove('invalid');}});document.getElementById('return_reason_status').addEventListener('change',function(){const s=cleanText(this.value)==='Ya';document.getElementById('return_reason_detail_wrap').style.display=s?'block':'none';if(!s){document.getElementById('return_reason_detail').value='';document.getElementById('return_reason_detail').classList.remove('invalid');}});document.getElementById('repeat_system_status').addEventListener('change',function(){const v=cleanText(this.value);const yes=v==='Ya';const notPossible=v==='Produk/jasa tidak memungkinkan repeat';document.getElementById('repeat_system_detail_wrap').style.display=yes?'block':'none';document.getElementById('repeat_not_possible_wrap').style.display=notPossible?'block':'none';if(!yes){document.getElementById('repeat_system_detail').value='';document.getElementById('repeat_system_detail').classList.remove('invalid');}if(!notPossible){document.getElementById('repeat_not_possible_detail').value='';document.getElementById('repeat_not_possible_detail').classList.remove('invalid');}});document.getElementById('referral_status').addEventListener('change',function(){const s=cleanText(this.value)==='Ya';document.getElementById('referral_detail_wrap').style.display=s?'block':'none';if(!s){document.getElementById('referral_detail').value='';document.getElementById('referral_detail').classList.remove('invalid');}});document.getElementById('retention_issue_other_check').addEventListener('change',function(){const s=this.checked;const t=document.getElementById('retention_issue_other_text');t.style.display=s?'block':'none';if(!s){t.value='';t.classList.remove('invalid');}});document.querySelectorAll('input,select,textarea').forEach((n)=>{n.setAttribute('autocomplete','off');n.setAttribute('autocorrect','off');n.setAttribute('autocapitalize','off');n.setAttribute('spellcheck','false');});}
+initEventHandlers();
+</script>
+</body>
+</html>
