@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Master Prompt 04E - FAQ Page Writer Pendidikan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#102019;--muted:#66766f;--bg:#f5faf8;--card:#fff;--line:rgba(16,32,25,.14);--green:#1f7a54;--green2:#2d966a;--red:#ae3434;--r:12px;--r2:18px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:radial-gradient(circle at 9% 0,rgba(45,149,106,.12) 0,transparent 35%),var(--bg);color:var(--ink);line-height:1.6}
+.top{position:sticky;top:0;z-index:60;background:#11221c;border-bottom:1px solid rgba(255,255,255,.12);padding:14px 20px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.logo{font-family:'Playfair Display',serif;color:#e9f9f3;font-size:17px}.logo span{color:#95efcb;font-style:italic}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.btn{border:1px solid rgba(255,255,255,.34);background:transparent;color:#eef8f4;border-radius:10px;padding:8px 12px;font-size:12px;cursor:pointer;text-decoration:none;font-family:'DM Sans',sans-serif}
+.btn.primary{background:var(--green);border-color:var(--green)}.btn.primary:hover{background:var(--green2)}
+main{max-width:1440px;margin:0 auto;padding:22px}
+.hero{background:linear-gradient(128deg,#13372d,#1e654f,#2e8f73);color:#f0fbf7;padding:20px;border-radius:var(--r2);margin-bottom:14px}
+.hero .tag{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px;opacity:.9}
+.hero h1{font-family:'Playfair Display',serif;font-size:30px;font-weight:500;line-height:1.2;margin-bottom:8px}.hero h1 em{color:#c4fae4}
+.hero p{font-size:14px;max-width:1020px}
+.grid{display:grid;grid-template-columns:minmax(420px,.95fr) minmax(420px,1.05fr);gap:14px;align-items:start}
+.card{background:var(--card);border:1px solid rgba(16,32,25,.08);border-radius:var(--r2);padding:16px}
+.card h2{font-family:'Playfair Display',serif;font-size:24px;font-weight:500;margin-bottom:6px}
+.sub{font-size:13px;color:var(--muted);margin-bottom:12px}
+.group{border:1px solid rgba(16,32,25,.08);border-radius:var(--r);padding:12px;margin-bottom:12px}
+.gt{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#1f4f9e;margin-bottom:8px}
+.f{margin-bottom:10px}.f:last-child{margin-bottom:0}
+label{display:block;font-size:13px;font-weight:700;margin-bottom:4px}label span{font-family:'DM Mono',monospace;font-size:11px;color:var(--green);margin-left:6px}
+.hint{font-size:12px;color:var(--muted);margin-bottom:6px}
+input[type="text"],textarea,select{width:100%;border:1.4px solid var(--line);border-radius:10px;padding:9px 11px;font-size:14px;font-family:'DM Sans',sans-serif;color:#22322d;background:#fff}
+textarea{min-height:72px;resize:vertical}
+input:focus,textarea:focus,select:focus{outline:none;border-color:rgba(31,122,84,.8);box-shadow:0 0 0 3px rgba(31,122,84,.14)}
+.check-wrap{border:1.4px solid var(--line);border-radius:10px;padding:8px 10px;background:#fff}
+.ck{display:flex;gap:8px;align-items:flex-start;font-size:13px;margin:4px 0}.ck input{margin-top:2px}
+.other-input{display:none;margin-top:8px}
+.hidden{display:none!important}
+.invalid{border-color:rgba(174,52,52,.72)!important;box-shadow:0 0 0 3px rgba(174,52,52,.12)!important}
+.err{display:none;font-size:12px;color:var(--red);margin-top:5px}.err.show{display:block}
+.act{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.act .btn{color:#22322d;border-color:var(--line)}.act .btn.primary{color:#fff;border-color:var(--green)}
+.tab{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-bottom:10px}
+.tab button{border:none;background:#fff;padding:7px 11px;font-size:12px;cursor:pointer}
+.tab button.on{background:#e8f4ee;color:#1d5d45;font-weight:700}
+.preview{border:1px solid rgba(16,32,25,.08);border-radius:12px;background:#fbfffd;max-height:840px;overflow:auto}
+.preview pre{margin:0;padding:12px;white-space:pre-wrap;font-family:'DM Mono',monospace;font-size:12px}
+.html{display:none;padding:12px}.html table{width:100%;border-collapse:collapse;margin:8px 0 12px}.html th,.html td{border:1px solid #d3e2da;padding:7px 8px;text-align:left;vertical-align:top}.html th{background:#edf6f1;font-size:12px}
+.note{margin-top:10px;padding:8px 10px;border:1px dashed rgba(31,122,84,.3);background:#f4faf7;border-radius:10px;font-size:12px;color:#1f4f3f}
+@media(max-width:1120px){.grid{grid-template-columns:1fr}}
+@media(max-width:760px){.top{padding:12px}.row{width:100%}.row .btn{flex:1}main{padding:14px 10px}.hero h1{font-size:27px}input[type="text"],textarea,select{font-size:16px}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="logo">Framework Pendidikan - <span>Master Prompt 04E</span></div>
+  <div class="row">
+    <a class="btn" href="framework-pendidikan.html">Kembali ke Framework</a>
+    <a class="btn" href="index.html">Kembali ke Hub</a>
+    <button class="btn" type="button" onclick="copyMarkdown()">Copy Markdown</button>
+    <button class="btn" type="button" onclick="downloadMarkdown()">Download .md</button>
+    <button class="btn" type="button" onclick="downloadHtml()">Download .html</button>
+    <button class="btn primary" type="button" onclick="downloadPdf()">Download PDF</button>
+  </div>
+</header>
+<main>
+  <section class="hero">
+    <div class="tag">Prompt 04E - FAQ Page Writer</div>
+    <h1>Master Prompt 04E <em>Pendidikan</em></h1>
+    <p>Form ini mengikuti input wajib Prompt 04E secara lengkap untuk menulis FAQ page yang AI-ready, mengurangi friksi konversi, dan tetap aman untuk standar trust/compliance Pendidikan.</p>
+  </section>
+  <div class="grid">
+    <section class="card">
+      <h2>Form Input Lengkap</h2>
+      <p class="sub">Isi data sedetail mungkin. Sistem akan memvalidasi field wajib agar output FAQ page lebih akurat.</p>
+      <form id="form"></form>
+      <div class="act">
+        <button class="btn primary" type="button" onclick="generateOutput()">Generate Master Prompt 04E</button>
+        <button class="btn" type="button" onclick="resetForm()">Reset Form</button>
+      </div>
+    </section>
+    <section class="card">
+      <h2>Preview Output</h2>
+      <p class="sub">Output siap copy-paste ke AI dan siap ekspor md/html/pdf.</p>
+      <div class="tab">
+        <button id="tab-md" class="on" type="button" onclick="showTab('md')">Markdown</button>
+        <button id="tab-html" type="button" onclick="showTab('html')">HTML</button>
+      </div>
+      <div class="preview">
+        <pre id="markdown-preview">Belum ada output. Isi form lalu klik "Generate Master Prompt 04E".</pre>
+        <div id="html-preview" class="html"><p>Belum ada output HTML.</p></div>
+      </div>
+      <div class="note">Catatan PDF: klik Download PDF lalu lanjutkan Save as PDF di dialog print browser.</div>
+    </section>
+  </div>
+</main>
+<script>
+const CFG={
+  title:'PROMPT 04E - FAQ PAGE WRITER',
+  subtitle:'FRAMEWORK SEO + AEO + GEO + LLM OPTIMIZATION 2026 - Pendidikan',
+  preSteps:[
+    'Pastikan output Prompt 01, Prompt 02, dan Prompt 03 sudah selesai.',
+    'Isi semua field input Bagian 1.',
+    'Jalankan dengan instruksi: "Jalankan Prompt 04E FAQ Page Writer Pendidikan untuk [tipe FAQ] berdasarkan input berikut."',
+    'FAQ page harus menjadi dokumen hidup: update rutin dari CS/admin/query audit.',
+    'Gunakan scorecard QA sebelum publish.'
+  ],
+  systemRules:[
+    'Setiap FAQ wajib standalone dan dimulai dengan jawaban langsung.',
+    'Pertanyaan harus natural seperti query user asli, bukan bahasa terlalu akademik.',
+    'Jawaban harus aman untuk konteks Pendidikan: no diagnosis personal, no overclaim.',
+    'FAQ page wajib answer-first dengan answer capsule dan struktur kategori jelas.',
+    'Internal links harus strategis ke money/pillar/cluster/local/trust page.',
+    'CTA soft boleh ditambahkan setelah user mendapatkan jawaban yang jelas.',
+    'Schema FAQPage disiapkan bila data valid.'
+  ],
+  writingFlow:[
+    'Outputkan coverage check dan data yang masih perlu dikonfirmasi.',
+    'Bangun FAQ architecture: H1, meta, slug, urutan kategori FAQ.',
+    'Tulis FAQ page lengkap dengan TOC kategori, Q&A format, dan link kontekstual.',
+    'Tambahkan FAQ fan-out tambahan 10-20 ide pertanyaan berikut alasannya.',
+    'Sertakan internal link plan, schema package, dan CTA conversion layer.'
+  ],
+  outputBlocks:[
+    'Output 1 - FAQ Audit Brief',
+    'Output 2 - FAQ Architecture Plan',
+    'Output 3 - FAQ Page Lengkap',
+    'Output 4 - FAQ Tambahan Berdasarkan Query Fan-out',
+    'Output 5 - Internal Link Plan',
+    'Output 6 - Schema Package',
+    'Output 7 - CTA & Conversion Layer'
+  ],
+  acceptance:[
+    'Pertanyaan natural, tidak duplikat, mencakup harga/proses/safety/lokasi/trust.',
+    'Semua jawaban standalone, jelas, dan aman secara compliance.',
+    'Ada answer capsule, struktur kategori, dan internal link strategis.',
+    'Tidak ada overclaim atau diagnosis personal.',
+    'Skor QA minimal 90 siap publish; 80-89 revisi minor.'
+  ]
+};
+
+const SCHEMA=[
+  {section:'Identitas Bisnis',key:'brand_name',label:'Nama Brand',required:true,type:'text'},
+  {section:'Identitas Bisnis',key:'Pendidikan_business_type',label:'Jenis Pendidikan',required:true,type:'select',allowOther:true,options:['Kampus / Universitas','Sekolah Tinggi / Akademi','Sekolah SD / SMP / SMA / SMK','Pesantren / Boarding School','Kursus Bahasa','Kursus Kecantikan','Kursus Digital Marketing','BLK / Pelatihan Kerja','Lembaga Kursus Profesional','Lembaga Sertifikasi','Jasa Pelatihan / Workshop','Konsultan Pendidikan','Hybrid Education Business']},
+  {section:'Identitas Bisnis',key:'main_area',label:'Kota / Area Utama',required:true,type:'text'},
+  {section:'Identitas Bisnis',key:'domain',label:'Domain / Website',required:true,type:'text'},
+  {section:'Identitas Bisnis',key:'wa_contact',label:'Nomor WA / Kontak',required:true,type:'text'},
+  {section:'Identitas Bisnis',key:'tagline',label:'Tagline / Positioning',type:'text'},
+  {section:'Identitas Bisnis',key:'year_established',label:'Tahun Berdiri',type:'text'},
+  {section:'Identitas Bisnis',key:'total_transactions',label:'Jumlah Siswa / Peserta / Alumni / Transaksi',type:'text'},
+  {section:'Identitas Bisnis',key:'legal_cert',label:'Legalitas / Izin / Sertifikasi',type:'textarea'},
+  {section:'Identitas Bisnis',key:'operational_hours',label:'Jam Operasional',type:'text'},
+  {section:'Identitas Bisnis',key:'admin_response_eta',label:'Estimasi Respons Admin',type:'text'},
+
+  {section:'Identitas FAQ Page',key:'faq_page_type',label:'Tipe FAQ Page',required:true,type:'select',options:['FP1 - FAQ Program / Jurusan / Kelas','FP2 - FAQ Biaya / Pendaftaran / Jadwal','FP3 - FAQ Lokasi / Cabang / Area','FP4 - FAQ Trust / Akreditasi / Sertifikat / Outcome','FP5 - Master FAQ']},
+  {section:'Identitas FAQ Page',key:'primary_keyword',label:'Primary Keyword',required:true,type:'text'},
+  {section:'Identitas FAQ Page',key:'secondary_keywords',label:'Secondary Keywords',type:'textarea',list:true},
+  {section:'Identitas FAQ Page',key:'longtail_faq_keywords',label:'Long-tail FAQ Keywords',type:'textarea',list:true},
+
+  {section:'Pertanyaan Nyata - Kategori Harga/Paket/Pembayaran',key:'faq_cat_a',label:'Pertanyaan Kategori A (min. 5)',required:true,type:'textarea',list:true,min:5,numbered:true},
+  {section:'Pertanyaan Nyata - Kategori Layanan/Produk/Manfaat',key:'faq_cat_b',label:'Pertanyaan Kategori B (min. 5)',required:true,type:'textarea',list:true,min:5,numbered:true},
+  {section:'Pertanyaan Nyata - Kategori Persiapan/Proses/Aftercare',key:'faq_cat_c',label:'Pertanyaan Kategori C (min. 5)',required:true,type:'textarea',list:true,min:5,numbered:true},
+  {section:'Pertanyaan Nyata - Kategori Safety/Risiko/Kontraindikasi',key:'faq_cat_d',label:'Pertanyaan Kategori D (min. 5)',required:true,type:'textarea',list:true,min:5,numbered:true},
+  {section:'Pertanyaan Nyata - Kategori Lokasi/Cabang/Area/Jadwal',key:'faq_cat_e',label:'Pertanyaan Kategori E (min. 5)',required:true,type:'textarea',list:true,min:5,numbered:true},
+  {section:'Pertanyaan Nyata - Kategori Pengajar/Mentor/Trust',key:'faq_cat_f',label:'Pertanyaan Kategori F (min. 5)',required:true,type:'textarea',list:true,min:5,numbered:true},
+
+  {section:'Data Jawaban Faktual - Harga/Paket',key:'price_start',label:'Harga mulai',type:'text'},
+  {section:'Data Jawaban Faktual - Harga/Paket',key:'price_max',label:'Harga tertinggi / range tertinggi',type:'text'},
+  {section:'Data Jawaban Faktual - Harga/Paket',key:'active_packages',label:'Paket / program aktif',type:'text'},
+  {section:'Data Jawaban Faktual - Harga/Paket',key:'price_disclaimer',label:'Disclaimer harga',required:true,type:'text'},
+
+  {section:'Data Jawaban Faktual - Layanan/Produk',key:'main_services',label:'Layanan utama',type:'text'},
+  {section:'Data Jawaban Faktual - Layanan/Produk',key:'main_products',label:'Produk utama',type:'text'},
+  {section:'Data Jawaban Faktual - Layanan/Produk',key:'served_needs',label:'Kategori keluhan/kebutuhan yang dilayani',type:'text'},
+  {section:'Data Jawaban Faktual - Layanan/Produk',key:'safe_benefit_claims',label:'Benefit yang aman diklaim',type:'textarea'},
+  {section:'Data Jawaban Faktual - Layanan/Produk',key:'forbidden_claims',label:'Claim yang tidak boleh digunakan',type:'textarea'},
+
+  {section:'Data Jawaban Faktual - Proses',key:'booking_order_way',label:'Cara booking / order',type:'text'},
+  {section:'Data Jawaban Faktual - Proses',key:'consult_purchase_steps',label:'Langkah konsultasi / pembelian',type:'textarea'},
+  {section:'Data Jawaban Faktual - Proses',key:'duration_eta',label:'Durasi layanan / estimasi pengiriman',type:'text'},
+  {section:'Data Jawaban Faktual - Proses',key:'preparation_steps',label:'Persiapan sebelum tindakan / penggunaan',type:'text'},
+  {section:'Data Jawaban Faktual - Proses',key:'aftercare_steps',label:'Aftercare / penggunaan lanjutan',type:'text'},
+
+  {section:'Data Jawaban Faktual - Safety/Batasan',key:'need_screening',label:'Kondisi yang perlu screening terlebih dahulu',type:'text'},
+  {section:'Data Jawaban Faktual - Safety/Batasan',key:'not_candidate',label:'Kondisi yang tidak boleh ditangani / bukan kandidat',type:'text'},
+  {section:'Data Jawaban Faktual - Safety/Batasan',key:'emergency_boundary',label:'Batas emergency / kapan harus ke fasilitas gawat darurat',type:'text'},
+  {section:'Data Jawaban Faktual - Safety/Batasan',key:'common_side_effects',label:'Efek samping umum yang boleh diinformasikan',type:'text'},
+  {section:'Data Jawaban Faktual - Safety/Batasan',key:'medical_safety_disclaimer',label:'Disclaimer akademik / safety',required:true,type:'text'},
+
+  {section:'Data Jawaban Faktual - Lokasi',key:'active_branches',label:'Cabang / lokasi aktif',type:'text'},
+  {section:'Data Jawaban Faktual - Lokasi',key:'service_delivery_areas',label:'Area layanan / pengiriman',type:'text'},
+  {section:'Data Jawaban Faktual - Lokasi',key:'practice_schedule',label:'Hari & jam praktik / operasional',type:'text'},
+  {section:'Data Jawaban Faktual - Lokasi',key:'appointment_walkin',label:'Sistem appointment / walk-in',type:'text'},
+
+  {section:'Data Jawaban Faktual - Trust',key:'doctor_pic_name',label:'Nama pengajar / mentor / penanggung jawab',type:'text'},
+  {section:'Data Jawaban Faktual - Trust',key:'doctor_credential',label:'Kredensial / lisensi / gelar',type:'text'},
+  {section:'Data Jawaban Faktual - Trust',key:'rating_review',label:'Review / rating',type:'text'},
+  {section:'Data Jawaban Faktual - Trust',key:'awards_media',label:'Penghargaan / publikasi / media coverage',type:'text'},
+
+  {section:'Linking',key:'pillar_pages',label:'Pillar Pages Relevan (min.2)',required:true,type:'textarea',list:true,min:2,numbered:true},
+  {section:'Linking',key:'money_pages',label:'Money Pages Relevan (min.2)',required:true,type:'textarea',list:true,min:2,numbered:true},
+  {section:'Linking',key:'cluster_pages',label:'Cluster Pages Relevan (min.3)',required:true,type:'textarea',list:true,min:3,numbered:true},
+  {section:'Linking',key:'local_branch_pages',label:'Local/Branch Pages Relevan',type:'textarea',list:true,numbered:true},
+
+  {section:'Format Output',key:'faq_count_target',label:'Jumlah FAQ Target',required:true,type:'select',options:['15-20 FAQ','20-30 FAQ','30-50 FAQ','50+ FAQ (Master FAQ)']},
+  {section:'Format Output',key:'word_count_target',label:'Panjang Target',required:true,type:'select',options:['1.000-1.500 kata','1.500-2.500 kata','2.500-4.000 kata']},
+  {section:'Format Output',key:'tone_voice',label:'Tone of Voice',required:true,type:'select',allowOther:true,options:['Profesional + Menenangkan','Hangat + Edukatif','Premium + Meyakinkan','Formal + Akademik','Friendly + Praktis']}
+];
+
+let activeTab='md'; let lastOutput={markdown:'',html:''};
+const byId=(id)=>document.getElementById(id); const clean=(v)=>(v||'').replace(/\r/g,'').trim(); const today=()=>new Date().toISOString().slice(0,10);
+const esc=(v)=>(v||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+const slug=(v)=>(v||'brand').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,80)||'brand';
+const splitLines=(v)=>clean(v).split(/\n|;|,/).map((x)=>x.replace(/^\d+[\).\s-]*/,'').trim()).filter(Boolean);
+
+function renderField(f){
+  const req=f.required?'<span>Wajib</span>':''; const hint=f.hint?`<p class="hint">${f.hint}</p>`:'';
+  let input='';
+  if(f.type==='textarea') input=`<textarea id="${f.key}" placeholder="Isi ${f.label.toLowerCase()}"></textarea>`;
+  else if(f.type==='select'){
+    const opts=(f.options||[]).map((o)=>`<option value="${o}">${o}</option>`).join('');
+    const other=f.allowOther?`<option value="__other__">Lainnya (tulis manual)</option>`:'';
+    const otherInput=f.allowOther?`<input id="${f.key}_other" class="other-input" type="text" placeholder="Isi lainnya untuk ${f.label.toLowerCase()}">`:'';
+    input=`<select id="${f.key}"><option value="">Pilih opsi</option>${opts}${other}</select>${otherInput}`;
+  } else if(f.type==='checklist'){
+    const items=(f.options||[]).map((o)=>`<label class="ck"><input type="checkbox" name="${f.key}" value="${o}">${o}</label>`).join('');
+    const other=f.allowOther?`<label class="ck"><input type="checkbox" name="${f.key}" value="__other__">Lainnya</label><input id="${f.key}_other" class="other-input" type="text" placeholder="Isi lainnya untuk ${f.label.toLowerCase()}">`:'';
+    input=`<div class="check-wrap" id="wrap-${f.key}">${items}${other}</div>`;
+  } else input=`<input id="${f.key}" type="text" placeholder="Isi ${f.label.toLowerCase()}">`;
+  return `<div class="f" id="field-${f.key}"><label for="${f.key}">${f.label} ${req}</label>${hint}${input}<div class="err" id="err-${f.key}">${f.required?`${f.label} wajib diisi.`:'Field belum valid.'}</div></div>`;
+}
+
+function renderForm(){
+  const form=byId('form'); const groups=[...new Set(SCHEMA.map((s)=>s.section))];
+  form.innerHTML=groups.map((g)=>`<div class="group"><div class="gt">${g}</div>${SCHEMA.filter((f)=>f.section===g).map(renderField).join('')}</div>`).join('');
+}
+
+function bindOthers(){
+  SCHEMA.filter((f)=>f.type==='select'&&f.allowOther).forEach((f)=>{ const sel=byId(f.key), other=byId(`${f.key}_other`); if(!sel||!other) return; const sync=()=>{const on=sel.value==='__other__'; other.style.display=on?'block':'none'; if(!on) other.value='';}; sel.addEventListener('change',sync); sync(); });
+  SCHEMA.filter((f)=>f.type==='checklist'&&f.allowOther).forEach((f)=>{ const other=byId(`${f.key}_other`); if(!other) return; const sync=()=>{const on=!!document.querySelector(`input[name="${f.key}"][value="__other__"]:checked`); other.style.display=on?'block':'none'; if(!on) other.value='';}; document.querySelectorAll(`input[name="${f.key}"]`).forEach((el)=>el.addEventListener('change',sync)); sync(); });
+  document.querySelectorAll('select').forEach((el)=>el.addEventListener('change',applyConditionalVisibility));
+  applyConditionalVisibility();
+}
+
+function isVisible(f){
+  if(!f.showIf) return true;
+  const dep=clean((byId(f.showIf.key)||{}).value||'');
+  return (f.showIf.values||[]).includes(dep);
+}
+
+function applyConditionalVisibility(){
+  SCHEMA.forEach((f)=>{
+    const wrap=byId(`field-${f.key}`);
+    if(!wrap) return;
+    const show=isVisible(f);
+    wrap.classList.toggle('hidden',!show);
+    if(!show){
+      if(f.type==='checklist') document.querySelectorAll(`input[name="${f.key}"]`).forEach((el)=>{el.checked=false;});
+      else{
+        const el=byId(f.key); if(el) el.value='';
+        const other=byId(`${f.key}_other`); if(other){other.value='';other.style.display='none';}
+      }
+      setInvalid(f,false,'');
+    }
+  });
+}
+
+function collect(){
+  const d={};
+  SCHEMA.forEach((f)=>{
+    if(f.type==='checklist'){
+      const vals=[...document.querySelectorAll(`input[name="${f.key}"]:checked`)].map((el)=>el.value);
+      d[f.key]=vals.filter((v)=>v!=='__other__');
+      if(vals.includes('__other__')) d[f.key].push(clean((byId(`${f.key}_other`)||{}).value||'')?`Lainnya: ${clean((byId(`${f.key}_other`)||{}).value||'')}`:'Lainnya');
+    }else if(f.type==='select'){
+      const v=clean((byId(f.key)||{}).value||''); d[f.key]=(f.allowOther&&v==='__other__')?(clean((byId(`${f.key}_other`)||{}).value||'')?`Lainnya: ${clean((byId(`${f.key}_other`)||{}).value||'')}`:'Lainnya'):v;
+    }else{
+      const raw=(byId(f.key)||{}).value||''; d[f.key]=f.list?splitLines(raw):clean(raw);
+    }
+  });
+  return d;
+}
+
+function setInvalid(f,bad,msg){
+  const el=byId(f.key), err=byId(`err-${f.key}`); if(el) el.classList.toggle('invalid',!!bad);
+  if(f.type==='checklist'){const wrap=byId(`wrap-${f.key}`); if(wrap) wrap.classList.toggle('invalid',!!bad);} 
+  if(err){ if(msg) err.textContent=msg; err.classList.toggle('show',!!bad); }
+}
+
+function validate(d){
+  let ok=true;
+  SCHEMA.forEach((f)=>{
+    if(!isVisible(f)){ setInvalid(f,false,''); return; }
+    let bad=false, msg=`${f.label} wajib diisi.`;
+    if(f.required){ if(f.type==='checklist') bad=(d[f.key]||[]).length<1; else if(f.list) bad=(d[f.key]||[]).length<1; else bad=!d[f.key]; }
+    if(!bad&&f.min){ const n=f.list?(d[f.key]||[]).length:splitLines(d[f.key]||'').length; bad=n<f.min; msg=`Isi minimal ${f.min} item untuk ${f.label}.`; }
+    if(!bad && f.allowOther && (byId(f.key)?.value==='__other__')){ const txt=clean((byId(`${f.key}_other`)||{}).value||''); if(!txt){ bad=true; msg=`Isi nilai lainnya untuk ${f.label}.`; } }
+    if(!bad && f.type==='checklist' && f.allowOther){ const on=!!document.querySelector(`input[name="${f.key}"][value="__other__"]:checked`); if(on&&!clean((byId(`${f.key}_other`)||{}).value||'')){ bad=true; msg=`Isi nilai lainnya untuk ${f.label}.`; }}
+    setInvalid(f,bad,msg); if(bad) ok=false;
+  });
+  return ok;
+}
+
+const mdList=(arr)=>arr&&arr.length?arr.map((x)=>`- ${x}`).join('\n'):'- [Tidak diisi]';
+const mdNum=(arr)=>arr&&arr.length?arr.map((x,i)=>`${i+1}. ${x}`).join('\n'):'1. [Tidak diisi]';
+
+function sectionMarkdown(d){
+  const groups=[...new Set(SCHEMA.map((s)=>s.section))];
+  return groups.map((g)=>{
+    const lines=[`[${g.toUpperCase()}]`];
+    SCHEMA.filter((f)=>f.section===g).forEach((f)=>{
+      if(!isVisible(f)) return;
+      const v=d[f.key];
+      if(Array.isArray(v)) lines.push(`- ${f.label}:\n${f.numbered?mdNum(v):mdList(v)}`);
+      else lines.push(`- ${f.label}: ${v||'-'}`);
+    });
+    lines.push('');
+    return lines.join('\n');
+  }).join('\n');
+}
+
+function buildMarkdown(d){
+  return [
+`# ${CFG.title}`,
+`## ${CFG.subtitle}`,
+``,
+`Tanggal Generate: ${today()}`,
+``,
+`==================================================`,
+`BAGIAN 0 - CARA MENGGUNAKAN PROMPT`,
+`==================================================`,
+...CFG.preSteps.map((s,i)=>`${i+1}. ${s}`),
+``,
+`==================================================`,
+`BAGIAN 1 - INPUT WAJIB (TERISI)`,
+`==================================================`,
+sectionMarkdown(d),
+`==================================================`,
+`BAGIAN 2 - INSTRUKSI SISTEM UNTUK AI`,
+`==================================================`,
+...CFG.systemRules.map((s,i)=>`${i+1}. ${s}`),
+``,
+`==================================================`,
+`BAGIAN 3 - INSTRUKSI PENULISAN LENGKAP`,
+`==================================================`,
+...CFG.writingFlow.map((s,i)=>`${i+1}. ${s}`),
+``,
+`==================================================`,
+`BAGIAN 4 - OUTPUT WAJIB LENGKAP`,
+`==================================================`,
+...CFG.outputBlocks.map((b,i)=>`${i+1}. ${b}`),
+``,
+`==================================================`,
+`BAGIAN 5 - ACCEPTANCE CRITERIA`,
+`==================================================`,
+...CFG.acceptance.map((a)=>`- ${a}`),
+``,
+`NEXT STEP: Gunakan output Prompt 04E ini untuk publish FAQ page yang hidup (living document), lalu update berkala dari pertanyaan user, query baru, dan audit konten.`
+  ].join('\n');
+}
+
+function buildHtmlBody(d,md){
+  return `<article><h3>Master Prompt 04E - FAQ Page Writer Pendidikan</h3><p><strong>Brand:</strong> ${esc(d.brand_name||'-')} | <strong>Tipe FAQ:</strong> ${esc(d.faq_page_type||'-')} | <strong>Tanggal:</strong> ${esc(today())}</p><table><thead><tr><th>Field</th><th>Nilai</th></tr></thead><tbody><tr><td>Primary Keyword</td><td>${esc(d.primary_keyword||'-')}</td></tr><tr><td>Jumlah FAQ Target</td><td>${esc(d.faq_count_target||'-')}</td></tr><tr><td>Panjang Target</td><td>${esc(d.word_count_target||'-')}</td></tr><tr><td>Tone</td><td>${esc(d.tone_voice||'-')}</td></tr></tbody></table><h4>Prompt Siap Copy</h4><pre>${esc(md)}</pre></article>`;
+}
+
+function exportDoc(body){return `<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Master Prompt 04E</title><style>body{font-family:Arial,sans-serif;margin:28px;color:#1f2532;line-height:1.65}h3{font-size:30px;margin-bottom:8px}p,li,td,th{font-size:14px}table{width:100%;border-collapse:collapse;margin:8px 0 14px}th,td{border:1px solid #d2d9e8;padding:8px 10px;text-align:left;vertical-align:top}th{background:#eff3fc;font-size:12px;text-transform:uppercase}pre{white-space:pre-wrap;background:#f6f8fc;border:1px solid #dbe2ef;border-radius:10px;padding:12px;font-size:12px}@media print{body{margin:14mm}}</style></head><body>${body}</body></html>`;}
+
+function showTab(name){activeTab=name;byId('markdown-preview').style.display=name==='md'?'block':'none';byId('html-preview').style.display=name==='html'?'block':'none';byId('tab-md').classList.toggle('on',name==='md');byId('tab-html').classList.toggle('on',name==='html');}
+function generateOutput(){const d=collect();if(!validate(d)){alert('Masih ada field wajib yang belum lengkap. Mohon cek bagian merah.');return false;} lastOutput.markdown=buildMarkdown(d); lastOutput.html=buildHtmlBody(d,lastOutput.markdown); byId('markdown-preview').textContent=lastOutput.markdown; byId('html-preview').innerHTML=lastOutput.html; showTab(activeTab); return true;}
+function ensureOutput(){if(lastOutput.markdown&&lastOutput.html)return true;return generateOutput();}
+function blobDownload(content,type,fname){const blob=new Blob([content],{type});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=fname;document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);} 
+function copyMarkdown(){if(!ensureOutput())return;navigator.clipboard.writeText(lastOutput.markdown).then(()=>alert('Markdown berhasil disalin.')).catch(()=>alert('Gagal menyalin otomatis.'));}
+function downloadMarkdown(){if(!ensureOutput())return;blobDownload(lastOutput.markdown,'text/markdown;charset=utf-8',`framework-pendidikan-master-prompt-04e-${slug(clean((byId('brand_name')||{}).value||'brand'))}-${today()}.md`);} 
+function downloadHtml(){if(!ensureOutput())return;blobDownload(exportDoc(lastOutput.html),'text/html;charset=utf-8',`framework-pendidikan-master-prompt-04e-${slug(clean((byId('brand_name')||{}).value||'brand'))}-${today()}.html`);} 
+function downloadPdf(){if(!ensureOutput())return;const w=window.open('','_blank');if(!w){alert('Pop-up diblokir browser.');return;}w.document.open();w.document.write(exportDoc(lastOutput.html));w.document.close();w.focus();setTimeout(()=>w.print(),320);} 
+function resetForm(){byId('form').reset();document.querySelectorAll('.invalid').forEach((el)=>el.classList.remove('invalid'));document.querySelectorAll('.err').forEach((el)=>el.classList.remove('show'));document.querySelectorAll('.other-input').forEach((el)=>{el.value='';el.style.display='none';});lastOutput={markdown:'',html:''};byId('markdown-preview').textContent='Belum ada output. Isi form lalu klik "Generate Master Prompt 04E".';byId('html-preview').innerHTML='<p>Belum ada output HTML.</p>';showTab('md');applyConditionalVisibility();}
+
+renderForm();bindOthers();
+</script>
+</body>
+</html>
+
+
+

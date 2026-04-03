@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Workbook Funnel Marketing - Framework Bisnis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0f1117;--ink2:#1f2532;--muted:#687287;--bg:#f4f7fc;--card:#fff;--blue:#1f5cb7;--blue2:#2f74d4;--line:rgba(15,17,23,.16);--line2:rgba(15,17,23,.08);--red:#a53030;--r:12px;--r2:18px;--shadow:0 10px 30px rgba(16,23,45,.08),0 2px 10px rgba(16,23,45,.08)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;color:var(--ink);line-height:1.6;background:radial-gradient(circle at 10% 0,rgba(31,116,212,.12)0,transparent 36%),radial-gradient(circle at 100% 100%,rgba(31,122,79,.12)0,transparent 40%),var(--bg)}
+.top{position:sticky;top:0;z-index:50;background:#121826;border-bottom:1px solid rgba(255,255,255,.1);padding:14px 24px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.logo{font-family:'Playfair Display',serif;color:#edf2ff;font-size:17px}.logo span{color:#9bc0ff;font-style:italic}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.btn{border:1px solid transparent;background:#fff;padding:8px 12px;border-radius:10px;font-size:12px;cursor:pointer;text-decoration:none;color:#1f2532;display:inline-flex;align-items:center;gap:6px}
+.btn.ghost{background:transparent;color:#f1f5ff;border-color:rgba(255,255,255,.35)}
+.btn.ghost:hover{border-color:rgba(255,255,255,.6)}
+.btn.primary{background:var(--blue);color:#fff}.btn.primary:hover{background:var(--blue2)}
+main{max-width:1400px;margin:0 auto;padding:24px}
+.hero{background:linear-gradient(130deg,#16213d 0%,#22315e 40%,#304a89 100%);border:1px solid rgba(255,255,255,.16);color:#f2f5fb;border-radius:var(--r2);box-shadow:var(--shadow);padding:22px;margin-bottom:16px}
+.hero .tag{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.09em;text-transform:uppercase;opacity:.86;margin-bottom:8px}
+.hero h1{font-family:'Playfair Display',serif;font-size:30px;font-weight:500;line-height:1.2;margin-bottom:8px}.hero h1 em{color:#b9d0fb}
+.hero p{font-size:14px;max-width:960px;color:rgba(236,242,255,.92)}
+.grid{display:grid;grid-template-columns:minmax(360px,1fr) minmax(390px,1fr);gap:16px;align-items:start}
+.card{background:var(--card);border:1px solid var(--line2);border-radius:var(--r2);box-shadow:var(--shadow);padding:16px}
+.card h2{font-family:'Playfair Display',serif;font-size:24px;font-weight:500;margin-bottom:6px}
+.sub{font-size:13px;color:var(--muted);margin-bottom:14px}
+.group{border:1px solid var(--line2);border-radius:var(--r);padding:12px;background:#fff;margin-bottom:12px}
+.gt{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);margin-bottom:10px}
+.f{margin-bottom:10px}.f:last-child{margin-bottom:0}
+label{display:block;font-size:13px;font-weight:600;color:var(--ink2);margin-bottom:4px}
+label span{margin-left:6px;color:var(--blue2);font-size:11px;font-family:'DM Mono',monospace}
+.hint{font-size:12px;color:var(--muted);margin-bottom:6px}
+input[type="text"],textarea{width:100%;border:1.4px solid var(--line);border-radius:10px;padding:9px 11px;font-size:14px;color:var(--ink2);font-family:'DM Sans',sans-serif}
+textarea{min-height:78px;resize:vertical}
+input:focus,textarea:focus{outline:none;border-color:rgba(47,116,212,.78);box-shadow:0 0 0 3px rgba(47,116,212,.16)}
+.opt{border:1.4px solid var(--line);border-radius:10px;padding:8px 10px}
+.opt.invalid,input.invalid,textarea.invalid{border-color:rgba(165,48,48,.75)!important;box-shadow:0 0 0 3px rgba(165,48,48,.12)!important}
+.ck{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--ink2);margin:4px 0}.ck input{margin-top:2px}
+.err{display:none;color:var(--red);font-size:12px;margin-top:5px}.err.show{display:block}
+.act{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.tab{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-bottom:10px}
+.tab button{border:none;background:#fff;padding:7px 11px;font-size:12px;cursor:pointer}
+.tab button.on{background:#ebf3ff;color:#1c4f9e;font-weight:600}
+.preview{border:1px solid var(--line2);border-radius:12px;background:#f9fbff;max-height:760px;overflow:auto}
+pre{font-family:'DM Mono',monospace;font-size:12px;white-space:pre-wrap;padding:12px;color:#17253f}
+.html{display:none;padding:12px;background:#fff;font-size:14px}
+.html table{width:100%;border-collapse:collapse;margin-top:8px}.html th,.html td{border:1px solid #dce4f2;padding:7px 9px;text-align:left;vertical-align:top}.html th{background:#f1f6ff;font-size:12px;text-transform:uppercase}
+@media(max-width:1080px){.grid{grid-template-columns:1fr}}
+@media(max-width:700px){.top{padding:12px 14px}main{padding:16px 12px}.hero h1{font-size:25px}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="logo">Workbook Framework - <span>Funnel Marketing</span></div>
+  <div class="row">
+    <a class="btn ghost" href="index.html">Kembali ke Hub</a>
+    <a class="btn ghost" href="buyer-persona-workbook.html">Buka Buyer Persona</a>
+    <button class="btn ghost" type="button" onclick="copyMd()">Copy Markdown</button>
+    <button class="btn primary" type="button" onclick="downloadMd()">Download .md</button>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="tag">Fundamental Business Growth Framework - Workbook Tambahan</div>
+    <h1>Funnel Marketing <em>Input Builder</em></h1>
+    <p>Form ini mengikuti FORMAT INPUT dari MASTER PROMPT FUNNEL MARKETING (April 2026). Lengkapi kondisi awareness, consideration, conversion, loyalty, dan advocacy untuk menghasilkan diagnosis kebocoran serta action plan 30 hari yang realistis.</p>
+  </section>
+
+  <div class="grid">
+    <section class="card">
+      <h2>Form Input Lengkap</h2>
+      <p class="sub">Field wajib diisi agar analisis A-F (Diagnosis, Funnel Map, Strategi, Action Plan, Workbook, Summary) akurat.</p>
+      <form id="form" novalidate>
+        <div class="group">
+          <div class="gt">Identitas Bisnis</div>
+          <div class="f">
+            <label for="brand">Nama Bisnis / Brand <span>Wajib</span></label>
+            <p class="hint">Gunakan nama brand yang konsisten di semua workbook.</p>
+            <input id="brand" type="text">
+            <div class="err" id="err-brand">Nama bisnis wajib diisi.</div>
+          </div>
+          <div class="f">
+            <label for="industry">Industri / Kategori <span>Wajib</span></label>
+            <p class="hint">Tuliskan kategori spesifik agar rekomendasi channel tidak generik.</p>
+            <input id="industry" type="text">
+            <div class="err" id="err-industry">Industri wajib diisi.</div>
+          </div>
+          <div class="f">
+            <label for="offer">Produk / Jasa Utama <span>Wajib</span></label>
+            <p class="hint">Jelaskan penawaran utama yang saat ini dijual.</p>
+            <textarea id="offer"></textarea>
+            <div class="err" id="err-offer">Produk/jasa utama wajib diisi.</div>
+          </div>
+          <div class="f">
+            <label for="target_customer">Target Pelanggan Utama <span>Wajib</span></label>
+            <p class="hint">Sebutkan segmen utama agar strategi per tahap funnel relevan.</p>
+            <textarea id="target_customer"></textarea>
+            <div class="err" id="err-target_customer">Target pelanggan utama wajib diisi.</div>
+          </div>
+        </div>
+
+        <div class="group">
+          <div class="gt">Kondisi Funnel Saat Ini</div>
+          <div class="f">
+            <label>Awareness - Seberapa Dikenal? <span>Wajib</span></label>
+            <p class="hint">Pilih kondisi saat ini agar AI bisa menilai titik awal funnel.</p>
+            <div class="opt" id="wrap-awareness_level">
+              <label class="ck"><input type="radio" name="awareness_level" value="Hampir tidak dikenal">Hampir tidak dikenal</label>
+              <label class="ck"><input type="radio" name="awareness_level" value="Dikenal sebagian kecil">Dikenal sebagian kecil</label>
+              <label class="ck"><input type="radio" name="awareness_level" value="Cukup dikenal di segmen tertentu">Cukup dikenal di segmen tertentu</label>
+              <label class="ck"><input type="radio" name="awareness_level" value="Sudah dikenal luas">Sudah dikenal luas</label>
+            </div>
+            <div class="err" id="err-awareness_level">Pilih level awareness saat ini.</div>
+          </div>
+          <div class="f">
+            <label for="awareness_channels">Channel Awareness yang Sudah Dipakai <span>Wajib</span></label>
+            <p class="hint">Cantumkan channel yang aktif dipakai untuk menjangkau orang baru.</p>
+            <textarea id="awareness_channels"></textarea>
+            <div class="err" id="err-awareness_channels">Channel awareness wajib diisi.</div>
+          </div>
+          <div class="f">
+            <label for="consideration_assets">Consideration - Aset untuk Membantu Orang Mempertimbangkan <span>Wajib</span></label>
+            <p class="hint">Contoh: website, testimoni, portfolio, FAQ, konten edukatif, dan sejenisnya.</p>
+            <textarea id="consideration_assets"></textarea>
+            <div class="err" id="err-consideration_assets">Aset consideration wajib diisi.</div>
+          </div>
+          <div class="f">
+            <label for="conversion_data">Conversion - Berapa Banyak yang Akhirnya Membeli? <span>Wajib</span></label>
+            <p class="hint">Bisa angka estimasi, rasio closing, atau konversi per channel.</p>
+            <textarea id="conversion_data"></textarea>
+            <div class="err" id="err-conversion_data">Data conversion wajib diisi.</div>
+          </div>
+          <div class="f">
+            <label>Loyalty - Apakah Pelanggan Kembali Membeli? <span>Wajib</span></label>
+            <div class="opt" id="wrap-loyalty_level">
+              <label class="ck"><input type="radio" name="loyalty_level" value="Jarang / hampir tidak ada">Jarang / hampir tidak ada</label>
+              <label class="ck"><input type="radio" name="loyalty_level" value="Sebagian kembali">Sebagian kembali</label>
+              <label class="ck"><input type="radio" name="loyalty_level" value="Sebagian besar kembali">Sebagian besar kembali</label>
+              <label class="ck"><input type="radio" name="loyalty_level" value="Belum bisa diukur">Belum bisa diukur</label>
+            </div>
+            <div class="err" id="err-loyalty_level">Pilih kondisi loyalty saat ini.</div>
+          </div>
+          <div class="f">
+            <label>Advocacy - Apakah Pelanggan Merekomendasikan? <span>Wajib</span></label>
+            <div class="opt" id="wrap-advocacy_level">
+              <label class="ck"><input type="radio" name="advocacy_level" value="Belum ada yang merekomendasikan">Belum ada yang merekomendasikan</label>
+              <label class="ck"><input type="radio" name="advocacy_level" value="Ada tapi sporadis">Ada tapi sporadis</label>
+              <label class="ck"><input type="radio" name="advocacy_level" value="Cukup sering terjadi">Cukup sering terjadi</label>
+              <label class="ck"><input type="radio" name="advocacy_level" value="Sudah ada program referral">Sudah ada program referral</label>
+            </div>
+            <div class="err" id="err-advocacy_level">Pilih kondisi advocacy saat ini.</div>
+          </div>
+        </div>
+
+        <div class="group">
+          <div class="gt">Aktivitas yang Sudah Dilakukan</div>
+          <div class="f">
+            <label for="activities_done">Apa Saja yang Sudah Dilakukan untuk Tiap Tahap? <span>Wajib</span></label>
+            <p class="hint">Ceritakan aktivitas marketing yang berjalan saat ini, tidak harus dipisah per tahap.</p>
+            <textarea id="activities_done"></textarea>
+            <div class="err" id="err-activities_done">Aktivitas yang sudah dilakukan wajib diisi.</div>
+          </div>
+          <div class="f">
+            <label for="active_channels">Channel atau Platform yang Sudah Aktif <span>Wajib</span></label>
+            <p class="hint">Sebutkan channel yang rutin digunakan sekarang.</p>
+            <textarea id="active_channels"></textarea>
+            <div class="err" id="err-active_channels">Channel aktif wajib diisi.</div>
+          </div>
+          <div class="f">
+            <label for="best_activity">Aktivitas Mana yang Paling Menghasilkan?</label>
+            <textarea id="best_activity"></textarea>
+          </div>
+          <div class="f">
+            <label for="weak_activity">Aktivitas Mana yang Paling Tidak Efektif?</label>
+            <textarea id="weak_activity"></textarea>
+          </div>
+        </div>
+
+        <div class="group">
+          <div class="gt">Diagnosis Awal</div>
+          <div class="f">
+            <label>Tahap Funnel Mana yang Paling Lemah? <span>Wajib</span></label>
+            <p class="hint">Pilih bottleneck utama menurut kondisi saat ini.</p>
+            <div class="opt" id="wrap-weakest_stage">
+              <label class="ck"><input type="radio" name="weakest_stage" value="Awareness (sedikit yang tahu)">Awareness (sedikit yang tahu)</label>
+              <label class="ck"><input type="radio" name="weakest_stage" value="Consideration (banyak tahu, sedikit tertarik serius)">Consideration (banyak tahu, sedikit tertarik serius)</label>
+              <label class="ck"><input type="radio" name="weakest_stage" value="Conversion (banyak tertarik, sedikit beli)">Conversion (banyak tertarik, sedikit beli)</label>
+              <label class="ck"><input type="radio" name="weakest_stage" value="Loyalty (banyak beli, tidak kembali)">Loyalty (banyak beli, tidak kembali)</label>
+              <label class="ck"><input type="radio" name="weakest_stage" value="Advocacy (puas tapi tidak merekomendasikan)">Advocacy (puas tapi tidak merekomendasikan)</label>
+              <label class="ck"><input type="radio" name="weakest_stage" value="Belum tahu / semua terasa lemah">Belum tahu / semua terasa lemah</label>
+            </div>
+            <div class="err" id="err-weakest_stage">Pilih tahap funnel terlemah.</div>
+          </div>
+          <div class="f">
+            <label for="strongest_stage">Tahap Funnel Mana yang Paling Kuat Saat Ini?</label>
+            <textarea id="strongest_stage"></textarea>
+          </div>
+        </div>
+
+        <div class="group">
+          <div class="gt">Konteks Tambahan</div>
+          <div class="f">
+            <label for="persona_output">Output Buyer Persona (Jika Ada)</label>
+            <p class="hint">Tempel ringkasan buyer persona agar strategi funnel lebih personal.</p>
+            <textarea id="persona_output"></textarea>
+          </div>
+          <div class="f">
+            <label>Anggaran / Resource untuk Marketing</label>
+            <p class="hint">Opsional, tapi membantu AI menyarankan strategi yang realistis.</p>
+            <div class="opt">
+              <label class="ck"><input type="radio" name="budget" value="Sangat terbatas (0 / organik saja)">Sangat terbatas (0 / organik saja)</label>
+              <label class="ck"><input type="radio" name="budget" value="Terbatas (kurang dari Rp 3 juta / bulan)">Terbatas (&lt; Rp 3 juta / bulan)</label>
+              <label class="ck"><input type="radio" name="budget" value="Sedang (Rp 3-10 juta / bulan)">Sedang (Rp 3-10 juta / bulan)</label>
+              <label class="ck"><input type="radio" name="budget" value="Cukup (lebih dari Rp 10 juta / bulan)">Cukup (&gt; Rp 10 juta / bulan)</label>
+            </div>
+          </div>
+          <div class="f">
+            <label for="notes">Catatan Tambahan</label>
+            <textarea id="notes"></textarea>
+          </div>
+        </div>
+
+        <div class="act">
+          <button class="btn primary" type="button" onclick="generate()">Generate Output Funnel Marketing</button>
+          <button class="btn" type="button" onclick="resetForm()">Reset</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="card">
+      <h2>Preview Output</h2>
+      <p class="sub">Siap copy-paste ke AI. Struktur sudah mengikuti output wajib A-F pada master prompt Funnel Marketing.</p>
+      <div class="tab">
+        <button id="tab-md" class="on" type="button" onclick="show('md')">Markdown</button>
+        <button id="tab-html" type="button" onclick="show('html')">HTML</button>
+      </div>
+      <div class="preview">
+        <pre id="md">Belum ada output. Isi form lalu klik "Generate Output Funnel Marketing".</pre>
+        <div class="html" id="html"><p>Belum ada output HTML.</p></div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<script>
+let output = { md: '', html: '' }, active = 'md';
+const byId = (id) => document.getElementById(id);
+const clean = (v) => (v || '').replace(/\r/g, '').trim();
+const esc = (v) => (v || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+const slug = (v) => (v || 'output').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,80) || 'output';
+
+function mark(id, bad) {
+  const el = byId(id), err = byId('err-' + id);
+  if (el) el.classList.toggle('invalid', bad);
+  if (err) err.classList.toggle('show', bad);
+}
+
+function markRadio(name, bad) {
+  const wrap = byId('wrap-' + name), err = byId('err-' + name);
+  if (wrap) wrap.classList.toggle('invalid', bad);
+  if (err) err.classList.toggle('show', bad);
+}
+
+function pick(name) {
+  return document.querySelector('input[name="' + name + '"]:checked')?.value || '';
+}
+
+function getData() {
+  return {
+    brand: clean(byId('brand').value),
+    industry: clean(byId('industry').value),
+    offer: clean(byId('offer').value),
+    target_customer: clean(byId('target_customer').value),
+    awareness_level: pick('awareness_level'),
+    awareness_channels: clean(byId('awareness_channels').value),
+    consideration_assets: clean(byId('consideration_assets').value),
+    conversion_data: clean(byId('conversion_data').value),
+    loyalty_level: pick('loyalty_level'),
+    advocacy_level: pick('advocacy_level'),
+    activities_done: clean(byId('activities_done').value),
+    active_channels: clean(byId('active_channels').value),
+    best_activity: clean(byId('best_activity').value),
+    weak_activity: clean(byId('weak_activity').value),
+    weakest_stage: pick('weakest_stage'),
+    strongest_stage: clean(byId('strongest_stage').value),
+    persona_output: clean(byId('persona_output').value),
+    budget: pick('budget'),
+    notes: clean(byId('notes').value)
+  };
+}
+
+function validate(d) {
+  let ok = true;
+  [['brand', d.brand],['industry', d.industry],['offer', d.offer],['target_customer', d.target_customer],['awareness_channels', d.awareness_channels],['consideration_assets', d.consideration_assets],['conversion_data', d.conversion_data],['activities_done', d.activities_done],['active_channels', d.active_channels]].forEach(([id, val]) => {
+    const bad = !val; mark(id, bad); if (bad) ok = false;
+  });
+
+  [['awareness_level', d.awareness_level],['loyalty_level', d.loyalty_level],['advocacy_level', d.advocacy_level],['weakest_stage', d.weakest_stage]].forEach(([id, val]) => {
+    const bad = !val; markRadio(id, bad); if (bad) ok = false;
+  });
+
+  if (!ok) {
+    const first = document.querySelector('.invalid, .err.show');
+    if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+  return ok;
+}
+
+function buildMd(d) {
+  return [
+    '# INPUT BRIEF - MASTER PROMPT FUNNEL MARKETING',
+    '',
+    '## FORMAT INPUT',
+    '### [IDENTITAS BISNIS]',
+    '- NAMA BISNIS / BRAND: ' + d.brand,
+    '- INDUSTRI / KATEGORI: ' + d.industry,
+    '- PRODUK / JASA UTAMA: ' + d.offer,
+    '- TARGET PELANGGAN UTAMA: ' + d.target_customer,
+    '',
+    '### [KONDISI FUNNEL SAAT INI]',
+    '- AWARENESS (SEBERAPA DIKENAL?): ' + d.awareness_level,
+    '- CHANNEL AWARENESS YANG SUDAH DIPAKAI:',
+    d.awareness_channels || '-',
+    '- CONSIDERATION (ASET YANG SUDAH ADA):',
+    d.consideration_assets || '-',
+    '- CONVERSION (BERAPA BANYAK YANG MEMBELI):',
+    d.conversion_data || '-',
+    '- LOYALTY (APAKAH PELANGGAN KEMBALI): ' + d.loyalty_level,
+    '- ADVOCACY (APAKAH PELANGGAN MEREKOMENDASIKAN): ' + d.advocacy_level,
+    '',
+    '### [AKTIVITAS YANG SUDAH DILAKUKAN]',
+    '- AKTIVITAS MARKETING YANG SUDAH BERJALAN:',
+    d.activities_done || '-',
+    '- CHANNEL ATAU PLATFORM YANG SUDAH AKTIF:',
+    d.active_channels || '-',
+    '- AKTIVITAS PALING MENGHASILKAN:',
+    d.best_activity || '-',
+    '- AKTIVITAS PALING TIDAK EFEKTIF:',
+    d.weak_activity || '-',
+    '',
+    '### [DIAGNOSIS AWAL]',
+    '- TAHAP FUNNEL PALING LEMAH: ' + d.weakest_stage,
+    '- TAHAP FUNNEL PALING KUAT:',
+    d.strongest_stage || '-',
+    '',
+    '### [KONTEKS TAMBAHAN]',
+    '- OUTPUT BUYER PERSONA (JIKA ADA):',
+    d.persona_output || '-',
+    '- ANGGARAN / RESOURCE MARKETING: ' + (d.budget || '-'),
+    '- CATATAN TAMBAHAN:',
+    d.notes || '-',
+    '',
+    '## INSTRUKSI UNTUK AI',
+    '1. Ikuti MASTER PROMPT FUNNEL MARKETING April 2026.',
+    '2. Gunakan urutan output wajib A-F tanpa diubah.',
+    '3. Nilai tiap tahap funnel dengan status merah/kuning/hijau berbasis bukti input.',
+    '4. Identifikasi kebocoran terbesar dan urutan prioritas perbaikan.',
+    '5. Susun Funnel Map 5 tahap yang personal dan realistis untuk resource user.',
+    '6. Berikan Action Plan 30 hari yang konkret, terukur, dan bisa dieksekusi.',
+    '7. Gunakan bahasa dominan yang dipakai user.'
+  ].join('\n');
+}
+
+function buildHtml(d) {
+  const rows = [
+    ['Nama bisnis / brand', d.brand],['Industri / kategori', d.industry],['Produk / jasa utama', d.offer],['Target pelanggan utama', d.target_customer],
+    ['Awareness level', d.awareness_level],['Channel awareness yang sudah dipakai', d.awareness_channels],['Aset consideration', d.consideration_assets],
+    ['Data conversion', d.conversion_data],['Loyalty level', d.loyalty_level],['Advocacy level', d.advocacy_level],['Aktivitas marketing berjalan', d.activities_done],
+    ['Channel/platform aktif', d.active_channels],['Aktivitas paling menghasilkan', d.best_activity || '-'],['Aktivitas paling tidak efektif', d.weak_activity || '-'],
+    ['Tahap funnel paling lemah', d.weakest_stage],['Tahap funnel paling kuat', d.strongest_stage || '-'],['Output buyer persona', d.persona_output || '-'],
+    ['Anggaran/resource marketing', d.budget || '-'],['Catatan tambahan', d.notes || '-']
+  ];
+  return '<article><h1>Input Brief Funnel Marketing</h1><p>Ringkasan siap eksekusi untuk master prompt Funnel Marketing.</p><table><thead><tr><th>Field</th><th>Isi</th></tr></thead><tbody>'
+    + rows.map(r => '<tr><td>' + esc(r[0]) + '</td><td>' + esc(r[1]) + '</td></tr>').join('')
+    + '</tbody></table><h2>Output Wajib</h2><ol><li>Bagian A - Diagnosis Funnel</li><li>Bagian B - Funnel Map Lengkap</li><li>Bagian C - Rekomendasi Strategi per Tahap</li><li>Bagian D - Action Plan 30 Hari</li><li>Bagian E - Workbook Terpersonalisasi</li><li>Bagian F - Funnel Summary dan Next Step</li></ol></article>';
+}
+
+function show(tab) {
+  active = tab;
+  byId('tab-md').classList.toggle('on', tab === 'md');
+  byId('tab-html').classList.toggle('on', tab === 'html');
+  byId('md').style.display = tab === 'md' ? 'block' : 'none';
+  byId('html').style.display = tab === 'html' ? 'block' : 'none';
+}
+
+function generate() {
+  const d = getData();
+  if (!validate(d)) { alert('Masih ada field wajib yang belum lengkap. Mohon cek bagian merah.'); return false; }
+  output.md = buildMd(d);
+  output.html = buildHtml(d);
+  byId('md').textContent = output.md;
+  byId('html').innerHTML = output.html;
+  show(active);
+  return true;
+}
+
+function ensure() { return (output.md && output.html) ? true : generate(); }
+function copyMd() {
+  if (!ensure()) return;
+  navigator.clipboard.writeText(output.md).then(() => alert('Markdown berhasil disalin.')).catch(() => alert('Gagal salin otomatis. Silakan copy manual dari preview.'));
+}
+function downloadMd() {
+  if (!ensure()) return;
+  const name = 'workbook-funnel-marketing-' + slug(byId('brand').value) + '-' + new Date().toISOString().slice(0,10) + '.md';
+  const blob = new Blob([output.md], { type: 'text/markdown;charset=utf-8' });
+  const url = URL.createObjectURL(blob), a = document.createElement('a');
+  a.href = url; a.download = name; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+}
+function resetForm() {
+  byId('form').reset();
+  document.querySelectorAll('.err').forEach(el => el.classList.remove('show'));
+  document.querySelectorAll('.invalid').forEach(el => el.classList.remove('invalid'));
+  output = { md: '', html: '' };
+  byId('md').textContent = 'Belum ada output. Isi form lalu klik "Generate Output Funnel Marketing".';
+  byId('html').innerHTML = '<p>Belum ada output HTML.</p>';
+  show('md');
+}
+document.querySelectorAll('input,textarea').forEach(n => { n.autocomplete = 'off'; n.spellcheck = false; });
+</script>
+</body>
+</html>

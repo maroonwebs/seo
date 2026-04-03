@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Master Prompt 04A - Pillar Page Writer Pendidikan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#102019;--muted:#66766f;--bg:#f5faf8;--card:#fff;--line:rgba(16,32,25,.14);--green:#1f7a54;--green2:#2d966a;--red:#ae3434;--r:12px;--r2:18px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:radial-gradient(circle at 9% 0,rgba(45,149,106,.12) 0,transparent 35%),var(--bg);color:var(--ink);line-height:1.6}
+.top{position:sticky;top:0;z-index:60;background:#11221c;border-bottom:1px solid rgba(255,255,255,.12);padding:14px 20px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.logo{font-family:'Playfair Display',serif;color:#e9f9f3;font-size:17px}.logo span{color:#95efcb;font-style:italic}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.btn{border:1px solid rgba(255,255,255,.34);background:transparent;color:#eef8f4;border-radius:10px;padding:8px 12px;font-size:12px;cursor:pointer;text-decoration:none;font-family:'DM Sans',sans-serif}
+.btn.primary{background:var(--green);border-color:var(--green)}.btn.primary:hover{background:var(--green2)}
+main{max-width:1440px;margin:0 auto;padding:22px}
+.hero{background:linear-gradient(128deg,#13372d,#1e654f,#2e8f73);color:#f0fbf7;padding:20px;border-radius:var(--r2);margin-bottom:14px}
+.hero .tag{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px;opacity:.9}
+.hero h1{font-family:'Playfair Display',serif;font-size:30px;font-weight:500;line-height:1.2;margin-bottom:8px}.hero h1 em{color:#c4fae4}
+.hero p{font-size:14px;max-width:1020px}
+.grid{display:grid;grid-template-columns:minmax(420px,.95fr) minmax(420px,1.05fr);gap:14px;align-items:start}
+.card{background:var(--card);border:1px solid rgba(16,32,25,.08);border-radius:var(--r2);padding:16px}
+.card h2{font-family:'Playfair Display',serif;font-size:24px;font-weight:500;margin-bottom:6px}
+.sub{font-size:13px;color:var(--muted);margin-bottom:12px}
+.group{border:1px solid rgba(16,32,25,.08);border-radius:var(--r);padding:12px;margin-bottom:12px}
+.gt{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#1f4f9e;margin-bottom:8px}
+.f{margin-bottom:10px}.f:last-child{margin-bottom:0}
+label{display:block;font-size:13px;font-weight:700;margin-bottom:4px}label span{font-family:'DM Mono',monospace;font-size:11px;color:var(--green);margin-left:6px}
+.hint{font-size:12px;color:var(--muted);margin-bottom:6px}
+input[type="text"],textarea,select{width:100%;border:1.4px solid var(--line);border-radius:10px;padding:9px 11px;font-size:14px;font-family:'DM Sans',sans-serif;color:#22322d;background:#fff}
+textarea{min-height:72px;resize:vertical}
+input:focus,textarea:focus,select:focus{outline:none;border-color:rgba(31,122,84,.8);box-shadow:0 0 0 3px rgba(31,122,84,.14)}
+.check-wrap{border:1.4px solid var(--line);border-radius:10px;padding:8px 10px;background:#fff}
+.ck{display:flex;gap:8px;align-items:flex-start;font-size:13px;margin:4px 0}.ck input{margin-top:2px}
+.other-input{display:none;margin-top:8px}
+.hidden{display:none!important}
+.invalid{border-color:rgba(174,52,52,.72)!important;box-shadow:0 0 0 3px rgba(174,52,52,.12)!important}
+.err{display:none;font-size:12px;color:var(--red);margin-top:5px}.err.show{display:block}
+.act{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.act .btn{color:#22322d;border-color:var(--line)}.act .btn.primary{color:#fff;border-color:var(--green)}
+.tab{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-bottom:10px}
+.tab button{border:none;background:#fff;padding:7px 11px;font-size:12px;cursor:pointer}
+.tab button.on{background:#e8f4ee;color:#1d5d45;font-weight:700}
+.preview{border:1px solid rgba(16,32,25,.08);border-radius:12px;background:#fbfffd;max-height:840px;overflow:auto}
+.preview pre{margin:0;padding:12px;white-space:pre-wrap;font-family:'DM Mono',monospace;font-size:12px}
+.html{display:none;padding:12px}.html table{width:100%;border-collapse:collapse;margin:8px 0 12px}.html th,.html td{border:1px solid #d3e2da;padding:7px 8px;text-align:left;vertical-align:top}.html th{background:#edf6f1;font-size:12px}
+.note{margin-top:10px;padding:8px 10px;border:1px dashed rgba(31,122,84,.3);background:#f4faf7;border-radius:10px;font-size:12px;color:#1f4f3f}
+@media(max-width:1120px){.grid{grid-template-columns:1fr}}
+@media(max-width:760px){.top{padding:12px}.row{width:100%}.row .btn{flex:1}main{padding:14px 10px}.hero h1{font-size:27px}input[type="text"],textarea,select{font-size:16px}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="logo">Framework Pendidikan - <span>Master Prompt 04A</span></div>
+  <div class="row">
+    <a class="btn" href="framework-pendidikan.html">Kembali ke Framework</a>
+    <a class="btn" href="index.html">Kembali ke Hub</a>
+    <button class="btn" type="button" onclick="copyMarkdown()">Copy Markdown</button>
+    <button class="btn" type="button" onclick="downloadMarkdown()">Download .md</button>
+    <button class="btn" type="button" onclick="downloadHtml()">Download .html</button>
+    <button class="btn primary" type="button" onclick="downloadPdf()">Download PDF</button>
+  </div>
+</header>
+<main>
+  <section class="hero">
+    <div class="tag">Prompt 04A - Pillar Page Writer</div>
+    <h1>Master Prompt 04A <em>Pendidikan</em></h1>
+    <p>Form ini mengikuti input wajib Prompt 04A secara lengkap untuk menulis pillar page Pendidikan yang SEO-ready, AEO-optimized, GEO-friendly, dan aman untuk standar YMYL.</p>
+  </section>
+  <div class="grid">
+    <section class="card">
+      <h2>Form Input Lengkap</h2>
+      <p class="sub">Isi data sedetail mungkin. Sistem akan memvalidasi field wajib agar output 1-10 Prompt 04A lebih akurat.</p>
+      <form id="form"></form>
+      <div class="act">
+        <button class="btn primary" type="button" onclick="generateOutput()">Generate Master Prompt 04A</button>
+        <button class="btn" type="button" onclick="resetForm()">Reset Form</button>
+      </div>
+    </section>
+    <section class="card">
+      <h2>Preview Output</h2>
+      <p class="sub">Output siap copy-paste ke AI dan siap ekspor md/html/pdf.</p>
+      <div class="tab">
+        <button id="tab-md" class="on" type="button" onclick="showTab('md')">Markdown</button>
+        <button id="tab-html" type="button" onclick="showTab('html')">HTML</button>
+      </div>
+      <div class="preview">
+        <pre id="markdown-preview">Belum ada output. Isi form lalu klik "Generate Master Prompt 04A".</pre>
+        <div id="html-preview" class="html"><p>Belum ada output HTML.</p></div>
+      </div>
+      <div class="note">Catatan PDF: klik Download PDF lalu lanjutkan Save as PDF di dialog print browser.</div>
+    </section>
+  </div>
+</main>
+<script>
+const CFG={
+  title:'PROMPT 04A - PILLAR PAGE WRITER',
+  subtitle:'FRAMEWORK SEO + AEO + GEO + LLM OPTIMIZATION 2026 - Pendidikan',
+  preSteps:[
+    'Pastikan output Prompt 01, Prompt 02, dan Prompt 03 sudah selesai.',
+    'Pilih pillar target (S1-S6) sesuai kebutuhan bisnis.',
+    'Isi semua field Bagian 1. Jika ada data kosong, AI boleh memakai [ASUMSI KERJA] dan menandai [DATA PERLU DIKONFIRMASI].',
+    'Jalankan dengan instruksi: "Jalankan Prompt 04A Pillar Page Writer Pendidikan untuk Silo S[X] berdasarkan input berikut".',
+    'AI wajib menghasilkan output 1-10 secara berurutan.',
+    'Sebelum publish, pastikan lolos intent separation, claim safety, reviewer routing, trust signal, CTA funnel, dan update trigger.'
+  ],
+  systemRules:[
+    'SEO klasik: keyword placement natural, heading hierarchy rapi, dan anti-cannibalization.',
+    'AEO: answer capsule di fold pertama, mini answer per H2, FAQ standalone.',
+    'GEO/LLM: entity declaration jelas, section berdiri sendiri, dan semantic clarity.',
+    'YMYL/Trust: only verified facts, reviewer transparency, dan batas edukasi vs evaluasi personal.',
+    'Intent discipline: tone CTA mengikuti jenis silo (S1-S6).',
+    'Claim safety: dilarang janji hasil pasti, hasil instan personal, legalitas palsu, atau data akademik palsu.',
+    'Konversi: CTA 2-3 titik, proporsional terhadap intent, tidak menabrak konteks safety.',
+    'Kualitas tulisan: paragraf ringkas, bahasa jelas, tanpa filler atau keyword stuffing.',
+    'Reviewer routing: risk HIGH wajib label [WAJIB REVIEW MEDICAL / COMPLIANCE].',
+    'Freshness: harga, jam, legalitas, tim, channel, dan FAQ wajib punya update notes.'
+  ],
+  writingFlow:[
+    'PW-1 Audit Input, PW-2 Fan-Out Query Map, PW-3 Entity Declaration.',
+    'PW-4 Risk Triage, PW-5 Claim Boundary Map, PW-6 Draft Answer Capsule, PW-7 CTA + Internal Link Direction.',
+    'Struktur artikel wajib: metadata, H1, byline/review box, answer capsule, TOC, H2/H3, FAQ, CTA penutup.',
+    'Pakai tabel/list/checklist untuk section harga, proses, suitability, safety, trust, dan internal linking.',
+    'Schema wajib: Article/CollectionPage + FAQPage + BreadcrumbList; schema lain sesuai konteks terverifikasi.'
+  ],
+  outputBlocks:[
+    'Output 1 - Pre-Writing Analysis (1A-1G)',
+    'Output 2 - SEO/Search Package (2A-2G)',
+    'Output 3 - Pillar Outline Final',
+    'Output 4 - Artikel Pillar Lengkap',
+    'Output 5 - Schema JSON-LD',
+    'Output 6 - Internal Link Plan',
+    'Output 7 - Reviewer Handoff',
+    'Output 8 - Repurposing Notes',
+    'Output 9 - Update Notes',
+    'Output 10 - Scorecard QA'
+  ],
+  acceptance:[
+    'Output 1-10 lengkap sesuai urutan.',
+    'Artikel minimal 2.500 kata (atau sesuai target panjang input).',
+    'FAQ minimal 8 item dan semua jawaban standalone.',
+    'Risk label, reviewer minimum, disclaimer, dan trust signal masuk jelas.',
+    'Internal link plan, reviewer handoff, update notes, dan scorecard QA terisi.',
+    'Scorecard minimum 34/38; jika risk HIGH tanpa review approved, status harus DRAFT.'
+  ]
+};
+
+const SCHEMA=[
+  {section:'Identitas Bisnis',key:'brand_name',label:'Nama Brand / Usaha',required:true,type:'text'},
+  {section:'Identitas Bisnis',key:'entity_type',label:'Jenis Entitas Bisnis',required:true,type:'select',allowOther:true,options:['Kampus / Universitas','Sekolah Tinggi / Akademi','Sekolah SD / SMP / SMA / SMK','Pesantren / Boarding School','Kursus Bahasa','Kursus Kecantikan','Kursus Digital Marketing','BLK / Pelatihan Kerja','Lembaga Kursus Profesional','Lembaga Sertifikasi','Jasa Pelatihan / Workshop','Konsultan Pendidikan','Hybrid Education Business']},
+  {section:'Identitas Bisnis',key:'business_model',label:'Model Bisnis Pendidikan',required:true,type:'select',allowOther:true,options:['Service-first','Product-first','Hybrid','Local multi-branch','National brand']},
+  {section:'Identitas Bisnis',key:'domain',label:'Domain / Website',required:true,type:'text'},
+  {section:'Identitas Bisnis',key:'target_city',label:'Kota Utama Target',required:true,type:'text'},
+  {section:'Identitas Bisnis',key:'expansion_city',label:'Kota Ekspansi',type:'text'},
+  {section:'Identitas Bisnis',key:'service_area',label:'Area Layanan / Distribusi',required:true,type:'text'},
+  {section:'Identitas Bisnis',key:'main_conversion',label:'Metode Konversi Utama',required:true,type:'select',allowOther:true,options:['Booking / Appointment','Chat WhatsApp','Telepon','Form Lead','Checkout / Pembelian Online','Marketplace / Reseller','Kunjungan Langsung','Kombinasi']},
+  {section:'Identitas Bisnis',key:'wa_contact',label:'Nomor WA / Kontak',required:true,type:'text'},
+  {section:'Identitas Bisnis',key:'tagline',label:'Tagline / Positioning',type:'text'},
+  {section:'Identitas Bisnis',key:'year_established',label:'Tahun Berdiri',type:'text'},
+
+  {section:'Pillar Yang Ditulis',key:'pillar_target',label:'Pillar Target',required:true,type:'select',options:['S1 - Core Offer','S2 - Problem / Concern Hub','S3 - Trust / Safety / Validation Hub','S4 - Process / Preparation / Aftercare Hub','S5 - Location / Access / Official Channel Hub','S6 - Optional Segment / Program Hub']},
+  {section:'Pillar Yang Ditulis',key:'pillar_name',label:'Nama Pillar',required:true,type:'text'},
+  {section:'Pillar Yang Ditulis',key:'page_goal',label:'Tujuan Halaman',required:true,type:'textarea'},
+  {section:'Pillar Yang Ditulis',key:'dominant_intent',label:'Search Intent Dominan',required:true,type:'select',allowOther:true,options:['Informational','Commercial Investigation','Mixed: Informational + Commercial','Local / Navigational','Brand Validation']},
+  {section:'Pillar Yang Ditulis',key:'pillar_audience',label:'Target Audience Pillar',required:true,type:'text'},
+  {section:'Pillar Yang Ditulis',key:'funnel_stage',label:'Tahap Funnel',required:true,type:'select',options:['TOFU','MOFU','BOFU','Mixed']},
+  {section:'Pillar Yang Ditulis',key:'main_angle',label:'Angle Utama',required:true,type:'text'},
+
+  {section:'Data Keyword',key:'primary_keyword',label:'Primary Keyword',required:true,type:'text'},
+  {section:'Data Keyword',key:'secondary_keywords',label:'Secondary Keywords',required:true,type:'textarea',list:true,min:5,hint:'Minimal 5 keyword, boleh pisah baris/koma/titik koma.'},
+  {section:'Data Keyword',key:'longtail_keywords',label:'Long-tail Keywords',required:true,type:'textarea',list:true,min:5,hint:'Minimal 5 keyword long-tail.'},
+  {section:'Data Keyword',key:'paa_queries',label:'PAA / Fan-out Queries',required:true,type:'textarea',list:true,min:8,numbered:true,hint:'Minimal 8 pertanyaan.'},
+  {section:'Data Keyword',key:'mandatory_topics',label:'Topik / Subtopik Wajib (dari Prompt 03)',required:true,type:'textarea',list:true,min:8,numbered:true},
+
+  {section:'Data Layanan / Produk / Program',key:'core_offers',label:'Layanan / Produk Utama (untuk artikel ini)',required:true,type:'textarea',list:true,min:4,numbered:true},
+  {section:'Data Layanan / Produk / Program',key:'offer_variants',label:'Varian / Paket / Program',type:'textarea',list:true,numbered:true},
+  {section:'Data Layanan / Produk / Program',key:'price_low',label:'Range Harga - Terendah (Rp)',type:'text'},
+  {section:'Data Layanan / Produk / Program',key:'price_high',label:'Range Harga - Tertinggi (Rp)',type:'text'},
+  {section:'Data Layanan / Produk / Program',key:'price_disclaimer',label:'Disclaimer Harga',required:true,type:'text',hint:'Contoh: Estimasi April 2026, dapat berubah. Konfirmasi ke brand untuk harga terbaru.'},
+  {section:'Data Layanan / Produk / Program',key:'service_process',label:'Jika Service/Treatment - Proses Inti',type:'text',showIf:{key:'business_model',values:['Service-first','Hybrid','Local multi-branch','National brand']}},
+  {section:'Data Layanan / Produk / Program',key:'service_prep',label:'Jika Service/Treatment - Persiapan Utama',type:'text',showIf:{key:'business_model',values:['Service-first','Hybrid','Local multi-branch','National brand']}},
+  {section:'Data Layanan / Produk / Program',key:'service_duration',label:'Jika Service/Treatment - Estimasi Durasi',type:'text',showIf:{key:'business_model',values:['Service-first','Hybrid','Local multi-branch','National brand']}},
+  {section:'Data Layanan / Produk / Program',key:'service_downtime',label:'Jika Service/Treatment - Downtime / Recovery',type:'text',showIf:{key:'business_model',values:['Service-first','Hybrid','Local multi-branch','National brand']}},
+  {section:'Data Layanan / Produk / Program',key:'service_aftercare',label:'Jika Service/Treatment - Aftercare / Follow-up',type:'text',showIf:{key:'business_model',values:['Service-first','Hybrid','Local multi-branch','National brand']}},
+  {section:'Data Layanan / Produk / Program',key:'service_fit',label:'Jika Service/Treatment - Siapa Yang Cocok',type:'text',showIf:{key:'business_model',values:['Service-first','Hybrid','Local multi-branch','National brand']}},
+  {section:'Data Layanan / Produk / Program',key:'service_not_fit',label:'Jika Service/Treatment - Siapa Yang Kurang Cocok',type:'text',showIf:{key:'business_model',values:['Service-first','Hybrid','Local multi-branch','National brand']}},
+  {section:'Data Layanan / Produk / Program',key:'product_category',label:'Jika Product-first - Kategori Produk',type:'text',showIf:{key:'business_model',values:['Product-first','Hybrid','National brand']}},
+  {section:'Data Layanan / Produk / Program',key:'product_variants',label:'Jika Product-first - Varian / Ukuran / Kemasan',type:'text',showIf:{key:'business_model',values:['Product-first','Hybrid','National brand']}},
+  {section:'Data Layanan / Produk / Program',key:'product_ingredients',label:'Jika Product-first - Kandungan / Komposisi Penting',type:'text',showIf:{key:'business_model',values:['Product-first','Hybrid','National brand']}},
+  {section:'Data Layanan / Produk / Program',key:'product_usage',label:'Jika Product-first - Cara Pakai Umum',type:'text',showIf:{key:'business_model',values:['Product-first','Hybrid','National brand']}},
+  {section:'Data Layanan / Produk / Program',key:'product_warning',label:'Jika Product-first - Peringatan Penggunaan',type:'text',showIf:{key:'business_model',values:['Product-first','Hybrid','National brand']}},
+  {section:'Data Layanan / Produk / Program',key:'product_channel',label:'Jika Product-first - Channel Resmi Pembelian',type:'text',showIf:{key:'business_model',values:['Product-first','Hybrid','National brand']}},
+  {section:'Data Layanan / Produk / Program',key:'hybrid_relation',label:'Jika Hybrid - Hubungan Layanan-Produk',type:'text',showIf:{key:'business_model',values:['Hybrid']}},
+  {section:'Data Layanan / Produk / Program',key:'hybrid_conversion_target',label:'Jika Hybrid - Tujuan Konversi Utama',type:'text',showIf:{key:'business_model',values:['Hybrid']}},
+
+  {section:'Trust, Entity, Dan Validasi',key:'practitioners',label:'Praktisi / Pengajar / Ahli Yang Terlibat',type:'textarea',list:true,numbered:true},
+  {section:'Trust, Entity, Dan Validasi',key:'credentials',label:'Credential / Legalitas Yang Tersedia',type:'checklist',allowOther:true,options:['Izin operasional','NPSN / NIDN / kredensial praktisi','Akreditasi / izin edar','Halal','Akreditasi','Sertifikasi','Review Google / marketplace','Testimoni nyata','Foto fasilitas / tim / proses','Alamat / cabang / jam operasional']},
+  {section:'Trust, Entity, Dan Validasi',key:'trust_count',label:'Data Trust - Jumlah Siswa / Peserta / Alumni',required:true,type:'text'},
+  {section:'Trust, Entity, Dan Validasi',key:'trust_since',label:'Data Trust - Sejak Tahun',required:true,type:'text'},
+  {section:'Trust, Entity, Dan Validasi',key:'trust_rating',label:'Data Trust - Rating / Ulasan',required:true,type:'text'},
+  {section:'Trust, Entity, Dan Validasi',key:'trust_legality',label:'Data Trust - Legalitas / Izin',required:true,type:'text'},
+  {section:'Trust, Entity, Dan Validasi',key:'trust_reviewer',label:'Data Trust - Pengajar / Reviewer',required:true,type:'text'},
+  {section:'Trust, Entity, Dan Validasi',key:'trust_locations',label:'Data Trust - Cabang / Lokasi',required:true,type:'text'},
+  {section:'Trust, Entity, Dan Validasi',key:'testimonials',label:'Testimoni (min. 2, sertakan nama + konteks)',required:true,type:'textarea',list:true,min:2,numbered:true},
+  {section:'Trust, Entity, Dan Validasi',key:'entity_pages',label:'Halaman Entity / Trust Yang Wajib Di-link',required:true,type:'textarea',list:true,min:4,numbered:true},
+
+  {section:'Risk, Reviewer, Dan Disclaimer',key:'page_risk',label:'Risk Label Halaman',required:true,type:'select',options:['LOW','MEDIUM','HIGH']},
+  {section:'Risk, Reviewer, Dan Disclaimer',key:'risk_reason',label:'Alasan Risk Label',required:true,type:'textarea'},
+  {section:'Risk, Reviewer, Dan Disclaimer',key:'reviewer_minimum',label:'Reviewer Minimum',required:true,type:'select',allowOther:true,options:['Editor internal','Subject-matter reviewer','Academic / compliance reviewer','Founder / lead educator review','Kombinasi']},
+  {section:'Risk, Reviewer, Dan Disclaimer',key:'review_topics',label:'Topik Yang Wajib Direview / Dicek Fakta',type:'textarea',list:true,numbered:true,min:4},
+  {section:'Risk, Reviewer, Dan Disclaimer',key:'disclaimer_topics',label:'Topik Yang Wajib Diberi Disclaimer',type:'textarea',list:true,numbered:true,min:4},
+  {section:'Risk, Reviewer, Dan Disclaimer',key:'red_flags',label:'Red Flags / Safety Net Yang Harus Dimasukkan',type:'textarea'},
+
+  {section:'Internal Linking & Page Targets',key:'related_clusters',label:'Cluster Pages Terkait (URL + Judul)',required:true,type:'textarea',list:true,min:3,numbered:true},
+  {section:'Internal Linking & Page Targets',key:'related_money',label:'Money Pages Terkait (URL + Judul)',required:true,type:'textarea',list:true,min:2,numbered:true},
+  {section:'Internal Linking & Page Targets',key:'related_faq',label:'FAQ Page Terkait',type:'text'},
+  {section:'Internal Linking & Page Targets',key:'related_local',label:'Local / Cabang Page Terkait',type:'text'},
+  {section:'Internal Linking & Page Targets',key:'related_contact',label:'Halaman Kontak / Booking',type:'text'},
+  {section:'Internal Linking & Page Targets',key:'related_about',label:'Halaman Tentang / Tim',type:'text'},
+  {section:'Internal Linking & Page Targets',key:'internal_targets',label:'Internal Link Target (min. 8 total)',required:true,type:'textarea',list:true,min:8,numbered:true},
+
+  {section:'Preferensi Teknis',key:'target_article_length',label:'Target Panjang Artikel',required:true,type:'select',options:['2.500-3.000 kata','3.000-3.800 kata','3.800-4.500 kata']},
+  {section:'Preferensi Teknis',key:'tone_voice',label:'Tone Of Voice',required:true,type:'select',allowOther:true,options:['Profesional + Informatif','Empatik + Meyakinkan','Medis Formal','Edukatif + Ramah','Premium + Terpercaya']},
+  {section:'Preferensi Teknis',key:'output_format',label:'Format Output',required:true,type:'select',options:['Artikel lengkap saja','Artikel + Meta Title + Meta Desc','Artikel + Meta + Schema JSON-LD','Artikel + Meta + Schema + Reviewer Handoff + Repurposing Notes']},
+  {section:'Preferensi Teknis',key:'byline_pref',label:'Byline / Review Box Diinginkan?',required:true,type:'select',options:['Ya','Tidak','Ikuti rekomendasi AI']},
+  {section:'Preferensi Teknis',key:'publish_target',label:'Tanggal Publish Target',type:'text'},
+  {section:'Preferensi Teknis',key:'last_review_date',label:'Tanggal Review Terakhir',type:'text'},
+  {section:'Preferensi Teknis',key:'update_trigger',label:'Update Trigger Yang Diketahui',type:'textarea'}
+];
+
+let activeTab='md'; let lastOutput={markdown:'',html:''};
+const byId=(id)=>document.getElementById(id); const clean=(v)=>(v||'').replace(/\r/g,'').trim(); const today=()=>new Date().toISOString().slice(0,10);
+const esc=(v)=>(v||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+const slug=(v)=>(v||'brand').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,80)||'brand';
+const splitLines=(v)=>clean(v).split(/\n|;|,/).map((x)=>x.replace(/^\d+[\).\s-]*/,'').trim()).filter(Boolean);
+
+function renderField(f){
+  const req=f.required?'<span>Wajib</span>':''; const hint=f.hint?`<p class="hint">${f.hint}</p>`:'';
+  let input='';
+  if(f.type==='textarea') input=`<textarea id="${f.key}" placeholder="Isi ${f.label.toLowerCase()}"></textarea>`;
+  else if(f.type==='select'){
+    const opts=(f.options||[]).map((o)=>`<option value="${o}">${o}</option>`).join('');
+    const other=f.allowOther?`<option value="__other__">Lainnya (tulis manual)</option>`:'';
+    const otherInput=f.allowOther?`<input id="${f.key}_other" class="other-input" type="text" placeholder="Isi lainnya untuk ${f.label.toLowerCase()}">`:'';
+    input=`<select id="${f.key}"><option value="">Pilih opsi</option>${opts}${other}</select>${otherInput}`;
+  } else if(f.type==='checklist'){
+    const items=(f.options||[]).map((o)=>`<label class="ck"><input type="checkbox" name="${f.key}" value="${o}">${o}</label>`).join('');
+    const other=f.allowOther?`<label class="ck"><input type="checkbox" name="${f.key}" value="__other__">Lainnya</label><input id="${f.key}_other" class="other-input" type="text" placeholder="Isi lainnya untuk ${f.label.toLowerCase()}">`:'';
+    input=`<div class="check-wrap" id="wrap-${f.key}">${items}${other}</div>`;
+  } else input=`<input id="${f.key}" type="text" placeholder="Isi ${f.label.toLowerCase()}">`;
+  return `<div class="f" id="field-${f.key}"><label for="${f.key}">${f.label} ${req}</label>${hint}${input}<div class="err" id="err-${f.key}">${f.required?`${f.label} wajib diisi.`:'Field belum valid.'}</div></div>`;
+}
+
+function renderForm(){
+  const form=byId('form'); const groups=[...new Set(SCHEMA.map((s)=>s.section))];
+  form.innerHTML=groups.map((g)=>`<div class="group"><div class="gt">${g}</div>${SCHEMA.filter((f)=>f.section===g).map(renderField).join('')}</div>`).join('');
+}
+
+function bindOthers(){
+  SCHEMA.filter((f)=>f.type==='select'&&f.allowOther).forEach((f)=>{ const sel=byId(f.key), other=byId(`${f.key}_other`); if(!sel||!other) return; const sync=()=>{const on=sel.value==='__other__'; other.style.display=on?'block':'none'; if(!on) other.value='';}; sel.addEventListener('change',sync); sync(); });
+  SCHEMA.filter((f)=>f.type==='checklist'&&f.allowOther).forEach((f)=>{ const other=byId(`${f.key}_other`); if(!other) return; const sync=()=>{const on=!!document.querySelector(`input[name="${f.key}"][value="__other__"]:checked`); other.style.display=on?'block':'none'; if(!on) other.value='';}; document.querySelectorAll(`input[name="${f.key}"]`).forEach((el)=>el.addEventListener('change',sync)); sync(); });
+  document.querySelectorAll('select').forEach((el)=>el.addEventListener('change',applyConditionalVisibility));
+  applyConditionalVisibility();
+}
+
+function isVisible(f){
+  if(!f.showIf) return true;
+  const dep=clean((byId(f.showIf.key)||{}).value||'');
+  return (f.showIf.values||[]).includes(dep);
+}
+
+function applyConditionalVisibility(){
+  SCHEMA.forEach((f)=>{
+    const wrap=byId(`field-${f.key}`);
+    if(!wrap) return;
+    const show=isVisible(f);
+    wrap.classList.toggle('hidden',!show);
+    if(!show){
+      if(f.type==='checklist') document.querySelectorAll(`input[name="${f.key}"]`).forEach((el)=>{el.checked=false;});
+      else{
+        const el=byId(f.key); if(el) el.value='';
+        const other=byId(`${f.key}_other`); if(other){other.value='';other.style.display='none';}
+      }
+      setInvalid(f,false,'');
+    }
+  });
+}
+
+function collect(){
+  const d={};
+  SCHEMA.forEach((f)=>{
+    if(f.type==='checklist'){
+      const vals=[...document.querySelectorAll(`input[name="${f.key}"]:checked`)].map((el)=>el.value);
+      d[f.key]=vals.filter((v)=>v!=='__other__');
+      if(vals.includes('__other__')) d[f.key].push(clean((byId(`${f.key}_other`)||{}).value||'')?`Lainnya: ${clean((byId(`${f.key}_other`)||{}).value||'')}`:'Lainnya');
+    }else if(f.type==='select'){
+      const v=clean((byId(f.key)||{}).value||''); d[f.key]=(f.allowOther&&v==='__other__')?(clean((byId(`${f.key}_other`)||{}).value||'')?`Lainnya: ${clean((byId(`${f.key}_other`)||{}).value||'')}`:'Lainnya'):v;
+    }else{
+      const raw=(byId(f.key)||{}).value||''; d[f.key]=f.list?splitLines(raw):clean(raw);
+    }
+  });
+  return d;
+}
+
+function setInvalid(f,bad,msg){
+  const el=byId(f.key), err=byId(`err-${f.key}`); if(el) el.classList.toggle('invalid',!!bad);
+  if(f.type==='checklist'){const wrap=byId(`wrap-${f.key}`); if(wrap) wrap.classList.toggle('invalid',!!bad);} 
+  if(err){ if(msg) err.textContent=msg; err.classList.toggle('show',!!bad); }
+}
+
+function validate(d){
+  let ok=true;
+  SCHEMA.forEach((f)=>{
+    if(!isVisible(f)){ setInvalid(f,false,''); return; }
+    let bad=false, msg=`${f.label} wajib diisi.`;
+    if(f.required){ if(f.type==='checklist') bad=(d[f.key]||[]).length<1; else if(f.list) bad=(d[f.key]||[]).length<1; else bad=!d[f.key]; }
+    if(!bad&&f.min){ const n=f.list?(d[f.key]||[]).length:splitLines(d[f.key]||'').length; bad=n<f.min; msg=`Isi minimal ${f.min} item untuk ${f.label}.`; }
+    if(!bad && f.allowOther && (byId(f.key)?.value==='__other__')){ const txt=clean((byId(`${f.key}_other`)||{}).value||''); if(!txt){ bad=true; msg=`Isi nilai lainnya untuk ${f.label}.`; } }
+    if(!bad && f.type==='checklist' && f.allowOther){ const on=!!document.querySelector(`input[name="${f.key}"][value="__other__"]:checked`); if(on&&!clean((byId(`${f.key}_other`)||{}).value||'')){ bad=true; msg=`Isi nilai lainnya untuk ${f.label}.`; }}
+    setInvalid(f,bad,msg); if(bad) ok=false;
+  });
+  return ok;
+}
+
+const mdList=(arr)=>arr&&arr.length?arr.map((x)=>`- ${x}`).join('\n'):'- [Tidak diisi]';
+const mdNum=(arr)=>arr&&arr.length?arr.map((x,i)=>`${i+1}. ${x}`).join('\n'):'1. [Tidak diisi]';
+
+function sectionMarkdown(d){
+  const groups=[...new Set(SCHEMA.map((s)=>s.section))];
+  return groups.map((g)=>{
+    const lines=[`[${g.toUpperCase()}]`];
+    SCHEMA.filter((f)=>f.section===g).forEach((f)=>{
+      if(!isVisible(f)) return;
+      const v=d[f.key];
+      if(Array.isArray(v)) lines.push(`- ${f.label}:\n${f.numbered?mdNum(v):mdList(v)}`);
+      else lines.push(`- ${f.label}: ${v||'-'}`);
+    });
+    lines.push('');
+    return lines.join('\n');
+  }).join('\n');
+}
+
+function buildMarkdown(d){
+  return [
+`# ${CFG.title}`,
+`## ${CFG.subtitle}`,
+``,
+`Tanggal Generate: ${today()}`,
+``,
+`==================================================`,
+`BAGIAN 0 - CARA MENGGUNAKAN PROMPT`,
+`==================================================`,
+...CFG.preSteps.map((s,i)=>`${i+1}. ${s}`),
+``,
+`==================================================`,
+`BAGIAN 1 - INPUT WAJIB (TERISI)`,
+`==================================================`,
+sectionMarkdown(d),
+`==================================================`,
+`BAGIAN 2 - INSTRUKSI SISTEM UNTUK AI`,
+`==================================================`,
+...CFG.systemRules.map((s,i)=>`${i+1}. ${s}`),
+``,
+`==================================================`,
+`BAGIAN 3 - INSTRUKSI PENULISAN LENGKAP`,
+`==================================================`,
+...CFG.writingFlow.map((s,i)=>`${i+1}. ${s}`),
+``,
+`==================================================`,
+`BAGIAN 4 - OUTPUT WAJIB LENGKAP`,
+`==================================================`,
+...CFG.outputBlocks.map((b,i)=>`${i+1}. ${b}`),
+``,
+`==================================================`,
+`BAGIAN 5 - ACCEPTANCE CRITERIA`,
+`==================================================`,
+...CFG.acceptance.map((a)=>`- ${a}`),
+``,
+`NEXT STEP: Gunakan output Prompt 04A ini untuk produksi artikel pillar, review ahli, lalu turunkan cluster dengan Prompt 04B.`
+  ].join('\n');
+}
+
+function buildHtmlBody(d,md){
+  return `<article><h3>Master Prompt 04A - Pillar Page Writer Pendidikan</h3><p><strong>Brand:</strong> ${esc(d.brand_name||'-')} | <strong>Pillar:</strong> ${esc(d.pillar_target||'-')} | <strong>Tanggal:</strong> ${esc(today())}</p><table><thead><tr><th>Field</th><th>Nilai</th></tr></thead><tbody><tr><td>Nama Pillar</td><td>${esc(d.pillar_name||'-')}</td></tr><tr><td>Intent Dominan</td><td>${esc(d.dominant_intent||'-')}</td></tr><tr><td>Risk Label</td><td>${esc(d.page_risk||'-')}</td></tr><tr><td>Target Panjang</td><td>${esc(d.target_article_length||'-')}</td></tr></tbody></table><h4>Prompt Siap Copy</h4><pre>${esc(md)}</pre></article>`;
+}
+
+function exportDoc(body){return `<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Master Prompt 04A</title><style>body{font-family:Arial,sans-serif;margin:28px;color:#1f2532;line-height:1.65}h3{font-size:30px;margin-bottom:8px}p,li,td,th{font-size:14px}table{width:100%;border-collapse:collapse;margin:8px 0 14px}th,td{border:1px solid #d2d9e8;padding:8px 10px;text-align:left;vertical-align:top}th{background:#eff3fc;font-size:12px;text-transform:uppercase}pre{white-space:pre-wrap;background:#f6f8fc;border:1px solid #dbe2ef;border-radius:10px;padding:12px;font-size:12px}@media print{body{margin:14mm}}</style></head><body>${body}</body></html>`;}
+
+function showTab(name){activeTab=name;byId('markdown-preview').style.display=name==='md'?'block':'none';byId('html-preview').style.display=name==='html'?'block':'none';byId('tab-md').classList.toggle('on',name==='md');byId('tab-html').classList.toggle('on',name==='html');}
+function generateOutput(){const d=collect();if(!validate(d)){alert('Masih ada field wajib yang belum lengkap. Mohon cek bagian merah.');return false;} lastOutput.markdown=buildMarkdown(d); lastOutput.html=buildHtmlBody(d,lastOutput.markdown); byId('markdown-preview').textContent=lastOutput.markdown; byId('html-preview').innerHTML=lastOutput.html; showTab(activeTab); return true;}
+function ensureOutput(){if(lastOutput.markdown&&lastOutput.html)return true;return generateOutput();}
+function blobDownload(content,type,fname){const blob=new Blob([content],{type});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=fname;document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);} 
+function copyMarkdown(){if(!ensureOutput())return;navigator.clipboard.writeText(lastOutput.markdown).then(()=>alert('Markdown berhasil disalin.')).catch(()=>alert('Gagal menyalin otomatis.'));}
+function downloadMarkdown(){if(!ensureOutput())return;blobDownload(lastOutput.markdown,'text/markdown;charset=utf-8',`framework-pendidikan-master-prompt-04a-${slug(clean((byId('brand_name')||{}).value||'brand'))}-${today()}.md`);} 
+function downloadHtml(){if(!ensureOutput())return;blobDownload(exportDoc(lastOutput.html),'text/html;charset=utf-8',`framework-pendidikan-master-prompt-04a-${slug(clean((byId('brand_name')||{}).value||'brand'))}-${today()}.html`);} 
+function downloadPdf(){if(!ensureOutput())return;const w=window.open('','_blank');if(!w){alert('Pop-up diblokir browser.');return;}w.document.open();w.document.write(exportDoc(lastOutput.html));w.document.close();w.focus();setTimeout(()=>w.print(),320);} 
+function resetForm(){byId('form').reset();document.querySelectorAll('.invalid').forEach((el)=>el.classList.remove('invalid'));document.querySelectorAll('.err').forEach((el)=>el.classList.remove('show'));document.querySelectorAll('.other-input').forEach((el)=>{el.value='';el.style.display='none';});lastOutput={markdown:'',html:''};byId('markdown-preview').textContent='Belum ada output. Isi form lalu klik "Generate Master Prompt 04A".';byId('html-preview').innerHTML='<p>Belum ada output HTML.</p>';showTab('md');applyConditionalVisibility();}
+
+renderForm();bindOthers();
+</script>
+</body>
+</html>
+
+
+
+

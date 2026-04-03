@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Master Prompt 04B - Cluster Page Writer Health</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#102019;--muted:#66766f;--bg:#f5faf8;--card:#fff;--line:rgba(16,32,25,.14);--green:#1f7a54;--green2:#2d966a;--red:#ae3434;--r:12px;--r2:18px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:radial-gradient(circle at 9% 0,rgba(45,149,106,.12) 0,transparent 35%),var(--bg);color:var(--ink);line-height:1.6}
+.top{position:sticky;top:0;z-index:60;background:#11221c;border-bottom:1px solid rgba(255,255,255,.12);padding:14px 20px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.logo{font-family:'Playfair Display',serif;color:#e9f9f3;font-size:17px}.logo span{color:#95efcb;font-style:italic}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.btn{border:1px solid rgba(255,255,255,.34);background:transparent;color:#eef8f4;border-radius:10px;padding:8px 12px;font-size:12px;cursor:pointer;text-decoration:none;font-family:'DM Sans',sans-serif}
+.btn.primary{background:var(--green);border-color:var(--green)}.btn.primary:hover{background:var(--green2)}
+main{max-width:1440px;margin:0 auto;padding:22px}
+.hero{background:linear-gradient(128deg,#13372d,#1e654f,#2e8f73);color:#f0fbf7;padding:20px;border-radius:var(--r2);margin-bottom:14px}
+.hero .tag{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px;opacity:.9}
+.hero h1{font-family:'Playfair Display',serif;font-size:30px;font-weight:500;line-height:1.2;margin-bottom:8px}.hero h1 em{color:#c4fae4}
+.hero p{font-size:14px;max-width:1020px}
+.grid{display:grid;grid-template-columns:minmax(420px,.95fr) minmax(420px,1.05fr);gap:14px;align-items:start}
+.card{background:var(--card);border:1px solid rgba(16,32,25,.08);border-radius:var(--r2);padding:16px}
+.card h2{font-family:'Playfair Display',serif;font-size:24px;font-weight:500;margin-bottom:6px}
+.sub{font-size:13px;color:var(--muted);margin-bottom:12px}
+.group{border:1px solid rgba(16,32,25,.08);border-radius:var(--r);padding:12px;margin-bottom:12px}
+.gt{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#1f4f9e;margin-bottom:8px}
+.f{margin-bottom:10px}.f:last-child{margin-bottom:0}
+label{display:block;font-size:13px;font-weight:700;margin-bottom:4px}label span{font-family:'DM Mono',monospace;font-size:11px;color:var(--green);margin-left:6px}
+.hint{font-size:12px;color:var(--muted);margin-bottom:6px}
+input[type="text"],textarea,select{width:100%;border:1.4px solid var(--line);border-radius:10px;padding:9px 11px;font-size:14px;font-family:'DM Sans',sans-serif;color:#22322d;background:#fff}
+textarea{min-height:72px;resize:vertical}
+input:focus,textarea:focus,select:focus{outline:none;border-color:rgba(31,122,84,.8);box-shadow:0 0 0 3px rgba(31,122,84,.14)}
+.check-wrap{border:1.4px solid var(--line);border-radius:10px;padding:8px 10px;background:#fff}
+.ck{display:flex;gap:8px;align-items:flex-start;font-size:13px;margin:4px 0}.ck input{margin-top:2px}
+.other-input{display:none;margin-top:8px}
+.hidden{display:none!important}
+.invalid{border-color:rgba(174,52,52,.72)!important;box-shadow:0 0 0 3px rgba(174,52,52,.12)!important}
+.err{display:none;font-size:12px;color:var(--red);margin-top:5px}.err.show{display:block}
+.act{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.act .btn{color:#22322d;border-color:var(--line)}.act .btn.primary{color:#fff;border-color:var(--green)}
+.tab{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-bottom:10px}
+.tab button{border:none;background:#fff;padding:7px 11px;font-size:12px;cursor:pointer}
+.tab button.on{background:#e8f4ee;color:#1d5d45;font-weight:700}
+.preview{border:1px solid rgba(16,32,25,.08);border-radius:12px;background:#fbfffd;max-height:840px;overflow:auto}
+.preview pre{margin:0;padding:12px;white-space:pre-wrap;font-family:'DM Mono',monospace;font-size:12px}
+.html{display:none;padding:12px}.html table{width:100%;border-collapse:collapse;margin:8px 0 12px}.html th,.html td{border:1px solid #d3e2da;padding:7px 8px;text-align:left;vertical-align:top}.html th{background:#edf6f1;font-size:12px}
+.note{margin-top:10px;padding:8px 10px;border:1px dashed rgba(31,122,84,.3);background:#f4faf7;border-radius:10px;font-size:12px;color:#1f4f3f}
+@media(max-width:1120px){.grid{grid-template-columns:1fr}}
+@media(max-width:760px){.top{padding:12px}.row{width:100%}.row .btn{flex:1}main{padding:14px 10px}.hero h1{font-size:27px}input[type="text"],textarea,select{font-size:16px}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="logo">Framework Kesehatan - <span>Master Prompt 04B</span></div>
+  <div class="row">
+    <a class="btn" href="framework-kesehatan.html">Kembali ke Framework</a>
+    <a class="btn" href="index.html">Kembali ke Hub</a>
+    <button class="btn" type="button" onclick="copyMarkdown()">Copy Markdown</button>
+    <button class="btn" type="button" onclick="downloadMarkdown()">Download .md</button>
+    <button class="btn" type="button" onclick="downloadHtml()">Download .html</button>
+    <button class="btn primary" type="button" onclick="downloadPdf()">Download PDF</button>
+  </div>
+</header>
+<main>
+  <section class="hero">
+    <div class="tag">Prompt 04B - Cluster Page Writer</div>
+    <h1>Master Prompt 04B <em>Health Business</em></h1>
+    <p>Form ini mengikuti input wajib Prompt 04B secara lengkap untuk menulis cluster page yang fokus pada 1 pertanyaan utama, SEO + AEO + GEO ready, dan aman untuk standar trust/YMYL.</p>
+  </section>
+  <div class="grid">
+    <section class="card">
+      <h2>Form Input Lengkap</h2>
+      <p class="sub">Isi data sedetail mungkin. Sistem akan memvalidasi field wajib agar output 1-10 Prompt 04B lebih akurat.</p>
+      <form id="form"></form>
+      <div class="act">
+        <button class="btn primary" type="button" onclick="generateOutput()">Generate Master Prompt 04B</button>
+        <button class="btn" type="button" onclick="resetForm()">Reset Form</button>
+      </div>
+    </section>
+    <section class="card">
+      <h2>Preview Output</h2>
+      <p class="sub">Output siap copy-paste ke AI dan siap ekspor md/html/pdf.</p>
+      <div class="tab">
+        <button id="tab-md" class="on" type="button" onclick="showTab('md')">Markdown</button>
+        <button id="tab-html" type="button" onclick="showTab('html')">HTML</button>
+      </div>
+      <div class="preview">
+        <pre id="markdown-preview">Belum ada output. Isi form lalu klik "Generate Master Prompt 04B".</pre>
+        <div id="html-preview" class="html"><p>Belum ada output HTML.</p></div>
+      </div>
+      <div class="note">Catatan PDF: klik Download PDF lalu lanjutkan Save as PDF di dialog print browser.</div>
+    </section>
+  </div>
+</main>
+<script>
+const CFG={
+  title:'PROMPT 04B - CLUSTER PAGE WRITER',
+  subtitle:'FRAMEWORK SEO + AEO + GEO + LLM OPTIMIZATION 2026 - HEALTH BUSINESS',
+  preSteps:[
+    'Pastikan output Prompt 01, Prompt 02, dan Prompt 03 sudah selesai.',
+    'Pilih tipe cluster (C1-C7) dan silo asal (S1-S6).',
+    'Isi semua field Bagian 1. Jika data belum lengkap, AI boleh pakai [ASUMSI KERJA] dengan tanda [DATA PERLU DIKONFIRMASI].',
+    'Jalankan dengan instruksi: "Jalankan Prompt 04B Cluster Page Writer Health Business untuk Cluster C[X] - Silo S[X] - topik [nama topik] berdasarkan input berikut".',
+    'AI wajib menghasilkan output 1-10 secara berurutan.',
+    'Jika topik sensitif (efek samping/kontraindikasi/legalitas/segmen sensitif), wajib label [WAJIB REVIEW MEDIS / SUBJECT-MATTER REVIEW SEBELUM PUBLIKASI].'
+  ],
+  systemRules:[
+    'Cluster wajib fokus menjawab 1 pertanyaan utama, tidak melebar seperti pillar.',
+    'SEO klasik: keyword placement, heading hierarchy, anti-cannibalization.',
+    'AEO: answer capsule 40-60 kata, mini answer tiap H2, FAQ standalone 4-7 item.',
+    'GEO/LLM: entity declaration jelas, passage independence, klaim berbukti.',
+    'Trust/YMYL: tidak overclaim, tidak diagnosis personal, disclaimer tepat.',
+    'Risk & reviewer routing wajib LOW/MEDIUM/HIGH sesuai tingkat sensitivitas.',
+    'Konversi: CTA minimal 2 titik, sesuai intent cluster, tanpa fear-based selling.',
+    'Kualitas tulisan: ringkas, jelas, mudah diekstrak AI, tanpa filler.',
+    'Claim discipline: dilarang janji hasil pasti, legalitas palsu, atau advice berisiko.',
+    'Freshness: harga, legalitas, reviewer, channel, proses, dan FAQ wajib punya trigger update.'
+  ],
+  writingFlow:[
+    'PW-1 Audit Input, PW-2 User Intent Analysis, PW-3 Fan-Out Query Map.',
+    'PW-4 Risk Triage, PW-5 Anti-Cannibalization Check, PW-6 Entity Declaration.',
+    'PW-7 Angle & CTA Map, PW-8 Draft Answer Capsule.',
+    'Struktur artikel: metadata, H1, answer capsule, lead/entity declaration, H2/H3, FAQ, CTA.',
+    'Gunakan tabel/list/checklist/summary box agar mudah di-scan dan di-cite.',
+    'Schema minimal: Article/WebPage + FAQPage + BreadcrumbList; tambahan schema sesuai konteks terverifikasi.'
+  ],
+  outputBlocks:[
+    'Output 1 - Pre-Writing Analysis',
+    'Output 2 - SEO Metadata Package',
+    'Output 3 - Outline Final Cluster',
+    'Output 4 - Artikel Cluster Lengkap',
+    'Output 5 - FAQ Section Cluster',
+    'Output 6 - Schema Package',
+    'Output 7 - Internal Link Plan Cluster',
+    'Output 8 - Media & Evidence Plan',
+    'Output 9 - Update Notes',
+    'Output 10 - Scorecard QA Cluster'
+  ],
+  acceptance:[
+    'Input, intent, fan-out, risk level, dan reviewer terdefinisi jelas.',
+    'Ada answer capsule, 5-7 H2 penting, FAQ 4-7, dan next-step CTA.',
+    'Metadata, entity declaration, internal linking, dan schema relevan tersedia.',
+    'Tidak ada overclaim; disclaimer dan guardrail YMYL masuk pada section sensitif.',
+    'CTA minimal 2x, tidak ada dead-end, dan bridge ke halaman tujuan jelas.',
+    'Skor minimal 45/50 untuk publish; jika Trust/YMYL < 8/10 maka belum layak publish.'
+  ]
+};
+
+const SCHEMA=[
+  {section:'Identitas Bisnis',key:'brand_name',label:'Nama Brand / Usaha',required:true,type:'text'},
+  {section:'Identitas Bisnis',key:'entity_type',label:'Jenis Entitas Bisnis',required:true,type:'select',allowOther:true,options:['Klinik Kecantikan','Klinik Umum / Medical Center','Rumah Sakit / RSIA / RS Khusus','Klinik Gigi / Dental Care','Fisioterapi / Rehabilitasi','Laboratorium / MCU / Diagnostik','Homecare / Home Visit / Vaksinasi','Skincare / Beauty Product / Kosmetik','Vitamin / Suplemen / Herbal','Bekam / Terapi Komplementer','Apotek / Alat Kesehatan','Hybrid Layanan + Produk']},
+  {section:'Identitas Bisnis',key:'business_model',label:'Model Bisnis Health',required:true,type:'select',allowOther:true,options:['service-first','product-first','hybrid','local multi-branch','national brand']},
+  {section:'Identitas Bisnis',key:'target_city',label:'Kota Utama Target',required:true,type:'text'},
+  {section:'Identitas Bisnis',key:'expansion_city',label:'Kota Ekspansi',type:'text'},
+  {section:'Identitas Bisnis',key:'service_area',label:'Area Layanan / Pengiriman',required:true,type:'text'},
+  {section:'Identitas Bisnis',key:'domain',label:'Domain / Website',required:true,type:'text'},
+  {section:'Identitas Bisnis',key:'main_conversion',label:'Metode Konversi Utama',required:true,type:'select',allowOther:true,options:['Booking / Appointment','Chat WhatsApp','Telepon','Form Lead','Checkout / Pembelian Online','Marketplace / Reseller','Kunjungan Langsung','Kombinasi']},
+  {section:'Identitas Bisnis',key:'wa_contact',label:'Nomor WA / Kontak',required:true,type:'text'},
+  {section:'Identitas Bisnis',key:'booking_link',label:'Email / Form / Link Booking',type:'text'},
+  {section:'Identitas Bisnis',key:'operational_hours',label:'Jam Operasional',required:true,type:'text'},
+  {section:'Identitas Bisnis',key:'response_eta',label:'Estimasi Waktu Respons',type:'text'},
+  {section:'Identitas Bisnis',key:'tagline',label:'Tagline / Positioning',type:'text'},
+  {section:'Identitas Bisnis',key:'year_established',label:'Tahun Berdiri',type:'text'},
+
+  {section:'Identitas Cluster',key:'cluster_type',label:'Tipe Cluster',required:true,type:'select',options:['C1 - Harga / Biaya','C2 - Edukasi / Definisi / Panduan','C3 - Perbandingan','C4 - Problem-Aware / Concern','C5 - Proses / Persiapan / Aftercare','C6 - Segment / Persona / Use Case','C7 - Safety / Trust / Legalitas']},
+  {section:'Identitas Cluster',key:'origin_silo',label:'Silo Asal',required:true,type:'select',options:['S1 - Core Offer','S2 - Problem / Concern / Need State','S3 - Trust / Safety / Validation','S4 - Process / Preparation / Aftercare','S5 - Location / Access / Official Channel','S6 - Secondary Revenue Driver / Hybrid']},
+  {section:'Identitas Cluster',key:'cluster_name',label:'Nama Cluster',required:true,type:'text'},
+  {section:'Identitas Cluster',key:'page_code',label:'Kode Halaman (opsional)',type:'text'},
+  {section:'Identitas Cluster',key:'specific_topic',label:'Topik Spesifik',required:true,type:'text'},
+  {section:'Identitas Cluster',key:'main_question',label:'Pertanyaan Utama User',required:true,type:'text'},
+  {section:'Identitas Cluster',key:'primary_keyword',label:'Primary Keyword',required:true,type:'text'},
+  {section:'Identitas Cluster',key:'secondary_keywords',label:'Secondary Keywords',required:true,type:'textarea',list:true,min:3},
+  {section:'Identitas Cluster',key:'longtail_keywords',label:'Long-tail Keywords',required:true,type:'textarea',list:true,min:3},
+  {section:'Identitas Cluster',key:'fanout_queries',label:'Query Fan-out Utama',required:true,type:'textarea',list:true,min:4,numbered:true},
+  {section:'Identitas Cluster',key:'dominant_intent',label:'Search Intent Dominan',required:true,type:'select',allowOther:true,options:['Informational','Commercial Investigation','Problem-aware informational','Validation / branded investigation','Mixed intent']},
+  {section:'Identitas Cluster',key:'cluster_audience',label:'Target Audience',required:true,type:'text'},
+  {section:'Identitas Cluster',key:'initial_risk_level',label:'Risk Level Awal',required:true,type:'select',options:['LOW','MEDIUM','HIGH']},
+
+  {section:'Data Konten Inti',key:'core_topic',label:'Topik / Offer / Concern Yang Dibahas',required:true,type:'textarea'},
+  {section:'Data Konten Inti',key:'service_name',label:'Untuk Bisnis Layanan - Nama Layanan / Treatment',type:'text',showIf:{key:'business_model',values:['service-first','hybrid','local multi-branch','national brand']}},
+  {section:'Data Konten Inti',key:'service_program',label:'Untuk Bisnis Layanan - Varian / Program',type:'text',showIf:{key:'business_model',values:['service-first','hybrid','local multi-branch','national brand']}},
+  {section:'Data Konten Inti',key:'service_price',label:'Untuk Bisnis Layanan - Range Harga / Biaya',type:'text',showIf:{key:'business_model',values:['service-first','hybrid','local multi-branch','national brand']}},
+  {section:'Data Konten Inti',key:'service_price_disclaimer',label:'Untuk Bisnis Layanan - Disclaimer Harga',required:true,type:'text',showIf:{key:'business_model',values:['service-first','hybrid','local multi-branch','national brand']}},
+  {section:'Data Konten Inti',key:'service_booking_flow',label:'Untuk Bisnis Layanan - Proses Awal / Booking',type:'text',showIf:{key:'business_model',values:['service-first','hybrid','local multi-branch','national brand']}},
+  {section:'Data Konten Inti',key:'service_fit',label:'Untuk Bisnis Layanan - Siapa Yang Cocok',type:'text',showIf:{key:'business_model',values:['service-first','hybrid','local multi-branch','national brand']}},
+  {section:'Data Konten Inti',key:'service_need_eval',label:'Untuk Bisnis Layanan - Siapa Yang Perlu Evaluasi',type:'text',showIf:{key:'business_model',values:['service-first','hybrid','local multi-branch','national brand']}},
+  {section:'Data Konten Inti',key:'service_prep',label:'Untuk Bisnis Layanan - Ketentuan Persiapan',type:'text',showIf:{key:'business_model',values:['service-first','hybrid','local multi-branch','national brand']}},
+  {section:'Data Konten Inti',key:'service_aftercare',label:'Untuk Bisnis Layanan - Ketentuan Aftercare',type:'text',showIf:{key:'business_model',values:['service-first','hybrid','local multi-branch','national brand']}},
+  {section:'Data Konten Inti',key:'product_category',label:'Untuk Bisnis Produk - Kategori Produk',type:'text',showIf:{key:'business_model',values:['product-first','hybrid','national brand']}},
+  {section:'Data Konten Inti',key:'product_variants',label:'Untuk Bisnis Produk - Varian / SKU / Range',type:'text',showIf:{key:'business_model',values:['product-first','hybrid','national brand']}},
+  {section:'Data Konten Inti',key:'product_price',label:'Untuk Bisnis Produk - Range Harga',type:'text',showIf:{key:'business_model',values:['product-first','hybrid','national brand']}},
+  {section:'Data Konten Inti',key:'product_price_disclaimer',label:'Untuk Bisnis Produk - Disclaimer Harga',required:true,type:'text',showIf:{key:'business_model',values:['product-first','hybrid','national brand']}},
+  {section:'Data Konten Inti',key:'product_ingredient',label:'Untuk Bisnis Produk - Ingredient / Bahan Aktif Yang Boleh Disebut',type:'text',showIf:{key:'business_model',values:['product-first','hybrid','national brand']}},
+  {section:'Data Konten Inti',key:'product_usage',label:'Untuk Bisnis Produk - Cara Pakai / Routine',type:'text',showIf:{key:'business_model',values:['product-first','hybrid','national brand']}},
+  {section:'Data Konten Inti',key:'product_storage',label:'Untuk Bisnis Produk - Storage / Durability',type:'text',showIf:{key:'business_model',values:['product-first','hybrid','national brand']}},
+  {section:'Data Konten Inti',key:'product_fit',label:'Untuk Bisnis Produk - Siapa Yang Cocok',type:'text',showIf:{key:'business_model',values:['product-first','hybrid','national brand']}},
+  {section:'Data Konten Inti',key:'product_need_consult',label:'Untuk Bisnis Produk - Siapa Yang Wajib Konsultasi',type:'text',showIf:{key:'business_model',values:['product-first','hybrid','national brand']}},
+  {section:'Data Konten Inti',key:'hybrid_service_core',label:'Untuk Bisnis Hybrid - Layanan Inti',type:'text',showIf:{key:'business_model',values:['hybrid']}},
+  {section:'Data Konten Inti',key:'hybrid_product_core',label:'Untuk Bisnis Hybrid - Produk Inti',type:'text',showIf:{key:'business_model',values:['hybrid']}},
+  {section:'Data Konten Inti',key:'hybrid_service_to_product',label:'Untuk Bisnis Hybrid - Jembatan Layanan -> Produk',type:'text',showIf:{key:'business_model',values:['hybrid']}},
+  {section:'Data Konten Inti',key:'hybrid_product_to_service',label:'Untuk Bisnis Hybrid - Jembatan Produk -> Layanan',type:'text',showIf:{key:'business_model',values:['hybrid']}},
+
+  {section:'Data Khusus Tipe Cluster',key:'c1_price_range',label:'C1 Harga/Biaya - Range Harga / Biaya',required:true,type:'text',showIf:{key:'cluster_type',values:['C1 - Harga / Biaya']}},
+  {section:'Data Khusus Tipe Cluster',key:'c1_price_factors',label:'C1 Harga/Biaya - Faktor Penentu Harga',required:true,type:'textarea',list:true,min:4,numbered:true,showIf:{key:'cluster_type',values:['C1 - Harga / Biaya']}},
+  {section:'Data Khusus Tipe Cluster',key:'c1_include',label:'C1 Harga/Biaya - Apa Yang Include',required:true,type:'text',showIf:{key:'cluster_type',values:['C1 - Harga / Biaya']}},
+  {section:'Data Khusus Tipe Cluster',key:'c1_exclude',label:'C1 Harga/Biaya - Apa Yang Tidak Include',type:'text',showIf:{key:'cluster_type',values:['C1 - Harga / Biaya']}},
+  {section:'Data Khusus Tipe Cluster',key:'c1_estimation_way',label:'C1 Harga/Biaya - Cara Minta Estimasi Tepat',type:'text',showIf:{key:'cluster_type',values:['C1 - Harga / Biaya']}},
+  {section:'Data Khusus Tipe Cluster',key:'c2_definition',label:'C2 Edukasi - Definisi Sederhana',required:true,type:'text',showIf:{key:'cluster_type',values:['C2 - Edukasi / Definisi / Panduan']}},
+  {section:'Data Khusus Tipe Cluster',key:'c2_key_points',label:'C2 Edukasi - Poin Kunci Utama',required:true,type:'textarea',list:true,min:4,numbered:true,showIf:{key:'cluster_type',values:['C2 - Edukasi / Definisi / Panduan']}},
+  {section:'Data Khusus Tipe Cluster',key:'c2_misconception',label:'C2 Edukasi - Miskonsepsi Umum',type:'text',showIf:{key:'cluster_type',values:['C2 - Edukasi / Definisi / Panduan']}},
+  {section:'Data Khusus Tipe Cluster',key:'c2_when_consult',label:'C2 Edukasi - Kapan Perlu Konsultasi',type:'text',showIf:{key:'cluster_type',values:['C2 - Edukasi / Definisi / Panduan']}},
+  {section:'Data Khusus Tipe Cluster',key:'c3_option_a',label:'C3 Perbandingan - Opsi A',required:true,type:'text',showIf:{key:'cluster_type',values:['C3 - Perbandingan']}},
+  {section:'Data Khusus Tipe Cluster',key:'c3_option_b',label:'C3 Perbandingan - Opsi B',required:true,type:'text',showIf:{key:'cluster_type',values:['C3 - Perbandingan']}},
+  {section:'Data Khusus Tipe Cluster',key:'c3_dimensions',label:'C3 Perbandingan - Dimensi Perbandingan',required:true,type:'textarea',list:true,min:5,numbered:true,showIf:{key:'cluster_type',values:['C3 - Perbandingan']}},
+  {section:'Data Khusus Tipe Cluster',key:'c3_limitations',label:'C3 Perbandingan - Batasan Perbandingan',type:'text',showIf:{key:'cluster_type',values:['C3 - Perbandingan']}},
+  {section:'Data Khusus Tipe Cluster',key:'c4_main_concern',label:'C4 Concern - Concern / Masalah Utama',required:true,type:'text',showIf:{key:'cluster_type',values:['C4 - Problem-Aware / Concern']}},
+  {section:'Data Khusus Tipe Cluster',key:'c4_causes',label:'C4 Concern - Penyebab Umum',type:'text',showIf:{key:'cluster_type',values:['C4 - Problem-Aware / Concern']}},
+  {section:'Data Khusus Tipe Cluster',key:'c4_watchout',label:'C4 Concern - Hal Yang Perlu Diwaspadai',type:'text',showIf:{key:'cluster_type',values:['C4 - Problem-Aware / Concern']}},
+  {section:'Data Khusus Tipe Cluster',key:'c4_options',label:'C4 Concern - Opsi Umum Yang Relevan',type:'text',showIf:{key:'cluster_type',values:['C4 - Problem-Aware / Concern']}},
+  {section:'Data Khusus Tipe Cluster',key:'c4_avoid',label:'C4 Concern - Hal Yang Tidak Boleh Dilakukan Sembarangan',type:'text',showIf:{key:'cluster_type',values:['C4 - Problem-Aware / Concern']}},
+  {section:'Data Khusus Tipe Cluster',key:'c4_when_evaluate',label:'C4 Concern - Kapan Harus Evaluasi Lanjut',type:'text',showIf:{key:'cluster_type',values:['C4 - Problem-Aware / Concern']}},
+  {section:'Data Khusus Tipe Cluster',key:'c5_who_need_guide',label:'C5 Proses - Siapa Yang Butuh Panduan',required:true,type:'text',showIf:{key:'cluster_type',values:['C5 - Proses / Persiapan / Aftercare']}},
+  {section:'Data Khusus Tipe Cluster',key:'c5_steps',label:'C5 Proses - Step 1 sampai Step 4',required:true,type:'textarea',list:true,min:4,numbered:true,showIf:{key:'cluster_type',values:['C5 - Proses / Persiapan / Aftercare']}},
+  {section:'Data Khusus Tipe Cluster',key:'c5_duration',label:'C5 Proses - Estimasi Durasi',type:'text',showIf:{key:'cluster_type',values:['C5 - Proses / Persiapan / Aftercare']}},
+  {section:'Data Khusus Tipe Cluster',key:'c5_prep',label:'C5 Proses - Persiapan User',type:'text',showIf:{key:'cluster_type',values:['C5 - Proses / Persiapan / Aftercare']}},
+  {section:'Data Khusus Tipe Cluster',key:'c5_aftercare',label:'C5 Proses - Aftercare / Follow-up',type:'text',showIf:{key:'cluster_type',values:['C5 - Proses / Persiapan / Aftercare']}},
+  {section:'Data Khusus Tipe Cluster',key:'c6_segment',label:'C6 Segment - Segment Yang Dituju',required:true,type:'text',showIf:{key:'cluster_type',values:['C6 - Segment / Persona / Use Case']}},
+  {section:'Data Khusus Tipe Cluster',key:'c6_needs',label:'C6 Segment - Kebutuhan Khusus Segment',required:true,type:'text',showIf:{key:'cluster_type',values:['C6 - Segment / Persona / Use Case']}},
+  {section:'Data Khusus Tipe Cluster',key:'c6_sensitivity',label:'C6 Segment - Sensitivitas / Batasan',type:'text',showIf:{key:'cluster_type',values:['C6 - Segment / Persona / Use Case']}},
+  {section:'Data Khusus Tipe Cluster',key:'c6_options',label:'C6 Segment - Opsi Yang Relevan',type:'text',showIf:{key:'cluster_type',values:['C6 - Segment / Persona / Use Case']}},
+  {section:'Data Khusus Tipe Cluster',key:'c6_attention',label:'C6 Segment - Hal Yang Harus Diperhatikan',type:'text',showIf:{key:'cluster_type',values:['C6 - Segment / Persona / Use Case']}},
+  {section:'Data Khusus Tipe Cluster',key:'c7_validation_question',label:'C7 Safety/Trust - Pertanyaan Validasi Utama',required:true,type:'text',showIf:{key:'cluster_type',values:['C7 - Safety / Trust / Legalitas']}},
+  {section:'Data Khusus Tipe Cluster',key:'c7_legality',label:'C7 Safety/Trust - Legalitas / Izin Relevan',type:'text',showIf:{key:'cluster_type',values:['C7 - Safety / Trust / Legalitas']}},
+  {section:'Data Khusus Tipe Cluster',key:'c7_reviewer_pic',label:'C7 Safety/Trust - Reviewer / Penanggung Jawab',type:'text',showIf:{key:'cluster_type',values:['C7 - Safety / Trust / Legalitas']}},
+  {section:'Data Khusus Tipe Cluster',key:'c7_risk_limit',label:'C7 Safety/Trust - Risiko / Batasan Umum',type:'text',showIf:{key:'cluster_type',values:['C7 - Safety / Trust / Legalitas']}},
+  {section:'Data Khusus Tipe Cluster',key:'c7_official_channel',label:'C7 Safety/Trust - Official Channel',required:true,type:'text',showIf:{key:'cluster_type',values:['C7 - Safety / Trust / Legalitas']}},
+  {section:'Data Khusus Tipe Cluster',key:'c7_not_certain',label:'C7 Safety/Trust - Hal Yang Tidak Bisa Dipastikan Secara Umum',type:'text',showIf:{key:'cluster_type',values:['C7 - Safety / Trust / Legalitas']}},
+
+  {section:'Trust / Entity / Reviewer',key:'trust_signals',label:'Trust Signal Yang Tersedia',required:true,type:'checklist',allowOther:true,options:['Izin operasional / legalitas usaha','STR / SIP / kredensial tenaga medis','BPOM / izin edar / legalitas produk','Dokter / praktisi / apoteker / terapis','Tahun berdiri','Jumlah pasien / pelanggan / transaksi','Alamat fisik / cabang jelas','Testimoni nyata','Google Review / marketplace review','Sertifikasi / penghargaan','Foto fasilitas / proses / tim','Data before-after yang sah dan boleh dipakai']},
+  {section:'Trust / Entity / Reviewer',key:'trust_customer_count',label:'Data Trust - Jumlah Pasien / Pelanggan',required:true,type:'text'},
+  {section:'Trust / Entity / Reviewer',key:'trust_since_year',label:'Data Trust - Sejak Tahun',required:true,type:'text'},
+  {section:'Trust / Entity / Reviewer',key:'trust_rating',label:'Data Trust - Rating / Ulasan',required:true,type:'text'},
+  {section:'Trust / Entity / Reviewer',key:'trust_legality',label:'Data Trust - Legalitas / Izin',required:true,type:'text'},
+  {section:'Trust / Entity / Reviewer',key:'trust_person_allowed',label:'Data Trust - Dokter / Praktisi / PIC Yang Boleh Disebut',required:true,type:'text'},
+  {section:'Trust / Entity / Reviewer',key:'author_reviewer_page',label:'Author / Reviewer Page Yang Sudah Ada',type:'text'},
+  {section:'Trust / Entity / Reviewer',key:'existing_entity_pages',label:'Halaman Entity / Trust Yang Sudah Ada',type:'checklist',allowOther:true,options:['Tentang brand / klinik','Halaman dokter / praktisi / tim ahli','Halaman legalitas / BPOM / sertifikasi','Halaman review / testimoni / reputasi','Halaman cabang / lokasi / jam operasional','Halaman kebijakan penting','Official store / marketplace resmi','Belum ada']},
+  {section:'Trust / Entity / Reviewer',key:'medical_review_topics',label:'Topik Yang Wajib Medical Review',required:true,type:'textarea',list:true,min:3,numbered:true},
+  {section:'Trust / Entity / Reviewer',key:'reviewer_used',label:'Reviewer Yang Digunakan',required:true,type:'text'},
+
+  {section:'Disclaimers & Batasan',key:'disclaimer_education',label:'Disclaimer Edukasi',required:true,type:'text'},
+  {section:'Disclaimers & Batasan',key:'disclaimer_outcome',label:'Disclaimer Hasil / Outcome',required:true,type:'text'},
+  {section:'Disclaimers & Batasan',key:'disclaimer_safety',label:'Disclaimer Safety',required:true,type:'text'},
+  {section:'Disclaimers & Batasan',key:'disclaimer_legality',label:'Disclaimer Legalitas',required:true,type:'text'},
+  {section:'Disclaimers & Batasan',key:'disclaimer_price',label:'Disclaimer Harga',required:true,type:'text'},
+  {section:'Disclaimers & Batasan',key:'disclaimer_emergency',label:'Disclaimer Emergency (jika relevan)',type:'text'},
+  {section:'Disclaimers & Batasan',key:'forbidden_claims',label:'Hal Yang Tidak Boleh Diklaim',required:true,type:'textarea',list:true,min:3,numbered:true},
+
+  {section:'Linking Dari Prompt 02 + 03',key:'link_pillar_page',label:'Pillar Page Yang Harus Di-link',required:true,type:'text'},
+  {section:'Linking Dari Prompt 02 + 03',key:'link_money_page',label:'Money Page Yang Harus Di-link',required:true,type:'text'},
+  {section:'Linking Dari Prompt 02 + 03',key:'link_faq_page',label:'FAQ Page Yang Harus Di-link',type:'text'},
+  {section:'Linking Dari Prompt 02 + 03',key:'link_trust_page',label:'Trust / Entity Page Yang Harus Di-link',type:'text'},
+  {section:'Linking Dari Prompt 02 + 03',key:'link_local_page',label:'Local / Access / Channel Page Yang Harus Di-link',type:'text'},
+  {section:'Linking Dari Prompt 02 + 03',key:'related_cluster_pages',label:'Cluster Lain Yang Terkait',required:true,type:'textarea',list:true,min:2,numbered:true},
+  {section:'Linking Dari Prompt 02 + 03',key:'inbound_pages',label:'Halaman Yang Link Ke Cluster Ini',type:'text'},
+
+  {section:'Preferensi Penulisan',key:'tone_voice',label:'Tone Of Voice',required:true,type:'select',allowOther:true,options:['Profesional + meyakinkan','Edukatif + informatif','Empatik + reassuring','Premium + elegan','Klinik / medis formal','Friendly + semi-formal']},
+  {section:'Preferensi Penulisan',key:'target_length',label:'Target Panjang Artikel',required:true,type:'select',options:['1.200-1.500 kata (ringkas padat)','1.500-1.800 kata (standar)','1.800-2.200 kata (lebih lengkap)']},
+  {section:'Preferensi Penulisan',key:'output_format',label:'Format Output',required:true,type:'select',options:['Artikel lengkap saja','Artikel + Meta Title + Meta Desc','Artikel + Meta + Schema JSON-LD','Artikel + Meta + Schema + Media Plan','Full Package (rekomendasi)']},
+  {section:'Preferensi Penulisan',key:'output_mode',label:'Mode Output',required:true,type:'select',options:['Ringkas','Standar','Full']},
+  {section:'Preferensi Penulisan',key:'additional_notes',label:'Catatan Tambahan',type:'textarea'}
+];
+
+let activeTab='md'; let lastOutput={markdown:'',html:''};
+const byId=(id)=>document.getElementById(id); const clean=(v)=>(v||'').replace(/\r/g,'').trim(); const today=()=>new Date().toISOString().slice(0,10);
+const esc=(v)=>(v||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+const slug=(v)=>(v||'brand').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,80)||'brand';
+const splitLines=(v)=>clean(v).split(/\n|;|,/).map((x)=>x.replace(/^\d+[\).\s-]*/,'').trim()).filter(Boolean);
+
+function renderField(f){
+  const req=f.required?'<span>Wajib</span>':''; const hint=f.hint?`<p class="hint">${f.hint}</p>`:'';
+  let input='';
+  if(f.type==='textarea') input=`<textarea id="${f.key}" placeholder="Isi ${f.label.toLowerCase()}"></textarea>`;
+  else if(f.type==='select'){
+    const opts=(f.options||[]).map((o)=>`<option value="${o}">${o}</option>`).join('');
+    const other=f.allowOther?`<option value="__other__">Lainnya (tulis manual)</option>`:'';
+    const otherInput=f.allowOther?`<input id="${f.key}_other" class="other-input" type="text" placeholder="Isi lainnya untuk ${f.label.toLowerCase()}">`:'';
+    input=`<select id="${f.key}"><option value="">Pilih opsi</option>${opts}${other}</select>${otherInput}`;
+  } else if(f.type==='checklist'){
+    const items=(f.options||[]).map((o)=>`<label class="ck"><input type="checkbox" name="${f.key}" value="${o}">${o}</label>`).join('');
+    const other=f.allowOther?`<label class="ck"><input type="checkbox" name="${f.key}" value="__other__">Lainnya</label><input id="${f.key}_other" class="other-input" type="text" placeholder="Isi lainnya untuk ${f.label.toLowerCase()}">`:'';
+    input=`<div class="check-wrap" id="wrap-${f.key}">${items}${other}</div>`;
+  } else input=`<input id="${f.key}" type="text" placeholder="Isi ${f.label.toLowerCase()}">`;
+  return `<div class="f" id="field-${f.key}"><label for="${f.key}">${f.label} ${req}</label>${hint}${input}<div class="err" id="err-${f.key}">${f.required?`${f.label} wajib diisi.`:'Field belum valid.'}</div></div>`;
+}
+
+function renderForm(){
+  const form=byId('form'); const groups=[...new Set(SCHEMA.map((s)=>s.section))];
+  form.innerHTML=groups.map((g)=>`<div class="group"><div class="gt">${g}</div>${SCHEMA.filter((f)=>f.section===g).map(renderField).join('')}</div>`).join('');
+}
+
+function bindOthers(){
+  SCHEMA.filter((f)=>f.type==='select'&&f.allowOther).forEach((f)=>{ const sel=byId(f.key), other=byId(`${f.key}_other`); if(!sel||!other) return; const sync=()=>{const on=sel.value==='__other__'; other.style.display=on?'block':'none'; if(!on) other.value='';}; sel.addEventListener('change',sync); sync(); });
+  SCHEMA.filter((f)=>f.type==='checklist'&&f.allowOther).forEach((f)=>{ const other=byId(`${f.key}_other`); if(!other) return; const sync=()=>{const on=!!document.querySelector(`input[name="${f.key}"][value="__other__"]:checked`); other.style.display=on?'block':'none'; if(!on) other.value='';}; document.querySelectorAll(`input[name="${f.key}"]`).forEach((el)=>el.addEventListener('change',sync)); sync(); });
+  document.querySelectorAll('select').forEach((el)=>el.addEventListener('change',applyConditionalVisibility));
+  applyConditionalVisibility();
+}
+
+function isVisible(f){
+  if(!f.showIf) return true;
+  const dep=clean((byId(f.showIf.key)||{}).value||'');
+  return (f.showIf.values||[]).includes(dep);
+}
+
+function applyConditionalVisibility(){
+  SCHEMA.forEach((f)=>{
+    const wrap=byId(`field-${f.key}`);
+    if(!wrap) return;
+    const show=isVisible(f);
+    wrap.classList.toggle('hidden',!show);
+    if(!show){
+      if(f.type==='checklist') document.querySelectorAll(`input[name="${f.key}"]`).forEach((el)=>{el.checked=false;});
+      else{
+        const el=byId(f.key); if(el) el.value='';
+        const other=byId(`${f.key}_other`); if(other){other.value='';other.style.display='none';}
+      }
+      setInvalid(f,false,'');
+    }
+  });
+}
+
+function collect(){
+  const d={};
+  SCHEMA.forEach((f)=>{
+    if(f.type==='checklist'){
+      const vals=[...document.querySelectorAll(`input[name="${f.key}"]:checked`)].map((el)=>el.value);
+      d[f.key]=vals.filter((v)=>v!=='__other__');
+      if(vals.includes('__other__')) d[f.key].push(clean((byId(`${f.key}_other`)||{}).value||'')?`Lainnya: ${clean((byId(`${f.key}_other`)||{}).value||'')}`:'Lainnya');
+    }else if(f.type==='select'){
+      const v=clean((byId(f.key)||{}).value||''); d[f.key]=(f.allowOther&&v==='__other__')?(clean((byId(`${f.key}_other`)||{}).value||'')?`Lainnya: ${clean((byId(`${f.key}_other`)||{}).value||'')}`:'Lainnya'):v;
+    }else{
+      const raw=(byId(f.key)||{}).value||''; d[f.key]=f.list?splitLines(raw):clean(raw);
+    }
+  });
+  return d;
+}
+
+function setInvalid(f,bad,msg){
+  const el=byId(f.key), err=byId(`err-${f.key}`); if(el) el.classList.toggle('invalid',!!bad);
+  if(f.type==='checklist'){const wrap=byId(`wrap-${f.key}`); if(wrap) wrap.classList.toggle('invalid',!!bad);} 
+  if(err){ if(msg) err.textContent=msg; err.classList.toggle('show',!!bad); }
+}
+
+function validate(d){
+  let ok=true;
+  SCHEMA.forEach((f)=>{
+    if(!isVisible(f)){ setInvalid(f,false,''); return; }
+    let bad=false, msg=`${f.label} wajib diisi.`;
+    if(f.required){ if(f.type==='checklist') bad=(d[f.key]||[]).length<1; else if(f.list) bad=(d[f.key]||[]).length<1; else bad=!d[f.key]; }
+    if(!bad&&f.min){ const n=f.list?(d[f.key]||[]).length:splitLines(d[f.key]||'').length; bad=n<f.min; msg=`Isi minimal ${f.min} item untuk ${f.label}.`; }
+    if(!bad && f.allowOther && (byId(f.key)?.value==='__other__')){ const txt=clean((byId(`${f.key}_other`)||{}).value||''); if(!txt){ bad=true; msg=`Isi nilai lainnya untuk ${f.label}.`; } }
+    if(!bad && f.type==='checklist' && f.allowOther){ const on=!!document.querySelector(`input[name="${f.key}"][value="__other__"]:checked`); if(on&&!clean((byId(`${f.key}_other`)||{}).value||'')){ bad=true; msg=`Isi nilai lainnya untuk ${f.label}.`; }}
+    setInvalid(f,bad,msg); if(bad) ok=false;
+  });
+  return ok;
+}
+
+const mdList=(arr)=>arr&&arr.length?arr.map((x)=>`- ${x}`).join('\n'):'- [Tidak diisi]';
+const mdNum=(arr)=>arr&&arr.length?arr.map((x,i)=>`${i+1}. ${x}`).join('\n'):'1. [Tidak diisi]';
+
+function sectionMarkdown(d){
+  const groups=[...new Set(SCHEMA.map((s)=>s.section))];
+  return groups.map((g)=>{
+    const lines=[`[${g.toUpperCase()}]`];
+    SCHEMA.filter((f)=>f.section===g).forEach((f)=>{
+      if(!isVisible(f)) return;
+      const v=d[f.key];
+      if(Array.isArray(v)) lines.push(`- ${f.label}:\n${f.numbered?mdNum(v):mdList(v)}`);
+      else lines.push(`- ${f.label}: ${v||'-'}`);
+    });
+    lines.push('');
+    return lines.join('\n');
+  }).join('\n');
+}
+
+function buildMarkdown(d){
+  return [
+`# ${CFG.title}`,
+`## ${CFG.subtitle}`,
+``,
+`Tanggal Generate: ${today()}`,
+``,
+`==================================================`,
+`BAGIAN 0 - CARA MENGGUNAKAN PROMPT`,
+`==================================================`,
+...CFG.preSteps.map((s,i)=>`${i+1}. ${s}`),
+``,
+`==================================================`,
+`BAGIAN 1 - INPUT WAJIB (TERISI)`,
+`==================================================`,
+sectionMarkdown(d),
+`==================================================`,
+`BAGIAN 2 - INSTRUKSI SISTEM UNTUK AI`,
+`==================================================`,
+...CFG.systemRules.map((s,i)=>`${i+1}. ${s}`),
+``,
+`==================================================`,
+`BAGIAN 3 - INSTRUKSI PENULISAN LENGKAP`,
+`==================================================`,
+...CFG.writingFlow.map((s,i)=>`${i+1}. ${s}`),
+``,
+`==================================================`,
+`BAGIAN 4 - OUTPUT WAJIB LENGKAP`,
+`==================================================`,
+...CFG.outputBlocks.map((b,i)=>`${i+1}. ${b}`),
+``,
+`==================================================`,
+`BAGIAN 5 - ACCEPTANCE CRITERIA`,
+`==================================================`,
+...CFG.acceptance.map((a)=>`- ${a}`),
+``,
+`NEXT STEP: Gunakan output Prompt 04B ini untuk produksi cluster page, review ahli, lalu lanjut ke Prompt 04C/04D/04E sesuai kebutuhan halaman.`
+  ].join('\n');
+}
+
+function buildHtmlBody(d,md){
+  return `<article><h3>Master Prompt 04B - Cluster Page Writer Health Business</h3><p><strong>Brand:</strong> ${esc(d.brand_name||'-')} | <strong>Cluster:</strong> ${esc(d.cluster_type||'-')} | <strong>Tanggal:</strong> ${esc(today())}</p><table><thead><tr><th>Field</th><th>Nilai</th></tr></thead><tbody><tr><td>Nama Cluster</td><td>${esc(d.cluster_name||'-')}</td></tr><tr><td>Silo Asal</td><td>${esc(d.origin_silo||'-')}</td></tr><tr><td>Pertanyaan Utama</td><td>${esc(d.main_question||'-')}</td></tr><tr><td>Risk Awal</td><td>${esc(d.initial_risk_level||'-')}</td></tr></tbody></table><h4>Prompt Siap Copy</h4><pre>${esc(md)}</pre></article>`;
+}
+
+function exportDoc(body){return `<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Master Prompt 04B</title><style>body{font-family:Arial,sans-serif;margin:28px;color:#1f2532;line-height:1.65}h3{font-size:30px;margin-bottom:8px}p,li,td,th{font-size:14px}table{width:100%;border-collapse:collapse;margin:8px 0 14px}th,td{border:1px solid #d2d9e8;padding:8px 10px;text-align:left;vertical-align:top}th{background:#eff3fc;font-size:12px;text-transform:uppercase}pre{white-space:pre-wrap;background:#f6f8fc;border:1px solid #dbe2ef;border-radius:10px;padding:12px;font-size:12px}@media print{body{margin:14mm}}</style></head><body>${body}</body></html>`;}
+
+function showTab(name){activeTab=name;byId('markdown-preview').style.display=name==='md'?'block':'none';byId('html-preview').style.display=name==='html'?'block':'none';byId('tab-md').classList.toggle('on',name==='md');byId('tab-html').classList.toggle('on',name==='html');}
+function generateOutput(){const d=collect();if(!validate(d)){alert('Masih ada field wajib yang belum lengkap. Mohon cek bagian merah.');return false;} lastOutput.markdown=buildMarkdown(d); lastOutput.html=buildHtmlBody(d,lastOutput.markdown); byId('markdown-preview').textContent=lastOutput.markdown; byId('html-preview').innerHTML=lastOutput.html; showTab(activeTab); return true;}
+function ensureOutput(){if(lastOutput.markdown&&lastOutput.html)return true;return generateOutput();}
+function blobDownload(content,type,fname){const blob=new Blob([content],{type});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=fname;document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);} 
+function copyMarkdown(){if(!ensureOutput())return;navigator.clipboard.writeText(lastOutput.markdown).then(()=>alert('Markdown berhasil disalin.')).catch(()=>alert('Gagal menyalin otomatis.'));}
+function downloadMarkdown(){if(!ensureOutput())return;blobDownload(lastOutput.markdown,'text/markdown;charset=utf-8',`framework-kesehatan-master-prompt-04b-${slug(clean((byId('brand_name')||{}).value||'brand'))}-${today()}.md`);} 
+function downloadHtml(){if(!ensureOutput())return;blobDownload(exportDoc(lastOutput.html),'text/html;charset=utf-8',`framework-kesehatan-master-prompt-04b-${slug(clean((byId('brand_name')||{}).value||'brand'))}-${today()}.html`);} 
+function downloadPdf(){if(!ensureOutput())return;const w=window.open('','_blank');if(!w){alert('Pop-up diblokir browser.');return;}w.document.open();w.document.write(exportDoc(lastOutput.html));w.document.close();w.focus();setTimeout(()=>w.print(),320);} 
+function resetForm(){byId('form').reset();document.querySelectorAll('.invalid').forEach((el)=>el.classList.remove('invalid'));document.querySelectorAll('.err').forEach((el)=>el.classList.remove('show'));document.querySelectorAll('.other-input').forEach((el)=>{el.value='';el.style.display='none';});lastOutput={markdown:'',html:''};byId('markdown-preview').textContent='Belum ada output. Isi form lalu klik "Generate Master Prompt 04B".';byId('html-preview').innerHTML='<p>Belum ada output HTML.</p>';showTab('md');applyConditionalVisibility();}
+
+renderForm();bindOthers();
+</script>
+</body>
+</html>

@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Workbook Buyer Persona - Framework Bisnis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0f1117;--ink2:#1f2532;--muted:#687287;--bg:#f4f7fc;--card:#fff;--blue:#1f5cb7;--blue2:#2f74d4;--line:rgba(15,17,23,.16);--line2:rgba(15,17,23,.08);--red:#a53030;--r:12px;--r2:18px;--shadow:0 10px 30px rgba(16,23,45,.08),0 2px 10px rgba(16,23,45,.08)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;color:var(--ink);line-height:1.6;background:radial-gradient(circle at 10% 0,rgba(31,116,212,.12)0,transparent 36%),radial-gradient(circle at 100% 100%,rgba(31,122,79,.12)0,transparent 40%),var(--bg)}
+.top{position:sticky;top:0;z-index:50;background:#121826;border-bottom:1px solid rgba(255,255,255,.1);padding:14px 24px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.logo{font-family:'Playfair Display',serif;color:#edf2ff;font-size:17px}.logo span{color:#9bc0ff;font-style:italic}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.btn{border:1px solid transparent;background:#fff;padding:8px 12px;border-radius:10px;font-size:12px;cursor:pointer;text-decoration:none;color:#1f2532;display:inline-flex;align-items:center;gap:6px}
+.btn.ghost{background:transparent;color:#f1f5ff;border-color:rgba(255,255,255,.35)}
+.btn.ghost:hover{border-color:rgba(255,255,255,.6)}
+.btn.primary{background:var(--blue);color:#fff}.btn.primary:hover{background:var(--blue2)}
+main{max-width:1400px;margin:0 auto;padding:24px}
+.hero{background:linear-gradient(130deg,#16213d 0%,#22315e 40%,#304a89 100%);border:1px solid rgba(255,255,255,.16);color:#f2f5fb;border-radius:var(--r2);box-shadow:var(--shadow);padding:22px;margin-bottom:16px}
+.hero .tag{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.09em;text-transform:uppercase;opacity:.86;margin-bottom:8px}
+.hero h1{font-family:'Playfair Display',serif;font-size:30px;font-weight:500;line-height:1.2;margin-bottom:8px}.hero h1 em{color:#b9d0fb}
+.hero p{font-size:14px;max-width:960px;color:rgba(236,242,255,.92)}
+.grid{display:grid;grid-template-columns:minmax(360px,1fr) minmax(390px,1fr);gap:16px;align-items:start}
+.card{background:var(--card);border:1px solid var(--line2);border-radius:var(--r2);box-shadow:var(--shadow);padding:16px}
+.card h2{font-family:'Playfair Display',serif;font-size:24px;font-weight:500;margin-bottom:6px}
+.sub{font-size:13px;color:var(--muted);margin-bottom:14px}
+.group{border:1px solid var(--line2);border-radius:var(--r);padding:12px;background:#fff;margin-bottom:12px}
+.gt{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);margin-bottom:10px}
+.f{margin-bottom:10px}.f:last-child{margin-bottom:0}
+label{display:block;font-size:13px;font-weight:600;color:var(--ink2);margin-bottom:4px}
+label span{margin-left:6px;color:var(--blue2);font-size:11px;font-family:'DM Mono',monospace}
+.hint{font-size:12px;color:var(--muted);margin-bottom:6px}
+input[type="text"],textarea{width:100%;border:1.4px solid var(--line);border-radius:10px;padding:9px 11px;font-size:14px;color:var(--ink2);font-family:'DM Sans',sans-serif}
+textarea{min-height:78px;resize:vertical}
+input:focus,textarea:focus{outline:none;border-color:rgba(47,116,212,.78);box-shadow:0 0 0 3px rgba(47,116,212,.16)}
+.opt{border:1.4px solid var(--line);border-radius:10px;padding:8px 10px}
+.opt.invalid,input.invalid,textarea.invalid{border-color:rgba(165,48,48,.75)!important;box-shadow:0 0 0 3px rgba(165,48,48,.12)!important}
+.ck{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--ink2);margin:4px 0}.ck input{margin-top:2px}
+.err{display:none;color:var(--red);font-size:12px;margin-top:5px}.err.show{display:block}
+.act{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.tab{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-bottom:10px}
+.tab button{border:none;background:#fff;padding:7px 11px;font-size:12px;cursor:pointer}
+.tab button.on{background:#ebf3ff;color:#1c4f9e;font-weight:600}
+.preview{border:1px solid var(--line2);border-radius:12px;background:#f9fbff;max-height:760px;overflow:auto}
+pre{font-family:'DM Mono',monospace;font-size:12px;white-space:pre-wrap;padding:12px;color:#17253f}
+.html{display:none;padding:12px;background:#fff;font-size:14px}
+.html table{width:100%;border-collapse:collapse;margin-top:8px}.html th,.html td{border:1px solid #dce4f2;padding:7px 9px;text-align:left;vertical-align:top}.html th{background:#f1f6ff;font-size:12px;text-transform:uppercase}
+@media(max-width:1080px){.grid{grid-template-columns:1fr}}
+@media(max-width:700px){.top{padding:12px 14px}main{padding:16px 12px}.hero h1{font-size:25px}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="logo">Workbook Framework - <span>Buyer Persona</span></div>
+  <div class="row">
+    <a class="btn ghost" href="index.html">Kembali ke Hub</a>
+    <a class="btn ghost" href="funnel-marketing-workbook.html">Buka Funnel Marketing</a>
+    <button class="btn ghost" type="button" onclick="copyMd()">Copy Markdown</button>
+    <button class="btn primary" type="button" onclick="downloadMd()">Download .md</button>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="tag">Fundamental Business Growth Framework - Workbook Tambahan</div>
+    <h1>Buyer Persona <em>Input Builder</em></h1>
+    <p>Semua field mengikuti FORMAT INPUT dari MASTER PROMPT BUYER PERSONA (April 2026). Isi detail agar output A-F lebih tajam: diagnosis, WHO, WHERE, objection map, workbook personal, dan persona card final.</p>
+  </section>
+
+  <div class="grid">
+    <section class="card">
+      <h2>Form Input Lengkap</h2>
+      <p class="sub">Field wajib harus terisi. Tiap field sudah ada penjelasan agar output maksimal dan relevan.</p>
+      <form id="form" novalidate>
+        <div class="group">
+          <div class="gt">Identitas Bisnis</div>
+          <div class="f">
+            <label for="brand">Nama Bisnis / Brand <span>Wajib</span></label>
+            <p class="hint">Gunakan nama yang konsisten dengan dokumen framework lain.</p>
+            <input id="brand" type="text" placeholder="Contoh: Dapur Rasa Nusantara">
+            <div class="err" id="err-brand">Nama bisnis wajib diisi.</div>
+          </div>
+          <div class="f">
+            <label for="industry">Industri / Kategori <span>Wajib</span></label>
+            <p class="hint">Semakin spesifik kategori, semakin akurat inferensi persona.</p>
+            <input id="industry" type="text" placeholder="Contoh: Catering langganan kantor">
+            <div class="err" id="err-industry">Industri wajib diisi.</div>
+          </div>
+          <div class="f">
+            <label for="offer">Produk / Jasa Utama <span>Wajib</span></label>
+            <p class="hint">Tulis penawaran inti yang paling sering Anda jual.</p>
+            <textarea id="offer" placeholder="Contoh: Paket makan siang berlangganan untuk tim kantor."></textarea>
+            <div class="err" id="err-offer">Produk/jasa utama wajib diisi.</div>
+          </div>
+        </div>
+
+        <div class="group">
+          <div class="gt">Gambaran Pelanggan Saat Ini</div>
+          <div class="f">
+            <label for="current_customer">Siapa Pelanggan yang Sudah Pernah Membeli/Menghubungi? <span>Wajib</span></label>
+            <p class="hint">Jelaskan profil nyata: profesi, kondisi, pola beli, kebutuhan utama.</p>
+            <textarea id="current_customer" placeholder="Contoh: Office manager startup 20-60 karyawan, pesan untuk makan siang tim."></textarea>
+            <div class="err" id="err-current_customer">Gambaran pelanggan saat ini wajib diisi.</div>
+          </div>
+          <div class="f">
+            <label>Dari Mana Kamu Tahu tentang Mereka? <span>Wajib</span></label>
+            <p class="hint">Pilih minimal 1 sumber data agar tingkat keyakinan persona lebih jelas.</p>
+            <div class="opt" id="wrap-knowledge">
+              <label class="ck"><input type="checkbox" name="knowledge" value="Sudah pernah ngobrol langsung">Sudah pernah ngobrol langsung</label>
+              <label class="ck"><input type="checkbox" name="knowledge" value="Dari data pembelian / chat">Dari data pembelian / chat</label>
+              <label class="ck"><input type="checkbox" name="knowledge" value="Dari observasi / riset">Dari observasi / riset</label>
+              <label class="ck"><input type="checkbox" name="knowledge" value="Masih asumsi">Masih asumsi</label>
+            </div>
+            <div class="err" id="err-knowledge">Pilih minimal satu sumber pemahaman pelanggan.</div>
+          </div>
+          <div class="f">
+            <label for="ideal_customer">Pelanggan yang Paling Ideal Menurutmu <span>Wajib</span></label>
+            <p class="hint">Pilih 1 tipe paling ideal: cocok dilayani, mudah closing, dan bersedia bayar.</p>
+            <textarea id="ideal_customer" placeholder="Contoh: HR perusahaan 30-100 staf yang butuh vendor makan siang stabil harian."></textarea>
+            <div class="err" id="err-ideal_customer">Pelanggan ideal wajib diisi.</div>
+          </div>
+        </div>
+
+        <div class="group">
+          <div class="gt">Goals dan Motivasi</div>
+          <div class="f">
+            <label for="main_goal">Apa yang Paling Ingin Dicapai Pelanggan Idealmu? <span>Wajib</span></label>
+            <p class="hint">Fokus ke outcome pelanggan, bukan fitur produk.</p>
+            <textarea id="main_goal" placeholder="Contoh: Menyediakan konsumsi tim tanpa repot koordinasi vendor setiap hari."></textarea>
+            <div class="err" id="err-main_goal">Goal utama pelanggan wajib diisi.</div>
+          </div>
+          <div class="f">
+            <label for="energy">Apa yang Paling Membuat Mereka Bersemangat?</label>
+            <p class="hint">Isi pemicu emosional positif (pengakuan, efisiensi, ketenangan, status).</p>
+            <textarea id="energy" placeholder="Contoh: Saat tim puas dan acara kantor berjalan lancar tanpa komplain konsumsi."></textarea>
+          </div>
+          <div class="f">
+            <label for="unmet">Apa yang Mereka Inginkan Tapi Belum Bisa Didapatkan?</label>
+            <p class="hint">Bagian ini membantu AI memetakan gap ekspektasi vs realita.</p>
+            <textarea id="unmet" placeholder="Contoh: Vendor yang rasa stabil, tepat waktu, dan respons cepat."></textarea>
+          </div>
+        </div>
+
+        <div class="group">
+          <div class="gt">Pain Points</div>
+          <div class="f">
+            <label for="pain_main">Masalah Utama Terkait Bisnismu <span>Wajib</span></label>
+            <p class="hint">Tulis minimal 3 poin (pisahkan per baris atau titik koma).</p>
+            <textarea id="pain_main" placeholder="1) Vendor sering telat&#10;2) Menu cepat membosankan&#10;3) Komplain lambat ditangani"></textarea>
+            <div class="err" id="err-pain_main">Masukkan minimal 3 pain point utama.</div>
+          </div>
+          <div class="f">
+            <label for="frustration">Apa yang Paling Membuat Mereka Frustrasi?</label>
+            <p class="hint">Isi frustrasi saat proses evaluasi vendor, pembelian, atau penggunaan layanan.</p>
+            <textarea id="frustration"></textarea>
+          </div>
+          <div class="f">
+            <label for="fear">Apa yang Mereka Takutkan?</label>
+            <p class="hint">Isi ketakutan terdalam yang sering tidak diucapkan langsung.</p>
+            <textarea id="fear"></textarea>
+          </div>
+        </div>
+
+        <div class="group">
+          <div class="gt">Objections dan False Beliefs</div>
+          <div class="f">
+            <label for="objections">Keberatan Sebelum Membeli <span>Wajib</span></label>
+            <p class="hint">Tulis minimal 3 keberatan yang paling sering muncul.</p>
+            <textarea id="objections" placeholder="1) Terasa mahal&#10;2) Belum yakin konsisten&#10;3) Takut proses pemesanan ribet"></textarea>
+            <div class="err" id="err-objections">Masukkan minimal 3 keberatan utama.</div>
+          </div>
+          <div class="f">
+            <label for="false_beliefs">Keyakinan Salah yang Mungkin Mereka Punya</label>
+            <p class="hint">Contoh: solusi premium pasti tidak cocok untuk bisnis kecil.</p>
+            <textarea id="false_beliefs"></textarea>
+          </div>
+        </div>
+
+        <div class="group">
+          <div class="gt">Sumber Informasi dan Channel</div>
+          <div class="f">
+            <label for="info_sources">Mereka Biasa Cari Informasi di Mana? <span>Wajib</span></label>
+            <p class="hint">Sebutkan sumber dominan: Google, IG, YouTube, TikTok, forum, teman, dan lain-lain.</p>
+            <textarea id="info_sources"></textarea>
+            <div class="err" id="err-info_sources">Sumber informasi utama wajib diisi.</div>
+          </div>
+          <div class="f">
+            <label for="trusted">Figur / Akun / Media yang Mereka Percaya</label>
+            <p class="hint">Bisa nama akun, komunitas, mentor, atau media spesifik.</p>
+            <textarea id="trusted"></textarea>
+          </div>
+          <div class="f">
+            <label for="platforms">Platform yang Paling Sering Mereka Pakai <span>Wajib</span></label>
+            <p class="hint">Urutkan dari yang paling sering digunakan.</p>
+            <textarea id="platforms" placeholder="1) WhatsApp&#10;2) Instagram&#10;3) Google Search"></textarea>
+            <div class="err" id="err-platforms">Platform dominan wajib diisi.</div>
+          </div>
+        </div>
+
+        <div class="group">
+          <div class="gt">Konteks Tambahan</div>
+          <div class="f">
+            <label for="chapter2">Output Bab 2 (Jika Ada)</label>
+            <p class="hint">Tempel insight Customer & Market Understanding agar output lebih sinkron.</p>
+            <textarea id="chapter2"></textarea>
+          </div>
+          <div class="f">
+            <label>Ada Berapa Persona yang Ingin Dibuat?</label>
+            <p class="hint">Default 1 persona utama. Pilih 2 jika segmen primer dan sekunder berbeda jelas.</p>
+            <div class="opt">
+              <label class="ck"><input type="radio" name="persona_count" value="1 persona utama (default)" checked>1 persona utama (default)</label>
+              <label class="ck"><input type="radio" name="persona_count" value="2 persona (primer + sekunder)">2 persona (primer + sekunder)</label>
+            </div>
+          </div>
+          <div class="f">
+            <label for="notes">Catatan Tambahan</label>
+            <p class="hint">Tambahkan konteks penting yang belum tercover di field lain.</p>
+            <textarea id="notes"></textarea>
+          </div>
+        </div>
+
+        <div class="act">
+          <button class="btn primary" type="button" onclick="generate()">Generate Output Buyer Persona</button>
+          <button class="btn" type="button" onclick="resetForm()">Reset</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="card">
+      <h2>Preview Output</h2>
+      <p class="sub">Siap copy-paste ke AI. Urutan output sudah disesuaikan dengan struktur wajib A-F.</p>
+      <div class="tab">
+        <button id="tab-md" class="on" type="button" onclick="show('md')">Markdown</button>
+        <button id="tab-html" type="button" onclick="show('html')">HTML</button>
+      </div>
+      <div class="preview">
+        <pre id="md">Belum ada output. Isi form lalu klik "Generate Output Buyer Persona".</pre>
+        <div class="html" id="html"><p>Belum ada output HTML.</p></div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<script>
+let output = { md: '', html: '' }, active = 'md';
+const byId = (id) => document.getElementById(id);
+const clean = (v) => (v || '').replace(/\r/g, '').trim();
+const esc = (v) => (v || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+const slug = (v) => (v || 'output').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,80) || 'output';
+const listCount = (v) => clean(v).split(/\n|;|,/).map(x => x.replace(/^\d+[\).\s-]*/, '').trim()).filter(Boolean).length;
+
+function mark(id, bad) {
+  const el = byId(id), err = byId('err-' + id);
+  if (el) el.classList.toggle('invalid', bad);
+  if (err) err.classList.toggle('show', bad);
+}
+
+function getData() {
+  return {
+    brand: clean(byId('brand').value),
+    industry: clean(byId('industry').value),
+    offer: clean(byId('offer').value),
+    current_customer: clean(byId('current_customer').value),
+    knowledge: Array.from(document.querySelectorAll('input[name="knowledge"]:checked')).map(n => n.value),
+    ideal_customer: clean(byId('ideal_customer').value),
+    main_goal: clean(byId('main_goal').value),
+    energy: clean(byId('energy').value),
+    unmet: clean(byId('unmet').value),
+    pain_main: clean(byId('pain_main').value),
+    frustration: clean(byId('frustration').value),
+    fear: clean(byId('fear').value),
+    objections: clean(byId('objections').value),
+    false_beliefs: clean(byId('false_beliefs').value),
+    info_sources: clean(byId('info_sources').value),
+    trusted: clean(byId('trusted').value),
+    platforms: clean(byId('platforms').value),
+    chapter2: clean(byId('chapter2').value),
+    persona_count: document.querySelector('input[name="persona_count"]:checked')?.value || '1 persona utama (default)',
+    notes: clean(byId('notes').value)
+  };
+}
+
+function validate(d) {
+  let ok = true;
+  [['brand', d.brand],['industry', d.industry],['offer', d.offer],['current_customer', d.current_customer],['ideal_customer', d.ideal_customer],['main_goal', d.main_goal],['pain_main', d.pain_main],['objections', d.objections],['info_sources', d.info_sources],['platforms', d.platforms]].forEach(([id, val]) => {
+    const bad = !val; mark(id, bad); if (bad) ok = false;
+  });
+
+  const kBad = d.knowledge.length === 0;
+  byId('wrap-knowledge').classList.toggle('invalid', kBad);
+  byId('err-knowledge').classList.toggle('show', kBad);
+  if (kBad) ok = false;
+
+  const pBad = listCount(d.pain_main) < 3;
+  const oBad = listCount(d.objections) < 3;
+  mark('pain_main', pBad); mark('objections', oBad);
+  if (pBad || oBad) ok = false;
+
+  if (!ok) {
+    const first = document.querySelector('.invalid, .err.show');
+    if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+  return ok;
+}
+
+function buildMd(d) {
+  return [
+    '# INPUT BRIEF - MASTER PROMPT BUYER PERSONA',
+    '',
+    '## FORMAT INPUT',
+    '### [IDENTITAS BISNIS]',
+    '- NAMA BISNIS / BRAND: ' + d.brand,
+    '- INDUSTRI / KATEGORI: ' + d.industry,
+    '- PRODUK / JASA UTAMA: ' + d.offer,
+    '',
+    '### [GAMBARAN PELANGGAN SAAT INI]',
+    '- SIAPA PELANGGAN YANG SUDAH PERNAH MEMBELI / MENGHUBUNGI:',
+    d.current_customer || '-',
+    '- DARI MANA KAMU TAHU TENTANG MEREKA: ' + (d.knowledge.join('; ') || '-'),
+    '- PELANGGAN YANG PALING IDEAL MENURUTMU:',
+    d.ideal_customer || '-',
+    '',
+    '### [GOALS & MOTIVASI]',
+    '- APA YANG PALING INGIN DICAPAI PELANGGAN IDEALMU:',
+    d.main_goal || '-',
+    '- APA YANG PALING MEMBUAT MEREKA BERSEMANGAT:',
+    d.energy || '-',
+    '- APA YANG MEREKA INGINKAN TAPI BELUM BISA DAPATKAN:',
+    d.unmet || '-',
+    '',
+    '### [PAIN POINTS]',
+    '- MASALAH UTAMA YANG MEREKA ALAMI TERKAIT BISNISMU:',
+    d.pain_main || '-',
+    '- APA YANG PALING MEMBUAT MEREKA FRUSTRASI:',
+    d.frustration || '-',
+    '- APA YANG MEREKA TAKUTKAN:',
+    d.fear || '-',
+    '',
+    '### [OBJECTIONS & FALSE BELIEFS]',
+    '- KEBERATAN YANG PALING SERING MUNCUL SEBELUM MEMBELI:',
+    d.objections || '-',
+    '- KEYAKINAN SALAH YANG MUNGKIN MEREKA PUNYA:',
+    d.false_beliefs || '-',
+    '',
+    '### [SUMBER INFORMASI & CHANNEL]',
+    '- MEREKA BIASA CARI INFORMASI DI MANA:',
+    d.info_sources || '-',
+    '- FIGUR / AKUN / MEDIA YANG MEREKA PERCAYA:',
+    d.trusted || '-',
+    '- PLATFORM YANG PALING SERING MEREKA PAKAI:',
+    d.platforms || '-',
+    '',
+    '### [KONTEKS TAMBAHAN]',
+    '- OUTPUT BAB 2 (JIKA ADA):',
+    d.chapter2 || '-',
+    '- ADA BERAPA PERSONA YANG INGIN DIBUAT: ' + d.persona_count,
+    '- CATATAN TAMBAHAN:',
+    d.notes || '-',
+    '',
+    '## INSTRUKSI UNTUK AI',
+    '1. Ikuti MASTER PROMPT BUYER PERSONA April 2026.',
+    '2. Gunakan urutan output wajib A-F tanpa diubah.',
+    '3. Persona wajib spesifik, tidak generik, dan berbasis input user + inferensi logis industri.',
+    '4. Bedakan Objection vs False Belief beserta cara menanganinya.',
+    '5. Sertakan Buyer Questions (informasional, komparatif, validasi, praktis).',
+    '6. Tutup dengan Buyer Persona Card Final yang siap dipakai tim marketing/sales.',
+    '7. Gunakan bahasa dominan yang dipakai user.'
+  ].join('\n');
+}
+
+function buildHtml(d) {
+  const rows = [
+    ['Nama bisnis / brand', d.brand],['Industri / kategori', d.industry],['Produk / jasa utama', d.offer],
+    ['Pelanggan saat ini', d.current_customer],['Sumber pemahaman pelanggan', d.knowledge.join('; ') || '-'],
+    ['Pelanggan ideal', d.ideal_customer],['Goal utama', d.main_goal],['Pemicu semangat', d.energy || '-'],
+    ['Keinginan belum terpenuhi', d.unmet || '-'],['Pain points utama', d.pain_main],['Frustrasi utama', d.frustration || '-'],
+    ['Ketakutan utama', d.fear || '-'],['Objection sebelum membeli', d.objections],['False beliefs', d.false_beliefs || '-'],
+    ['Sumber informasi', d.info_sources],['Figur/akun/media dipercaya', d.trusted || '-'],['Platform dominan', d.platforms],
+    ['Output Bab 2', d.chapter2 || '-'],['Jumlah persona', d.persona_count],['Catatan tambahan', d.notes || '-']
+  ];
+  return '<article><h1>Input Brief Buyer Persona</h1><p>Ringkasan siap eksekusi untuk master prompt Buyer Persona.</p><table><thead><tr><th>Field</th><th>Isi</th></tr></thead><tbody>'
+    + rows.map(r => '<tr><td>' + esc(r[0]) + '</td><td>' + esc(r[1]) + '</td></tr>').join('')
+    + '</tbody></table><h2>Output Wajib</h2><ol><li>Bagian A - Diagnosis Pemahaman Pelanggan</li><li>Bagian B - Persona WHO</li><li>Bagian C - Persona WHERE</li><li>Bagian D - Ringkasan Strategi Pesan & Channel</li><li>Bagian E - Workbook Terpersonalisasi</li><li>Bagian F - Persona Card Final</li></ol></article>';
+}
+
+function show(tab) {
+  active = tab;
+  byId('tab-md').classList.toggle('on', tab === 'md');
+  byId('tab-html').classList.toggle('on', tab === 'html');
+  byId('md').style.display = tab === 'md' ? 'block' : 'none';
+  byId('html').style.display = tab === 'html' ? 'block' : 'none';
+}
+
+function generate() {
+  const d = getData();
+  if (!validate(d)) { alert('Masih ada field wajib yang belum lengkap. Mohon cek bagian merah.'); return false; }
+  output.md = buildMd(d);
+  output.html = buildHtml(d);
+  byId('md').textContent = output.md;
+  byId('html').innerHTML = output.html;
+  show(active);
+  return true;
+}
+
+function ensure() { return (output.md && output.html) ? true : generate(); }
+function copyMd() {
+  if (!ensure()) return;
+  navigator.clipboard.writeText(output.md).then(() => alert('Markdown berhasil disalin.')).catch(() => alert('Gagal salin otomatis. Silakan copy manual dari preview.'));
+}
+function downloadMd() {
+  if (!ensure()) return;
+  const name = 'workbook-buyer-persona-' + slug(byId('brand').value) + '-' + new Date().toISOString().slice(0,10) + '.md';
+  const blob = new Blob([output.md], { type: 'text/markdown;charset=utf-8' });
+  const url = URL.createObjectURL(blob), a = document.createElement('a');
+  a.href = url; a.download = name; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+}
+function resetForm() {
+  byId('form').reset();
+  document.querySelectorAll('.err').forEach(el => el.classList.remove('show'));
+  document.querySelectorAll('.invalid').forEach(el => el.classList.remove('invalid'));
+  output = { md: '', html: '' };
+  byId('md').textContent = 'Belum ada output. Isi form lalu klik "Generate Output Buyer Persona".';
+  byId('html').innerHTML = '<p>Belum ada output HTML.</p>';
+  show('md');
+}
+document.querySelectorAll('input,textarea').forEach(n => { n.autocomplete = 'off'; n.spellcheck = false; });
+</script>
+</body>
+</html>

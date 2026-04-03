@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Framework Pendidikan - Prompt Badges</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#111728;
+  --muted:#5f6678;
+  --paper:#f5f7fc;
+  --blue:#315fbb;
+  --blue2:#4781d6;
+  --line:rgba(17,23,40,0.12);
+  --r:12px;
+  --r2:18px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:'DM Sans',sans-serif;
+  color:var(--ink);
+  background:
+    radial-gradient(circle at 8% 0,rgba(71,129,214,0.14) 0,transparent 34%),
+    radial-gradient(circle at 100% 100%,rgba(49,95,187,0.12) 0,transparent 42%),
+    var(--paper);
+  line-height:1.6;
+}
+.top{
+  position:sticky;
+  top:0;
+  z-index:60;
+  background:#11192f;
+  border-bottom:1px solid rgba(255,255,255,0.12);
+  padding:14px 24px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.logo{font-family:'Playfair Display',serif;color:#ecf2ff;font-size:18px}
+.logo span{color:#9fcbff;font-style:italic}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.btn{
+  border:1px solid rgba(255,255,255,0.34);
+  border-radius:10px;
+  padding:8px 12px;
+  font-size:12px;
+  cursor:pointer;
+  text-decoration:none;
+  color:#f0f5ff;
+  background:transparent;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  font-family:'DM Sans',sans-serif;
+}
+.btn:hover{border-color:rgba(255,255,255,0.64)}
+main{max-width:1260px;margin:0 auto;padding:24px}
+.hero{
+  border-radius:var(--r2);
+  border:1px solid rgba(255,255,255,0.16);
+  padding:24px;
+  margin-bottom:16px;
+  color:#eef4ff;
+  background:linear-gradient(132deg,#1b2f62 0%,#315fbb 52%,#3f7fd2 100%);
+}
+.tag{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;opacity:.9;margin-bottom:10px}
+.hero h1{font-family:'Playfair Display',serif;font-size:32px;font-weight:500;line-height:1.2;margin-bottom:8px}
+.hero h1 em{color:#d7ecff;font-style:italic}
+.hero p{max-width:940px;font-size:14px;color:rgba(239,246,255,0.94)}
+.note{margin-top:10px;font-size:12px;font-family:'DM Mono',monospace;color:rgba(239,246,255,0.88)}
+.badges-shell{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:var(--r2);
+  padding:14px;
+}
+.badges-title{display:block;font-family:'Playfair Display',serif;font-size:22px;font-weight:500;margin-bottom:6px}
+.badges-sub{display:block;font-size:13px;color:var(--muted);margin-bottom:12px}
+.badges-grid{display:flex;flex-wrap:wrap;gap:10px}
+.prompt-badge{
+  display:inline-flex;
+  align-items:center;
+  border-radius:999px;
+  padding:9px 12px;
+  font-size:12px;
+  font-family:'DM Mono',monospace;
+  letter-spacing:.01em;
+  background:#edf3ff;
+  color:#1f4d8f;
+  border:1px solid rgba(49,95,187,0.34);
+}
+.footer{margin-top:18px;text-align:center;color:var(--muted);font-size:12px}
+.footer a{color:#315fbb;text-decoration:none;border-bottom:1px dashed rgba(49,95,187,0.44)}
+.footer a:hover{border-bottom-color:rgba(49,95,187,0.82)}
+@media(max-width:700px){
+  .top{padding:12px 14px}
+  main{padding:16px 12px 24px}
+  .hero{padding:18px}
+  .hero h1{font-size:27px}
+  .logo{font-size:16px}
+  .row{width:100%}
+  .row .btn{flex:1}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="logo">Framework <span>Pendidikan / Education</span></div>
+  <div class="row">
+    <a class="btn" href="index.html">Kembali ke Hub</a>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="tag">Prompt Badges - Niche Pendidikan</div>
+    <h1>Framework Education dengan <em>11 Prompt Badges</em></h1>
+    <p>Halaman ini menampilkan struktur lengkap 11 prompt untuk framework pendidikan, dari keyword research hingga content gap audit.</p>
+    <p class="note">Catatan: Semua badge sudah terhubung ke halaman master prompt. Tiap halaman akan dipakai untuk pengisian form detail per prompt.</p>
+  </section>
+
+  <section class="badges-shell" aria-label="Daftar prompt framework pendidikan">
+    <span class="badges-title">Daftar Prompt Framework Pendidikan</span>
+    <span class="badges-sub">Klik badge untuk membuka halaman master prompt.</span>
+    <div class="badges-grid">
+      <a class="prompt-badge" href="framework-pendidikan-master-prompt-01.html">Prompt 01 · Keyword Research Pendidikan</a>
+      <a class="prompt-badge" href="framework-pendidikan-master-prompt-02.html">Prompt 02 · Silo Architecture Pendidikan</a>
+      <a class="prompt-badge" href="framework-pendidikan-master-prompt-03.html">Prompt 03 · Content Blueprint Pendidikan</a>
+      <a class="prompt-badge" href="framework-pendidikan-master-prompt-04a.html">Prompt 04A · Pillar Page Writer Pendidikan</a>
+      <a class="prompt-badge" href="framework-pendidikan-master-prompt-04b.html">Prompt 04B · Cluster Page Writer Pendidikan</a>
+      <a class="prompt-badge" href="framework-pendidikan-master-prompt-04c.html">Prompt 04C · Money Program Page Pendidikan</a>
+      <a class="prompt-badge" href="framework-pendidikan-master-prompt-04d.html">Prompt 04D · Local Branch Page Pendidikan</a>
+      <a class="prompt-badge" href="framework-pendidikan-master-prompt-04e.html">Prompt 04E · FAQ Page Writer Pendidikan</a>
+      <a class="prompt-badge" href="framework-pendidikan-master-prompt-05.html">Prompt 05 · Social Media Repurposing Pendidikan</a>
+      <a class="prompt-badge" href="framework-pendidikan-master-prompt-06.html">Prompt 06 · Audit Konten Pendidikan</a>
+      <a class="prompt-badge" href="framework-pendidikan-master-prompt-07.html">Prompt 07 · Content Gap Audit Pendidikan</a>
+    </div>
+  </section>
+
+  <p class="footer">Framework pendidikan terhubung dari hub utama di <a href="index.html">SEO System Generator</a>.</p>
+</main>
+</body>
+</html>

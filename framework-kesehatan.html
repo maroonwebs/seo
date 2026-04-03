@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Framework Kesehatan - Prompt Badges</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0f1815;
+  --muted:#62706c;
+  --paper:#f6f9f8;
+  --green:#1f7a54;
+  --green2:#2d976b;
+  --line:rgba(15,24,21,0.12);
+  --r:12px;
+  --r2:18px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:'DM Sans',sans-serif;
+  color:var(--ink);
+  background:
+    radial-gradient(circle at 8% 0,rgba(45,151,107,0.13) 0,transparent 32%),
+    radial-gradient(circle at 100% 100%,rgba(20,95,110,0.10) 0,transparent 40%),
+    var(--paper);
+  line-height:1.6;
+}
+.top{
+  position:sticky;
+  top:0;
+  z-index:60;
+  background:#0f1d19;
+  border-bottom:1px solid rgba(255,255,255,0.12);
+  padding:14px 24px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.logo{font-family:'Playfair Display',serif;color:#eafaf4;font-size:18px}
+.logo span{color:#8ce7c0;font-style:italic}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.btn{
+  border:1px solid rgba(255,255,255,0.34);
+  border-radius:10px;
+  padding:8px 12px;
+  font-size:12px;
+  cursor:pointer;
+  text-decoration:none;
+  color:#edf7f3;
+  background:transparent;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  font-family:'DM Sans',sans-serif;
+}
+.btn:hover{border-color:rgba(255,255,255,0.62)}
+main{max-width:1260px;margin:0 auto;padding:24px}
+.hero{
+  border-radius:var(--r2);
+  border:1px solid rgba(255,255,255,0.16);
+  padding:24px;
+  margin-bottom:16px;
+  color:#eef9f6;
+  background:linear-gradient(132deg,#133229 0%,#1d5644 48%,#177e6a 100%);
+}
+.tag{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;opacity:.9;margin-bottom:10px}
+.hero h1{font-family:'Playfair Display',serif;font-size:32px;font-weight:500;line-height:1.2;margin-bottom:8px}
+.hero h1 em{color:#bdf8de;font-style:italic}
+.hero p{max-width:940px;font-size:14px;color:rgba(235,252,247,0.92)}
+.note{margin-top:10px;font-size:12px;font-family:'DM Mono',monospace;color:rgba(235,252,247,0.86)}
+.badges-shell{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:var(--r2);
+  padding:14px;
+}
+.badges-title{display:block;font-family:'Playfair Display',serif;font-size:22px;font-weight:500;margin-bottom:6px}
+.badges-sub{display:block;font-size:13px;color:var(--muted);margin-bottom:12px}
+.badges-grid{display:flex;flex-wrap:wrap;gap:10px}
+.prompt-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  border-radius:999px;
+  padding:9px 12px;
+  text-decoration:none;
+  font-size:12px;
+  font-family:'DM Mono',monospace;
+  letter-spacing:.01em;
+  transition:all .2s ease;
+}
+.prompt-badge.live{
+  background:#e8f4ed;
+  color:#1a6848;
+  border:1px solid rgba(31,122,84,0.32);
+}
+.prompt-badge.live:hover{
+  background:#dff1e8;
+  border-color:rgba(31,122,84,0.5);
+}
+.prompt-badge.soon{
+  background:#f5f7f6;
+  color:#6b756f;
+  border:1px solid rgba(15,24,21,0.16);
+  cursor:default;
+}
+.footer{margin-top:18px;text-align:center;color:var(--muted);font-size:12px}
+.footer a{color:#145f6e;text-decoration:none;border-bottom:1px dashed rgba(20,95,110,0.4)}
+.footer a:hover{border-bottom-color:rgba(20,95,110,0.75)}
+@media(max-width:700px){
+  .top{padding:12px 14px}
+  main{padding:16px 12px 24px}
+  .hero{padding:18px}
+  .hero h1{font-size:27px}
+  .logo{font-size:16px}
+  .row{width:100%}
+  .row .btn{flex:1}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="logo">Framework <span>Kesehatan / Health</span></div>
+  <div class="row">
+    <a class="btn" href="index.html">Kembali ke Hub</a>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="tag">Prompt Badges - Niche Kesehatan</div>
+    <h1>Framework Health dengan <em>Prompt Badges</em></h1>
+    <p>Halaman ini menampilkan daftar badge prompt aktif untuk framework kesehatan. Prompt 01 sampai Prompt 07 tersedia sebagai halaman master.</p>
+    <p class="note">Catatan: Gunakan output untuk edukasi/marketing. Tetap lakukan verifikasi medis dan regulasi sebelum publikasi.</p>
+  </section>
+
+  <section class="badges-shell" aria-label="Daftar prompt framework kesehatan">
+    <span class="badges-title">Daftar Prompt Framework Kesehatan</span>
+    <span class="badges-sub">Klik badge untuk membuka halaman master prompt.</span>
+    <div class="badges-grid">
+      <a class="prompt-badge live" href="framework-kesehatan-master-prompt-01.html">Prompt 01 · Keyword Research (Live)</a>
+      <a class="prompt-badge live" href="framework-kesehatan-master-prompt-02.html">Prompt 02 · Silo Architecture (Live)</a>
+      <a class="prompt-badge live" href="framework-kesehatan-master-prompt-03.html">Prompt 03 · Content Blueprint (Live)</a>
+      <a class="prompt-badge live" href="framework-kesehatan-master-prompt-04a.html">Prompt 04A · Pillar Page Writer (Live)</a>
+      <a class="prompt-badge live" href="framework-kesehatan-master-prompt-04b.html">Prompt 04B · Cluster Page Writer (Live)</a>
+      <a class="prompt-badge live" href="framework-kesehatan-master-prompt-04c.html">Prompt 04C · Money Page Writer (Live)</a>
+      <a class="prompt-badge live" href="framework-kesehatan-master-prompt-04d.html">Prompt 04D · Local Page Writer (Live)</a>
+      <a class="prompt-badge live" href="framework-kesehatan-master-prompt-04e.html">Prompt 04E · FAQ Page Writer (Live)</a>
+      <a class="prompt-badge live" href="framework-kesehatan-master-prompt-05.html">Prompt 05 · Social Media Repurposing (Live)</a>
+      <a class="prompt-badge live" href="framework-kesehatan-master-prompt-06.html">Prompt 06 · Audit Quality Control (Live)</a>
+      <a class="prompt-badge live" href="framework-kesehatan-master-prompt-07.html">Prompt 07 · Content Gap Audit (Live)</a>
+    </div>
+  </section>
+
+  <p class="footer">Dikembangkan untuk workflow SEO + Growth niche kesehatan. Kembali ke hub utama di <a href="index.html">SEO System Generator</a>.</p>
+</main>
+</body>
+</html>
