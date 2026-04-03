@@ -326,6 +326,14 @@ let lastData = null;
 const byId = (id) => document.getElementById(id);
 const clean = (v) => String(v || "").replace(/\s+/g, " ").trim();
 const lines = (v) => String(v || "").split(/\r?\n/).map(clean).filter(Boolean);
+const fieldValue = (id, fallback = "") => {
+  const el = byId(id);
+  return el ? clean(el.value) : fallback;
+};
+const fieldLines = (id) => {
+  const el = byId(id);
+  return el ? lines(el.value) : [];
+};
 const checks = (name) => Array.from(document.querySelectorAll(`input[name="${name}"]:checked`)).map((el) => clean(el.value));
 const setChecks = (name, vals) => {
   const pool = new Set((vals || []).map(clean));
@@ -362,38 +370,38 @@ function boolFromSelect(v) {
 
 function collect() {
   return {
-    articleTitle: clean(byId("article_title").value),
-    articleUrl: clean(byId("article_url").value),
-    contentType: clean(byId("content_type").value),
-    contentTypeOther: clean(byId("content_type_other").value),
-    publishDate: clean(byId("publish_date").value),
-    updateDate: clean(byId("update_date").value),
-    primaryKeyword: clean(byId("primary_keyword").value),
-    rankingPosition: clean(byId("ranking_position").value),
-    trafficEstimate: clean(byId("traffic_estimate").value),
-    gscImpressions: clean(byId("gsc_impressions").value),
-    gscClicks: clean(byId("gsc_clicks").value),
-    gscCtr: clean(byId("gsc_ctr").value),
-    gscAvgPosition: clean(byId("gsc_avg_position").value),
-    gscWin: clean(byId("gsc_win").value),
-    competitorsAbove: lines(byId("competitors_above").value),
-    similarArticleStatus: clean(byId("similar_article_status").value),
-    similarArticleUrls: lines(byId("similar_article_urls").value),
-    aiOverview: clean(byId("ai_overview").value),
-    aiChatgpt: clean(byId("ai_chatgpt").value),
-    aiPerplexity: clean(byId("ai_perplexity").value),
+    articleTitle: fieldValue("article_title"),
+    articleUrl: fieldValue("article_url"),
+    contentType: fieldValue("content_type"),
+    contentTypeOther: fieldValue("content_type_other"),
+    publishDate: fieldValue("publish_date"),
+    updateDate: fieldValue("update_date"),
+    primaryKeyword: fieldValue("primary_keyword"),
+    rankingPosition: fieldValue("ranking_position"),
+    trafficEstimate: fieldValue("traffic_estimate"),
+    gscImpressions: fieldValue("gsc_impressions"),
+    gscClicks: fieldValue("gsc_clicks"),
+    gscCtr: fieldValue("gsc_ctr"),
+    gscAvgPosition: fieldValue("gsc_avg_position"),
+    gscWin: fieldValue("gsc_win", "Tidak"),
+    competitorsAbove: fieldLines("competitors_above"),
+    similarArticleStatus: fieldValue("similar_article_status", "Tidak"),
+    similarArticleUrls: fieldLines("similar_article_urls"),
+    aiOverview: fieldValue("ai_overview", "Belum dicek"),
+    aiChatgpt: fieldValue("ai_chatgpt", "Belum dicek"),
+    aiPerplexity: fieldValue("ai_perplexity", "Belum dicek"),
     aiTargets: checks("ai_target"),
-    articleContent: clean(byId("article_content").value),
-    structureH1: clean(byId("structure_h1").value),
-    structureH2: clean(byId("structure_h2").value),
-    wordCount: clean(byId("word_count").value),
-    hasFaq: clean(byId("has_faq").value),
-    hasSchema: clean(byId("has_schema").value),
-    hasData: clean(byId("has_data").value),
+    articleContent: fieldValue("article_content"),
+    structureH1: fieldValue("structure_h1"),
+    structureH2: fieldValue("structure_h2"),
+    wordCount: fieldValue("word_count"),
+    hasFaq: fieldValue("has_faq", "Belum dicek"),
+    hasSchema: fieldValue("has_schema", "Belum dicek"),
+    hasData: fieldValue("has_data", "Belum dicek"),
     refreshGoals: checks("refresh_goal"),
-    auditNotes: clean(byId("audit_notes").value),
-    outputMode: clean(byId("output_mode").value) || "MODE STANDAR",
-    nextRefreshSchedule: clean(byId("next_refresh_schedule").value)
+    auditNotes: fieldValue("audit_notes"),
+    outputMode: fieldValue("output_mode", "MODE STANDAR") || "MODE STANDAR",
+    nextRefreshSchedule: fieldValue("next_refresh_schedule")
   };
 }
 
@@ -841,16 +849,16 @@ function printPdf() {
 function resetForm() {
   document.querySelectorAll("input[type='text'],textarea").forEach((el) => { el.value = ""; });
   document.querySelectorAll("input[type='checkbox']").forEach((el) => { el.checked = false; });
-  byId("content_type").value = "";
-  byId("gsc_win").value = "Tidak";
-  byId("similar_article_status").value = "Tidak";
-  byId("ai_overview").value = "Belum dicek";
-  byId("ai_chatgpt").value = "Belum dicek";
-  byId("ai_perplexity").value = "Belum dicek";
-  byId("has_faq").value = "Belum dicek";
-  byId("has_schema").value = "Belum dicek";
-  byId("has_data").value = "Belum dicek";
-  byId("output_mode").value = "MODE STANDAR";
+  if (byId("content_type")) byId("content_type").value = "";
+  if (byId("gsc_win")) byId("gsc_win").value = "Tidak";
+  if (byId("similar_article_status")) byId("similar_article_status").value = "Tidak";
+  if (byId("ai_overview")) byId("ai_overview").value = "Belum dicek";
+  if (byId("ai_chatgpt")) byId("ai_chatgpt").value = "Belum dicek";
+  if (byId("ai_perplexity")) byId("ai_perplexity").value = "Belum dicek";
+  if (byId("has_faq")) byId("has_faq").value = "Belum dicek";
+  if (byId("has_schema")) byId("has_schema").value = "Belum dicek";
+  if (byId("has_data")) byId("has_data").value = "Belum dicek";
+  if (byId("output_mode")) byId("output_mode").value = "MODE STANDAR";
   lastData = null; lastMarkdown = ""; lastHtml = "";
   byId("report-wrap").innerHTML = '<div class="empty">Belum ada output. Lengkapi form audit lalu klik "Generate Audit Artikel Vol 3".</div>';
   prefillFromResearch();
