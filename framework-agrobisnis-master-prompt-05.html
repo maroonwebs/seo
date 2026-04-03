@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Master Prompt 05 - Social Media Repurposing Agrobisnis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#102019;--muted:#66766f;--bg:#f5faf8;--card:#fff;--line:rgba(16,32,25,.14);--green:#1f7a54;--green2:#2d966a;--red:#ae3434;--r:12px;--r2:18px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:radial-gradient(circle at 9% 0,rgba(45,149,106,.12) 0,transparent 35%),var(--bg);color:var(--ink);line-height:1.6}
+.top{position:sticky;top:0;z-index:60;background:#11221c;border-bottom:1px solid rgba(255,255,255,.12);padding:14px 20px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.logo{font-family:'Playfair Display',serif;color:#e9f9f3;font-size:17px}.logo span{color:#95efcb;font-style:italic}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.btn{border:1px solid rgba(255,255,255,.34);background:transparent;color:#eef8f4;border-radius:10px;padding:8px 12px;font-size:12px;cursor:pointer;text-decoration:none;font-family:'DM Sans',sans-serif}
+.btn.primary{background:var(--green);border-color:var(--green)}.btn.primary:hover{background:var(--green2)}
+main{max-width:1440px;margin:0 auto;padding:22px}
+.hero{background:linear-gradient(128deg,#13372d,#1e654f,#2e8f73);color:#f0fbf7;padding:20px;border-radius:var(--r2);margin-bottom:14px}
+.hero .tag{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px;opacity:.9}
+.hero h1{font-family:'Playfair Display',serif;font-size:30px;font-weight:500;line-height:1.2;margin-bottom:8px}.hero h1 em{color:#c4fae4}
+.hero p{font-size:14px;max-width:1020px}
+.grid{display:grid;grid-template-columns:minmax(420px,.95fr) minmax(420px,1.05fr);gap:14px;align-items:start}
+.card{background:var(--card);border:1px solid rgba(16,32,25,.08);border-radius:var(--r2);padding:16px}
+.card h2{font-family:'Playfair Display',serif;font-size:24px;font-weight:500;margin-bottom:6px}
+.sub{font-size:13px;color:var(--muted);margin-bottom:12px}
+.group{border:1px solid rgba(16,32,25,.08);border-radius:var(--r);padding:12px;margin-bottom:12px}
+.gt{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#1f4f9e;margin-bottom:8px}
+.f{margin-bottom:10px}.f:last-child{margin-bottom:0}
+label{display:block;font-size:13px;font-weight:700;margin-bottom:4px}label span{font-family:'DM Mono',monospace;font-size:11px;color:var(--green);margin-left:6px}
+.hint{font-size:12px;color:var(--muted);margin-bottom:6px}
+input[type="text"],textarea,select{width:100%;border:1.4px solid var(--line);border-radius:10px;padding:9px 11px;font-size:14px;font-family:'DM Sans',sans-serif;color:#22322d;background:#fff}
+textarea{min-height:72px;resize:vertical}
+input:focus,textarea:focus,select:focus{outline:none;border-color:rgba(31,122,84,.8);box-shadow:0 0 0 3px rgba(31,122,84,.14)}
+.check-wrap{border:1.4px solid var(--line);border-radius:10px;padding:8px 10px;background:#fff}
+.ck{display:flex;gap:8px;align-items:flex-start;font-size:13px;margin:4px 0}.ck input{margin-top:2px}
+.other-input{display:none;margin-top:8px}
+.hidden{display:none!important}
+.invalid{border-color:rgba(174,52,52,.72)!important;box-shadow:0 0 0 3px rgba(174,52,52,.12)!important}
+.err{display:none;font-size:12px;color:var(--red);margin-top:5px}.err.show{display:block}
+.act{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.act .btn{color:#22322d;border-color:var(--line)}.act .btn.primary{color:#fff;border-color:var(--green)}
+.tab{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-bottom:10px}
+.tab button{border:none;background:#fff;padding:7px 11px;font-size:12px;cursor:pointer}
+.tab button.on{background:#e8f4ee;color:#1d5d45;font-weight:700}
+.preview{border:1px solid rgba(16,32,25,.08);border-radius:12px;background:#fbfffd;max-height:840px;overflow:auto}
+.preview pre{margin:0;padding:12px;white-space:pre-wrap;font-family:'DM Mono',monospace;font-size:12px}
+.html{display:none;padding:12px}.html table{width:100%;border-collapse:collapse;margin:8px 0 12px}.html th,.html td{border:1px solid #d3e2da;padding:7px 8px;text-align:left;vertical-align:top}.html th{background:#edf6f1;font-size:12px}
+.note{margin-top:10px;padding:8px 10px;border:1px dashed rgba(31,122,84,.3);background:#f4faf7;border-radius:10px;font-size:12px;color:#1f4f3f}
+@media(max-width:1120px){.grid{grid-template-columns:1fr}}
+@media(max-width:760px){.top{padding:12px}.row{width:100%}.row .btn{flex:1}main{padding:14px 10px}.hero h1{font-size:27px}input[type="text"],textarea,select{font-size:16px}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="logo">Framework Agrobisnis - <span>Master Prompt 05</span></div>
+  <div class="row">
+    <a class="btn" href="framework-agrobisnis.html">Kembali ke Framework</a>
+    <a class="btn" href="index.html">Kembali ke Hub</a>
+    <button class="btn" type="button" onclick="copyMarkdown()">Copy Markdown</button>
+    <button class="btn" type="button" onclick="downloadMarkdown()">Download .md</button>
+    <button class="btn" type="button" onclick="downloadHtml()">Download .html</button>
+    <button class="btn primary" type="button" onclick="downloadPdf()">Download PDF</button>
+  </div>
+</header>
+<main>
+  <section class="hero">
+    <div class="tag">Prompt 05 - Social Media Repurposing & Optimization</div>
+    <h1>Master Prompt 05 <em>Agrobisnis</em></h1>
+    <p>Form ini mengikuti input wajib Prompt 05 untuk repurposing konten Agrobisnis ke berbagai platform sosial media secara aman, konsisten, dan conversion-oriented.</p>
+  </section>
+  <div class="grid">
+    <section class="card">
+      <h2>Form Input Lengkap</h2>
+      <p class="sub">Isi data sedetail mungkin. Sistem akan memvalidasi field wajib agar output strategi sosial media lebih akurat.</p>
+      <form id="form"></form>
+      <div class="act">
+        <button class="btn primary" type="button" onclick="generateOutput()">Generate Master Prompt 05</button>
+        <button class="btn" type="button" onclick="resetForm()">Reset Form</button>
+      </div>
+    </section>
+    <section class="card">
+      <h2>Preview Output</h2>
+      <p class="sub">Output siap copy-paste ke AI dan siap ekspor md/html/pdf.</p>
+      <div class="tab">
+        <button id="tab-md" class="on" type="button" onclick="showTab('md')">Markdown</button>
+        <button id="tab-html" type="button" onclick="showTab('html')">HTML</button>
+      </div>
+      <div class="preview">
+        <pre id="markdown-preview">Belum ada output. Isi form lalu klik "Generate Master Prompt 05".</pre>
+        <div id="html-preview" class="html"><p>Belum ada output HTML.</p></div>
+      </div>
+      <div class="note">Catatan PDF: klik Download PDF lalu lanjutkan Save as PDF di dialog print browser.</div>
+    </section>
+  </div>
+</main>
+<script>
+const CFG={
+  title:'PROMPT 05 - SOCIAL MEDIA REPURPOSING & OPTIMIZATION',
+  subtitle:'FRAMEWORK SEO + AEO + GEO + LLM OPTIMIZATION 2026 - Agrobisnis',
+  preSteps:[
+    'Pastikan sumber konten dari Prompt 01-04 sudah siap.',
+    'Isi identitas brand, sumber konten, tujuan batch, platform target, tone, dan guardrail claim.',
+    'Jalankan perintah: "Jalankan Prompt 05 Social Media Repurposing / Optimasi Sosial Media untuk Agrobisnis berdasarkan input berikut."',
+    'Gunakan output sesuai fungsi: strategi, kalender, produksi caption/script, dan optimasi performa.',
+    'Ulangi berkala mingguan/bulanan untuk topik baru, promo, FAQ baru, serta insight DM/WA/komentar.'
+  ],
+  systemRules:[
+    'Konten sosial media harus people-first, trust-first, dan compliance-aware.',
+    'Setiap aset harus adaptif lintas platform tanpa copy-paste mentah.',
+    'Wajib ada hook, value, CTA, dan guardrail klaim yang aman.',
+    'Topik Agrobisnis-sensitive harus ditulis dengan disclaimer dan batas klaim.',
+    'Gunakan entity clarity: brand, layanan/produk, area, dan social proof.',
+    'Optimasi performa fokus pada retention, engagement, conversion intent, dan repurposing efficiency.'
+  ],
+  writingFlow:[
+    'Mode 1 Audit Sumber, Mode 2 Ekstrak Asset Konten, Mode 3 Mapping Platform.',
+    'Mode 4 Produksi Output (caption/script/storyboard/calendar), Mode 5 QA & Safety Check.',
+    'Bangun content pillar sosial media berdasarkan source utama + query user.',
+    'Siapkan CTA bank, hook bank, hashtag/entity bank, dan repurposing matrix.',
+    'Tutup dengan performance optimization notes per platform.'
+  ],
+  outputBlocks:[
+    'Output 1 - Audit Input & Asumsi Kerja',
+    'Output 2 - Content Angle Extraction',
+    'Output 3 - Platform Mapping Matrix',
+    'Output 4 - Content Pillar Sosial Media',
+    'Output 5 - Content Calendar',
+    'Output 6 - Reels/TikTok/Shorts Script',
+    'Output 7 - Instagram/Facebook Caption',
+    'Output 8 - Threads/LinkedIn Post',
+    'Output 9 - Stories/WhatsApp Broadcast/GBP Post',
+    'Output 10 - Hook Bank',
+    'Output 11 - CTA Bank',
+    'Output 12 - Hashtag/Keyword/Entity Bank',
+    'Output 13 - Repurposing Matrix',
+    'Output 14 - Performance Optimization Notes'
+  ],
+  acceptance:[
+    'Output 1-14 lengkap dan relevan dengan goal batch.',
+    'Ada mapping lintas platform yang jelas dan tidak generik.',
+    'Konten menjaga compliance Agrobisnis (no overclaim, ada disclaimer bila perlu).',
+    'CTA dan tone konsisten dengan positioning brand.',
+    'Ada strategi optimasi performa dan rencana update berkala.'
+  ]
+};
+
+const SCHEMA=[
+  {section:'Identitas Bisnis',key:'brand_name',label:'Nama Brand',required:true,type:'text'},
+  {section:'Identitas Bisnis',key:'Agrobisnis_business_type',label:'Tipe Agrobisnis',required:true,type:'select',allowOther:true,options:['Jual / Produsen Bibit Tanaman','Jual / Produsen Benih','Nursery / Tanaman Hias','Budidaya Anggrek / Orchid','Pertanian Hortikultura','Perkebunan','Peternakan Domba','Peternakan Kambing','Peternakan Sapi','Jual Hewan Kurban','Jual Ternak','Perikanan / Budidaya Ikan','Jual Bibit Ikan / Benih Ikan','Pakan / Nutrisi / Obat / Sarana Produksi','Alat Pertanian / Peternakan / Perikanan','Jasa Konsultasi / Pelatihan Agrobisnis','Hybrid Agribusiness']},
+  {section:'Identitas Bisnis',key:'main_location',label:'Lokasi Utama',required:true,type:'text'},
+  {section:'Identitas Bisnis',key:'service_area',label:'Area Layanan',required:true,type:'text'},
+  {section:'Identitas Bisnis',key:'website',label:'Website / Landing Page',type:'text'},
+  {section:'Identitas Bisnis',key:'wa_booking',label:'Nomor WA / Booking',required:true,type:'text'},
+  {section:'Identitas Bisnis',key:'booking_link',label:'Link Booking / Form',type:'text'},
+  {section:'Identitas Bisnis',key:'gbp_link',label:'Google Maps / GBP',type:'text'},
+  {section:'Identitas Bisnis',key:'ig_username',label:'Username Instagram',type:'text'},
+  {section:'Identitas Bisnis',key:'tiktok_username',label:'Username TikTok',type:'text'},
+  {section:'Identitas Bisnis',key:'youtube_channel',label:'Channel YouTube',type:'text'},
+  {section:'Identitas Bisnis',key:'linkedin_page',label:'LinkedIn Page',type:'text'},
+  {section:'Identitas Bisnis',key:'tagline',label:'Tagline / Positioning',type:'text'},
+  {section:'Identitas Bisnis',key:'year_established',label:'Tahun Berdiri',type:'text'},
+  {section:'Identitas Bisnis',key:'trust_data',label:'Data Trust Utama',required:true,type:'textarea'},
+
+  {section:'Identitas Sumber Konten',key:'content_source',label:'Sumber Konten',required:true,type:'checklist',options:['Pillar Page','Cluster Page','Money Page','Local Page','FAQ Page','Testimoni nyata','SOP/proses','Promo/event','Program/produk highlight','Pengajar/ahli insight']},
+  {section:'Identitas Sumber Konten',key:'source_title',label:'Judul Sumber',required:true,type:'text'},
+  {section:'Identitas Sumber Konten',key:'source_url',label:'URL Sumber (jika ada)',type:'text'},
+  {section:'Identitas Sumber Konten',key:'source_summary',label:'Ringkasan Isi Sumber',required:true,type:'textarea'},
+  {section:'Identitas Sumber Konten',key:'key_points',label:'Key Points Utama (min. 5)',required:true,type:'textarea',list:true,min:5,numbered:true},
+  {section:'Identitas Sumber Konten',key:'main_topic',label:'Topik Utama',required:true,type:'text'},
+  {section:'Identitas Sumber Konten',key:'primary_entity',label:'Primary Keyword / Entity',type:'text'},
+  {section:'Identitas Sumber Konten',key:'secondary_entity',label:'Secondary Entity / Topik',type:'text'},
+
+  {section:'Tujuan & CTA',key:'batch_goal',label:'Tujuan Utama Batch',required:true,type:'select',options:['Awareness','Engagement','Traffic','Lead','Booking','Sales','Community','Trust building']},
+  {section:'Tujuan & CTA',key:'main_cta',label:'CTA Utama',required:true,type:'select',options:['DM / Inbox','WhatsApp','Booking via link','Kunjungi website','Simpan post','Share ke teman/keluarga','Komentar keyword tertentu','Datang ke cabang','Daftar sekarang']},
+  {section:'Tujuan & CTA',key:'secondary_cta',label:'CTA Sekunder',type:'text'},
+
+  {section:'Preferensi Platform',key:'target_platforms',label:'Platform Target',required:true,type:'checklist',options:['Instagram Feed','Instagram Carousel','Instagram Reels','Instagram Stories','Facebook Post','Threads','TikTok','YouTube Shorts','YouTube Long Video','LinkedIn Post','LinkedIn Carousel','WhatsApp Broadcast','GBP Post']},
+  {section:'Preferensi Platform',key:'desired_formats',label:'Format Yang Diinginkan',required:true,type:'checklist',options:['Caption','Script video','Hook bank','Storyboard','Kalender konten','Daftar topik','Hashtag bank','CTA bank','Repurposing matrix','Full package']},
+
+  {section:'Brand Voice',key:'tone_voice',label:'Tone Of Voice',required:true,type:'select',allowOther:true,options:['Edukatif + terpercaya','Hangat + empatik','Profesional + meyakinkan','Premium + elegan','Friendly + ringan','Islami + menenangkan']},
+  {section:'Brand Voice',key:'allowed_words',label:'Kata yang Boleh Digunakan',type:'text'},
+  {section:'Brand Voice',key:'forbidden_words',label:'Kata yang Tidak Boleh',type:'text'},
+  {section:'Brand Voice',key:'emoji_policy',label:'Emoji Policy',type:'select',options:['Minimal','Sedang','Aktif','Tidak pakai emoji']},
+
+  {section:'Claim & Compliance Guardrails',key:'sensitive_topic',label:'Topik Sensitif?',required:true,type:'select',options:['Ya','Tidak']},
+  {section:'Claim & Compliance Guardrails',key:'sensitive_types',label:'Jika Ya, Jenis Topik Sensitif',type:'checklist',showIf:{key:'sensitive_topic',values:['Ya']},options:['Topik sensitif akademik','Before-after','Hasil pembelajaran','Klaim hasil program','Metode pelatihan','Topik personal sensitif','Kesejahteraan belajar','Perubahan performa belajar','Anak/remaja/dewasa']},
+  {section:'Claim & Compliance Guardrails',key:'forbidden_claims',label:'Klaim Yang Dilarang',required:true,type:'textarea'},
+  {section:'Claim & Compliance Guardrails',key:'mandatory_disclaimer',label:'Disclaimer Wajib',type:'textarea'},
+  {section:'Claim & Compliance Guardrails',key:'legality_reviewer',label:'Legalitas / Reviewer',type:'text'},
+
+  {section:'Materi Pendukung',key:'promo_event',label:'Promo / Event (jika ada)',type:'text'},
+  {section:'Materi Pendukung',key:'valid_testimonials',label:'Testimoni Sah',type:'textarea'},
+  {section:'Materi Pendukung',key:'frequent_faq',label:'FAQ Paling Sering',type:'textarea'},
+  {section:'Materi Pendukung',key:'spokesperson',label:'Tim Ahli / Spokesperson',type:'text'},
+  {section:'Materi Pendukung',key:'branch_locations',label:'Lokasi Cabang / Kota',type:'text'},
+  {section:'Materi Pendukung',key:'campaign_period',label:'Tanggal / Periode Kampanye',type:'text'}
+];
+
+let activeTab='md'; let lastOutput={markdown:'',html:''};
+const byId=(id)=>document.getElementById(id); const clean=(v)=>(v||'').replace(/\r/g,'').trim(); const today=()=>new Date().toISOString().slice(0,10);
+const esc=(v)=>(v||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+const slug=(v)=>(v||'brand').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,80)||'brand';
+const splitLines=(v)=>clean(v).split(/\n|;|,/).map((x)=>x.replace(/^\d+[\).\s-]*/,'').trim()).filter(Boolean);
+
+function renderField(f){
+  const req=f.required?'<span>Wajib</span>':''; const hint=f.hint?`<p class="hint">${f.hint}</p>`:'';
+  let input='';
+  if(f.type==='textarea') input=`<textarea id="${f.key}" placeholder="Isi ${f.label.toLowerCase()}"></textarea>`;
+  else if(f.type==='select'){
+    const opts=(f.options||[]).map((o)=>`<option value="${o}">${o}</option>`).join('');
+    const other=f.allowOther?`<option value="__other__">Lainnya (tulis manual)</option>`:'';
+    const otherInput=f.allowOther?`<input id="${f.key}_other" class="other-input" type="text" placeholder="Isi lainnya untuk ${f.label.toLowerCase()}">`:'';
+    input=`<select id="${f.key}"><option value="">Pilih opsi</option>${opts}${other}</select>${otherInput}`;
+  } else if(f.type==='checklist'){
+    const items=(f.options||[]).map((o)=>`<label class="ck"><input type="checkbox" name="${f.key}" value="${o}">${o}</label>`).join('');
+    const other=f.allowOther?`<label class="ck"><input type="checkbox" name="${f.key}" value="__other__">Lainnya</label><input id="${f.key}_other" class="other-input" type="text" placeholder="Isi lainnya untuk ${f.label.toLowerCase()}">`:'';
+    input=`<div class="check-wrap" id="wrap-${f.key}">${items}${other}</div>`;
+  } else input=`<input id="${f.key}" type="text" placeholder="Isi ${f.label.toLowerCase()}">`;
+  return `<div class="f" id="field-${f.key}"><label for="${f.key}">${f.label} ${req}</label>${hint}${input}<div class="err" id="err-${f.key}">${f.required?`${f.label} wajib diisi.`:'Field belum valid.'}</div></div>`;
+}
+
+function renderForm(){
+  const form=byId('form'); const groups=[...new Set(SCHEMA.map((s)=>s.section))];
+  form.innerHTML=groups.map((g)=>`<div class="group"><div class="gt">${g}</div>${SCHEMA.filter((f)=>f.section===g).map(renderField).join('')}</div>`).join('');
+}
+
+function bindOthers(){
+  SCHEMA.filter((f)=>f.type==='select'&&f.allowOther).forEach((f)=>{ const sel=byId(f.key), other=byId(`${f.key}_other`); if(!sel||!other) return; const sync=()=>{const on=sel.value==='__other__'; other.style.display=on?'block':'none'; if(!on) other.value='';}; sel.addEventListener('change',sync); sync(); });
+  SCHEMA.filter((f)=>f.type==='checklist'&&f.allowOther).forEach((f)=>{ const other=byId(`${f.key}_other`); if(!other) return; const sync=()=>{const on=!!document.querySelector(`input[name="${f.key}"][value="__other__"]:checked`); other.style.display=on?'block':'none'; if(!on) other.value='';}; document.querySelectorAll(`input[name="${f.key}"]`).forEach((el)=>el.addEventListener('change',sync)); sync(); });
+  document.querySelectorAll('select').forEach((el)=>el.addEventListener('change',applyConditionalVisibility));
+  applyConditionalVisibility();
+}
+
+function isVisible(f){
+  if(!f.showIf) return true;
+  const dep=clean((byId(f.showIf.key)||{}).value||'');
+  return (f.showIf.values||[]).includes(dep);
+}
+
+function applyConditionalVisibility(){
+  SCHEMA.forEach((f)=>{
+    const wrap=byId(`field-${f.key}`);
+    if(!wrap) return;
+    const show=isVisible(f);
+    wrap.classList.toggle('hidden',!show);
+    if(!show){
+      if(f.type==='checklist') document.querySelectorAll(`input[name="${f.key}"]`).forEach((el)=>{el.checked=false;});
+      else{
+        const el=byId(f.key); if(el) el.value='';
+        const other=byId(`${f.key}_other`); if(other){other.value='';other.style.display='none';}
+      }
+      setInvalid(f,false,'');
+    }
+  });
+}
+
+function collect(){
+  const d={};
+  SCHEMA.forEach((f)=>{
+    if(f.type==='checklist'){
+      const vals=[...document.querySelectorAll(`input[name="${f.key}"]:checked`)].map((el)=>el.value);
+      d[f.key]=vals.filter((v)=>v!=='__other__');
+      if(vals.includes('__other__')) d[f.key].push(clean((byId(`${f.key}_other`)||{}).value||'')?`Lainnya: ${clean((byId(`${f.key}_other`)||{}).value||'')}`:'Lainnya');
+    }else if(f.type==='select'){
+      const v=clean((byId(f.key)||{}).value||''); d[f.key]=(f.allowOther&&v==='__other__')?(clean((byId(`${f.key}_other`)||{}).value||'')?`Lainnya: ${clean((byId(`${f.key}_other`)||{}).value||'')}`:'Lainnya'):v;
+    }else{
+      const raw=(byId(f.key)||{}).value||''; d[f.key]=f.list?splitLines(raw):clean(raw);
+    }
+  });
+  return d;
+}
+
+function setInvalid(f,bad,msg){
+  const el=byId(f.key), err=byId(`err-${f.key}`); if(el) el.classList.toggle('invalid',!!bad);
+  if(f.type==='checklist'){const wrap=byId(`wrap-${f.key}`); if(wrap) wrap.classList.toggle('invalid',!!bad);} 
+  if(err){ if(msg) err.textContent=msg; err.classList.toggle('show',!!bad); }
+}
+
+function validate(d){
+  let ok=true;
+  SCHEMA.forEach((f)=>{
+    if(!isVisible(f)){ setInvalid(f,false,''); return; }
+    let bad=false, msg=`${f.label} wajib diisi.`;
+    if(f.required){ if(f.type==='checklist') bad=(d[f.key]||[]).length<1; else if(f.list) bad=(d[f.key]||[]).length<1; else bad=!d[f.key]; }
+    if(!bad&&f.min){ const n=f.list?(d[f.key]||[]).length:splitLines(d[f.key]||'').length; bad=n<f.min; msg=`Isi minimal ${f.min} item untuk ${f.label}.`; }
+    if(!bad && f.allowOther && (byId(f.key)?.value==='__other__')){ const txt=clean((byId(`${f.key}_other`)||{}).value||''); if(!txt){ bad=true; msg=`Isi nilai lainnya untuk ${f.label}.`; } }
+    if(!bad && f.type==='checklist' && f.allowOther){ const on=!!document.querySelector(`input[name="${f.key}"][value="__other__"]:checked`); if(on&&!clean((byId(`${f.key}_other`)||{}).value||'')){ bad=true; msg=`Isi nilai lainnya untuk ${f.label}.`; }}
+    setInvalid(f,bad,msg); if(bad) ok=false;
+  });
+  return ok;
+}
+
+const mdList=(arr)=>arr&&arr.length?arr.map((x)=>`- ${x}`).join('\n'):'- [Tidak diisi]';
+const mdNum=(arr)=>arr&&arr.length?arr.map((x,i)=>`${i+1}. ${x}`).join('\n'):'1. [Tidak diisi]';
+
+function sectionMarkdown(d){
+  const groups=[...new Set(SCHEMA.map((s)=>s.section))];
+  return groups.map((g)=>{
+    const lines=[`[${g.toUpperCase()}]`];
+    SCHEMA.filter((f)=>f.section===g).forEach((f)=>{
+      if(!isVisible(f)) return;
+      const v=d[f.key];
+      if(Array.isArray(v)) lines.push(`- ${f.label}:\n${f.numbered?mdNum(v):mdList(v)}`);
+      else lines.push(`- ${f.label}: ${v||'-'}`);
+    });
+    lines.push('');
+    return lines.join('\n');
+  }).join('\n');
+}
+
+function buildMarkdown(d){
+  return [
+`# ${CFG.title}`,
+`## ${CFG.subtitle}`,
+``,
+`Tanggal Generate: ${today()}`,
+``,
+`==================================================`,
+`BAGIAN 0 - CARA MENGGUNAKAN PROMPT`,
+`==================================================`,
+...CFG.preSteps.map((s,i)=>`${i+1}. ${s}`),
+``,
+`==================================================`,
+`BAGIAN 1 - INPUT WAJIB (TERISI)`,
+`==================================================`,
+sectionMarkdown(d),
+`==================================================`,
+`BAGIAN 2 - INSTRUKSI SISTEM UNTUK AI`,
+`==================================================`,
+...CFG.systemRules.map((s,i)=>`${i+1}. ${s}`),
+``,
+`==================================================`,
+`BAGIAN 3 - INSTRUKSI PENULISAN LENGKAP`,
+`==================================================`,
+...CFG.writingFlow.map((s,i)=>`${i+1}. ${s}`),
+``,
+`==================================================`,
+`BAGIAN 4 - OUTPUT WAJIB LENGKAP`,
+`==================================================`,
+...CFG.outputBlocks.map((b,i)=>`${i+1}. ${b}`),
+``,
+`==================================================`,
+`BAGIAN 5 - ACCEPTANCE CRITERIA`,
+`==================================================`,
+...CFG.acceptance.map((a)=>`- ${a}`),
+``,
+`NEXT STEP: Gunakan output Prompt 05 ini untuk content planning mingguan/bulanan, produksi aset lintas platform, dan optimasi performa sosial media Agrobisnis.`
+  ].join('\n');
+}
+
+function buildHtmlBody(d,md){
+  return `<article><h3>Master Prompt 05 - Social Media Repurposing Agrobisnis</h3><p><strong>Brand:</strong> ${esc(d.brand_name||'-')} | <strong>Goal:</strong> ${esc(d.batch_goal||'-')} | <strong>Tanggal:</strong> ${esc(today())}</p><table><thead><tr><th>Field</th><th>Nilai</th></tr></thead><tbody><tr><td>Sumber Konten</td><td>${esc((d.content_source||[]).join(', ')||'-')}</td></tr><tr><td>Platform Target</td><td>${esc((d.target_platforms||[]).join(', ')||'-')}</td></tr><tr><td>Format Target</td><td>${esc((d.desired_formats||[]).join(', ')||'-')}</td></tr><tr><td>CTA Utama</td><td>${esc(d.main_cta||'-')}</td></tr></tbody></table><h4>Prompt Siap Copy</h4><pre>${esc(md)}</pre></article>`;
+}
+
+function exportDoc(body){return `<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Master Prompt 05</title><style>body{font-family:Arial,sans-serif;margin:28px;color:#1f2532;line-height:1.65}h3{font-size:30px;margin-bottom:8px}p,li,td,th{font-size:14px}table{width:100%;border-collapse:collapse;margin:8px 0 14px}th,td{border:1px solid #d2d9e8;padding:8px 10px;text-align:left;vertical-align:top}th{background:#eff3fc;font-size:12px;text-transform:uppercase}pre{white-space:pre-wrap;background:#f6f8fc;border:1px solid #dbe2ef;border-radius:10px;padding:12px;font-size:12px}@media print{body{margin:14mm}}</style></head><body>${body}</body></html>`;}
+
+function showTab(name){activeTab=name;byId('markdown-preview').style.display=name==='md'?'block':'none';byId('html-preview').style.display=name==='html'?'block':'none';byId('tab-md').classList.toggle('on',name==='md');byId('tab-html').classList.toggle('on',name==='html');}
+function generateOutput(){const d=collect();if(!validate(d)){alert('Masih ada field wajib yang belum lengkap. Mohon cek bagian merah.');return false;} lastOutput.markdown=buildMarkdown(d); lastOutput.html=buildHtmlBody(d,lastOutput.markdown); byId('markdown-preview').textContent=lastOutput.markdown; byId('html-preview').innerHTML=lastOutput.html; showTab(activeTab); return true;}
+function ensureOutput(){if(lastOutput.markdown&&lastOutput.html)return true;return generateOutput();}
+function blobDownload(content,type,fname){const blob=new Blob([content],{type});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=fname;document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);} 
+function copyMarkdown(){if(!ensureOutput())return;navigator.clipboard.writeText(lastOutput.markdown).then(()=>alert('Markdown berhasil disalin.')).catch(()=>alert('Gagal menyalin otomatis.'));}
+function downloadMarkdown(){if(!ensureOutput())return;blobDownload(lastOutput.markdown,'text/markdown;charset=utf-8',`framework-agrobisnis-master-prompt-05-${slug(clean((byId('brand_name')||{}).value||'brand'))}-${today()}.md`);} 
+function downloadHtml(){if(!ensureOutput())return;blobDownload(exportDoc(lastOutput.html),'text/html;charset=utf-8',`framework-agrobisnis-master-prompt-05-${slug(clean((byId('brand_name')||{}).value||'brand'))}-${today()}.html`);} 
+function downloadPdf(){if(!ensureOutput())return;const w=window.open('','_blank');if(!w){alert('Pop-up diblokir browser.');return;}w.document.open();w.document.write(exportDoc(lastOutput.html));w.document.close();w.focus();setTimeout(()=>w.print(),320);} 
+function resetForm(){byId('form').reset();document.querySelectorAll('.invalid').forEach((el)=>el.classList.remove('invalid'));document.querySelectorAll('.err').forEach((el)=>el.classList.remove('show'));document.querySelectorAll('.other-input').forEach((el)=>{el.value='';el.style.display='none';});lastOutput={markdown:'',html:''};byId('markdown-preview').textContent='Belum ada output. Isi form lalu klik "Generate Master Prompt 05".';byId('html-preview').innerHTML='<p>Belum ada output HTML.</p>';showTab('md');applyConditionalVisibility();}
+
+renderForm();bindOthers();
+</script>
+</body>
+</html>
+
+
+
+
+
+
+

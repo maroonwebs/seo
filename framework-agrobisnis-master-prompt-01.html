@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Master Prompt 01 - Framework Agrobisnis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#102019;--muted:#65756f;--bg:#f5faf8;--card:#fff;--line:rgba(16,32,25,.14);--green:#1f7a54;--green2:#2d956a;--red:#ad3636;--r:12px;--r2:18px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:radial-gradient(circle at 10% 0,rgba(45,149,106,.12) 0,transparent 35%),var(--bg);color:var(--ink);line-height:1.6}
+.top{position:sticky;top:0;z-index:50;background:#11221c;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;border-bottom:1px solid rgba(255,255,255,.12)}
+.logo{font-family:'Playfair Display',serif;color:#e9f9f3;font-size:17px}.logo span{color:#95efcb;font-style:italic}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.btn{border:1px solid rgba(255,255,255,.34);background:transparent;color:#eef8f4;border-radius:10px;padding:8px 12px;font-size:12px;cursor:pointer;text-decoration:none;font-family:'DM Sans',sans-serif}
+.btn.primary{background:var(--green);border-color:var(--green)}.btn.primary:hover{background:var(--green2)}
+main{max-width:1380px;margin:0 auto;padding:22px}
+.hero{background:linear-gradient(128deg,#13372d,#1e654f,#2e8f73);color:#f0fbf7;padding:20px;border-radius:var(--r2);margin-bottom:14px}
+.hero .tag{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px;opacity:.9}
+.hero h1{font-family:'Playfair Display',serif;font-size:30px;font-weight:500;line-height:1.2;margin-bottom:8px}.hero h1 em{color:#c4fae4}
+.hero p{font-size:14px;max-width:1020px}
+.grid{display:grid;grid-template-columns:minmax(420px,.95fr) minmax(420px,1.05fr);gap:14px;align-items:start}
+.card{background:var(--card);border:1px solid rgba(16,32,25,.08);border-radius:var(--r2);padding:16px}
+.card h2{font-family:'Playfair Display',serif;font-size:24px;font-weight:500;margin-bottom:6px}
+.sub{font-size:13px;color:var(--muted);margin-bottom:12px}
+.group{border:1px solid rgba(16,32,25,.08);border-radius:var(--r);padding:12px;margin-bottom:12px}
+.gt{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#1f4f9e;margin-bottom:8px}
+.f{margin-bottom:10px}.f:last-child{margin-bottom:0}
+label{display:block;font-size:13px;font-weight:700;margin-bottom:4px}label span{font-family:'DM Mono',monospace;font-size:11px;color:var(--green);margin-left:6px}
+.hint{font-size:12px;color:var(--muted);margin-bottom:6px}
+input[type="text"],textarea,select{width:100%;border:1.4px solid var(--line);border-radius:10px;padding:9px 11px;font-size:14px;font-family:'DM Sans',sans-serif;color:#22322d;background:#fff}
+textarea{min-height:72px;resize:vertical}
+input:focus,textarea:focus,select:focus{outline:none;border-color:rgba(31,122,84,.8);box-shadow:0 0 0 3px rgba(31,122,84,.14)}
+.other-input{display:none;margin-top:8px}
+.invalid{border-color:rgba(173,54,54,.72)!important;box-shadow:0 0 0 3px rgba(173,54,54,.12)!important}
+.err{display:none;font-size:12px;color:var(--red);margin-top:5px}.err.show{display:block}
+.act{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.act .btn{color:#22322d;border-color:var(--line)}.act .btn.primary{color:#fff;border-color:var(--green)}
+.tab{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-bottom:10px}
+.tab button{border:none;background:#fff;padding:7px 11px;font-size:12px;cursor:pointer}
+.tab button.on{background:#e8f4ee;color:#1d5d45;font-weight:700}
+.preview{border:1px solid rgba(16,32,25,.08);border-radius:12px;background:#fbfffd;max-height:840px;overflow:auto}
+.preview pre{margin:0;padding:12px;white-space:pre-wrap;font-family:'DM Mono',monospace;font-size:12px}
+.html{display:none;padding:12px}.html table{width:100%;border-collapse:collapse;margin:8px 0 12px}.html th,.html td{border:1px solid #d3e2da;padding:7px 8px;text-align:left;vertical-align:top}.html th{background:#edf6f1;font-size:12px}
+.html h3{font-family:'Playfair Display',serif;font-size:22px;margin:0 0 6px}
+.note{margin-top:10px;padding:8px 10px;border:1px dashed rgba(31,122,84,.3);background:#f4faf7;border-radius:10px;font-size:12px;color:#1f4f3f}
+@media(max-width:1120px){.grid{grid-template-columns:1fr}}
+@media(max-width:760px){.top{padding:12px}.row{width:100%}.row .btn{flex:1}main{padding:14px 10px}.hero h1{font-size:27px}input[type="text"],textarea,select{font-size:16px}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="logo">Framework Agrobisnis - <span>Master Prompt 01</span></div>
+  <div class="row">
+    <a class="btn" href="framework-agrobisnis.html">Kembali ke Framework</a>
+    <a class="btn" href="index.html">Kembali ke Hub</a>
+    <button class="btn" type="button" onclick="copyMarkdown()">Copy Markdown</button>
+    <button class="btn" type="button" onclick="downloadMarkdown()">Download .md</button>
+    <button class="btn" type="button" onclick="downloadHtml()">Download .html</button>
+    <button class="btn primary" type="button" onclick="downloadPdf()">Download PDF</button>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="tag">Prompt 01 - Keyword Research & Search Intent Analysis</div>
+    <h1>Master Prompt 01 <em>Agrobisnis</em></h1>
+    <p>Semua field pada Bagian 1 sudah disiapkan lengkap agar user tidak bingung saat mengisi. Setelah diisi, sistem menghasilkan prompt siap pakai untuk AI, dan output bisa dicopy atau diunduh sebagai Markdown, HTML, dan PDF.</p>
+  </section>
+
+  <div class="grid">
+    <section class="card">
+      <h2>Form Input Lengkap</h2>
+      <p class="sub">Isi sejelas mungkin. Field wajib harus terisi agar output valid.</p>
+      <form id="form"></form>
+      <div class="act">
+        <button class="btn primary" type="button" onclick="generateOutput()">Generate Master Prompt 01</button>
+        <button class="btn" type="button" onclick="resetForm()">Reset Form</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Preview Output</h2>
+      <p class="sub">Output siap copy-paste ke AI dan siap diekspor.</p>
+      <div class="tab">
+        <button id="tab-md" class="on" type="button" onclick="showTab('md')">Markdown</button>
+        <button id="tab-html" type="button" onclick="showTab('html')">HTML</button>
+      </div>
+      <div class="preview">
+        <pre id="markdown-preview">Belum ada output. Isi form lalu klik "Generate Master Prompt 01".</pre>
+        <div id="html-preview" class="html"><p>Belum ada output HTML.</p></div>
+      </div>
+      <div class="note">Catatan PDF: tombol Download PDF membuka versi print-ready. Lanjutkan Save as PDF di dialog browser.</div>
+    </section>
+  </div>
+</main>
+
+<script>
+const BUSINESS_TYPE_OPTIONS = [
+  'Jual / Produsen Bibit Tanaman',
+  'Jual / Produsen Benih',
+  'Nursery / Tanaman Hias',
+  'Budidaya Anggrek / Orchid',
+  'Pertanian Hortikultura',
+  'Perkebunan',
+  'Peternakan Domba',
+  'Peternakan Kambing',
+  'Peternakan Sapi',
+  'Jual Hewan Kurban',
+  'Jual Ternak',
+  'Perikanan / Budidaya Ikan',
+  'Jual Bibit Ikan / Benih Ikan',
+  'Pakan / Nutrisi / Obat / Sarana Produksi',
+  'Alat Pertanian / Peternakan / Perikanan',
+  'Jasa Konsultasi / Pelatihan Agrobisnis',
+  'Hybrid Agribusiness'
+];
+
+const CONVERSION_MODEL_OPTIONS = [
+  'Chat WhatsApp',
+  'Form pemesanan',
+  'Telepon',
+  'Kunjungan kandang / kebun / lokasi',
+  'Checkout / pembayaran',
+  'Konsultasi',
+  'Request penawaran',
+  'Kemitraan / reseller',
+  'Kombinasi'
+];
+
+const BUSINESS_TYPE_CATEGORY_MAP = {
+  'jual / produsen bibit tanaman': 'Lembaga',
+  'jual / produsen benih': 'Lembaga',
+  'nursery / tanaman hias': 'Lembaga',
+  'budidaya anggrek / orchid': 'Lembaga',
+  'pertanian hortikultura': 'Lembaga',
+  'perkebunan': 'Lembaga',
+  'peternakan domba': 'Institusi',
+  'peternakan kambing': 'Institusi',
+  'peternakan sapi': 'Institusi',
+  'jual hewan kurban': 'Institusi',
+  'jual ternak': 'Institusi',
+  'perikanan / budidaya ikan': 'Produk',
+  'jual bibit ikan / benih ikan': 'Produk',
+  'pakan / nutrisi / obat / sarana produksi': 'Produk',
+  'alat pertanian / peternakan / perikanan': 'Produk',
+  'jasa konsultasi / pelatihan agrobisnis': 'Jasa'
+};
+
+const schema = [
+  {section:'Identitas Bisnis', key:'brand_name', label:'Nama Brand / Usaha', required:true, hint:'Nama resmi brand/usaha Agrobisnis.', type:'text'},
+  {section:'Identitas Bisnis', key:'website_domain', label:'Website / Domain', hint:'Domain aktif jika ada.', type:'text'},
+  {section:'Identitas Bisnis', key:'target_city', label:'Kota / Area Utama Target', required:true, hint:'Area inti untuk keyword lokal.', type:'text'},
+  {section:'Identitas Bisnis', key:'expansion_city', label:'Area Ekspansi', hint:'Pisahkan dengan koma jika lebih dari satu.', type:'text'},
+  {section:'Identitas Bisnis', key:'wa_contact', label:'Nomor WA / Kontak', type:'text'},
+  {section:'Identitas Bisnis', key:'positioning', label:'Tagline / Positioning', type:'textarea', hint:'Nilai unik usaha dalam 1 kalimat.'},
+  {section:'Model Bisnis Agrobisnis', key:'business_type', label:'Jenis Bisnis Agrobisnis', required:true, type:'select', allowOther:true, options:BUSINESS_TYPE_OPTIONS, hint:'Pilih jenis bisnis paling mendekati. Jika belum ada, pilih Lainnya lalu isi manual.'},
+  {section:'Model Bisnis Agrobisnis', key:'conversion_model', label:'Model Penjualan / Konversi', required:true, type:'select', allowOther:true, options:CONVERSION_MODEL_OPTIONS, hint:'Pilih jalur konversi utama. Jika model Anda unik, gunakan opsi Lainnya.'},
+  {section:'Model Bisnis Agrobisnis', key:'main_services', label:'Produk / Layanan Utama', required:true, type:'textarea', list:true, min:3, hint:'Minimal 3 item. Satu baris per item.'},
+  {section:'Model Bisnis Agrobisnis', key:'secondary_services', label:'Produk / Layanan Sekunder', type:'textarea', list:true},
+  {section:'Model Bisnis Agrobisnis', key:'location_basis', label:'Model Bisnis', required:true, type:'select', allowOther:true, options:['B2C','B2B','Distributor / Supplier','Produsen','Retail','Grosir','Local delivery','Kirim antarkota','Kemitraan / reseller','Musiman','Sepanjang tahun','Hybrid'], hint:'Pilih model bisnis utama agar strategi keyword dan konten lebih tepat.'},
+  {section:'Model Bisnis Agrobisnis', key:'service_area', label:'Area Distribusi / Cakupan', required:true, type:'textarea', hint:'Contoh: Malang Raya, Jawa Timur, antarkota, nasional.'},
+  {section:'Field Khusus Tipe Bisnis', key:'clinic_type', label:'Jenis Komoditas Tanaman', required:true, type:'select', allowOther:true, options:['Bibit Tanaman','Benih','Nursery Tanaman Hias','Budidaya Anggrek','Pertanian Hortikultura','Perkebunan'], showFor:['Lembaga'], hint:'Muncul jika tipe bisnis terkait tanaman/bibit/benih.'},
+  {section:'Field Khusus Tipe Bisnis', key:'clinic_focus_services', label:'Produk / Komoditas Fokus', required:true, type:'textarea', list:true, min:2, showFor:['Lembaga'], hint:'Minimal 2 komoditas utama.'},
+  {section:'Field Khusus Tipe Bisnis', key:'clinic_doctor_scope', label:'Varietas / Grade Fokus', required:true, type:'text', showFor:['Lembaga'], hint:'Contoh: Alpukat Mentega okulasi, Mangga Arumanis okulasi.'},
+  {section:'Field Khusus Tipe Bisnis', key:'hospital_type', label:'Jenis Usaha Peternakan', required:true, type:'select', allowOther:true, options:['Peternakan Domba','Peternakan Kambing','Peternakan Sapi','Jual Hewan Kurban','Jual Ternak'], showFor:['Institusi'], hint:'Muncul jika tipe bisnis terkait ternak.'},
+  {section:'Field Khusus Tipe Bisnis', key:'hospital_departments', label:'Jenis Ternak / Paket Utama', required:true, type:'textarea', list:true, min:2, showFor:['Institusi'], hint:'Minimal 2 jenis ternak atau paket.'},
+  {section:'Field Khusus Tipe Bisnis', key:'hospital_emergency', label:'Standar Kualitas / Kesehatan', type:'select', allowOther:true, options:['Sertifikat kesehatan tersedia','Pengecekan rutin sebelum kirim','Garansi sesuai ketentuan','SOP kualitas internal'], showFor:['Institusi']},
+  {section:'Field Khusus Tipe Bisnis', key:'product_category', label:'Kategori Perikanan / Sarana Produksi', required:true, type:'select', allowOther:true, options:['Perikanan / Budidaya Ikan','Bibit Ikan / Benih Ikan','Pakan / Nutrisi / Obat','Sarana Produksi','Alat Pertanian / Peternakan / Perikanan'], showFor:['Produk'], hint:'Muncul jika tipe bisnis perikanan atau sarana produksi.'},
+  {section:'Field Khusus Tipe Bisnis', key:'product_distribution', label:'Channel Distribusi / Pengiriman', required:true, type:'textarea', list:true, min:2, showFor:['Produk'], hint:'Minimal 2 channel distribusi (langsung, reseller, antarkota, dsb).'},
+  {section:'Field Khusus Tipe Bisnis', key:'product_legal_focus', label:'Bukti Kualitas / Legalitas Prioritas', type:'textarea', list:true, showFor:['Produk'], hint:'Contoh: sertifikasi, hasil uji, SOP pengiriman, garansi, dokumen pendukung.'},
+  {section:'Field Khusus Tipe Bisnis', key:'service_type_detail', label:'Jenis Jasa Agrobisnis', required:true, type:'select', allowOther:true, options:['Konsultasi Agrobisnis','Pelatihan Budidaya','Pendampingan Produksi','Pendampingan Distribusi','Pendampingan Kemitraan'], showFor:['Jasa'], hint:'Muncul jika tipe bisnis jasa.'},
+  {section:'Field Khusus Tipe Bisnis', key:'service_delivery_model', label:'Model Delivery Jasa', required:true, type:'select', allowOther:true, options:['Online','Offline','Hybrid','Pendampingan lapangan'], showFor:['Jasa']},
+  {section:'Field Khusus Tipe Bisnis', key:'service_team_capacity', label:'Kapasitas Tim Layanan', type:'text', showFor:['Jasa'], hint:'Contoh: 4 konsultan aktif, 10 sesi per minggu.'},
+  {section:'Trust, Legalitas, dan Entitas Ahli', key:'practitioner', label:'Tim Ahli / Penanggung Jawab Operasional', type:'textarea', hint:'Bisa nama atau jabatan/spesialisasi jika nama belum dipublikasikan.'},
+  {section:'Trust, Legalitas, dan Entitas Ahli', key:'trust_signals', label:'Legalitas / Trust Signal', type:'textarea', list:true, hint:'Contoh: legalitas usaha, sertifikasi, pengalaman budidaya, testimoni, garansi.'},
+  {section:'Trust, Legalitas, dan Entitas Ahli', key:'year_established', label:'Tahun Berdiri', type:'text'},
+  {section:'Trust, Legalitas, dan Entitas Ahli', key:'total_branches', label:'Jumlah Cabang', type:'text'},
+  {section:'Trust, Legalitas, dan Entitas Ahli', key:'total_patients', label:'Kapasitas Produksi / Populasi / Volume', type:'text'},
+  {section:'Trust, Legalitas, dan Entitas Ahli', key:'rating_review', label:'Rating / Review', type:'text'},
+  {section:'Trust, Legalitas, dan Entitas Ahli', key:'insurance_bpjs', label:'Kemitraan Distributor / Reseller / Komunitas', type:'text'},
+  {section:'Target Audience', key:'audience_primary', label:'Target Audience Utama', required:true, type:'textarea', hint:'Jelaskan demografi + konteks kebutuhan.'},
+  {section:'Target Audience', key:'audience_segments', label:'Segmentasi Audience', type:'textarea', list:true, hint:'Contoh: Petani pemula, petani komersial, peternak, pembudidaya ikan, reseller, B2B.'},
+  {section:'Target Audience', key:'audience_needs', label:'Masalah / Kebutuhan Utama Audience', required:true, type:'textarea', list:true, min:3, hint:'Minimal 3 poin.'},
+  {section:'Target Audience', key:'budget_sensitivity', label:'Budget / Sensitivitas Harga', type:'select', allowOther:true, options:['Sangat sensitif harga','Bandingkan kualitas vs harga','Cenderung premium','Belum diketahui']},
+  {section:'Konteks Riset', key:'seed_keywords', label:'Seed Keywords', required:true, type:'textarea', list:true, min:8, hint:'Minimal 8 keyword. Satu baris per keyword.'},
+  {section:'Konteks Riset', key:'topic_categories', label:'Kategori Topik yang Ingin Dimenangkan', required:true, type:'textarea', list:true, hint:'Contoh: produk, harga, ongkir, kualitas, trust, distribusi, outcome, FAQ, seasonal, area.'},
+  {section:'Konteks Riset', key:'competitors', label:'Kompetitor yang Diketahui', type:'textarea', list:true},
+  {section:'Konteks Riset', key:'season_moments', label:'Musim / Momen Puncak', type:'textarea', list:true},
+  {section:'Konteks Riset', key:'claim_boundaries', label:'Topik Sensitif / Batas Klaim Brand', type:'textarea', hint:'Tuliskan larangan klaim agar AI tetap aman.'},
+  {section:'Preferensi Output', key:'language_content', label:'Bahasa Konten', required:true, type:'select', allowOther:true, options:['Indonesia formal','Indonesia semi-formal','Bilingual Indonesia + Inggris','Bilingual Indonesia + istilah agrobisnis']},
+  {section:'Preferensi Output', key:'market_target', label:'Target Pasar', required:true, type:'select', allowOther:true, options:['Lokal kota utama','Multi-lokasi','Nasional','Hybrid']},
+  {section:'Preferensi Output', key:'priority_30', label:'Prioritas 30 Hari Pertama', required:true, type:'select', allowOther:true, options:['Leads / penjualan cepat','Ranking keyword lokal dulu','Halaman produk / layanan dulu','Konten trust / kualitas dulu','Konten edukasi dulu','FAQ / snippet dulu','Local / area page dulu','Seasonal / momentum dulu']},
+  {section:'Preferensi Output', key:'content_capacity', label:'Kapasitas Produksi Konten / Bulan', required:true, type:'select', allowOther:true, options:['4-6 halaman / bulan','8-12 halaman / bulan','15-20 halaman / bulan','20+ halaman / bulan']},
+  {section:'Preferensi Output', key:'output_depth', label:'Level Kedalaman Output', required:true, type:'select', allowOther:true, options:['Standar','Lengkap','Sangat detail / framework penuh']}
+];
+
+let activeTab = 'md';
+let lastOutput = { markdown:'', html:'' };
+const byId = (id) => document.getElementById(id);
+const clean = (v) => (v || '').replace(/\r/g,'').trim();
+const today = () => new Date().toISOString().slice(0,10);
+const esc = (v) => (v || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+const slug = (v) => (v || 'brand').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,80) || 'brand';
+const splitLines = (v) => clean(v).split(/\n|;|,/).map((x) => x.replace(/^\d+[\).\s-]*/, '').trim()).filter(Boolean);
+const getBusinessCategoryFromValue = (value) => {
+  const v = clean(value).replace(/^lainnya:\s*/i, '').toLowerCase();
+  if (!v) return '';
+  if (BUSINESS_TYPE_CATEGORY_MAP[v]) return BUSINESS_TYPE_CATEGORY_MAP[v];
+  if (v.includes('bibit') || v.includes('benih') || v.includes('nursery') || v.includes('anggrek') || v.includes('hortikultura') || v.includes('perkebunan')) return 'Lembaga';
+  if (v.includes('peternakan') || v.includes('ternak') || v.includes('kurban') || v.includes('domba') || v.includes('kambing') || v.includes('sapi')) return 'Institusi';
+  if (v.includes('perikanan') || v.includes('ikan') || v.includes('pakan') || v.includes('nutrisi') || v.includes('sarana produksi') || v.includes('alat pertanian')) return 'Produk';
+  if (v.includes('jasa') || v.includes('konsultasi') || v.includes('pelatihan') || v.includes('pendampingan')) return 'Jasa';
+  return '';
+};
+
+function renderForm() {
+  const wrap = byId('form');
+  const groups = [...new Set(schema.map((s) => s.section))];
+  wrap.innerHTML = groups.map((group) => {
+    const fields = schema.filter((s) => s.section === group).map((f) => {
+      const req = f.required ? '<span>Wajib</span>' : '';
+      const hint = f.hint ? `<p class="hint">${f.hint}</p>` : '';
+      const showForAttr = f.showFor ? ` data-showfor="${f.showFor.join('|')}"` : '';
+      const showForStyle = f.showFor ? ' style="display:none"' : '';
+      let input = '';
+      if (f.type === 'textarea') {
+        input = `<textarea id="${f.key}" placeholder="Isi ${f.label.toLowerCase()}"></textarea>`;
+      } else if (f.type === 'select') {
+        const baseOpt = `<option value="">Pilih opsi</option>`;
+        const opts = (f.options || []).map((opt) => `<option value="${opt}">${opt}</option>`).join('');
+        const otherOpt = f.allowOther ? `<option value="__other__">Lainnya (tulis manual)</option>` : '';
+        const otherInput = f.allowOther ? `<input id="${f.key}_other" class="other-input" type="text" placeholder="Isi lainnya untuk ${f.label.toLowerCase()}">` : '';
+        input = `<select id="${f.key}">${baseOpt}${opts}${otherOpt}</select>${otherInput}`;
+      } else {
+        input = `<input id="${f.key}" type="text" placeholder="Isi ${f.label.toLowerCase()}">`;
+      }
+      return `<div class="f field-wrap" id="field-${f.key}"${showForAttr}${showForStyle}><label for="${f.key}">${f.label} ${req}</label>${hint}${input}<div class="err" id="err-${f.key}">${f.required ? `${f.label} wajib diisi.` : 'Field belum valid.'}</div></div>`;
+    }).join('');
+    return `<div class="group"><div class="gt">${group}</div>${fields}</div>`;
+  }).join('');
+}
+
+function bindSelectOthers() {
+  schema.filter((f) => f.type === 'select' && f.allowOther).forEach((f) => {
+    const sel = byId(f.key);
+    const other = byId(`${f.key}_other`);
+    if (!sel || !other) return;
+    const sync = () => {
+      const on = sel.value === '__other__';
+      other.style.display = on ? 'block' : 'none';
+      if (!on) other.value = '';
+      if (f.key === 'business_type') syncBusinessSpecificFields();
+    };
+    sel.addEventListener('change', sync);
+    other.addEventListener('input', sync);
+    sync();
+  });
+}
+
+function getCurrentBusinessCategory() {
+  const sel = byId('business_type');
+  if (!sel) return '';
+  const raw = clean(sel.value || '');
+  if (raw === '__other__') {
+    return getBusinessCategoryFromValue(clean((byId('business_type_other') || {}).value || ''));
+  }
+  return getBusinessCategoryFromValue(raw);
+}
+
+function isFieldRelevant(f) {
+  if (!f.showFor || !f.showFor.length) return true;
+  const category = getCurrentBusinessCategory();
+  return !!category && f.showFor.includes(category);
+}
+
+function syncBusinessSpecificFields() {
+  schema.forEach((f) => {
+    if (!f.showFor || !f.showFor.length) return;
+    const wrap = byId(`field-${f.key}`);
+    if (!wrap) return;
+    const visible = isFieldRelevant(f);
+    wrap.style.display = visible ? 'block' : 'none';
+    if (!visible) {
+      const el = byId(f.key);
+      if (el) {
+        if (f.type === 'select') el.value = '';
+        else el.value = '';
+        el.classList.remove('invalid');
+      }
+      const other = byId(`${f.key}_other`);
+      if (other) {
+        other.value = '';
+        other.style.display = 'none';
+        other.classList.remove('invalid');
+      }
+      const err = byId(`err-${f.key}`);
+      if (err) err.classList.remove('show');
+    }
+  });
+}
+
+function collect() {
+  const d = {};
+  schema.forEach((f) => {
+    const raw = byId(f.key).value || '';
+    if (f.type === 'select') {
+      const v = clean(raw);
+      if (f.allowOther && v === '__other__') {
+        const otherVal = clean((byId(`${f.key}_other`) || {}).value || '');
+        d[f.key] = otherVal ? `Lainnya: ${otherVal}` : 'Lainnya';
+      } else {
+        d[f.key] = v;
+      }
+    } else {
+      d[f.key] = f.list ? splitLines(raw) : clean(raw);
+    }
+  });
+  return d;
+}
+
+function setInvalid(f, bad, msg) {
+  const el = byId(f.key); const err = byId(`err-${f.key}`);
+  if (el) el.classList.toggle('invalid', !!bad);
+  if (f.type === 'select' && f.allowOther) {
+    const other = byId(`${f.key}_other`);
+    if (other) {
+      const isOther = (byId(f.key).value || '') === '__other__';
+      other.classList.toggle('invalid', !!bad && isOther);
+    }
+  }
+  if (err) {
+    if (msg) err.textContent = msg;
+    err.classList.toggle('show', !!bad);
+  }
+}
+
+function validate(d) {
+  let ok = true;
+  schema.forEach((f) => {
+    if (!isFieldRelevant(f)) {
+      setInvalid(f, false);
+      return;
+    }
+    let bad = false; let msg = `${f.label} wajib diisi.`;
+    if (f.type === 'select') {
+      const selected = clean((byId(f.key).value || ''));
+      if (f.required && !selected) bad = true;
+      if (!bad && f.allowOther && selected === '__other__' && !clean((byId(`${f.key}_other`) || {}).value || '')) {
+        bad = true;
+        msg = `Isi nilai lainnya untuk ${f.label}.`;
+      }
+    } else if (f.required) {
+      bad = f.list ? d[f.key].length < 1 : !d[f.key];
+    }
+    if (!bad && f.min) {
+      const count = f.list ? d[f.key].length : splitLines(d[f.key]).length;
+      bad = count < f.min;
+      msg = `Isi minimal ${f.min} item untuk ${f.label}.`;
+    }
+    setInvalid(f, bad, msg);
+    if (bad) ok = false;
+  });
+  return ok;
+}
+
+function mdList(items){ return items && items.length ? items.map((x)=>`- ${x}`).join('\n') : '- [Tidak diisi]'; }
+function mdNum(items){ return items && items.length ? items.map((x,i)=>`${i+1}. ${x}`).join('\n') : '1. [Tidak diisi]'; }
+function businessSpecificMdLines(d) {
+  const cat = getBusinessCategoryFromValue(d.business_type || '');
+  if (cat === 'Lembaga') {
+    return [
+      `[FIELD KHUSUS TANAMAN / BIBIT / BENIH]`,
+      `- JENIS KOMODITAS TANAMAN: ${d.clinic_type || '-'}`,
+      `- PRODUK / KOMODITAS FOKUS:`,
+      mdList(d.clinic_focus_services),
+      `- VARIETAS / GRADE FOKUS: ${d.clinic_doctor_scope || '-'}`,
+      ``
+    ];
+  }
+  if (cat === 'Institusi') {
+    return [
+      `[FIELD KHUSUS PETERNAKAN / TERNAK]`,
+      `- JENIS USAHA PETERNAKAN: ${d.hospital_type || '-'}`,
+      `- JENIS TERNAK / PAKET UTAMA:`,
+      mdList(d.hospital_departments),
+      `- STANDAR KUALITAS / KESEHATAN: ${d.hospital_emergency || '-'}`,
+      ``
+    ];
+  }
+  if (cat === 'Produk') {
+    return [
+      `[FIELD KHUSUS PERIKANAN / SARANA PRODUKSI]`,
+      `- KATEGORI: ${d.product_category || '-'}`,
+      `- CHANNEL DISTRIBUSI / PENGIRIMAN:`,
+      mdList(d.product_distribution),
+      `- BUKTI KUALITAS / LEGALITAS PRIORITAS:`,
+      mdList(d.product_legal_focus),
+      ``
+    ];
+  }
+  if (cat === 'Jasa') {
+    return [
+      `[FIELD KHUSUS JASA Agrobisnis]`,
+      `- JENIS JASA Agrobisnis: ${d.service_type_detail || '-'}`,
+      `- MODEL DELIVERY JASA: ${d.service_delivery_model || '-'}`,
+      `- KAPASITAS TIM LAYANAN: ${d.service_team_capacity || '-'}`,
+      ``
+    ];
+  }
+  return [`[FIELD KHUSUS BERDASARKAN TIPE BISNIS]`, `- Tidak ada field khusus karena tipe bisnis belum terpetakan ke kategori Tanaman/Peternakan/Perikanan-Sarana/Jasa.`, ``];
+}
+
+function buildMarkdown(d) {
+  return [
+`# PROMPT 01 — KEYWORD RESEARCH & SEARCH INTENT ANALYSIS`,
+`## FRAMEWORK SEO + AEO + GEO + LLM OPTIMIZATION 2026`,
+`## NICHE: Agrobisnis / BISNIS Agrobisnis`,
+``,
+`Versi: 2026.1 — Agrobisnis Edition`,
+`Tanggal Generate: ${today()}`,
+``,
+`==================================================`,
+`BAGIAN 0 — IDENTITAS & CARA MENGGUNAKAN PROMPT`,
+`==================================================`,
+`1. Gunakan input Bagian 1 di bawah ini sebagai sumber data utama.`,
+`2. Jalankan ke AI dengan instruksi: "Jalankan Prompt 01 Keyword Research Agrobisnis berdasarkan input berikut."`,
+`3. AI wajib menghasilkan SEMUA output Bagian 3 dalam format Markdown.`,
+`4. Output ini dipakai sebagai fondasi Prompt 02 (Silo Architecture / Keyword Mapping).`,
+``,
+`PENTING GUARDRAIL:`,
+`- Ini prompt untuk website bisnis Agrobisnis, bukan portal berita.`,
+`- Dilarang mengarang legalitas, sertifikasi, data kapasitas, dan klaim hasil yang tidak terverifikasi.`,
+`- Query sensitif wajib ditandai: aman komersial, edukasi dulu, butuh review ahli, atau hindari hard-sell.`,
+``,
+`==================================================`,
+`BAGIAN 1 — INPUT WAJIB (TERISI)`,
+`==================================================`,
+`[IDENTITAS BISNIS]`,
+`- NAMA BRAND*: ${d.brand_name || '-'}`,
+`- WEBSITE / DOMAIN: ${d.website_domain || '-'}`,
+`- KOTA UTAMA TARGET*: ${d.target_city || '-'}`,
+`- KOTA EKSPANSI: ${d.expansion_city || '-'}`,
+`- NOMOR WA / KONTAK: ${d.wa_contact || '-'}`,
+`- TAGLINE / POSITIONING: ${d.positioning || '-'}`,
+``,
+`[MODEL BISNIS Agrobisnis]`,
+`- TIPE BISNIS Agrobisnis*: ${d.business_type || '-'}`,
+`- MODEL PENJUALAN / KONVERSI*: ${d.conversion_model || '-'}`,
+`- LAYANAN / PRODUK UTAMA*:`,
+mdNum(d.main_services),
+`- LAYANAN / PRODUK SEKUNDER:`,
+mdNum(d.secondary_services),
+`- BISNIS BERBASIS LOKASI?*: ${d.location_basis || '-'}`,
+`- AREA LAYANAN / CAKUPAN*: ${d.service_area || '-'}`,
+``,
+...businessSpecificMdLines(d),
+`[TRUST, LEGALITAS, DAN ENTITAS AHLI]`,
+`- TIM AHLI / PENANGGUNG JAWAB: ${d.practitioner || '-'}`,
+`- LEGALITAS / TRUST SIGNAL:`,
+mdList(d.trust_signals),
+`- TAHUN BERDIRI: ${d.year_established || '-'}`,
+`- JUMLAH CABANG: ${d.total_branches || '-'}`,
+`- KAPASITAS PRODUKSI / POPULASI / VOLUME: ${d.total_patients || '-'}`,
+`- RATING / REVIEW: ${d.rating_review || '-'}`,
+`- KEMITRAAN DISTRIBUTOR / RESELLER / KOMUNITAS: ${d.insurance_bpjs || '-'}`,
+``,
+`[TARGET AUDIENCE]`,
+`- TARGET AUDIENCE UTAMA*: ${d.audience_primary || '-'}`,
+`- SEGMENTASI AUDIENCE:`,
+mdList(d.audience_segments),
+`- MASALAH / KEBUTUHAN UTAMA AUDIENCE*:`,
+mdNum(d.audience_needs),
+`- BUDGET / SENSITIVITAS HARGA: ${d.budget_sensitivity || 'Belum diketahui'}`,
+``,
+`[KONTEKS RISET]`,
+`- SEED KEYWORDS* (min 8):`,
+mdNum(d.seed_keywords),
+`- KATEGORI TOPIK YANG INGIN DIMENANGKAN*:`,
+mdList(d.topic_categories),
+`- KOMPETITOR YANG DIKETAHUI:`,
+mdNum(d.competitors),
+`- MUSIM / MOMEN PUNCAK BISNIS:`,
+mdList(d.season_moments),
+`- TOPIK SENSITIF / BATAS KLAIM BRAND: ${d.claim_boundaries || '-'}`,
+``,
+`[PREFERENSI OUTPUT]`,
+`- BAHASA KONTEN*: ${d.language_content || '-'}`,
+`- TARGET PASAR*: ${d.market_target || '-'}`,
+`- PRIORITAS 30 HARI PERTAMA*: ${d.priority_30 || '-'}`,
+`- KAPASITAS PRODUKSI KONTEN / BULAN*: ${d.content_capacity || '-'}`,
+`- LEVEL KEDALAMAN OUTPUT*: ${d.output_depth || '-'}`,
+``,
+`==================================================`,
+`BAGIAN 2 — INSTRUKSI SISTEM UNTUK AI`,
+`==================================================`,
+`Kamu berperan sebagai Senior SEO Strategist + Search Intent Analyst + Local SEO + AEO/GEO + LLM Visibility Planner untuk bisnis Agrobisnis.`,
+``,
+`Aturan wajib:`,
+`1. Cakup keyword head/body/long-tail/local/branded/FAQ/comparison/program/biaya/jadwal/trust/outcome.`,
+`2. Setiap keyword dipetakan ke tipe halaman: pillar, cluster, money, local, FAQ, support/trust.`,
+`3. Prioritaskan keseimbangan authority + trust + konversi.`,
+`4. Tandai peluang Featured Snippet, PAA, AI Overview, LLM citation, voice search, fan-out query.`,
+`5. Terapkan risk triage: 🟢 aman komersial, 🟡 edukasi dulu, 🟠 sensitif review ahli, 🔴 hindari hard-sell.`,
+`6. Anti overclaim dan anti hallucination untuk semua strategi.`,
+``,
+`==================================================`,
+`BAGIAN 3 — OUTPUT WAJIB (14 BLOK BERURUTAN)`,
+`==================================================`,
+`1) Audit Input & Asumsi Kerja`,
+`2) Search Landscape & Intent Matrix`,
+`3) Peta Model Bisnis, Entity Priority & Trust Barrier`,
+`4) Master Keyword Universe`,
+`5) Klasifikasi Intent, Funnel, Buying Value`,
+`6) Risk & Compliance Map`,
+`7) PAA, Voice Search, Query Fan-out Map`,
+`8) Peluang AEO, Featured Snippet, AI Overview, LLM Citation`,
+`9) Keyword Clustering & Topical Authority Map`,
+`10) Page-Type Mapping (siap Prompt 02)`,
+`11) Local Expansion Map / Distribution Map`,
+`12) Anti-Cannibalization & Content Boundary Rules`,
+`13) Quick Wins & Priority Queue`,
+`14) Roadmap 30-60-90 Hari + Final Research Report`,
+``,
+`==================================================`,
+`BAGIAN 4 — ACCEPTANCE CRITERIA`,
+`==================================================`,
+`Output lengkap jika: intent jelas, page mapping jelas, risk map Agrobisnis ada, peluang AEO/GEO/LLM ada, quick wins + priority bucket + roadmap ada, dan next step ke Prompt 02 jelas.`,
+``,
+`NEXT STEP: gunakan output ini sebagai input Prompt 02 (Silo Architecture / Keyword Mapping Agrobisnis).`
+  ].join('\n');
+}
+
+function buildHtmlBody(d, md) {
+  const cat = getBusinessCategoryFromValue(d.business_type || '');
+  let specificRow = `<tr><td>Field Khusus</td><td>Tidak ada field khusus yang aktif.</td></tr>`;
+  if (cat === 'Lembaga') {
+    specificRow = `<tr><td>Field Khusus Tanaman/Bibit</td><td>Jenis Komoditas: ${esc(d.clinic_type || '-')}<br>Komoditas Fokus: ${esc((d.clinic_focus_services || []).join(', ') || '-')}<br>Varietas/Grade Fokus: ${esc(d.clinic_doctor_scope || '-')}</td></tr>`;
+  } else if (cat === 'Institusi') {
+    specificRow = `<tr><td>Field Khusus Peternakan</td><td>Jenis Usaha: ${esc(d.hospital_type || '-')}<br>Jenis Ternak/Paket: ${esc((d.hospital_departments || []).join(', ') || '-')}<br>Standar Kualitas: ${esc(d.hospital_emergency || '-')}</td></tr>`;
+  } else if (cat === 'Produk') {
+    specificRow = `<tr><td>Field Khusus Perikanan/Sarana</td><td>Kategori: ${esc(d.product_category || '-')}<br>Distribusi: ${esc((d.product_distribution || []).join(', ') || '-')}<br>Bukti Kualitas/Legalitas: ${esc((d.product_legal_focus || []).join(', ') || '-')}</td></tr>`;
+  } else if (cat === 'Jasa') {
+    specificRow = `<tr><td>Field Khusus Jasa</td><td>Jenis Jasa: ${esc(d.service_type_detail || '-')}<br>Delivery Model: ${esc(d.service_delivery_model || '-')}<br>Kapasitas Tim: ${esc(d.service_team_capacity || '-')}</td></tr>`;
+  }
+  return [
+    `<article><h3>Master Prompt 01 - Keyword Research Agrobisnis</h3>`,
+    `<p><strong>Brand:</strong> ${esc(d.brand_name || '-')} | <strong>Kota:</strong> ${esc(d.target_city || '-')} | <strong>Tanggal:</strong> ${esc(today())}</p>`,
+    `<table><thead><tr><th>Field</th><th>Nilai</th></tr></thead><tbody>`,
+    `<tr><td>Tipe Bisnis</td><td>${esc(d.business_type || '-')}</td></tr>`,
+    `<tr><td>Model Konversi</td><td>${esc(d.conversion_model || '-')}</td></tr>`,
+    `<tr><td>Target Audience</td><td>${esc(d.audience_primary || '-')}</td></tr>`,
+    `<tr><td>Bahasa Konten</td><td>${esc(d.language_content || '-')}</td></tr>`,
+    `<tr><td>Target Pasar</td><td>${esc(d.market_target || '-')}</td></tr>`,
+    specificRow,
+    `</tbody></table><h4>Prompt Siap Copy</h4><pre>${esc(md)}</pre></article>`
+  ].join('');
+}
+
+function exportDoc(body) {
+  return `<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Master Prompt 01</title><style>body{font-family:Arial,sans-serif;margin:28px;color:#1f2532;line-height:1.65}h3{font-size:30px;margin-bottom:8px}p,li,td,th{font-size:14px}table{width:100%;border-collapse:collapse;margin:8px 0 14px}th,td{border:1px solid #d2d9e8;padding:8px 10px;text-align:left;vertical-align:top}th{background:#eff3fc;font-size:12px;text-transform:uppercase}pre{white-space:pre-wrap;background:#f6f8fc;border:1px solid #dbe2ef;border-radius:10px;padding:12px;font-size:12px}@media print{body{margin:14mm}}</style></head><body>${body}</body></html>`;
+}
+
+function showTab(name){ activeTab = name; byId('markdown-preview').style.display = name === 'md' ? 'block' : 'none'; byId('html-preview').style.display = name === 'html' ? 'block' : 'none'; byId('tab-md').classList.toggle('on', name === 'md'); byId('tab-html').classList.toggle('on', name === 'html'); }
+
+function generateOutput(){
+  const d = collect();
+  if (!validate(d)) { alert('Masih ada field wajib yang belum lengkap. Mohon cek bagian merah.'); return false; }
+  lastOutput.markdown = buildMarkdown(d);
+  lastOutput.html = buildHtmlBody(d, lastOutput.markdown);
+  byId('markdown-preview').textContent = lastOutput.markdown;
+  byId('html-preview').innerHTML = lastOutput.html;
+  showTab(activeTab);
+  return true;
+}
+
+function ensureOutput(){ if (lastOutput.markdown && lastOutput.html) return true; return generateOutput(); }
+function blobDownload(content, type, fname){ const blob = new Blob([content], { type }); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = fname; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url); }
+function copyMarkdown(){ if (!ensureOutput()) return; navigator.clipboard.writeText(lastOutput.markdown).then(() => alert('Markdown berhasil disalin.')).catch(() => alert('Gagal menyalin otomatis.')); }
+function downloadMarkdown(){ if (!ensureOutput()) return; blobDownload(lastOutput.markdown, 'text/markdown;charset=utf-8', `framework-agrobisnis-master-prompt-01-${slug(clean(byId('brand_name').value) || 'brand')}-${today()}.md`); }
+function downloadHtml(){ if (!ensureOutput()) return; blobDownload(exportDoc(lastOutput.html), 'text/html;charset=utf-8', `framework-agrobisnis-master-prompt-01-${slug(clean(byId('brand_name').value) || 'brand')}-${today()}.html`); }
+function downloadPdf(){ if (!ensureOutput()) return; const w = window.open('', '_blank'); if (!w) { alert('Pop-up diblokir browser.'); return; } w.document.open(); w.document.write(exportDoc(lastOutput.html)); w.document.close(); w.focus(); setTimeout(() => w.print(), 320); }
+function resetForm(){
+  byId('form').reset();
+  document.querySelectorAll('.invalid').forEach((el) => el.classList.remove('invalid'));
+  document.querySelectorAll('.err').forEach((el) => el.classList.remove('show'));
+  schema.filter((f) => f.type === 'select' && f.allowOther).forEach((f) => {
+    const other = byId(`${f.key}_other`);
+    if (other) {
+      other.value = '';
+      other.style.display = 'none';
+    }
+  });
+  lastOutput = { markdown:'', html:'' };
+  byId('markdown-preview').textContent = 'Belum ada output. Isi form lalu klik "Generate Master Prompt 01".';
+  byId('html-preview').innerHTML = '<p>Belum ada output HTML.</p>';
+  showTab('md');
+}
+
+function prefillFromIndex(){
+  const raw = sessionStorage.getItem('seo_generator_prefill');
+  if (!raw) return;
+  try {
+    const p = JSON.parse(raw);
+    if (!clean(byId('brand_name').value)) byId('brand_name').value = p.brand || '';
+    if (!clean(byId('target_city').value)) byId('target_city').value = p.targetMarket || p.city || '';
+    if (!clean(byId('audience_primary').value)) byId('audience_primary').value = p.audience || '';
+    if (!clean(byId('main_services').value) && Array.isArray(p.products)) byId('main_services').value = p.products.join('\n');
+    if (!clean(byId('seed_keywords').value) && Array.isArray(p.seedKeywords)) byId('seed_keywords').value = p.seedKeywords.join('\n');
+  } catch (_e) {}
+}
+
+renderForm();
+bindSelectOthers();
+prefillFromIndex();
+syncBusinessSpecificFields();
+</script>
+</body>
+</html>
+
+
+
+
+
+
