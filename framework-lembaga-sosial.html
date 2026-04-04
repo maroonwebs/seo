@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Framework Lembaga Sosial - Prompt Badges</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#171627;
+  --muted:#66657a;
+  --paper:#f6f5fb;
+  --vio:#4b4ea9;
+  --vio2:#6970d3;
+  --line:rgba(23,22,39,0.14);
+  --r:12px;
+  --r2:18px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:'DM Sans',sans-serif;
+  color:var(--ink);
+  background:
+    radial-gradient(circle at 10% 0,rgba(105,112,211,0.16) 0,transparent 34%),
+    radial-gradient(circle at 100% 100%,rgba(75,78,169,0.12) 0,transparent 42%),
+    var(--paper);
+  line-height:1.6;
+}
+.top{
+  position:sticky;
+  top:0;
+  z-index:60;
+  background:#171935;
+  border-bottom:1px solid rgba(255,255,255,0.12);
+  padding:14px 24px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.logo{font-family:'Playfair Display',serif;color:#eef0ff;font-size:18px}
+.logo span{color:#b6beff;font-style:italic}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.btn{
+  border:1px solid rgba(255,255,255,0.34);
+  border-radius:10px;
+  padding:8px 12px;
+  font-size:12px;
+  cursor:pointer;
+  text-decoration:none;
+  color:#f0f2ff;
+  background:transparent;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  font-family:'DM Sans',sans-serif;
+}
+.btn:hover{border-color:rgba(255,255,255,0.64)}
+main{max-width:1260px;margin:0 auto;padding:24px}
+.hero{
+  border-radius:var(--r2);
+  border:1px solid rgba(255,255,255,0.16);
+  padding:24px;
+  margin-bottom:16px;
+  color:#f0f2ff;
+  background:linear-gradient(132deg,#262a67 0%,#4b4ea9 52%,#6970d3 100%);
+}
+.tag{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;opacity:.9;margin-bottom:10px}
+.hero h1{font-family:'Playfair Display',serif;font-size:32px;font-weight:500;line-height:1.2;margin-bottom:8px}
+.hero h1 em{color:#e3e6ff;font-style:italic}
+.hero p{max-width:980px;font-size:14px;color:rgba(241,243,255,0.94)}
+.note{margin-top:10px;font-size:12px;font-family:'DM Mono',monospace;color:rgba(239,241,255,0.88)}
+.badges-shell{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:var(--r2);
+  padding:14px;
+}
+.badges-title{display:block;font-family:'Playfair Display',serif;font-size:22px;font-weight:500;margin-bottom:6px}
+.badges-sub{display:block;font-size:13px;color:var(--muted);margin-bottom:12px}
+.badges-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px}
+.badge{
+  border:1px solid rgba(75,78,169,0.28);
+  border-radius:12px;
+  padding:12px;
+  background:#f2f4ff;
+  color:#2e3281;
+}
+.badge a{display:block;text-decoration:none;color:#2e3281;font-weight:700;font-size:13px}
+.badge p{font-size:12px;color:#4e518f;margin-top:4px}
+.badge.soon{background:#f8f8fc;border-color:rgba(23,22,39,0.14);color:#6d6c83}
+.badge.soon a{color:#6d6c83;pointer-events:none;cursor:not-allowed}
+.inline-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px}
+select{
+  border:1px solid rgba(75,78,169,0.34);
+  border-radius:10px;
+  padding:8px 10px;
+  font-size:12px;
+  font-family:'DM Sans',sans-serif;
+  color:#2e3281;
+  background:#fff;
+}
+.small-btn{
+  border:none;
+  border-radius:10px;
+  padding:8px 12px;
+  font-size:12px;
+  font-weight:700;
+  color:#fff;
+  background:#4b4ea9;
+  cursor:pointer;
+}
+.small-btn:hover{background:#3e4395}
+.footer{margin-top:18px;text-align:center;color:var(--muted);font-size:12px}
+.footer a{color:#4b4ea9;text-decoration:none;border-bottom:1px dashed rgba(75,78,169,0.44)}
+.footer a:hover{border-bottom-color:rgba(75,78,169,0.82)}
+@media(max-width:700px){
+  .top{padding:12px 14px}
+  main{padding:16px 12px 24px}
+  .hero{padding:18px}
+  .hero h1{font-size:27px}
+  .logo{font-size:16px}
+  .row{width:100%}
+  .row .btn{flex:1}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="logo">Framework <span>Lembaga Sosial</span></div>
+  <div class="row">
+    <a class="btn" href="index.html">Kembali ke Hub</a>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="tag">Prompt Badges - Niche Yayasan, Keagamaan, dan Lembaga Sosial</div>
+    <h1>Framework Lembaga Sosial dengan <em>7 Prompt Badges</em></h1>
+    <p>Halaman ini menampilkan alur prompt 01 sampai 07 untuk niche Lembaga Sosial. Saat ini prompt 01-06 sudah aktif dan siap digunakan untuk alur riset sampai audit konten.</p>
+    <p class="note">Prompt 04 menggunakan dropdown mode 04A sampai 04E dalam satu halaman agar eksekusi writer tetap konsisten.</p>
+  </section>
+
+  <section class="badges-shell" aria-label="Daftar prompt framework lembaga sosial">
+    <span class="badges-title">Daftar Prompt Framework Lembaga Sosial</span>
+    <span class="badges-sub">Klik badge untuk membuka halaman master prompt.</span>
+    <div class="badges-grid">
+      <div class="badge">
+        <a href="framework-lembaga-sosial-master-prompt-01.html">Prompt 01 - Keyword Research Lembaga Sosial</a>
+        <p>Fondasi keyword, intent, dan prioritas eksekusi konten.</p>
+      </div>
+      <div class="badge">
+        <a href="framework-lembaga-sosial-master-prompt-02.html">Prompt 02 - Silo Architecture Lembaga Sosial</a>
+        <p>Arsitektur silo, URL structure, dan internal linking plan.</p>
+      </div>
+      <div class="badge">
+        <a href="framework-lembaga-sosial-master-prompt-03.html">Prompt 03 - Content Blueprint Lembaga Sosial</a>
+        <p>Blueprint konten detail sebagai brief penulisan.</p>
+      </div>
+      <div class="badge">
+        <a href="framework-lembaga-sosial-master-prompt-04.html">Prompt 04 - Writer (Dropdown 04A-04E)</a>
+        <p>Pilih mode writer: Pillar, Cluster, Donation, Local, atau FAQ.</p>
+        <div class="inline-row">
+          <select id="quick-04-mode" aria-label="Pilih mode prompt 04">
+            <option value="04A">04A - Pillar Page Writer</option>
+            <option value="04B">04B - Cluster Page Writer</option>
+            <option value="04C">04C - Donation Page Writer</option>
+            <option value="04D">04D - Local Page Writer</option>
+            <option value="04E">04E - FAQ Page Writer</option>
+          </select>
+          <button class="small-btn" type="button" onclick="openPrompt04Mode()">Buka</button>
+        </div>
+      </div>
+      <div class="badge">
+        <a href="framework-lembaga-sosial-master-prompt-05.html">Prompt 05 - Social Media Repurposing</a>
+        <p>Repurposing artikel menjadi konten lintas platform dengan angle donasi, trust, dan dampak program.</p>
+      </div>
+      <div class="badge">
+        <a href="framework-lembaga-sosial-master-prompt-06.html">Prompt 06 - Audit Konten</a>
+        <p>Audit kualitas artikel lengkap dengan scoring, red flag, prioritas revisi, dan keputusan publish.</p>
+      </div>
+      <div class="badge soon">
+        <a href="framework-lembaga-sosial-master-prompt-07.html">Prompt 07 - Content Gap Audit</a>
+        <p>Placeholder siap diisi saat master prompt 07 dikirim.</p>
+      </div>
+    </div>
+  </section>
+
+  <p class="footer">Framework niche Lembaga Sosial terhubung dari <a href="index.html">SEO System Generator</a>.</p>
+</main>
+
+<script>
+function openPrompt04Mode(){
+  const mode = document.getElementById('quick-04-mode').value || '04A';
+  window.location.href = `framework-lembaga-sosial-master-prompt-04.html?mode=${encodeURIComponent(mode)}`;
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Master Prompt 06 - Article Audit Lembaga Sosial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#13231e;--muted:#62746d;--bg:#f5faf8;--card:#fff;--line:rgba(19,35,30,.14);--green:#227d57;--green2:#2d9367;--red:#ae3d3d;--r:12px;--r2:18px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:radial-gradient(circle at 10% 0,rgba(45,147,103,.14) 0,transparent 36%),var(--bg);color:var(--ink);line-height:1.6}
+.top{position:sticky;top:0;z-index:60;background:#122720;border-bottom:1px solid rgba(255,255,255,.14);padding:14px 20px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.logo{font-family:'Playfair Display',serif;color:#ecfbf5;font-size:17px}.logo span{color:#9ef1cd;font-style:italic}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.btn{border:1px solid rgba(255,255,255,.34);background:transparent;color:#effaf5;border-radius:10px;padding:8px 12px;font-size:12px;cursor:pointer;text-decoration:none;font-family:'DM Sans',sans-serif}
+.btn.primary{background:var(--green);border-color:var(--green)}.btn.primary:hover{background:var(--green2)}
+main{max-width:1450px;margin:0 auto;padding:22px}
+.hero{background:linear-gradient(128deg,#174337,#1f6954,#2e8e6c);color:#effcf7;padding:20px;border-radius:var(--r2);margin-bottom:14px}
+.hero .tag{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px;opacity:.9}
+.hero h1{font-family:'Playfair Display',serif;font-size:30px;font-weight:500;line-height:1.2;margin-bottom:8px}.hero h1 em{color:#cafbe8}
+.hero p{font-size:14px;max-width:1060px}
+.grid{display:grid;grid-template-columns:minmax(430px,.95fr) minmax(430px,1.05fr);gap:14px;align-items:start}
+.card{background:var(--card);border:1px solid rgba(19,35,30,.08);border-radius:var(--r2);padding:16px}
+.card h2{font-family:'Playfair Display',serif;font-size:24px;font-weight:500;margin-bottom:6px}
+.sub{font-size:13px;color:var(--muted);margin-bottom:12px}
+.group{border:1px solid rgba(19,35,30,.08);border-radius:var(--r);padding:12px;margin-bottom:12px}
+.gt{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#1f5b46;margin-bottom:8px}
+.f{margin-bottom:10px}.f:last-child{margin-bottom:0}
+label{display:block;font-size:13px;font-weight:700;margin-bottom:4px}label span{font-family:'DM Mono',monospace;font-size:11px;color:var(--green);margin-left:6px}
+.hint{font-size:12px;color:var(--muted);margin-bottom:6px}
+input[type="text"],textarea,select{width:100%;border:1.4px solid var(--line);border-radius:10px;padding:9px 11px;font-size:14px;font-family:'DM Sans',sans-serif;color:#22342e;background:#fff}
+textarea{min-height:72px;resize:vertical}
+input:focus,textarea:focus,select:focus{outline:none;border-color:rgba(34,125,87,.85);box-shadow:0 0 0 3px rgba(34,125,87,.14)}
+.check-wrap{border:1.4px solid var(--line);border-radius:10px;padding:8px 10px;background:#fff}
+.ck{display:flex;gap:8px;align-items:flex-start;font-size:13px;margin:4px 0}.ck input{margin-top:2px}
+.other-input{display:none;margin-top:8px}
+.hidden{display:none!important}
+.invalid{border-color:rgba(174,61,61,.74)!important;box-shadow:0 0 0 3px rgba(174,61,61,.12)!important}
+.err{display:none;font-size:12px;color:var(--red);margin-top:5px}.err.show{display:block}
+.act{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.act .btn{color:#24362f;border-color:var(--line)}.act .btn.primary{color:#fff;border-color:var(--green)}
+.tab{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-bottom:10px}
+.tab button{border:none;background:#fff;padding:7px 11px;font-size:12px;cursor:pointer}
+.tab button.on{background:#e8f5ef;color:#1e5d45;font-weight:700}
+.preview{border:1px solid rgba(19,35,30,.08);border-radius:12px;background:#fbfffd;max-height:860px;overflow:auto}
+.preview pre{margin:0;padding:12px;white-space:pre-wrap;font-family:'DM Mono',monospace;font-size:12px}
+.html{display:none;padding:12px}.html table{width:100%;border-collapse:collapse;margin:8px 0 12px}.html th,.html td{border:1px solid #d2e3db;padding:7px 8px;text-align:left;vertical-align:top}.html th{background:#edf7f2;font-size:12px}
+.note{margin-top:10px;padding:8px 10px;border:1px dashed rgba(34,125,87,.3);background:#f4faf7;border-radius:10px;font-size:12px;color:#1f4e3d}
+@media(max-width:1120px){.grid{grid-template-columns:1fr}}
+@media(max-width:760px){.top{padding:12px}.row{width:100%}.row .btn{flex:1}main{padding:14px 10px}.hero h1{font-size:27px}input[type="text"],textarea,select{font-size:16px}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="logo">Framework Lembaga Sosial - <span>Master Prompt 06</span></div>
+  <div class="row">
+    <a class="btn" href="framework-lembaga-sosial.html">Kembali ke Framework</a>
+    <a class="btn" href="index.html">Kembali ke Hub</a>
+    <button class="btn" type="button" onclick="copyMarkdown()">Copy Markdown</button>
+    <button class="btn" type="button" onclick="downloadMarkdown()">Download .md</button>
+    <button class="btn" type="button" onclick="copyPdf()">Copy PDF</button>
+    <button class="btn primary" type="button" onclick="downloadPdf()">Download PDF</button>
+    <button class="btn" type="button" onclick="downloadHtm()">Download .htm</button>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="tag">Prompt 06 - Article Audit & Quality Control</div>
+    <h1>Master Prompt 06 <em>Lembaga Sosial</em></h1>
+    <p>Form audit ini dipakai untuk pre-publish check, refresh audit, gap analysis kompetitor, dan audit bulanan agar artikel memenuhi standar SEO + AEO + GEO + Trust + Konversi Donasi.</p>
+  </section>
+
+  <div class="grid">
+    <section class="card">
+      <h2>Form Input Lengkap</h2>
+      <p class="sub">Field disusun mengikuti dokumen Prompt 06 Lembaga Sosial dengan rubrik audit detail dan prioritas perbaikan.</p>
+      <form id="form"></form>
+      <div class="act">
+        <button class="btn primary" type="button" onclick="generateOutput()">Generate Master Prompt 06</button>
+        <button class="btn" type="button" onclick="resetForm()">Reset Form</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Preview Output</h2>
+      <p class="sub">Output siap copy-paste ke AI dalam mode Markdown dan HTML.</p>
+      <div class="tab">
+        <button id="tab-md" class="on" type="button" onclick="showTab('md')">Markdown</button>
+        <button id="tab-html" type="button" onclick="showTab('html')">HTML</button>
+      </div>
+      <div class="preview">
+        <pre id="markdown-preview">Belum ada output. Isi form lalu klik "Generate Master Prompt 06".</pre>
+        <div id="html-preview" class="html"><p>Belum ada output HTML.</p></div>
+      </div>
+      <div class="note">Catatan Copy PDF: tombol ini menyalin dokumen print-ready ke clipboard. Untuk file PDF final, gunakan Download PDF lalu Save as PDF di dialog browser.</div>
+    </section>
+  </div>
+</main>
+
+<script>
+const CFG={
+  title:'PROMPT 06 - ARTICLE AUDIT & QUALITY CONTROL',
+  subtitle:'FRAMEWORK SEO + AEO + GEO + LLM OPTIMIZATION 2026 - YAYASAN, LEMBAGA KEAGAMAAN & LEMBAGA SOSIAL',
+  preSteps:[
+    'Pilih tipe audit: Pre-Publish, Refresh, Kompetitor, atau Bulanan.',
+    'Tempel teks artikel lengkap beserta metadata yang tersedia.',
+    'Lengkapi identitas lembaga, keyword target, legalitas, dan rekening resmi.',
+    'Kirim prompt audit dengan konteks halaman dan tujuan audit.',
+    'Eksekusi rekomendasi, lalu audit ulang sampai status layak publish.'
+  ],
+  systemRules:[
+    'Audit harus objektif, spesifik, dan evidence-based.',
+    'Setiap temuan wajib punya prioritas: KRITIS, PENTING, atau OPSIONAL.',
+    'Setiap temuan wajib punya rekomendasi aksi + contoh perbaikan.',
+    'Skor per dimensi 0-100 dan skor total berbobot.',
+    'Niche lembaga sosial wajib cek trust, legalitas, rekening, dan privasi penerima manfaat.',
+    'Flag semua red flag yang berisiko merusak kepercayaan donatur.'
+  ],
+  writingFlow:[
+    'Mulai dari audit dashboard dan skor awal per dimensi.',
+    'Lanjutkan temuan kritis berbasis bukti pada bagian artikel yang spesifik.',
+    'Susun checklist revisi praktis untuk tim konten.',
+    'Berikan rekomendasi optimasi cepat dan rewrite parsial bila diperlukan.',
+    'Akhiri dengan keputusan akhir: Publish / Revisi / Hold / Rewrite.'
+  ],
+  rubric:[
+    'Dimensi 1 - SEO Teknis (Bobot 15%)',
+    'Dimensi 2 - AEO Answer Readiness (Bobot 15%)',
+    'Dimensi 3 - GEO Entity & Passage Clarity (Bobot 10%)',
+    'Dimensi 4 - Trust & Legalitas (Bobot 25%)',
+    'Dimensi 5 - Konversi Donasi (Bobot 15%)',
+    'Dimensi 6 - Kualitas Konten & Readability (Bobot 10%)',
+    'Dimensi 7 - Islami-Aware & Etika Komunikasi (Bobot 5%)',
+    'Dimensi 8 - UX Konten & Struktur Navigasi (Bobot 5%)'
+  ],
+  outputBlocks:[
+    'Output 1 - Audit Dashboard (Skor per Dimensi + Total)',
+    'Output 2 - Temuan Kritis dengan Bukti Lokasi',
+    'Output 3 - Rekomendasi Perbaikan per Prioritas',
+    'Output 4 - Checklist Revisi Siap Eksekusi',
+    'Output 5 - Rewrite Bagian Bermasalah (jika perlu)',
+    'Output 6 - Gap Analysis vs Kompetitor (jika ada data)',
+    'Output 7 - Keputusan Akhir Audit + Next Action'
+  ],
+  acceptance:[
+    'Semua dimensi audit dinilai dengan jelas dan konsisten.',
+    'Temuan kritis menyebut lokasi masalah yang spesifik.',
+    'Rekomendasi bersifat actionable dan bisa langsung dieksekusi tim.',
+    'Tidak ada red flag trust/legalitas yang lolos tanpa mitigasi.',
+    'Keputusan akhir audit tegas dan operasional.'
+  ]
+};
+
+const SCHEMA=[
+  {section:'Identitas Audit',key:'tipe_audit',label:'Tipe Audit',required:true,type:'select',options:['Pre-Publish (artikel baru)','Refresh (artikel lama / live)','Kompetitor (gap analysis)','Bulanan (maintenance QA)']},
+  {section:'Identitas Audit',key:'tipe_halaman',label:'Tipe Halaman',required:true,type:'select',allowOther:true,options:['Pillar Page','Cluster Page','Donation Page','Trust Page','Local Page','FAQ Page','Seasonal Page']},
+  {section:'Identitas Audit',key:'detail_halaman',label:'Detail Halaman (Silo/Tipe/Kecamatan/Momen)',type:'text',hint:'Contoh: S2 - Panduan Syariat Islam, S4 - Trust & Transparansi, atau S6 - Seasonal Campaign.'},
+  {section:'Identitas Audit',key:'judul_h1',label:'Judul / H1 Artikel',required:true,type:'text'},
+  {section:'Identitas Audit',key:'url_artikel',label:'URL Artikel (jika sudah live)',type:'text'},
+  {section:'Identitas Audit',key:'tanggal_update',label:'Tanggal Tulis / Update',type:'text'},
+  {section:'Identitas Audit',key:'ditulis_oleh',label:'Ditulis Oleh',required:true,type:'select',options:['AI (Prompt 04A/B/C/D/E)','Penulis manusia','Tidak diketahui']},
+  {section:'Identitas Audit',key:'tujuan_audit',label:'Tujuan Audit',required:true,type:'select',options:['Validasi sebelum publish','Meningkatkan ranking & kualitas','Meningkatkan trust & konversi donasi','Menutup gap kompetitor','Maintenance bulanan']},
+
+  {section:'Identitas Lembaga',key:'nama_lembaga',label:'Nama Lembaga',required:true,type:'text'},
+  {section:'Identitas Lembaga',key:'tipe_lembaga',label:'Tipe Lembaga',required:true,type:'select',allowOther:true,options:['Yayasan','Non Profit','Profit / Komersial','Pesantren','Lembaga Keagamaan','Lembaga Sosial','Lembaga Zakat / LAZ','Lembaga Wakaf','Kombinasi']},
+  {section:'Identitas Lembaga',key:'kota_target',label:'Kota Target (Multi Kota)',required:true,type:'textarea',list:true,min:1,hint:'Isi satu kota per baris atau pisahkan dengan koma.'},
+  {section:'Identitas Lembaga',key:'kecamatan_target',label:'Kecamatan Target (Multi Kecamatan)',type:'textarea',list:true,hint:'Opsional. Isi satu kecamatan per baris atau pisahkan dengan koma.'},
+  {section:'Identitas Lembaga',key:'primary_keyword',label:'Primary Keyword Target',required:true,type:'text'},
+  {section:'Identitas Lembaga',key:'secondary_keywords',label:'Secondary Keywords (min. 3)',required:true,type:'textarea',list:true,min:3},
+  {section:'Identitas Lembaga',key:'wa_donasi',label:'Nomor WA Donasi',required:true,type:'text'},
+  {section:'Identitas Lembaga',key:'nomor_sk_akta',label:'Nomor SK / Akta Resmi',required:true,type:'text'},
+  {section:'Identitas Lembaga',key:'rekening_donasi_resmi',label:'Rekening Donasi Resmi',required:true,type:'text'},
+  {section:'Identitas Lembaga',key:'legalitas_tambahan',label:'Izin/Legalitas Tambahan (opsional)',type:'text'},
+
+  {section:'Metadata & Teks Artikel',key:'meta_title',label:'Meta Title',type:'text'},
+  {section:'Metadata & Teks Artikel',key:'meta_description',label:'Meta Description',type:'textarea'},
+  {section:'Metadata & Teks Artikel',key:'slug_url',label:'Slug / URL',type:'text'},
+  {section:'Metadata & Teks Artikel',key:'schema_digunakan',label:'Schema yang Sudah Dipakai',type:'checklist',options:['Article','FAQPage','Organization/NonProfit','Breadcrumb','LocalBusiness/Place','Belum ada schema']},
+  {section:'Metadata & Teks Artikel',key:'teks_artikel',label:'Teks Artikel Lengkap',required:true,type:'textarea',rows:16,hint:'Tempel H1, H2/H3, body, FAQ, CTA, rekening, dan penutup.'},
+
+  {section:'Konteks Tambahan',key:'target_scorecard',label:'Target Scorecard',required:true,type:'select',options:['Pre-publish: semua dimensi','Refresh: fokus Trust & Legalitas','Refresh: fokus SEO','Refresh: fokus Konversi Donasi','Refresh: fokus Rekening & Disclaimer','Semua dimensi']},
+  {section:'Konteks Tambahan',key:'fokus_refresh',label:'Fokus Dimensi Refresh',type:'checklist',showIf:{key:'tipe_audit',values:['Refresh (artikel lama / live)']},options:['Trust & Legalitas','SEO Teknis','AEO / FAQ','GEO / Entity','Konversi Donasi','UX & Readability']},
+  {section:'Konteks Tambahan',key:'url_kompetitor_1',label:'URL Kompetitor 1',type:'text',showIf:{key:'tipe_audit',values:['Kompetitor (gap analysis)']}},
+  {section:'Konteks Tambahan',key:'url_kompetitor_2',label:'URL Kompetitor 2',type:'text',showIf:{key:'tipe_audit',values:['Kompetitor (gap analysis)']}},
+  {section:'Konteks Tambahan',key:'catatan_kompetitor',label:'Catatan Gap Kompetitor',type:'textarea',showIf:{key:'tipe_audit',values:['Kompetitor (gap analysis)']}},
+  {section:'Konteks Tambahan',key:'temuan_sebelumnya',label:'Temuan Audit Sebelumnya (opsional)',type:'textarea'},
+  {section:'Konteks Tambahan',key:'deadline_revisi',label:'Deadline Revisi',type:'text'},
+
+  {section:'Guardrail Audit',key:'cek_rekening_pribadi',label:'Cek Rekening Pribadi sebagai Red Flag?',required:true,type:'select',options:['Ya, flag KRITIS jika rekening perorangan','Tidak, cukup catatan umum']},
+  {section:'Guardrail Audit',key:'cek_privasi_penerima',label:'Cek Privasi Penerima Manfaat',required:true,type:'select',options:['Wajib ketat','Wajib standar','Cukup dasar']},
+  {section:'Guardrail Audit',key:'cek_manipulasi_emosi',label:'Cek Manipulasi Emosi Berlebihan',required:true,type:'select',options:['Ya, wajib flag','Tidak wajib']},
+  {section:'Guardrail Audit',key:'red_flags_khusus',label:'Red Flags Khusus yang Harus Dicek',type:'textarea',list:true,numbered:true},
+  {section:'Guardrail Audit',key:'format_output_preferensi',label:'Format Output Tambahan',type:'checklist',options:['Tabel prioritas revisi','Contoh before-after rewrite','Checklist tim editor','Checklist tim legal','Checklist tim SEO']}
+];
+
+let activeTab='md';
+let lastOutput={markdown:'',html:''};
+const byId=(id)=>document.getElementById(id);
+const clean=(v)=>(v||'').replace(/\r/g,'').trim();
+const today=()=>new Date().toISOString().slice(0,10);
+const esc=(v)=>(v||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+const slug=(v)=>(v||'audit').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,80)||'audit';
+const splitLines=(v)=>clean(v).split(/\n|;|,/).map((x)=>x.replace(/^\d+[\).\s-]*/,'').trim()).filter(Boolean);
+
+function renderField(f){
+  const req=f.required?'<span>Wajib</span>':'';
+  const hint=f.hint?`<p class="hint">${f.hint}</p>`:'';
+  let input='';
+  if(f.type==='textarea'){
+    const rows=f.rows||4;
+    input=`<textarea id="${f.key}" rows="${rows}" placeholder="Isi ${f.label.toLowerCase()}"></textarea>`;
+  }else if(f.type==='select'){
+    const opts=(f.options||[]).map((o)=>`<option value="${esc(o)}">${esc(o)}</option>`).join('');
+    const other=f.allowOther?'<option value="__other__">Lainnya (tulis manual)</option>':'';
+    const otherInput=f.allowOther?`<input id="${f.key}_other" class="other-input" type="text" placeholder="Isi lainnya untuk ${f.label.toLowerCase()}">`:'';
+    input=`<select id="${f.key}"><option value="">Pilih opsi</option>${opts}${other}</select>${otherInput}`;
+  }else if(f.type==='checklist'){
+    input=`<div class="check-wrap" id="wrap-${f.key}">${(f.options||[]).map((o)=>`<label class="ck"><input type="checkbox" name="${f.key}" value="${esc(o)}">${esc(o)}</label>`).join('')}</div>`;
+  }else{
+    input=`<input id="${f.key}" type="text" placeholder="Isi ${f.label.toLowerCase()}">`;
+  }
+  return `<div class="f" id="field-${f.key}"><label for="${f.key}">${f.label} ${req}</label>${hint}${input}<div class="err" id="err-${f.key}">${f.required?`${f.label} wajib diisi.`:'Field belum valid.'}</div></div>`;
+}
+
+function renderForm(){
+  const groups=[...new Set(SCHEMA.map((s)=>s.section))];
+  byId('form').innerHTML=groups.map((g)=>`<div class="group"><div class="gt">${g}</div>${SCHEMA.filter((f)=>f.section===g).map(renderField).join('')}</div>`).join('');
+}
+
+function bindOthers(){
+  SCHEMA.filter((f)=>f.type==='select'&&f.allowOther).forEach((f)=>{
+    const sel=byId(f.key); const other=byId(`${f.key}_other`); if(!sel||!other) return;
+    const sync=()=>{const on=sel.value==='__other__';other.style.display=on?'block':'none';if(!on)other.value='';};
+    sel.addEventListener('change',sync); sync();
+  });
+  document.querySelectorAll('select').forEach((el)=>el.addEventListener('change',applyConditionalVisibility));
+  applyConditionalVisibility();
+}
+
+function isVisible(f){
+  if(!f.showIf) return true;
+  const dep=clean((byId(f.showIf.key)||{}).value||'');
+  return (f.showIf.values||[]).includes(dep);
+}
+
+function applyConditionalVisibility(){
+  SCHEMA.forEach((f)=>{
+    const wrap=byId(`field-${f.key}`); if(!wrap) return;
+    const show=isVisible(f);
+    wrap.classList.toggle('hidden',!show);
+    if(!show){
+      if(f.type==='checklist') document.querySelectorAll(`input[name="${f.key}"]`).forEach((el)=>{el.checked=false;});
+      else{
+        const el=byId(f.key); if(el) el.value='';
+        const other=byId(`${f.key}_other`); if(other){other.value='';other.style.display='none';}
+      }
+      setInvalid(f,false,'');
+    }
+  });
+}
+
+function collect(){
+  const d={};
+  SCHEMA.forEach((f)=>{
+    if(f.type==='checklist') d[f.key]=[...document.querySelectorAll(`input[name="${f.key}"]:checked`)].map((el)=>el.value);
+    else if(f.type==='select'){
+      const val=clean((byId(f.key)||{}).value||'');
+      d[f.key]=(f.allowOther&&val==='__other__')?(clean((byId(`${f.key}_other`)||{}).value||'')?`Lainnya: ${clean((byId(`${f.key}_other`)||{}).value||'')}`:'Lainnya'):val;
+    }else{
+      const raw=(byId(f.key)||{}).value||'';
+      d[f.key]=f.list?splitLines(raw):clean(raw);
+    }
+  });
+  return d;
+}
+
+function setInvalid(f,bad,msg){
+  const el=byId(f.key); const err=byId(`err-${f.key}`);
+  if(el) el.classList.toggle('invalid',!!bad);
+  if(f.type==='checklist'){
+    const wrap=byId(`wrap-${f.key}`); if(wrap) wrap.classList.toggle('invalid',!!bad);
+  }
+  if(err){if(msg) err.textContent=msg; err.classList.toggle('show',!!bad);}
+}
+
+function validate(d){
+  let ok=true;
+  SCHEMA.forEach((f)=>{
+    if(!isVisible(f)){setInvalid(f,false,'');return;}
+    let bad=false; let msg=`${f.label} wajib diisi.`;
+    if(f.required){
+      if(f.type==='checklist') bad=(d[f.key]||[]).length<1;
+      else if(f.list) bad=(d[f.key]||[]).length<1;
+      else bad=!d[f.key];
+    }
+    if(!bad&&f.min){
+      const n=f.list?(d[f.key]||[]).length:splitLines(d[f.key]||'').length;
+      bad=n<f.min; msg=`Isi minimal ${f.min} item untuk ${f.label}.`;
+    }
+    if(!bad&&f.allowOther&&(byId(f.key)?.value==='__other__')){
+      const txt=clean((byId(`${f.key}_other`)||{}).value||'');
+      if(!txt){bad=true;msg=`Isi nilai lainnya untuk ${f.label}.`;}
+    }
+    setInvalid(f,bad,msg); if(bad) ok=false;
+  });
+  return ok;
+}
+
+const mdList=(arr)=>arr&&arr.length?arr.map((x)=>`- ${x}`).join('\n'):'- [Tidak diisi]';
+const mdNum=(arr)=>arr&&arr.length?arr.map((x,i)=>`${i+1}. ${x}`).join('\n'):'1. [Tidak diisi]';
+
+function sectionMarkdown(d){
+  const groups=[...new Set(SCHEMA.map((s)=>s.section))];
+  return groups.map((g)=>{
+    const lines=[`[${g.toUpperCase()}]`];
+    SCHEMA.filter((f)=>f.section===g).forEach((f)=>{
+      if(!isVisible(f)) return;
+      const v=d[f.key];
+      if(Array.isArray(v)) lines.push(`- ${f.label}:\n${f.numbered?mdNum(v):mdList(v)}`);
+      else lines.push(`- ${f.label}: ${v||'-'}`);
+    });
+    lines.push('');
+    return lines.join('\n');
+  }).join('\n');
+}
+
+function buildMarkdown(d){
+  return [
+`# ${CFG.title}`,
+`## ${CFG.subtitle}`,
+'',
+`Tanggal Generate: ${today()}`,
+'',
+'==================================================',
+'BAGIAN 0 - CARA MENGGUNAKAN PROMPT',
+'==================================================',
+...CFG.preSteps.map((s,i)=>`${i+1}. ${s}`),
+'',
+'==================================================',
+'BAGIAN 1 - INPUT WAJIB (TERISI)',
+'==================================================',
+sectionMarkdown(d),
+'==================================================',
+'BAGIAN 2 - INSTRUKSI SISTEM UNTUK AI',
+'==================================================',
+...CFG.systemRules.map((s,i)=>`${i+1}. ${s}`),
+'',
+'==================================================',
+'BAGIAN 3 - ALUR AUDIT',
+'==================================================',
+...CFG.writingFlow.map((s,i)=>`${i+1}. ${s}`),
+'',
+'==================================================',
+'BAGIAN 4 - RUBRIK AUDIT BERBOBOT',
+'==================================================',
+...CFG.rubric.map((r,i)=>`${i+1}. ${r}`),
+'',
+'==================================================',
+'BAGIAN 5 - OUTPUT WAJIB LENGKAP',
+'==================================================',
+...CFG.outputBlocks.map((b,i)=>`${i+1}. ${b}`),
+'',
+'==================================================',
+'BAGIAN 6 - ACCEPTANCE CRITERIA',
+'==================================================',
+...CFG.acceptance.map((a)=>`- ${a}`),
+'',
+`Keputusan akhir wajib tegas berdasarkan audit: ${d.tipe_audit||'-'} | halaman: ${d.tipe_halaman||'-'} | target scorecard: ${d.target_scorecard||'-'}`,
+'',
+'NEXT STEP: Jalankan audit, eksekusi prioritas revisi, lalu lakukan re-audit sampai status layak publish tercapai.'
+  ].join('\n');
+}
+
+function buildHtmlBody(d,md){
+  return `<article><h3>Master Prompt 06 - Article Audit Lembaga Sosial</h3><p><strong>Lembaga:</strong> ${esc(d.nama_lembaga||'-')} | <strong>Tipe Audit:</strong> ${esc(d.tipe_audit||'-')} | <strong>Tanggal:</strong> ${esc(today())}</p><table><thead><tr><th>Field</th><th>Nilai</th></tr></thead><tbody><tr><td>Tipe Halaman</td><td>${esc(d.tipe_halaman||'-')}</td></tr><tr><td>Judul/H1</td><td>${esc(d.judul_h1||'-')}</td></tr><tr><td>Primary Keyword</td><td>${esc(d.primary_keyword||'-')}</td></tr><tr><td>Target Scorecard</td><td>${esc(d.target_scorecard||'-')}</td></tr></tbody></table><h4>Prompt Siap Copy</h4><pre>${esc(md)}</pre></article>`;
+}
+
+function exportDoc(body){
+  return `<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Master Prompt 06</title><style>body{font-family:Arial,sans-serif;margin:28px;color:#1f2532;line-height:1.65}h3{font-size:30px;margin-bottom:8px}p,li,td,th{font-size:14px}table{width:100%;border-collapse:collapse;margin:8px 0 14px}th,td{border:1px solid #d2d9e8;padding:8px 10px;text-align:left;vertical-align:top}th{background:#eff3fc;font-size:12px;text-transform:uppercase}pre{white-space:pre-wrap;background:#f6f8fc;border:1px solid #dbe2ef;border-radius:10px;padding:12px;font-size:12px}@media print{body{margin:14mm}}</style></head><body>${body}</body></html>`;
+}
+
+function showTab(name){
+  activeTab=name;
+  byId('markdown-preview').style.display=name==='md'?'block':'none';
+  byId('html-preview').style.display=name==='html'?'block':'none';
+  byId('tab-md').classList.toggle('on',name==='md');
+  byId('tab-html').classList.toggle('on',name==='html');
+}
+
+function generateOutput(){
+  const d=collect();
+  if(!validate(d)){alert('Masih ada field wajib yang belum lengkap. Mohon cek bagian merah.');return false;}
+  lastOutput.markdown=buildMarkdown(d);
+  lastOutput.html=buildHtmlBody(d,lastOutput.markdown);
+  byId('markdown-preview').textContent=lastOutput.markdown;
+  byId('html-preview').innerHTML=lastOutput.html;
+  showTab(activeTab);
+  return true;
+}
+
+function ensureOutput(){
+  if(lastOutput.markdown&&lastOutput.html) return true;
+  return generateOutput();
+}
+
+function blobDownload(content,type,fname){
+  const blob=new Blob([content],{type});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;
+  a.download=fname;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+}
+
+function copyMarkdown(){
+  if(!ensureOutput()) return;
+  navigator.clipboard.writeText(lastOutput.markdown).then(()=>alert('Markdown berhasil disalin.')).catch(()=>alert('Gagal menyalin otomatis.'));
+}
+
+function downloadMarkdown(){
+  if(!ensureOutput()) return;
+  blobDownload(lastOutput.markdown,'text/markdown;charset=utf-8',`framework-lembaga-sosial-master-prompt-06-${slug(clean((byId('nama_lembaga')||{}).value||'audit'))}-${today()}.md`);
+}
+
+function downloadHtm(){
+  if(!ensureOutput()) return;
+  blobDownload(exportDoc(lastOutput.html),'text/html;charset=utf-8',`framework-lembaga-sosial-master-prompt-06-${slug(clean((byId('nama_lembaga')||{}).value||'audit'))}-${today()}.htm`);
+}
+
+function copyPdf(){
+  if(!ensureOutput()) return;
+  const printable=exportDoc(lastOutput.html);
+  navigator.clipboard.writeText(printable).then(()=>alert('Template PDF-ready berhasil disalin ke clipboard.')).catch(()=>alert('Gagal menyalin template PDF-ready.'));
+}
+
+function downloadPdf(){
+  if(!ensureOutput()) return;
+  const w=window.open('','_blank');
+  if(!w){alert('Pop-up diblokir browser.');return;}
+  w.document.open();
+  w.document.write(exportDoc(lastOutput.html));
+  w.document.close();
+  w.focus();
+  setTimeout(()=>w.print(),320);
+}
+
+function resetForm(){
+  byId('form').reset();
+  document.querySelectorAll('.invalid').forEach((el)=>el.classList.remove('invalid'));
+  document.querySelectorAll('.err').forEach((el)=>el.classList.remove('show'));
+  document.querySelectorAll('.other-input').forEach((el)=>{el.value='';el.style.display='none';});
+  document.querySelectorAll('input[type="checkbox"]').forEach((el)=>{el.checked=false;});
+  lastOutput={markdown:'',html:''};
+  byId('markdown-preview').textContent='Belum ada output. Isi form lalu klik "Generate Master Prompt 06".';
+  byId('html-preview').innerHTML='<p>Belum ada output HTML.</p>';
+  showTab('md');
+  applyConditionalVisibility();
+}
+
+renderForm();
+bindOthers();
+</script>
+</body>
+</html>

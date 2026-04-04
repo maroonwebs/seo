@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Master Prompt 05 - Social Media Repurposing Lembaga Sosial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#11251e;--muted:#60756c;--bg:#f4faf7;--card:#fff;--line:rgba(17,37,30,.14);--green:#1f7f56;--green2:#2f996d;--red:#b13f3f;--r:12px;--r2:18px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:radial-gradient(circle at 10% 0,rgba(47,153,109,.14) 0,transparent 36%),var(--bg);color:var(--ink);line-height:1.6}
+.top{position:sticky;top:0;z-index:60;background:#11271f;border-bottom:1px solid rgba(255,255,255,.14);padding:14px 20px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.logo{font-family:'Playfair Display',serif;color:#e9faf3;font-size:17px}.logo span{color:#9ef2cf;font-style:italic}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.btn{border:1px solid rgba(255,255,255,.34);background:transparent;color:#edf9f4;border-radius:10px;padding:8px 12px;font-size:12px;cursor:pointer;text-decoration:none;font-family:'DM Sans',sans-serif}
+.btn.primary{background:var(--green);border-color:var(--green)}.btn.primary:hover{background:var(--green2)}
+main{max-width:1450px;margin:0 auto;padding:22px}
+.hero{background:linear-gradient(128deg,#163d31,#1f6a51,#2d8f6b);color:#effcf7;padding:20px;border-radius:var(--r2);margin-bottom:14px}
+.hero .tag{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px;opacity:.9}
+.hero h1{font-family:'Playfair Display',serif;font-size:30px;font-weight:500;line-height:1.2;margin-bottom:8px}.hero h1 em{color:#cafbe8}
+.hero p{font-size:14px;max-width:1050px}
+.grid{display:grid;grid-template-columns:minmax(430px,.95fr) minmax(430px,1.05fr);gap:14px;align-items:start}
+.card{background:var(--card);border:1px solid rgba(17,37,30,.08);border-radius:var(--r2);padding:16px}
+.card h2{font-family:'Playfair Display',serif;font-size:24px;font-weight:500;margin-bottom:6px}
+.sub{font-size:13px;color:var(--muted);margin-bottom:12px}
+.group{border:1px solid rgba(17,37,30,.08);border-radius:var(--r);padding:12px;margin-bottom:12px}
+.gt{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#1f5b46;margin-bottom:8px}
+.f{margin-bottom:10px}.f:last-child{margin-bottom:0}
+label{display:block;font-size:13px;font-weight:700;margin-bottom:4px}label span{font-family:'DM Mono',monospace;font-size:11px;color:var(--green);margin-left:6px}
+.hint{font-size:12px;color:var(--muted);margin-bottom:6px}
+input[type="text"],textarea,select{width:100%;border:1.4px solid var(--line);border-radius:10px;padding:9px 11px;font-size:14px;font-family:'DM Sans',sans-serif;color:#22352d;background:#fff}
+textarea{min-height:72px;resize:vertical}
+input:focus,textarea:focus,select:focus{outline:none;border-color:rgba(31,127,86,.85);box-shadow:0 0 0 3px rgba(31,127,86,.14)}
+.check-wrap{border:1.4px solid var(--line);border-radius:10px;padding:8px 10px;background:#fff}
+.ck{display:flex;gap:8px;align-items:flex-start;font-size:13px;margin:4px 0}.ck input{margin-top:2px}
+.other-input{display:none;margin-top:8px}
+.hidden{display:none!important}
+.invalid{border-color:rgba(177,63,63,.75)!important;box-shadow:0 0 0 3px rgba(177,63,63,.12)!important}
+.err{display:none;font-size:12px;color:var(--red);margin-top:5px}.err.show{display:block}
+.act{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.act .btn{color:#24362f;border-color:var(--line)}.act .btn.primary{color:#fff;border-color:var(--green)}
+.tab{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-bottom:10px}
+.tab button{border:none;background:#fff;padding:7px 11px;font-size:12px;cursor:pointer}
+.tab button.on{background:#e8f5ef;color:#1e5d45;font-weight:700}
+.preview{border:1px solid rgba(17,37,30,.08);border-radius:12px;background:#fbfffd;max-height:860px;overflow:auto}
+.preview pre{margin:0;padding:12px;white-space:pre-wrap;font-family:'DM Mono',monospace;font-size:12px}
+.html{display:none;padding:12px}.html table{width:100%;border-collapse:collapse;margin:8px 0 12px}.html th,.html td{border:1px solid #d2e3db;padding:7px 8px;text-align:left;vertical-align:top}.html th{background:#edf7f2;font-size:12px}
+.note{margin-top:10px;padding:8px 10px;border:1px dashed rgba(31,127,86,.3);background:#f4faf7;border-radius:10px;font-size:12px;color:#1f4e3d}
+@media(max-width:1120px){.grid{grid-template-columns:1fr}}
+@media(max-width:760px){.top{padding:12px}.row{width:100%}.row .btn{flex:1}main{padding:14px 10px}.hero h1{font-size:27px}input[type="text"],textarea,select{font-size:16px}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="logo">Framework Lembaga Sosial - <span>Master Prompt 05</span></div>
+  <div class="row">
+    <a class="btn" href="framework-lembaga-sosial.html">Kembali ke Framework</a>
+    <a class="btn" href="index.html">Kembali ke Hub</a>
+    <button class="btn" type="button" onclick="copyMarkdown()">Copy Markdown</button>
+    <button class="btn" type="button" onclick="downloadMarkdown()">Download .md</button>
+    <button class="btn" type="button" onclick="copyPdf()">Copy PDF</button>
+    <button class="btn primary" type="button" onclick="downloadPdf()">Download PDF</button>
+    <button class="btn" type="button" onclick="downloadHtm()">Download .htm</button>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="tag">Prompt 05 - Social Media Repurposing</div>
+    <h1>Master Prompt 05 <em>Lembaga Sosial</em></h1>
+    <p>Isi form sedetail mungkin untuk mengubah output artikel Prompt 04 menjadi paket konten sosial media siap posting lintas platform dengan angle donasi, trust, dan dampak program.</p>
+  </section>
+
+  <div class="grid">
+    <section class="card">
+      <h2>Form Input Lengkap</h2>
+      <p class="sub">Field wajib mengikuti dokumen Prompt 05 Lembaga Sosial, ditambah field pendukung supaya hasil output lebih presisi.</p>
+      <form id="form"></form>
+      <div class="act">
+        <button class="btn primary" type="button" onclick="generateOutput()">Generate Master Prompt 05</button>
+        <button class="btn" type="button" onclick="resetForm()">Reset Form</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Preview Output</h2>
+      <p class="sub">Output siap copy-paste ke AI dengan mode Markdown dan HTML.</p>
+      <div class="tab">
+        <button id="tab-md" class="on" type="button" onclick="showTab('md')">Markdown</button>
+        <button id="tab-html" type="button" onclick="showTab('html')">HTML</button>
+      </div>
+      <div class="preview">
+        <pre id="markdown-preview">Belum ada output. Isi form lalu klik "Generate Master Prompt 05".</pre>
+        <div id="html-preview" class="html"><p>Belum ada output HTML.</p></div>
+      </div>
+      <div class="note">Catatan Copy PDF: tombol ini menyalin dokumen print-ready ke clipboard. Untuk file PDF final, gunakan Download PDF lalu Save as PDF di dialog browser.</div>
+    </section>
+  </div>
+</main>
+
+<script>
+const CFG={
+  title:'PROMPT 05 - SOCIAL MEDIA REPURPOSING',
+  subtitle:'FRAMEWORK SEO + AEO + GEO + LLM OPTIMIZATION 2026 - YAYASAN, LEMBAGA KEAGAMAAN & LEMBAGA SOSIAL',
+  preSteps:[
+    'Pilih artikel sumber dari output Prompt 04A-04E yang sudah final.',
+    'Pilih platform target SM1-SM8 (bisa satu platform atau semua).',
+    'Isi field identitas lembaga, sumber konten, preferensi posting, dan guardrail.',
+    'Jalankan prompt dengan instruksi: Jalankan Prompt 05 Social Media Repurposing Yayasan berdasarkan input berikut.',
+    'Gunakan output untuk produksi caption/script, jadwal posting, dan optimasi performa.'
+  ],
+  systemRules:[
+    'Platform-native writing: dilarang copy-paste mentah dari artikel website.',
+    'Satu konten fokus pada satu pesan utama agar tidak melebar.',
+    'Gunakan tone Islami natural secukupnya (hangat, amanah, inspiratif).',
+    'Trust signal wajib muncul sebelum CTA donasi.',
+    'CTA harus jelas per platform (DM, WA, bio link, komentar keyword).',
+    'Jaga privasi penerima manfaat dan hindari ekspos identitas penuh tanpa izin.',
+    'Struktur hashtag: broad + niche + local + brand.'
+  ],
+  writingFlow:[
+    'Audit sumber artikel dan ekstrak angle konten yang paling kuat.',
+    'Mapping angle ke platform terpilih (SM1-SM8) dengan format native.',
+    'Produksi caption/script/storyline per platform sesuai tone dan CTA.',
+    'Bangun hook bank, CTA bank, hashtag/entity bank, dan repurposing matrix.',
+    'Tutup dengan kalender posting dan notes optimasi performa.'
+  ],
+  outputBlocks:[
+    'Output 1 - Audit Input & Asumsi Kerja',
+    'Output 2 - Mapping Platform Terpilih (SM1-SM8)',
+    'Output 3 - Paket Konten per Platform (Caption/Script/Sequence)',
+    'Output 4 - Hook Bank',
+    'Output 5 - CTA Bank',
+    'Output 6 - Hashtag + Entity Bank',
+    'Output 7 - Repurposing Matrix dari Sumber Artikel',
+    'Output 8 - Kalender Konten + Rekomendasi Jam Posting',
+    'Output 9 - Checklist QA (Trust, Syariat, Privasi, CTA)',
+    'Output 10 - Performance Optimization Notes'
+  ],
+  acceptance:[
+    'Setiap platform memiliki format native yang sesuai.',
+    'Trust signal muncul sebelum CTA pada konten donasi.',
+    'Tidak ada klaim berlebihan atau pelanggaran privasi penerima manfaat.',
+    'Hook, body, CTA, dan hashtag tersusun jelas untuk eksekusi tim konten.',
+    'Kalender posting dan prioritas batch dapat langsung dijalankan.'
+  ]
+};
+
+const SCHEMA=[
+  {section:'Identitas Lembaga',key:'nama_lembaga',label:'Nama Lembaga',required:true,type:'text'},
+  {section:'Identitas Lembaga',key:'tipe_lembaga',label:'Tipe Lembaga',required:true,type:'select',allowOther:true,options:['Yayasan','Non Profit','Profit / Komersial','Pesantren','Lembaga Keagamaan','Lembaga Sosial','Lembaga Zakat / LAZ','Lembaga Wakaf','Panti Asuhan / Yatim','Komunitas Kemanusiaan']},
+  {section:'Identitas Lembaga',key:'kota_target',label:'Kota Target (Multi Kota)',required:true,type:'textarea',list:true,min:1,hint:'Isi satu kota per baris atau pisahkan dengan koma.'},
+  {section:'Identitas Lembaga',key:'kecamatan_target',label:'Kecamatan Target (Multi Kecamatan)',type:'textarea',list:true,hint:'Opsional. Isi satu kecamatan per baris atau pisahkan dengan koma.'},
+  {section:'Identitas Lembaga',key:'wa_donasi',label:'Nomor WA Donasi',required:true,type:'text'},
+  {section:'Identitas Lembaga',key:'username_instagram',label:'Username Instagram',required:true,type:'text'},
+  {section:'Identitas Lembaga',key:'username_tiktok',label:'Username TikTok',type:'text'},
+  {section:'Identitas Lembaga',key:'website_bio',label:'Link Website / Link in Bio',required:true,type:'text'},
+  {section:'Identitas Lembaga',key:'rekening_donasi_singkat',label:'Rekening Donasi Singkat',required:true,type:'text'},
+  {section:'Identitas Lembaga',key:'tagline_positioning',label:'Tagline / Positioning',type:'text'},
+  {section:'Identitas Lembaga',key:'trust_signal_utama',label:'Trust Signal Utama (SK, penerima manfaat, audit)',type:'textarea'},
+
+  {section:'Sumber Konten',key:'judul_artikel_sumber',label:'Judul Artikel Sumber',required:true,type:'text'},
+  {section:'Sumber Konten',key:'url_artikel_sumber',label:'URL Artikel Sumber',type:'text'},
+  {section:'Sumber Konten',key:'tipe_halaman',label:'Tipe Halaman Sumber',required:true,type:'select',allowOther:true,options:['Pillar Page','Cluster Page','Donation Page','Trust Page','Local Page','FAQ Page','Seasonal Page']},
+  {section:'Sumber Konten',key:'detail_tipe_halaman',label:'Detail Tipe Halaman (Silo/Tipe/Kecamatan/Momen)',type:'text',hint:'Contoh: S1 - Brand & Donasi, S4 - Trust & Transparansi, atau S5 - Local Hub.'},
+  {section:'Sumber Konten',key:'ringkasan_sumber',label:'Ringkasan Isi Artikel',required:true,type:'textarea'},
+  {section:'Sumber Konten',key:'key_points',label:'Key Points Artikel (min. 3)',required:true,type:'textarea',list:true,min:3,numbered:true},
+  {section:'Sumber Konten',key:'data_donasi_program',label:'Data Donasi / Program (angka penerima, capaian, target)',type:'textarea'},
+  {section:'Sumber Konten',key:'quotes_cerita',label:'Cerita Human Interest / Kutipan (opsional)',type:'textarea'},
+
+  {section:'Preferensi Konten',key:'platform_target',label:'Platform yang Diinginkan',required:true,type:'checklist',options:['SM1 - Instagram Feed','SM2 - Instagram Stories','SM3 - Instagram Reels','SM4 - WhatsApp Broadcast','SM5 - Google Business Profile Post','SM6 - TikTok Caption + Hook','SM7 - YouTube Shorts Script','SM8 - Campaign Darurat','Semua platform']},
+  {section:'Preferensi Konten',key:'tone_konten',label:'Tone Konten',required:true,type:'select',allowOther:true,options:['Islami + Empatik','Informatif + Edukatif','Urgensi + Inspiratif','Storytelling / Human Interest','Transparan + Amanah']},
+  {section:'Preferensi Konten',key:'angle_konten',label:'Angle Konten Batch',required:true,type:'select',options:['Edukasi Syariat','Program & Dampak Nyata','Trust & Transparansi','Human Interest','Donasi / Campaign','Behind the Scenes','FAQ / Tanya Jawab','Seasonal / Momen Islami','Darurat / Kemanusiaan']},
+  {section:'Preferensi Konten',key:'tujuan_batch',label:'Tujuan Batch Posting',required:true,type:'select',options:['Awareness','Engagement','Trust Building','Fundraising / Donasi','Traffic Website','Lead WA / DM']},
+  {section:'Preferensi Konten',key:'cta_utama',label:'CTA Utama',required:true,type:'select',options:['Donasi via link bio','DM untuk rekening resmi','Balas keyword di WA','Hubungi admin untuk info donasi','Kunjungi website resmi']},
+  {section:'Preferensi Konten',key:'cta_sekunder',label:'CTA Sekunder',type:'text'},
+  {section:'Preferensi Konten',key:'bahasa_sapaan',label:'Sapaan Pembuka',type:'text',hint:'Contoh: Assalamu\'alaikum Sahabat Kebaikan'},
+  {section:'Preferensi Konten',key:'hashtag_brand',label:'Hashtag Brand & Lokal',type:'text',hint:'Pisahkan dengan koma atau enter'},
+
+  {section:'Guardrail & Compliance',key:'privasi_penerima',label:'Kebijakan Privasi Penerima Manfaat',required:true,type:'select',options:['Gunakan inisial + tanpa identitas detail','Sudah ada izin tertulis untuk publikasi terbatas','Tidak menampilkan identitas penerima manfaat']},
+  {section:'Guardrail & Compliance',key:'foto_izin',label:'Status Izin Penggunaan Foto',required:true,type:'select',options:['Semua foto sudah ada izin','Sebagian foto berizin, pilih yang aman','Tidak menggunakan foto penerima manfaat']},
+  {section:'Guardrail & Compliance',key:'klaim_dilarang',label:'Klaim yang Dilarang (min. 3)',required:true,type:'textarea',list:true,min:3,numbered:true},
+  {section:'Guardrail & Compliance',key:'disclaimer_wajib',label:'Disclaimer Wajib (jika ada)',type:'textarea'},
+  {section:'Guardrail & Compliance',key:'aturan_rekening_publish',label:'Aturan Penayangan Rekening',required:true,type:'select',options:['Hanya di bio dan caption khusus donasi','Boleh di semua konten donasi','Hanya via DM/WA setelah request']},
+  {section:'Guardrail & Compliance',key:'catatan_syariat',label:'Catatan Syariat / Legal Tambahan',type:'textarea'},
+
+  {section:'Eksekusi Batch',key:'jumlah_konten',label:'Target Jumlah Konten Batch',required:true,type:'text',hint:'Contoh: 14 konten (2 minggu)'},
+  {section:'Eksekusi Batch',key:'horizon_kalender',label:'Horizon Kalender',required:true,type:'select',options:['7 hari','14 hari','30 hari']},
+  {section:'Eksekusi Batch',key:'frekuensi_posting',label:'Frekuensi Posting',required:true,type:'text',hint:'Contoh: IG feed 3x/minggu, reels 2x/minggu'},
+  {section:'Eksekusi Batch',key:'tanggal_mulai',label:'Tanggal Mulai Batch',type:'text'},
+  {section:'Eksekusi Batch',key:'catatan_editorial',label:'Catatan Editorial Tim',type:'textarea'}
+];
+
+let activeTab='md';
+let lastOutput={markdown:'',html:''};
+const byId=(id)=>document.getElementById(id);
+const clean=(v)=>(v||'').replace(/\r/g,'').trim();
+const today=()=>new Date().toISOString().slice(0,10);
+const esc=(v)=>(v||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+const slug=(v)=>(v||'lembaga').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,80)||'lembaga';
+const splitLines=(v)=>clean(v).split(/\n|;|,/).map((x)=>x.replace(/^\d+[\).\s-]*/,'').trim()).filter(Boolean);
+
+function renderField(f){
+  const req=f.required?'<span>Wajib</span>':'';
+  const hint=f.hint?`<p class="hint">${f.hint}</p>`:'';
+  let input='';
+  if(f.type==='textarea'){
+    const rows=f.rows||4;
+    input=`<textarea id="${f.key}" rows="${rows}" placeholder="Isi ${f.label.toLowerCase()}"></textarea>`;
+  }else if(f.type==='select'){
+    const opts=(f.options||[]).map((o)=>`<option value="${esc(o)}">${esc(o)}</option>`).join('');
+    const other=f.allowOther?'<option value="__other__">Lainnya (tulis manual)</option>':'';
+    const otherInput=f.allowOther?`<input id="${f.key}_other" class="other-input" type="text" placeholder="Isi lainnya untuk ${f.label.toLowerCase()}">`:'';
+    input=`<select id="${f.key}"><option value="">Pilih opsi</option>${opts}${other}</select>${otherInput}`;
+  }else if(f.type==='checklist'){
+    input=`<div class="check-wrap" id="wrap-${f.key}">${(f.options||[]).map((o)=>`<label class="ck"><input type="checkbox" name="${f.key}" value="${esc(o)}">${esc(o)}</label>`).join('')}</div>`;
+  }else{
+    input=`<input id="${f.key}" type="text" placeholder="Isi ${f.label.toLowerCase()}">`;
+  }
+  return `<div class="f" id="field-${f.key}"><label for="${f.key}">${f.label} ${req}</label>${hint}${input}<div class="err" id="err-${f.key}">${f.required?`${f.label} wajib diisi.`:'Field belum valid.'}</div></div>`;
+}
+
+function renderForm(){
+  const groups=[...new Set(SCHEMA.map((s)=>s.section))];
+  byId('form').innerHTML=groups.map((g)=>`<div class="group"><div class="gt">${g}</div>${SCHEMA.filter((f)=>f.section===g).map(renderField).join('')}</div>`).join('');
+}
+
+function bindOthers(){
+  SCHEMA.filter((f)=>f.type==='select'&&f.allowOther).forEach((f)=>{
+    const sel=byId(f.key); const other=byId(`${f.key}_other`); if(!sel||!other) return;
+    const sync=()=>{const on=sel.value==='__other__';other.style.display=on?'block':'none';if(!on)other.value='';};
+    sel.addEventListener('change',sync); sync();
+  });
+  document.querySelectorAll('select').forEach((el)=>el.addEventListener('change',applyConditionalVisibility));
+  applyConditionalVisibility();
+}
+
+function isVisible(f){
+  if(!f.showIf) return true;
+  const dep=clean((byId(f.showIf.key)||{}).value||'');
+  return (f.showIf.values||[]).includes(dep);
+}
+
+function applyConditionalVisibility(){
+  SCHEMA.forEach((f)=>{
+    const wrap=byId(`field-${f.key}`); if(!wrap) return;
+    const show=isVisible(f);
+    wrap.classList.toggle('hidden',!show);
+    if(!show){
+      if(f.type==='checklist') document.querySelectorAll(`input[name="${f.key}"]`).forEach((el)=>{el.checked=false;});
+      else{
+        const el=byId(f.key); if(el) el.value='';
+        const other=byId(`${f.key}_other`); if(other){other.value='';other.style.display='none';}
+      }
+      setInvalid(f,false,'');
+    }
+  });
+}
+
+function collect(){
+  const d={};
+  SCHEMA.forEach((f)=>{
+    if(f.type==='checklist') d[f.key]=[...document.querySelectorAll(`input[name="${f.key}"]:checked`)].map((el)=>el.value);
+    else if(f.type==='select'){
+      const val=clean((byId(f.key)||{}).value||'');
+      d[f.key]=(f.allowOther&&val==='__other__')?(clean((byId(`${f.key}_other`)||{}).value||'')?`Lainnya: ${clean((byId(`${f.key}_other`)||{}).value||'')}`:'Lainnya'):val;
+    }else{
+      const raw=(byId(f.key)||{}).value||'';
+      d[f.key]=f.list?splitLines(raw):clean(raw);
+    }
+  });
+  return d;
+}
+
+function setInvalid(f,bad,msg){
+  const el=byId(f.key); const err=byId(`err-${f.key}`);
+  if(el) el.classList.toggle('invalid',!!bad);
+  if(f.type==='checklist'){
+    const wrap=byId(`wrap-${f.key}`); if(wrap) wrap.classList.toggle('invalid',!!bad);
+  }
+  if(err){if(msg) err.textContent=msg; err.classList.toggle('show',!!bad);}
+}
+
+function validate(d){
+  let ok=true;
+  SCHEMA.forEach((f)=>{
+    if(!isVisible(f)){setInvalid(f,false,'');return;}
+    let bad=false; let msg=`${f.label} wajib diisi.`;
+    if(f.required){
+      if(f.type==='checklist') bad=(d[f.key]||[]).length<1;
+      else if(f.list) bad=(d[f.key]||[]).length<1;
+      else bad=!d[f.key];
+    }
+    if(!bad&&f.min){
+      const n=f.list?(d[f.key]||[]).length:splitLines(d[f.key]||'').length;
+      bad=n<f.min; msg=`Isi minimal ${f.min} item untuk ${f.label}.`;
+    }
+    if(!bad&&f.allowOther&&(byId(f.key)?.value==='__other__')){
+      const txt=clean((byId(`${f.key}_other`)||{}).value||'');
+      if(!txt){bad=true;msg=`Isi nilai lainnya untuk ${f.label}.`;}
+    }
+    setInvalid(f,bad,msg); if(bad) ok=false;
+  });
+  return ok;
+}
+
+const mdList=(arr)=>arr&&arr.length?arr.map((x)=>`- ${x}`).join('\n'):'- [Tidak diisi]';
+const mdNum=(arr)=>arr&&arr.length?arr.map((x,i)=>`${i+1}. ${x}`).join('\n'):'1. [Tidak diisi]';
+
+function sectionMarkdown(d){
+  const groups=[...new Set(SCHEMA.map((s)=>s.section))];
+  return groups.map((g)=>{
+    const lines=[`[${g.toUpperCase()}]`];
+    SCHEMA.filter((f)=>f.section===g).forEach((f)=>{
+      if(!isVisible(f)) return;
+      const v=d[f.key];
+      if(Array.isArray(v)) lines.push(`- ${f.label}:\n${f.numbered?mdNum(v):mdList(v)}`);
+      else lines.push(`- ${f.label}: ${v||'-'}`);
+    });
+    lines.push('');
+    return lines.join('\n');
+  }).join('\n');
+}
+
+function buildMarkdown(d){
+  const platformList=(d.platform_target||[]).join(', ')||'-';
+  return [
+`# ${CFG.title}`,
+`## ${CFG.subtitle}`,
+'',
+`Tanggal Generate: ${today()}`,
+'',
+'==================================================',
+'BAGIAN 0 - CARA MENGGUNAKAN PROMPT',
+'==================================================',
+...CFG.preSteps.map((s,i)=>`${i+1}. ${s}`),
+'',
+'==================================================',
+'BAGIAN 1 - INPUT WAJIB (TERISI)',
+'==================================================',
+sectionMarkdown(d),
+'==================================================',
+'BAGIAN 2 - INSTRUKSI SISTEM UNTUK AI',
+'==================================================',
+...CFG.systemRules.map((s,i)=>`${i+1}. ${s}`),
+'',
+'==================================================',
+'BAGIAN 3 - INSTRUKSI PENULISAN LENGKAP',
+'==================================================',
+...CFG.writingFlow.map((s,i)=>`${i+1}. ${s}`),
+'',
+'==================================================',
+'BAGIAN 4 - PLATFORM EKSEKUSI BATCH',
+'==================================================',
+`Platform dipilih: ${platformList}`,
+`Angle utama: ${d.angle_konten||'-'}`,
+`Tone: ${d.tone_konten||'-'}`,
+`CTA utama: ${d.cta_utama||'-'}`,
+`Target batch: ${d.jumlah_konten||'-'} | Horizon: ${d.horizon_kalender||'-'}`,
+'',
+'==================================================',
+'BAGIAN 5 - OUTPUT WAJIB LENGKAP',
+'==================================================',
+...CFG.outputBlocks.map((b,i)=>`${i+1}. ${b}`),
+'',
+'==================================================',
+'BAGIAN 6 - ACCEPTANCE CRITERIA',
+'==================================================',
+...CFG.acceptance.map((a)=>`- ${a}`),
+'',
+'NEXT STEP: Gunakan output Prompt 05 untuk produksi konten sosial media lintas platform dan optimasi performa fundraising secara berkala.'
+  ].join('\n');
+}
+
+function buildHtmlBody(d,md){
+  return `<article><h3>Master Prompt 05 - Social Media Repurposing Lembaga Sosial</h3><p><strong>Lembaga:</strong> ${esc(d.nama_lembaga||'-')} | <strong>Tujuan Batch:</strong> ${esc(d.tujuan_batch||'-')} | <strong>Tanggal:</strong> ${esc(today())}</p><table><thead><tr><th>Field</th><th>Nilai</th></tr></thead><tbody><tr><td>Artikel Sumber</td><td>${esc(d.judul_artikel_sumber||'-')}</td></tr><tr><td>Platform Target</td><td>${esc((d.platform_target||[]).join(', ')||'-')}</td></tr><tr><td>Angle Konten</td><td>${esc(d.angle_konten||'-')}</td></tr><tr><td>CTA Utama</td><td>${esc(d.cta_utama||'-')}</td></tr></tbody></table><h4>Prompt Siap Copy</h4><pre>${esc(md)}</pre></article>`;
+}
+
+function exportDoc(body){
+  return `<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Master Prompt 05</title><style>body{font-family:Arial,sans-serif;margin:28px;color:#1f2532;line-height:1.65}h3{font-size:30px;margin-bottom:8px}p,li,td,th{font-size:14px}table{width:100%;border-collapse:collapse;margin:8px 0 14px}th,td{border:1px solid #d2d9e8;padding:8px 10px;text-align:left;vertical-align:top}th{background:#eff3fc;font-size:12px;text-transform:uppercase}pre{white-space:pre-wrap;background:#f6f8fc;border:1px solid #dbe2ef;border-radius:10px;padding:12px;font-size:12px}@media print{body{margin:14mm}}</style></head><body>${body}</body></html>`;
+}
+
+function showTab(name){
+  activeTab=name;
+  byId('markdown-preview').style.display=name==='md'?'block':'none';
+  byId('html-preview').style.display=name==='html'?'block':'none';
+  byId('tab-md').classList.toggle('on',name==='md');
+  byId('tab-html').classList.toggle('on',name==='html');
+}
+
+function generateOutput(){
+  const d=collect();
+  if(!validate(d)){alert('Masih ada field wajib yang belum lengkap. Mohon cek bagian merah.');return false;}
+  lastOutput.markdown=buildMarkdown(d);
+  lastOutput.html=buildHtmlBody(d,lastOutput.markdown);
+  byId('markdown-preview').textContent=lastOutput.markdown;
+  byId('html-preview').innerHTML=lastOutput.html;
+  showTab(activeTab);
+  return true;
+}
+
+function ensureOutput(){
+  if(lastOutput.markdown&&lastOutput.html) return true;
+  return generateOutput();
+}
+
+function blobDownload(content,type,fname){
+  const blob=new Blob([content],{type});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;
+  a.download=fname;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+}
+
+function copyMarkdown(){
+  if(!ensureOutput()) return;
+  navigator.clipboard.writeText(lastOutput.markdown).then(()=>alert('Markdown berhasil disalin.')).catch(()=>alert('Gagal menyalin otomatis.'));
+}
+
+function downloadMarkdown(){
+  if(!ensureOutput()) return;
+  blobDownload(lastOutput.markdown,'text/markdown;charset=utf-8',`framework-lembaga-sosial-master-prompt-05-${slug(clean((byId('nama_lembaga')||{}).value||'lembaga'))}-${today()}.md`);
+}
+
+function downloadHtm(){
+  if(!ensureOutput()) return;
+  blobDownload(exportDoc(lastOutput.html),'text/html;charset=utf-8',`framework-lembaga-sosial-master-prompt-05-${slug(clean((byId('nama_lembaga')||{}).value||'lembaga'))}-${today()}.htm`);
+}
+
+function copyPdf(){
+  if(!ensureOutput()) return;
+  const printable=exportDoc(lastOutput.html);
+  navigator.clipboard.writeText(printable).then(()=>alert('Template PDF-ready berhasil disalin ke clipboard.')).catch(()=>alert('Gagal menyalin template PDF-ready.'));
+}
+
+function downloadPdf(){
+  if(!ensureOutput()) return;
+  const w=window.open('','_blank');
+  if(!w){alert('Pop-up diblokir browser.');return;}
+  w.document.open();
+  w.document.write(exportDoc(lastOutput.html));
+  w.document.close();
+  w.focus();
+  setTimeout(()=>w.print(),320);
+}
+
+function resetForm(){
+  byId('form').reset();
+  document.querySelectorAll('.invalid').forEach((el)=>el.classList.remove('invalid'));
+  document.querySelectorAll('.err').forEach((el)=>el.classList.remove('show'));
+  document.querySelectorAll('.other-input').forEach((el)=>{el.value='';el.style.display='none';});
+  document.querySelectorAll('input[type="checkbox"]').forEach((el)=>{el.checked=false;});
+  lastOutput={markdown:'',html:''};
+  byId('markdown-preview').textContent='Belum ada output. Isi form lalu klik "Generate Master Prompt 05".';
+  byId('html-preview').innerHTML='<p>Belum ada output HTML.</p>';
+  showTab('md');
+  applyConditionalVisibility();
+}
+
+renderForm();
+bindOthers();
+</script>
+</body>
+</html>

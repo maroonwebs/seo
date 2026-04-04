@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Master Prompt 04 - Lembaga Sosial (Dropdown 04A-04E)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#17221e;--muted:#5f726b;--bg:#f4faf7;--card:#fff;--line:rgba(23,34,30,.15);--green:#247c55;--green2:#1d6847;--red:#b63a3a;--r:12px;--r2:18px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:radial-gradient(circle at 10% 0,rgba(36,124,85,.12) 0,transparent 35%),var(--bg);color:var(--ink);line-height:1.6}
+.top{position:sticky;top:0;z-index:70;background:#14271f;border-bottom:1px solid rgba(255,255,255,.12);padding:14px 20px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.logo{font-family:'Playfair Display',serif;color:#ecfaf4;font-size:17px}.logo span{color:#9ceec9;font-style:italic}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.btn{border:1px solid rgba(255,255,255,.34);background:transparent;color:#eef8f3;border-radius:10px;padding:8px 12px;font-size:12px;cursor:pointer;text-decoration:none;font-family:'DM Sans',sans-serif}
+.btn.primary{background:var(--green);border-color:var(--green)}.btn.primary:hover{background:var(--green2)}
+main{max-width:1460px;margin:0 auto;padding:22px}
+.hero{background:linear-gradient(130deg,#1a4235,#236b51,#2c8e68);color:#eefaf5;padding:20px;border-radius:var(--r2);margin-bottom:14px}
+.hero .tag{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px;opacity:.95}
+.hero h1{font-family:'Playfair Display',serif;font-size:30px;font-weight:500;line-height:1.2;margin-bottom:8px}.hero h1 em{color:#cbf9e5}
+.hero p{font-size:14px;max-width:1060px}
+.switcher{margin-top:10px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.switcher select{border:1px solid rgba(255,255,255,.42);background:rgba(255,255,255,.12);color:#f2fff8;border-radius:10px;padding:8px 10px;font-family:'DM Sans',sans-serif}
+.switcher option{color:#1c2b25;background:#fff}
+.grid{display:grid;grid-template-columns:minmax(430px,.95fr) minmax(430px,1.05fr);gap:14px;align-items:start}
+.card{background:var(--card);border:1px solid rgba(23,34,30,.08);border-radius:var(--r2);padding:16px}
+.card h2{font-family:'Playfair Display',serif;font-size:24px;font-weight:500;margin-bottom:6px}
+.sub{font-size:13px;color:var(--muted);margin-bottom:12px}
+.group{border:1px solid rgba(23,34,30,.08);border-radius:var(--r);padding:12px;margin-bottom:12px}
+.gt{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#205b44;margin-bottom:8px}
+.f{margin-bottom:10px}.f:last-child{margin-bottom:0}
+label{display:block;font-size:13px;font-weight:700;margin-bottom:4px}label span{font-family:'DM Mono',monospace;font-size:11px;color:var(--green);margin-left:6px}
+.hint{font-size:12px;color:var(--muted);margin-bottom:6px}
+input[type="text"],textarea,select{width:100%;border:1.4px solid var(--line);border-radius:10px;padding:9px 11px;font-size:14px;font-family:'DM Sans',sans-serif;color:#20302a;background:#fff}
+textarea{min-height:88px;resize:vertical}
+.other-input{display:none;margin-top:8px}
+input:focus,textarea:focus,select:focus{outline:none;border-color:rgba(36,124,85,.85);box-shadow:0 0 0 3px rgba(36,124,85,.15)}
+.check-wrap{border:1.4px solid var(--line);border-radius:10px;padding:8px 10px;background:#fff}
+.ck{display:flex;gap:8px;align-items:flex-start;font-size:13px;margin:4px 0}.ck input{margin-top:2px}
+.invalid{border-color:rgba(182,58,58,.74)!important;box-shadow:0 0 0 3px rgba(182,58,58,.12)!important}
+.err{display:none;font-size:12px;color:var(--red);margin-top:5px}.err.show{display:block}
+.act{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.act .btn{color:#24332d;border-color:var(--line)}.act .btn.primary{color:#fff;border-color:var(--green)}
+.tab-switch{display:inline-flex;border:1px solid rgba(23,34,30,.14);border-radius:10px;overflow:hidden;margin-bottom:10px}
+.tab-switch button{border:none;background:#fff;padding:7px 11px;font-size:12px;cursor:pointer;color:#30443d}
+.tab-switch button.active{background:#eaf4ef;color:#1f5e45;font-weight:700}
+.preview{border:1px solid rgba(23,34,30,.08);border-radius:12px;background:#fbfffd;max-height:900px;overflow:auto}
+.preview pre{margin:0;padding:12px;white-space:pre-wrap;font-family:'DM Mono',monospace;font-size:12px}
+.html-preview{display:none;padding:12px;font-size:13px;line-height:1.65}
+.html-preview h3{font-family:'Playfair Display',serif;font-size:22px;margin-bottom:8px}
+.html-preview .meta{font-size:12px;color:var(--muted);margin-bottom:10px}
+.note{margin-top:10px;padding:8px 10px;border:1px dashed rgba(36,124,85,.34);background:#f4faf7;border-radius:10px;font-size:12px;color:#1f4f3d}
+@media(max-width:1120px){.grid{grid-template-columns:1fr}}
+@media(max-width:760px){.top{padding:12px}.row{width:100%}.row .btn{flex:1}main{padding:14px 10px}.hero h1{font-size:26px}input[type="text"],textarea,select{font-size:16px}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="logo">Framework Lembaga Sosial - <span>Master Prompt 04</span></div>
+  <div class="row">
+    <a class="btn" href="framework-lembaga-sosial.html">Kembali ke Framework</a>
+    <a class="btn" href="index.html">Kembali ke Hub</a>
+    <button class="btn" type="button" onclick="copyMarkdown()">Copy Markdown</button>
+    <button class="btn" type="button" onclick="downloadMarkdown()">Download .md</button>
+    <button class="btn" type="button" onclick="downloadHtml()">Download .html</button>
+    <button class="btn primary" type="button" onclick="downloadPdf()">Download PDF</button>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="tag">Prompt 04 - Writer Dropdown</div>
+    <h1>Master Prompt 04 <em>Lembaga Sosial</em></h1>
+    <p>Pilih mode writer 04A sampai 04E. Setiap mode punya schema field yang berbeda agar output markdown benar-benar sesuai kebutuhan penulisan (Pillar, Cluster, Donation, Local, FAQ).</p>
+    <div class="switcher">
+      <label for="writer_mode"><strong>Pilih Mode:</strong></label>
+      <select id="writer_mode" onchange="changeMode(this.value)">
+        <option value="04A">04A - Pillar Page Writer</option>
+        <option value="04B">04B - Cluster Page Writer</option>
+        <option value="04C">04C - Donation Page Writer</option>
+        <option value="04D">04D - Local Page Writer</option>
+        <option value="04E">04E - FAQ Page Writer</option>
+      </select>
+      <span id="mode_hint">Mode 04A fokus artikel pilar komprehensif.</span>
+    </div>
+  </section>
+
+  <div class="grid">
+    <section class="card">
+      <h2 id="form_title">Form Input Mode 04A</h2>
+      <p class="sub" id="form_sub">Lengkapi semua field wajib agar output writer lebih akurat.</p>
+      <form id="form"></form>
+      <div class="act">
+        <button class="btn primary" type="button" onclick="generateOutput()">Generate Prompt 04</button>
+        <button class="btn" type="button" onclick="resetForm()">Reset Form</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Preview Output Markdown + HTML</h2>
+      <p class="sub">Output siap copy-paste ke AI sesuai mode writer yang dipilih.</p>
+      <div class="tab-switch" role="tablist" aria-label="Pilih mode preview">
+        <button id="tab-md" type="button" class="active" onclick="showTab('md')">Markdown</button>
+        <button id="tab-html" type="button" onclick="showTab('html')">HTML</button>
+      </div>
+      <div class="preview">
+        <pre id="markdown-preview">Belum ada output. Pilih mode, isi form, lalu klik "Generate Prompt 04".</pre>
+        <div id="html-preview" class="html-preview"><p>Belum ada output HTML.</p></div>
+      </div>
+      <div class="note">Pastikan data trust, legalitas, CTA, dan internal link target terisi detail karena blok ini paling mempengaruhi kualitas output penulisan AI.</div>
+    </section>
+  </div>
+</main>
+
+<script>
+const MODE_CONFIG = {
+  '04A': {
+    title: '04A - Pillar Page Writer',
+    hint: 'Mode 04A fokus artikel pilar komprehensif.',
+    intro: 'Jalankan Prompt 04A Pillar Page Writer Yayasan untuk Silo S[X] berdasarkan input berikut.',
+    outputs: ['Output 1 - Pre-Writing Analysis','Output 2 - SEO/Search Package','Output 3 - Pillar Outline Final','Output 4 - Artikel Pillar Lengkap','Output 5 - Schema JSON-LD','Output 6 - Internal Link Plan','Output 7 - Reviewer Handoff','Output 8 - Repurposing Notes','Output 9 - Update Notes','Output 10 - Scorecard QA'],
+    schema: [
+      {section:'Identitas Lembaga',key:'nama_lembaga',label:'Nama Lembaga',required:true,type:'text'},
+      {section:'Identitas Lembaga',key:'tipe_lembaga',label:'Tipe Lembaga',required:true,type:'select',allowOther:true,options:['Yayasan','Non Profit','Profit / Komersial','Pesantren','Lembaga Keagamaan','Lembaga Sosial','Lembaga Zakat / LAZ','Lembaga Wakaf','Kombinasi']},
+      {section:'Identitas Lembaga',key:'kota_utama',label:'Kota Target (Multi Kota)',required:true,type:'textarea',list:true,min:1},
+      {section:'Identitas Lembaga',key:'kecamatan_layanan',label:'Kecamatan Layanan (min. 5)',required:true,type:'textarea',list:true,min:5},
+      {section:'Identitas Lembaga',key:'domain',label:'Domain / Website',required:true,type:'text'},
+      {section:'Identitas Lembaga',key:'wa_kontak',label:'Nomor WA / Kontak',required:true,type:'text'},
+      {section:'Identitas Lembaga',key:'tahun_berdiri',label:'Tahun Berdiri',required:true,type:'text'},
+      {section:'Identitas Lembaga',key:'nomor_sk',label:'Nomor SK / Akta Resmi',required:true,type:'text'},
+      {section:'Identitas Lembaga',key:'nama_pj',label:'Nama Ketua / PJ',required:true,type:'text'},
+      {section:'Pillar & Konten',key:'pillar_target',label:'Pillar Target',required:true,type:'select',options:['S1 - Brand & Donasi','S2 - Panduan Syariat Islam','S3 - Program Yatim & Dhuafa','S4 - Trust & Transparansi','S5 - Local Hub','S6 - Seasonal Campaign']},
+      {section:'Pillar & Konten',key:'primary_keyword',label:'Primary Keyword',required:true,type:'text'},
+      {section:'Pillar & Konten',key:'secondary_keywords',label:'Secondary Keywords (min. 5)',required:true,type:'textarea',list:true,min:5},
+      {section:'Pillar & Konten',key:'longtail_keywords',label:'Long-tail Keywords (min. 5)',required:true,type:'textarea',list:true,min:5},
+      {section:'Pillar & Konten',key:'program_utama',label:'Program Utama (nama + deskripsi)',required:true,type:'textarea'},
+      {section:'Pillar & Konten',key:'data_penerima',label:'Data Penerima Manfaat',required:true,type:'textarea'},
+      {section:'Pillar & Konten',key:'rekening_donasi',label:'Rekening Donasi Lengkap',required:true,type:'textarea'},
+      {section:'Pillar & Konten',key:'legalitas_lengkap',label:'Legalitas Lengkap',required:true,type:'textarea'},
+      {section:'Pillar & Konten',key:'data_trust',label:'Data Trust (donatur, dana, rating, media)',required:true,type:'textarea'},
+      {section:'Pillar & Konten',key:'testimoni',label:'Testimoni Donatur (min. 2)',required:true,type:'textarea'},
+      {section:'Pillar & Konten',key:'internal_links',label:'Internal Link Target (min. 8)',required:true,type:'textarea',list:true,min:8},
+      {section:'Preferensi',key:'tone_voice',label:'Tone of Voice',required:true,type:'select',options:['Islami + Empatik + Amanah','Otoritatif + Mendidik','Lokal + Hangat + Terpercaya']},
+      {section:'Preferensi',key:'target_panjang',label:'Target Panjang Artikel',type:'select',options:['3.000-3.500 kata','3.500-4.500 kata','4.500-5.000 kata']}
+    ]
+  },
+  '04B': {
+    title: '04B - Cluster Page Writer',
+    hint: 'Mode 04B fokus satu topik cluster yang memperkuat pilar.',
+    intro: 'Jalankan Prompt 04B Cluster Page Writer Yayasan untuk Cluster [C1-C8] berdasarkan input berikut.',
+    outputs: ['Output 1 - Pre-Writing Analysis','Output 2 - Metadata','Output 3 - Artikel Cluster Lengkap','Output 4 - FAQ','Output 5 - Internal Linking Table','Output 6 - Scorecard QA'],
+    schema: [
+      {section:'Identitas Dasar',key:'nama_lembaga',label:'Nama Lembaga',required:true,type:'text'},
+      {section:'Identitas Dasar',key:'kota_utama',label:'Kota Target (Multi Kota)',required:true,type:'textarea',list:true,min:1},
+      {section:'Identitas Dasar',key:'wa',label:'Nomor WA',required:true,type:'text'},
+      {section:'Identitas Dasar',key:'rekening',label:'Rekening Donasi',required:true,type:'textarea'},
+      {section:'Identitas Dasar',key:'sk_akta',label:'Nomor SK / Akta',required:true,type:'text'},
+      {section:'Identitas Dasar',key:'tahun_berdiri',label:'Tahun Berdiri',type:'text'},
+      {section:'Identitas Dasar',key:'data_penerima',label:'Data Penerima Manfaat',type:'text'},
+      {section:'Cluster Setup',key:'tipe_cluster',label:'Tipe Cluster',required:true,type:'select',options:['C1 - Syariat Islam','C2 - Program Lembaga','C3 - Trust & Legalitas','C4 - Masalah Sosial','C5 - Proses How-To','C6 - Human Interest','C7 - Seasonal Campaign','C8 - Legal & Kelembagaan']},
+      {section:'Cluster Setup',key:'silo_asal',label:'Silo Asal (Pilih Silo + Deskripsi)',required:true,type:'select',options:['S1 - Brand & Donasi','S2 - Panduan Syariat Islam','S3 - Program Yatim & Dhuafa','S4 - Trust & Transparansi','S5 - Local Hub','S6 - Seasonal Campaign']},
+      {section:'Cluster Setup',key:'topik_spesifik',label:'Topik Spesifik',required:true,type:'text'},
+      {section:'Cluster Setup',key:'primary_keyword',label:'Primary Keyword',required:true,type:'text'},
+      {section:'Cluster Setup',key:'secondary_keywords',label:'Secondary Keywords',required:true,type:'textarea',list:true,min:3},
+      {section:'Cluster Setup',key:'longtail_keywords',label:'Long-tail Keywords',required:true,type:'textarea',list:true,min:3},
+      {section:'Cluster Setup',key:'data_khusus_tipe',label:'Data Khusus sesuai tipe C1-C8',required:true,type:'textarea'},
+      {section:'Cluster Setup',key:'pillar_url',label:'Pillar Page Silo Ini (URL + judul)',required:true,type:'text'},
+      {section:'Cluster Setup',key:'donation_url',label:'Donation Page Target (URL + judul)',required:true,type:'text'},
+      {section:'Cluster Setup',key:'trust_url',label:'Trust Page S4 - Trust & Transparansi (URL + judul)',required:true,type:'text'},
+      {section:'Preferensi',key:'tone_voice',label:'Tone of Voice',required:true,type:'select',options:['Islami + Mendidik','Informatif + Inspiratif','Faktual + Transparan','Praktis + Jelas','Islami + Urgensi','Empati + Solutif']}
+    ]
+  },
+  '04C': {
+    title: '04C - Donation Page Writer',
+    hint: 'Mode 04C fokus halaman donasi trust-first dan conversion-ready.',
+    intro: 'Jalankan Prompt 04C Donation Page Writer Yayasan untuk tipe DP yang dipilih berdasarkan input berikut.',
+    outputs: ['Output 1 - Pre-Writing Analysis','Output 2 - Metadata','Output 3 - Donation Page Lengkap','Output 4 - Schema JSON-LD','Output 5 - Internal Linking Table','Output 6 - Scorecard QA'],
+    schema: [
+      {section:'Identitas Lembaga',key:'nama_lembaga',label:'Nama Lembaga',required:true,type:'text'},
+      {section:'Identitas Lembaga',key:'tipe_lembaga',label:'Tipe Lembaga',required:true,type:'select',allowOther:true,options:['Yayasan','Non Profit','Profit / Komersial','Pesantren','Lembaga Keagamaan','Lembaga Sosial','Lembaga Zakat / LAZ','Lembaga Wakaf','Kombinasi']},
+      {section:'Identitas Lembaga',key:'kota_utama',label:'Kota Target (Multi Kota)',required:true,type:'textarea',list:true,min:1},
+      {section:'Identitas Lembaga',key:'kecamatan_layanan',label:'Kecamatan Layanan (Multi Kecamatan)',required:true,type:'textarea',list:true,min:3},
+      {section:'Identitas Lembaga',key:'domain',label:'Domain / Website',required:true,type:'text'},
+      {section:'Identitas Lembaga',key:'wa_donasi',label:'Nomor WA Donasi',required:true,type:'text'},
+      {section:'Identitas Lembaga',key:'tahun_berdiri',label:'Tahun Berdiri',required:true,type:'text'},
+      {section:'Identitas Lembaga',key:'sk_akta',label:'Nomor SK / Akta Resmi',required:true,type:'text'},
+      {section:'Identitas Lembaga',key:'nama_pj',label:'Nama Ketua / PJ',required:true,type:'text'},
+      {section:'Donation Setup',key:'tipe_dp',label:'Tipe Donation Page',required:true,type:'select',options:['DP1 - Donasi Utama','DP2-Y - Donasi Yatim','DP2-Z - Bayar Zakat','DP2-W - Wakaf Online','DP2-Q - Qurban Online','DP2-B - Donasi Beasiswa','DP2-M - Donasi Masjid','DP3-R - Donasi Ramadan','DP3-IA - Qurban Idul Adha','DP3-D - Donasi Darurat']},
+      {section:'Donation Setup',key:'primary_keyword',label:'Primary Keyword',required:true,type:'text'},
+      {section:'Donation Setup',key:'secondary_keywords',label:'Secondary Keywords',required:true,type:'textarea',list:true,min:3},
+      {section:'Donation Setup',key:'rekening_lengkap',label:'Rekening Donasi Lengkap',required:true,type:'textarea'},
+      {section:'Donation Setup',key:'metode_donasi',label:'Metode Donasi',required:true,type:'checklist',options:['Transfer Bank','QRIS','Payment Gateway','Bayar Langsung','Potong Gaji (CSR)']},
+      {section:'Donation Setup',key:'detail_program',label:'Detail Program / Peruntukan',required:true,type:'textarea'},
+      {section:'Donation Setup',key:'dampak_nominal',label:'Dampak per Nominal',required:true,type:'textarea'},
+      {section:'Donation Setup',key:'alokasi_dana',label:'Alokasi Dana (Program/Operasional/Emergency)',required:true,type:'textarea'},
+      {section:'Donation Setup',key:'data_trust',label:'Data Trust (donatur, dana, penerima)',required:true,type:'textarea'},
+      {section:'Donation Setup',key:'testimoni',label:'Testimoni Donatur (min. 2)',required:true,type:'textarea'},
+      {section:'Donation Setup',key:'data_khusus_tipe',label:'Data khusus sesuai tipe DP2/DP3',type:'textarea'}
+    ]
+  },
+  '04D': {
+    title: '04D - Local Page Writer',
+    hint: 'Mode 04D fokus local page unik per kecamatan.',
+    intro: 'Jalankan Prompt 04D Local Page Writer Yayasan untuk kecamatan target berdasarkan input berikut.',
+    outputs: ['Output 1 - Pre-Writing Analysis','Output 2 - Metadata','Output 3 - Artikel Local Page Lengkap','Output 4 - Schema JSON-LD','Output 5 - Internal Linking Table','Output 6 - Scorecard QA'],
+    schema: [
+      {section:'Identitas Dasar',key:'nama_lembaga',label:'Nama Lembaga',required:true,type:'text'},
+      {section:'Identitas Dasar',key:'kota_utama',label:'Kota Target (Multi Kota)',required:true,type:'textarea',list:true,min:1},
+      {section:'Identitas Dasar',key:'wa',label:'Nomor WA',required:true,type:'text'},
+      {section:'Identitas Dasar',key:'sk_akta',label:'Nomor SK / Akta',required:true,type:'text'},
+      {section:'Identitas Dasar',key:'rekening',label:'Rekening Donasi',required:true,type:'textarea'},
+      {section:'Local Target',key:'nama_kecamatan',label:'Target Kecamatan (Multi Kecamatan)',required:true,type:'textarea',list:true,min:1},
+      {section:'Local Target',key:'nama_kota',label:'Target Kota (Multi Kota)',required:true,type:'textarea',list:true,min:1},
+      {section:'Local Target',key:'kelurahan_desa',label:'Kelurahan/Desa dalam Kecamatan',required:true,type:'textarea',list:true,min:3},
+      {section:'Local Target',key:'landmark',label:'Landmark / Ciri Khas Kecamatan',type:'textarea'},
+      {section:'Local Target',key:'program_kecamatan',label:'Program di Kecamatan Ini',required:true,type:'textarea'},
+      {section:'Local Target',key:'penerima_kecamatan',label:'Penerima Manfaat di Kecamatan Ini',type:'textarea'},
+      {section:'Local Target',key:'testimoni_lokal',label:'Testimoni Lokal',type:'textarea'},
+      {section:'Internal Link',key:'pillar_s5',label:'Pillar S5 - Local Hub URL',required:true,type:'text'},
+      {section:'Internal Link',key:'donation_page',label:'Donation Page URL',required:true,type:'text'},
+      {section:'Internal Link',key:'trust_s4',label:'Trust Page S4 - Trust & Transparansi URL',required:true,type:'text'}
+    ]
+  },
+  '04E': {
+    title: '04E - FAQ Page Writer',
+    hint: 'Mode 04E fokus FAQ standalone untuk donatur dan penerima manfaat.',
+    intro: 'Jalankan Prompt 04E FAQ Page Writer Yayasan untuk tipe FAQ yang dipilih berdasarkan input berikut.',
+    outputs: ['Output 1 - Pre-Writing Analysis','Output 2 - Metadata','Output 3 - FAQ List Lengkap','Output 4 - Schema FAQPage JSON-LD','Output 5 - Internal Linking','Output 6 - Scorecard QA'],
+    schema: [
+      {section:'Identitas Dasar',key:'nama_lembaga',label:'Nama Lembaga',required:true,type:'text'},
+      {section:'Identitas Dasar',key:'kota_utama',label:'Kota Target (Multi Kota)',required:true,type:'textarea',list:true,min:1},
+      {section:'Identitas Dasar',key:'wa',label:'Nomor WA',required:true,type:'text'},
+      {section:'Identitas Dasar',key:'sk_akta',label:'Nomor SK / Akta',required:true,type:'text'},
+      {section:'Identitas Dasar',key:'rekening',label:'Rekening Donasi',required:true,type:'textarea'},
+      {section:'Identitas Dasar',key:'tahun_berdiri',label:'Tahun Berdiri',type:'text'},
+      {section:'Identitas Dasar',key:'data_penerima',label:'Data Penerima Manfaat',type:'text'},
+      {section:'FAQ Setup',key:'tipe_faq',label:'Tipe FAQ Page',required:true,type:'select',options:['FP1-S1 - FAQ Donasi & Lembaga','FP1-S2 - FAQ Syariat Zakat/Wakaf','FP1-S4 - FAQ Kepercayaan','FP1-S6 - FAQ Seasonal','FP2 - Master FAQ']},
+      {section:'FAQ Setup',key:'primary_keyword',label:'Primary Keyword',required:true,type:'text'},
+      {section:'FAQ Setup',key:'pertanyaan_donatur',label:'Pertanyaan dari Donatur',required:true,type:'textarea',list:true,min:3},
+      {section:'FAQ Setup',key:'nishab_zakat',label:'Nishab Zakat Mal (jika relevan)',type:'text'},
+      {section:'FAQ Setup',key:'fidyah_harian',label:'Fidyah per Hari (jika relevan)',type:'text'}
+    ]
+  }
+};
+
+let currentMode = '04A';
+let lastMarkdown = '';
+let lastHtml = '';
+let activeTab = 'md';
+const byId = (id) => document.getElementById(id);
+const clean = (v) => (v || '').replace(/\r/g,'').trim();
+const esc = (v) => (v || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+const today = () => new Date().toISOString().slice(0,10);
+const splitList = (v) => clean(v).split(/\n|;|,/).map((x) => x.replace(/^\d+[\).\s-]*/,'').trim()).filter(Boolean);
+const slug = (v) => (v || 'lembaga').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,80) || 'lembaga';
+
+function fieldHtml(f){
+  const req = f.required ? '<span>Wajib</span>' : '';
+  const hint = f.hint ? `<p class="hint">${f.hint}</p>` : '';
+  let input = '';
+  if (f.type === 'textarea') input = `<textarea id="${f.key}" placeholder="Isi ${f.label.toLowerCase()}"></textarea>`;
+  else if (f.type === 'select') {
+    const allowOther = f.allowOther !== false;
+    const otherOpt = allowOther ? `<option value="__other__">Lainnya (tulis manual)</option>` : '';
+    const otherInput = allowOther ? `<input id="${f.key}_other" class="other-input" type="text" placeholder="Isi lainnya untuk ${f.label.toLowerCase()}">` : '';
+    input = `<select id="${f.key}" data-allow-other="${allowOther ? '1' : '0'}"><option value="">Pilih opsi</option>${(f.options || []).map((o) => `<option value="${esc(o)}">${esc(o)}</option>`).join('')}${otherOpt}</select>${otherInput}`;
+  }
+  else if (f.type === 'checklist') input = `<div class="check-wrap" id="wrap-${f.key}">${(f.options || []).map((o) => `<label class="ck"><input type="checkbox" name="${f.key}" value="${esc(o)}">${esc(o)}</label>`).join('')}</div>`;
+  else input = `<input id="${f.key}" type="text" placeholder="Isi ${f.label.toLowerCase()}">`;
+  return `<div class="f" id="field-${f.key}"><label for="${f.key}">${f.label} ${req}</label>${hint}${input}<div class="err" id="err-${f.key}">${f.label} wajib diisi.</div></div>`;
+}
+
+function renderForm(){
+  const cfg = MODE_CONFIG[currentMode];
+  byId('form_title').textContent = `Form Input Mode ${cfg.title}`;
+  byId('form_sub').textContent = 'Field sudah disesuaikan dengan input wajib mode yang dipilih.';
+  byId('mode_hint').textContent = cfg.hint;
+  const groups = [...new Set(cfg.schema.map((s) => s.section))];
+  byId('form').innerHTML = groups.map((g) => `<div class="group"><div class="gt">${g}</div>${cfg.schema.filter((f) => f.section === g).map(fieldHtml).join('')}</div>`).join('');
+  bindSelectOthers();
+}
+
+function bindSelectOthers(){
+  document.querySelectorAll('#form select[data-allow-other="1"]').forEach((sel) => {
+    const other = byId(`${sel.id}_other`);
+    if (!other) return;
+    const sync = () => {
+      const on = sel.value === '__other__';
+      other.style.display = on ? 'block' : 'none';
+      if (!on) other.value = '';
+    };
+    sel.addEventListener('change', sync);
+    sync();
+  });
+}
+
+function setInvalid(f, bad){
+  const err = byId(`err-${f.key}`);
+  if (f.type === 'checklist') {
+    const wrap = byId(`wrap-${f.key}`);
+    if (wrap) wrap.classList.toggle('invalid', bad);
+  } else {
+    const el = byId(f.key);
+    if (el) el.classList.toggle('invalid', bad);
+  }
+  if (err) err.classList.toggle('show', bad);
+}
+
+function collectData(){
+  const cfg = MODE_CONFIG[currentMode];
+  const d = {};
+  cfg.schema.forEach((f) => {
+    if (f.type === 'checklist') d[f.key] = [...document.querySelectorAll(`input[name="${f.key}"]:checked`)].map((el) => clean(el.value));
+    else if (f.type === 'textarea' && f.list) d[f.key] = splitList((byId(f.key) || {}).value || '');
+    else if (f.type === 'select') {
+      const base = clean((byId(f.key) || {}).value || '');
+      const other = clean((byId(`${f.key}_other`) || {}).value || '');
+      d[f.key] = base === '__other__' ? (other ? `Lainnya: ${other}` : 'Lainnya') : base;
+    } else d[f.key] = clean((byId(f.key) || {}).value || '');
+  });
+  return d;
+}
+
+function validate(d){
+  const cfg = MODE_CONFIG[currentMode];
+  let ok = true;
+  cfg.schema.forEach((f) => {
+    let bad = false;
+    const val = d[f.key];
+    if (f.required) bad = Array.isArray(val) ? val.length === 0 : !val;
+    if (!bad && f.required && f.type === 'select') {
+      const base = clean((byId(f.key) || {}).value || '');
+      const other = clean((byId(`${f.key}_other`) || {}).value || '');
+      if (base === '__other__' && !other) bad = true;
+    }
+    if (!bad && f.list && f.min && Array.isArray(val) && val.length > 0) {
+      bad = val.length < f.min;
+      const err = byId(`err-${f.key}`);
+      if (bad && err) err.textContent = `${f.label} minimal ${f.min} item.`;
+    }
+    setInvalid(f, bad);
+    if (bad) ok = false;
+  });
+  return ok;
+}
+
+function listLine(arr){ return (!arr || !arr.length) ? '-' : arr.map((x, i) => `${i+1}. ${x}`).join('\n'); }
+
+function buildMarkdown(d){
+  const cfg = MODE_CONFIG[currentMode];
+  const groups = [...new Set(cfg.schema.map((s) => s.section))];
+  const inputBlocks = groups.map((g) => {
+    const lines = cfg.schema.filter((f) => f.section === g).map((f) => {
+      const v = d[f.key];
+      if (Array.isArray(v)) return `${f.label}:\n${listLine(v)}`;
+      return `${f.label}: ${v || '-'}`;
+    }).join('\n');
+    return `[${g}]\n${lines}`;
+  }).join('\n\n');
+
+  return [
+`# PROMPT ${currentMode} - ${cfg.title.replace(/^\d+[A-Z]?\s-\s/, '')}`,
+`# FRAMEWORK SEO + AEO + GEO + LLM OPTIMIZATION 2026`,
+`# NICHE: YAYASAN, LEMBAGA KEAGAMAAN & LEMBAGA SOSIAL`,
+``,
+cfg.intro,
+`Tanggal Generate: ${today()}`,
+``,
+`==================================================`,
+`BAGIAN 1 - INPUT WAJIB`,
+`==================================================`,
+inputBlocks,
+``,
+`==================================================`,
+`BAGIAN 2 - INSTRUKSI SISTEM`,
+`==================================================`,
+`Kamu adalah Senior SEO Content Writer, AEO Writer, GEO Content Strategist, dan Trust-Building Copywriter untuk niche lembaga sosial.`,
+``,
+`Standar wajib:`,
+`1. Answer-first dan section harus berdiri sendiri.`,
+`2. Trust signal, legalitas, dan data konkret wajib muncul jelas.`,
+`3. CTA harus proporsional dengan intent halaman.`,
+`4. Hindari klaim berlebihan tanpa bukti.`,
+`5. Internal link wajib mengarahkan ke pillar/donation/trust sesuai konteks mode.`,
+``,
+`==================================================`,
+`BAGIAN 3 - OUTPUT WAJIB`,
+`==================================================`,
+...cfg.outputs.map((x, i) => `${i+1}) ${x}`),
+``,
+`NEXT STEP: Review output dengan scorecard QA internal sebelum publish.`
+  ].join('\n');
+}
+
+function buildOutputHtml(markdown){
+  const cfg = MODE_CONFIG[currentMode];
+  const safe = esc(markdown).replace(/\n/g, '<br>');
+  return `<article><h3>Output ${cfg.title} - Lembaga Sosial</h3><div class="meta">Generated: ${today()}</div><div>${safe}</div></article>`;
+}
+
+function buildExportDoc(title, htmlBody){
+  return `<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${esc(title)}</title><style>body{font-family:Arial,sans-serif;padding:24px;line-height:1.6;color:#1d2a25}h3{font-size:28px;margin-bottom:8px}.meta{font-size:12px;color:#5a6a64;margin-bottom:12px}</style></head><body>${htmlBody}</body></html>`;
+}
+
+function showTab(name){
+  activeTab = name;
+  byId('markdown-preview').style.display = name === 'md' ? 'block' : 'none';
+  byId('html-preview').style.display = name === 'html' ? 'block' : 'none';
+  byId('tab-md').classList.toggle('active', name === 'md');
+  byId('tab-html').classList.toggle('active', name === 'html');
+}
+
+function generateOutput(){
+  const d = collectData();
+  if (!validate(d)) { alert('Masih ada field wajib yang belum lengkap. Mohon cek bagian merah.'); return false; }
+  lastMarkdown = buildMarkdown(d);
+  lastHtml = buildOutputHtml(lastMarkdown);
+  byId('markdown-preview').textContent = lastMarkdown;
+  byId('html-preview').innerHTML = lastHtml;
+  showTab(activeTab);
+  return true;
+}
+function ensureOutput(){ return lastMarkdown ? true : generateOutput(); }
+function copyMarkdown(){ if (!ensureOutput()) return; navigator.clipboard.writeText(lastMarkdown).then(() => alert('Markdown berhasil disalin.')).catch(() => alert('Gagal menyalin otomatis.')); }
+function downloadMarkdown(){
+  if (!ensureOutput()) return;
+  const filename = `framework-lembaga-sosial-master-prompt-${currentMode.toLowerCase()}-${slug(clean((byId('nama_lembaga')||{}).value||'lembaga'))}-${today()}.md`;
+  const blob = new Blob([lastMarkdown], { type: 'text/markdown;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href = url; a.download = filename; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+}
+function downloadHtml(){
+  if (!ensureOutput()) return;
+  const filename = `framework-lembaga-sosial-master-prompt-${currentMode.toLowerCase()}-${slug(clean((byId('nama_lembaga')||{}).value||'lembaga'))}-${today()}.html`;
+  const blob = new Blob([buildExportDoc(`Master Prompt ${currentMode}`, lastHtml)], { type: 'text/html;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href = url; a.download = filename; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+}
+function downloadPdf(){
+  if (!ensureOutput()) return;
+  const html = buildExportDoc(`Master Prompt ${currentMode}`, lastHtml);
+  const w = window.open('', '_blank'); if (!w) { alert('Pop-up diblokir browser.'); return; }
+  w.document.open(); w.document.write(html); w.document.close(); w.focus(); setTimeout(() => w.print(), 320);
+}
+function resetForm(){
+  byId('form').reset();
+  document.querySelectorAll('.invalid').forEach((el) => el.classList.remove('invalid'));
+  document.querySelectorAll('.err').forEach((el) => el.classList.remove('show'));
+  document.querySelectorAll('input[type="checkbox"]').forEach((el) => { el.checked = false; });
+  document.querySelectorAll('.other-input').forEach((el) => { el.value = ''; el.style.display = 'none'; });
+  lastMarkdown = '';
+  lastHtml = '';
+  byId('markdown-preview').textContent = 'Belum ada output. Pilih mode, isi form, lalu klik "Generate Prompt 04".';
+  byId('html-preview').innerHTML = '<p>Belum ada output HTML.</p>';
+  showTab('md');
+}
+
+function changeMode(mode){
+  if (!MODE_CONFIG[mode]) return;
+  currentMode = mode;
+  byId('writer_mode').value = mode;
+  resetForm();
+  renderForm();
+  const url = new URL(window.location.href);
+  url.searchParams.set('mode', mode);
+  history.replaceState(null, '', url.toString());
+}
+
+(function init(){
+  const params = new URLSearchParams(window.location.search);
+  const qMode = (params.get('mode') || '').toUpperCase();
+  if (MODE_CONFIG[qMode]) currentMode = qMode;
+  byId('writer_mode').value = currentMode;
+  renderForm();
+  showTab('md');
+})();
+</script>
+</body>
+</html>
