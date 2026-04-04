@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Konversi Conten Web Vendor Outbound</title>
+<style>
+:root{
+  --ink:#14182b;
+  --ink2:#2a3458;
+  --muted:#616d94;
+  --paper:#f4f7ff;
+  --card:#ffffff;
+  --line:rgba(20,24,43,.14);
+  --blue:#275fca;
+  --blue2:#3d77df;
+  --blue-soft:#ecf3ff;
+  --bad:#c44343;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:"DM Sans","Segoe UI",Arial,sans-serif;
+  background:
+    radial-gradient(circle at 10% 0,rgba(39,95,202,.10) 0,transparent 34%),
+    radial-gradient(circle at 100% 100%,rgba(61,119,223,.12) 0,transparent 36%),
+    var(--paper);
+  color:var(--ink);
+  line-height:1.6;
+}
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:40;
+  background:#15254c;
+  border-bottom:1px solid rgba(255,255,255,.14);
+  padding:12px 16px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.brand{
+  color:#edf2ff;
+  font-size:16px;
+  font-weight:700;
+}
+.brand em{font-style:italic;color:#b8d1ff}
+.top-actions{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+}
+.btn{
+  border:1px solid rgba(255,255,255,.32);
+  background:transparent;
+  color:#eef2ff;
+  text-decoration:none;
+  font-size:12px;
+  padding:8px 11px;
+  border-radius:10px;
+  cursor:pointer;
+}
+.btn:hover{border-color:rgba(255,255,255,.62)}
+.btn.primary{
+  border-color:var(--blue2);
+  background:var(--blue2);
+  color:#fff;
+}
+main{max-width:1440px;margin:0 auto;padding:18px}
+.hero{
+  border:1px solid rgba(255,255,255,.25);
+  border-radius:16px;
+  padding:18px;
+  color:#f1f5ff;
+  margin-bottom:12px;
+  background:linear-gradient(135deg,#1c3f85,#275fca,#3d77df);
+}
+.hero .tag{
+  font-size:11px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  margin-bottom:8px;
+  opacity:.95;
+}
+.hero h1{
+  font-size:30px;
+  line-height:1.2;
+  margin-bottom:6px;
+}
+.hero h1 em{font-style:italic;color:#dce9ff}
+.hero p{font-size:14px;max-width:1050px}
+.layout{
+  display:grid;
+  grid-template-columns:minmax(430px,.95fr) minmax(430px,1.05fr);
+  gap:12px;
+  align-items:start;
+}
+.card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:14px;
+}
+.card h2{
+  font-size:24px;
+  margin-bottom:4px;
+}
+.sub{
+  font-size:13px;
+  color:var(--muted);
+  margin-bottom:10px;
+}
+.form-section{
+  border:1px solid rgba(20,24,43,.10);
+  border-radius:12px;
+  padding:10px;
+  margin-bottom:10px;
+}
+.form-section h3{
+  font-size:11px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:#285ab7;
+  margin-bottom:8px;
+}
+.field{margin-bottom:8px}
+.field:last-child{margin-bottom:0}
+label{
+  display:block;
+  font-size:13px;
+  font-weight:700;
+  margin-bottom:4px;
+}
+.required{
+  margin-left:6px;
+  font-size:10px;
+  text-transform:uppercase;
+  color:#2a62cd;
+}
+.hint{
+  font-size:12px;
+  color:var(--muted);
+  margin-bottom:5px;
+}
+.other-input{
+  display:none;
+  margin-top:8px;
+}
+input[type="text"],select,textarea{
+  width:100%;
+  border:1.4px solid rgba(20,24,43,.22);
+  border-radius:10px;
+  padding:9px 10px;
+  font-size:14px;
+  font-family:inherit;
+  color:var(--ink2);
+  background:#fff;
+}
+textarea{min-height:90px;resize:vertical}
+textarea.big{min-height:360px}
+textarea.mid{min-height:140px}
+input:focus,select:focus,textarea:focus{
+  outline:none;
+  border-color:rgba(39,95,202,.84);
+  box-shadow:0 0 0 3px rgba(39,95,202,.12);
+}
+.check-wrap{
+  border:1.4px solid rgba(20,24,43,.22);
+  border-radius:10px;
+  padding:8px 10px;
+}
+.check-item{
+  display:flex;
+  gap:8px;
+  align-items:flex-start;
+  font-size:13px;
+  margin:4px 0;
+}
+.invalid{
+  border-color:rgba(196,67,67,.9)!important;
+  box-shadow:0 0 0 3px rgba(196,67,67,.12)!important;
+}
+.error{
+  display:none;
+  margin-top:4px;
+  font-size:12px;
+  color:var(--bad);
+}
+.error.show{display:block}
+.actions{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:10px;
+}
+.actions .btn{
+  color:#2d385e;
+  border:1px solid rgba(20,24,43,.22);
+}
+.actions .btn.primary{color:#fff;border-color:var(--blue2)}
+.tabs{
+  display:inline-flex;
+  border:1px solid rgba(20,24,43,.18);
+  border-radius:10px;
+  overflow:hidden;
+  margin-bottom:8px;
+}
+.tabs button{
+  border:none;
+  background:#fff;
+  color:#2f3b62;
+  font-size:12px;
+  padding:8px 12px;
+  cursor:pointer;
+}
+.tabs button.active{
+  background:var(--blue-soft);
+  color:#1f529f;
+  font-weight:700;
+}
+.preview{
+  border:1px solid rgba(20,24,43,.18);
+  border-radius:12px;
+  overflow:hidden;
+}
+#markdown-preview{
+  margin:0;
+  padding:12px;
+  min-height:560px;
+  max-height:900px;
+  overflow:auto;
+  background:#0f1732;
+  color:#dce7ff;
+  white-space:pre-wrap;
+  font:12px/1.68 Consolas,Menlo,monospace;
+}
+#html-preview{
+  display:none;
+  min-height:560px;
+  max-height:900px;
+  overflow:auto;
+  padding:14px;
+  color:var(--ink2);
+  background:#fff;
+}
+#html-preview h1,#html-preview h2,#html-preview h3{
+  line-height:1.3;
+  margin-bottom:8px;
+  color:var(--ink);
+}
+#html-preview h1{font-size:30px}
+#html-preview h2{font-size:23px;margin-top:20px}
+#html-preview h3{font-size:18px;margin-top:14px}
+#html-preview p,#html-preview li,#html-preview td,#html-preview th{
+  font-size:14px;
+}
+#html-preview ul{padding-left:20px}
+#html-preview table{
+  width:100%;
+  border-collapse:collapse;
+  margin:8px 0 14px;
+}
+#html-preview th,#html-preview td{
+  border:1px solid rgba(20,24,43,.20);
+  padding:8px 10px;
+  text-align:left;
+  vertical-align:top;
+}
+#html-preview th{
+  background:#edf4ff;
+  font-size:12px;
+  text-transform:uppercase;
+}
+.note{
+  margin-top:8px;
+  border:1px dashed rgba(39,95,202,.34);
+  border-radius:10px;
+  background:#f1f7ff;
+  color:#22437f;
+  padding:8px 10px;
+  font-size:12px;
+}
+@media (max-width:1100px){
+  .layout{grid-template-columns:1fr}
+}
+@media (max-width:760px){
+  .topbar{position:static}
+  .brand{width:100%}
+  .top-actions{
+    width:100%;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+  }
+  .top-actions .btn{
+    width:100%;
+    text-align:center;
+  }
+  main{padding:12px 10px}
+  .hero h1{font-size:26px}
+  input[type="text"],select,textarea{font-size:16px}
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">Framework Niche - <em>Konversi Conten Vendor Outbound</em></div>
+  <div class="top-actions">
+    <a class="btn" href="index.html">Kembali ke Hub</a>
+    <button class="btn" type="button" onclick="copyMarkdown()">Copy Markdown</button>
+    <button class="btn" type="button" onclick="copyHtml()">Copy HTML</button>
+    <button class="btn" type="button" onclick="downloadMarkdown()">Download .md</button>
+    <button class="btn" type="button" onclick="downloadHtml()">Download .html</button>
+    <button class="btn primary" type="button" onclick="downloadPdf()">Download PDF</button>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="tag">Master Prompt Konversi Hybrid Content Vol 1</div>
+    <h1>Konversi <em>Conten Web Vendor Outbound</em></h1>
+    <p>Halaman ini untuk konversi artikel lama menjadi konten hybrid informasional + komersial. Form dibuat detail, termasuk area paste artikel lama yang luas, dan output tersedia dalam Markdown, HTML preview, serta PDF.</p>
+  </section>
+
+  <div class="layout">
+    <section class="card">
+      <h2>Form Input Lengkap</h2>
+      <p class="sub">Lengkapi field wajib agar output A-H lengkap dan siap dipakai.</p>
+      <form id="form-shell"></form>
+      <div class="actions">
+        <button class="btn primary" type="button" onclick="generateOutput()">Generate Output</button>
+        <button class="btn" type="button" onclick="resetForm()">Reset Form</button>
+      </div>
+      <div class="error" id="form-error">Masih ada field wajib yang belum lengkap atau minimum item belum terpenuhi.</div>
+    </section>
+
+    <section class="card">
+      <h2>Preview Output</h2>
+      <p class="sub">Preview real-time markdown dan html. Hasil bisa copy dan download.</p>
+      <div class="tabs">
+        <button id="tab-md" class="active" type="button" onclick="showTab('md')">Markdown</button>
+        <button id="tab-html" type="button" onclick="showTab('html')">HTML Preview</button>
+      </div>
+      <div class="preview">
+        <pre id="markdown-preview">Belum ada output. Isi form lalu klik "Generate Output".</pre>
+        <div id="html-preview"><p>Belum ada output HTML.</p></div>
+      </div>
+      <div class="note">Output memuat urutan A-H, checklist SEO, schema JSON-LD, scorecard, quality gate, dan lampiran artikel lama.</div>
+    </section>
+  </div>
+</main>
+
+<script>
+const FORM_SCHEMA = [
+  {
+    title: 'Identitas Artikel Lama',
+    fields: [
+      { id:'old_title', label:'Judul Artikel Lama', required:true, type:'text' },
+      { id:'old_url', label:'URL Artikel Lama', required:true, type:'text', placeholder:'https://...' },
+      { id:'old_publish', label:'Tanggal Publish Lama', type:'text' },
+      { id:'topic', label:'Tipe Topik', required:true, type:'select', allowOther:true, options:['Hutan/Pegunungan/Alam','Air Terjun/Sumber Air','Pantai/Pesisir','Sejarah/Budaya','Rafting/Adventure','Kuliner/Kota/Lifestyle','Lainnya'] },
+      { id:'bucket', label:'Bucket Artikel', required:true, type:'select', options:['A - Konversi Langsung','B - Butuh Kreativitas','C - Konversi Parsial','D - Tidak Bisa Dikonversi'] }
+    ]
+  },
+  {
+    title: 'Performa GSC',
+    fields: [
+      { id:'gsc', label:'Status GSC', required:true, type:'select', options:['Ditemukan - tidak diindeks','Di-crawl - tidak diindeks','Diindeks tapi traffic rendah','Tidak tahu'] },
+      { id:'gsc_metrics', label:'Metrik GSC (impressions | clicks | ctr | avg position)', type:'text', placeholder:'1240 | 22 | 1.7% | 31.5' },
+      { id:'top_queries', label:'Top Queries Lama', type:'textarea', mode:'mid' },
+      { id:'indexing_notes', label:'Catatan Indexing/Crawl', type:'textarea' }
+    ]
+  },
+  {
+    title: 'Konten Artikel Lama',
+    fields: [
+      { id:'old_article', label:'Paste Konten Artikel Lama', required:true, type:'textarea', mode:'big', hint:'Tempel konten lengkap atau minimal judul + outline + 3 paragraf awal.' },
+      { id:'old_struct', label:'Ringkasan Struktur Lama (H1/H2/Jumlah Kata/FAQ/Tone)', type:'textarea', mode:'mid' },
+      { id:'issues', label:'Masalah Utama (min 3 poin)', required:true, type:'textarea', mode:'mid', minItems:3 },
+      { id:'potentials', label:'Potensi yang Bisa Diselamatkan (min 2 poin)', required:true, type:'textarea', mode:'mid', minItems:2 }
+    ]
+  },
+  {
+    title: 'Konteks Bisnis Vendor Outbound',
+    fields: [
+      { id:'biz_name', label:'Nama Bisnis', required:true, type:'text', value:'Vendor Outbound Batu Malang Bromo' },
+      { id:'biz_site', label:'Website', required:true, type:'text', value:'https://www.vendoroutbound.com' },
+      { id:'biz_wa', label:'WhatsApp', required:true, type:'text', value:'082211221909' },
+      { id:'service_main', label:'Halaman Layanan Utama', required:true, type:'text' },
+      { id:'service_more', label:'Halaman Layanan Tambahan', type:'textarea', mode:'mid' },
+      { id:'client_exp', label:'Pengalaman Membawa Klien di Lokasi Ini', required:true, type:'textarea', mode:'mid' },
+      { id:'client_types', label:'Tipe Klien Relevan', required:true, type:'checklist', options:['Perusahaan/Korporat','BUMN/Instansi Pemerintah','Sekolah/Kampus','Komunitas/Keluarga','Semua tipe'] },
+      { id:'services', label:'Layanan Dipromosikan', required:true, type:'checklist', options:['Outbound Team Building','Gathering/Outing Perusahaan','Wisata Edukasi Sekolah','Rafting','Paintball','Jeep Adventure/Off-road','Paket Kombinasi'] },
+      { id:'ops', label:'Detail Operasional (harga, kapasitas, durasi, fasilitator)', type:'textarea', mode:'mid' },
+      { id:'eeat', label:'Data E-E-A-T (bukti nyata)', required:true, type:'textarea', mode:'mid' }
+    ]
+  },
+  {
+    title: 'Strategi Hybrid & Publikasi',
+    fields: [
+      { id:'mode', label:'Mode Output', required:true, type:'select', options:['MODE ANALISIS','MODE STANDAR','MODE PENUH','MODE BATCH'] },
+      { id:'len', label:'Panjang Artikel Target', required:true, type:'select', options:['1.200 kata (minimal)','1.500 kata (direkomendasikan)','2.000 kata (pillar hybrid)'] },
+      { id:'pk', label:'Primary Keyword', required:true, type:'text' },
+      { id:'sk', label:'Secondary + LSI Keyword (min 3 poin)', required:true, type:'textarea', mode:'mid', minItems:3 },
+      { id:'angle', label:'Angle Bisnis + Insight Bridge', required:true, type:'textarea', mode:'mid' },
+      { id:'new_title', label:'Judul Hybrid Baru', required:true, type:'text' },
+      { id:'meta', label:'Meta Description', required:true, type:'text' },
+      { id:'faq', label:'Seed FAQ (min 5 pertanyaan)', required:true, type:'textarea', mode:'mid', minItems:5 },
+      { id:'cta', label:'CTA Natural', required:true, type:'textarea', mode:'mid' },
+      { id:'final_url', label:'URL Final Artikel', required:true, type:'text' },
+      { id:'pub', label:'Label Blogspot + Internal Link Plan', type:'textarea', mode:'mid' },
+      { id:'notes', label:'Catatan Tambahan', type:'textarea', mode:'mid' }
+    ]
+  }
+];
+
+let activeTab = 'md';
+let lastOutput = { markdown:'', html:'' };
+
+const byId = (id) => document.getElementById(id);
+const clean = (v) => (v || '').replace(/\r/g,'').trim();
+const escapeHtml = (v) => String(v || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const splitList = (v) => clean(v).split(/\n|;|,/).map((x)=>x.replace(/^\d+[\).\s-]*/,'').trim()).filter(Boolean);
+const slug = (v) => clean(v).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,80) || 'artikel';
+
+function renderForm(){
+  const shell = byId('form-shell');
+  shell.innerHTML = FORM_SCHEMA.map((section) => {
+    const fields = section.fields.map(renderField).join('');
+    return `<div class="form-section"><h3>${section.title}</h3>${fields}</div>`;
+  }).join('');
+  applyDefaults();
+  bindSelectOthers();
+}
+
+function renderField(field){
+  const req = field.required ? '<span class="required">wajib</span>' : '';
+  const hint = field.hint ? `<div class="hint">${field.hint}</div>` : '';
+  const modeClass = field.mode ? ` class="${field.mode}"` : '';
+  let input = '';
+  if (field.type === 'textarea'){
+    input = `<textarea id="${field.id}"${modeClass} placeholder="${field.placeholder || ''}"></textarea>`;
+  } else if (field.type === 'select'){
+    const opts = (field.options || []).map((opt)=>`<option value="${opt}">${opt}</option>`).join('');
+    const otherInput = field.allowOther ? `<input id="${field.id}_other" class="other-input" type="text" placeholder="Isi manual untuk ${field.label.toLowerCase()}">` : '';
+    input = `<select id="${field.id}"><option value="">Pilih opsi</option>${opts}</select>${otherInput}`;
+  } else if (field.type === 'checklist'){
+    input = `<div id="${field.id}" class="check-wrap">${(field.options || []).map((opt)=>`<label class="check-item"><input type="checkbox" value="${opt}">${opt}</label>`).join('')}</div>`;
+  } else {
+    input = `<input id="${field.id}" type="text" placeholder="${field.placeholder || ''}">`;
+  }
+  return `<div class="field"><label for="${field.id}">${field.label}${req}</label>${hint}${input}<div class="error" id="error-${field.id}">Field belum valid.</div></div>`;
+}
+
+function applyDefaults(){
+  FORM_SCHEMA.forEach((section) => {
+    section.fields.forEach((field) => {
+      if (typeof field.value === 'undefined') return;
+      const el = byId(field.id);
+      if (el) el.value = field.value;
+    });
+  });
+}
+
+function bindSelectOthers(){
+  FORM_SCHEMA.forEach((section) => {
+    section.fields.forEach((field) => {
+      if (field.type !== 'select' || !field.allowOther) return;
+      const selectEl = byId(field.id);
+      const otherEl = byId(field.id + '_other');
+      if (!selectEl || !otherEl) return;
+      const toggle = () => {
+        const show = clean(selectEl.value).toLowerCase() === 'lainnya';
+        otherEl.style.display = show ? 'block' : 'none';
+      };
+      selectEl.addEventListener('change', toggle);
+      toggle();
+    });
+  });
+}
+
+function getFieldValue(field){
+  if (field.type === 'checklist'){
+    const wrap = byId(field.id);
+    if (!wrap) return [];
+    return [...wrap.querySelectorAll('input[type="checkbox"]:checked')].map((el)=>clean(el.value));
+  }
+  if (field.type === 'select' && field.allowOther){
+    const selectEl = byId(field.id);
+    const selected = selectEl ? clean(selectEl.value) : '';
+    if (selected.toLowerCase() === 'lainnya'){
+      const otherEl = byId(field.id + '_other');
+      return otherEl ? clean(otherEl.value) : '';
+    }
+    return selected;
+  }
+  const el = byId(field.id);
+  return el ? clean(el.value) : '';
+}
+
+function markInvalid(field, msg){
+  const error = byId('error-' + field.id);
+  if (field.type === 'checklist'){
+    const wrap = byId(field.id);
+    if (wrap) wrap.classList.add('invalid');
+  } else {
+    const el = byId(field.id);
+    if (el) el.classList.add('invalid');
+  }
+  if (error){
+    error.textContent = msg;
+    error.classList.add('show');
+  }
+}
+
+function clearValidation(){
+  document.querySelectorAll('.invalid').forEach((el)=>el.classList.remove('invalid'));
+  document.querySelectorAll('.error.show').forEach((el)=>el.classList.remove('show'));
+  byId('form-error').classList.remove('show');
+}
+
+function validateForm(){
+  clearValidation();
+  let ok = true;
+  FORM_SCHEMA.forEach((section) => {
+    section.fields.forEach((field) => {
+      const value = getFieldValue(field);
+      if (field.required){
+        if (field.type === 'checklist'){
+          if (!Array.isArray(value) || value.length === 0){
+            ok = false;
+            markInvalid(field, 'Pilih minimal satu opsi.');
+            return;
+          }
+        } else if (!value){
+          ok = false;
+          markInvalid(field, 'Field ini wajib diisi.');
+          return;
+        }
+      }
+      if (field.minItems){
+        const count = splitList(value).length;
+        if (count < field.minItems){
+          ok = false;
+          markInvalid(field, `Minimal ${field.minItems} item.`);
+        }
+      }
+    });
+  });
+  if (!ok) byId('form-error').classList.add('show');
+  return ok;
+}
+
+function collectData(){
+  const data = {};
+  FORM_SCHEMA.forEach((section) => {
+    section.fields.forEach((field) => {
+      data[field.id] = getFieldValue(field);
+    });
+  });
+  return data;
+}
+
+function decisionByBucket(bucket){
+  if (/^A/i.test(bucket)) return '✅ Lanjut konversi hybrid penuh';
+  if (/^B/i.test(bucket)) return '✅ Lanjut konversi dengan kreativitas';
+  if (/^C/i.test(bucket)) return '⚠️ Konversi parsial';
+  return '🚫 Stop konversi, noindex/hapus';
+}
+
+function listMd(items){
+  return items.length ? items.map((item)=>`- ${item}`).join('\n') : '-';
+}
+
+function listHtml(items){
+  return items.length ? `<ul>${items.map((item)=>`<li>${escapeHtml(item)}</li>`).join('')}</ul>` : '<p>-</p>';
+}
+
+function buildMarkdown(d){
+  const issues = splitList(d.issues);
+  const potentials = splitList(d.potentials);
+  const services = Array.isArray(d.services) ? d.services : [];
+  const clientTypes = Array.isArray(d.client_types) ? d.client_types : [];
+  const keywords = splitList(d.sk);
+  const faq = splitList(d.faq);
+  const extraServices = splitList(d.service_more);
+  const oldQueries = splitList(d.top_queries);
+  const labelInfo = splitList(d.pub);
+  return `# MASTER PROMPT KONVERSI CONTEN WEB VENDOR OUTBOUND
+
+## INPUT
+- Judul lama: ${d.old_title}
+- URL lama: ${d.old_url}
+- Tanggal publish: ${d.old_publish || '-'}
+- Tipe topik: ${d.topic}
+- Bucket: ${d.bucket}
+- Status GSC: ${d.gsc}
+- Metrik GSC: ${d.gsc_metrics || '-'}
+- Top queries:
+${listMd(oldQueries)}
+- Catatan indexing: ${d.indexing_notes || '-'}
+
+## RINGKASAN KONTEN LAMA
+- Struktur lama: ${d.old_struct || '-'}
+- Masalah utama:
+${listMd(issues)}
+- Potensi diselamatkan:
+${listMd(potentials)}
+
+## KONTEKS BISNIS
+- Nama bisnis: ${d.biz_name}
+- Website: ${d.biz_site}
+- WhatsApp: ${d.biz_wa}
+- Halaman layanan utama: ${d.service_main}
+- Halaman layanan tambahan:
+${listMd(extraServices)}
+- Pengalaman klien: ${d.client_exp}
+- Tipe klien:
+${listMd(clientTypes)}
+- Layanan dipromosikan:
+${listMd(services)}
+- Detail operasional: ${d.ops || '-'}
+- Data E-E-A-T: ${d.eeat}
+
+## STRATEGI HYBRID
+- Mode output: ${d.mode}
+- Target panjang: ${d.len}
+- Primary keyword: ${d.pk}
+- Secondary + LSI keyword:
+${listMd(keywords)}
+- Angle + insight bridge: ${d.angle}
+- Judul hybrid baru: ${d.new_title}
+- Meta description: ${d.meta}
+- Seed FAQ:
+${listMd(faq)}
+- CTA natural: ${d.cta}
+- URL final artikel: ${d.final_url}
+- Label Blogspot + internal link:
+${listMd(labelInfo)}
+- Catatan tambahan: ${d.notes || '-'}
+
+## OUTPUT WAJIB A-H
+### A. Diagnosis
+- Keputusan: ${decisionByBucket(d.bucket)}
+- Masalah utama: ${issues.join('; ') || '-'}
+- Potensi diselamatkan: ${potentials.join('; ') || '-'}
+
+### B. Angle Bisnis & Strategi
+- Angle utama: ${d.angle}
+- Target klien: ${clientTypes.join(', ') || '-'}
+- Layanan: ${services.join(', ') || '-'}
+
+### C. Struktur Hybrid ARIA
+- Attract 15%
+- Reveal 10%
+- Inform 40-50%
+- Associate 15%
+- Komersial 20-25%
+
+### D. Artikel Hybrid Lengkap
+- Tulis artikel final minimal ${d.len}
+
+### E. FAQ Section
+${listMd(faq)}
+
+### F. Checklist SEO On-Page
+| Elemen | Status | Catatan |
+|---|---|---|
+| H1 lokasi + keyword bisnis | ✅/❌ | |
+| Meta title <= 60 | ✅/❌ | |
+| Meta description <= 155 | ✅/❌ | |
+| Keyword di 100 kata pertama | ✅/❌ | |
+| Internal link layanan min 2 | ✅/❌ | |
+| FAQ section ada | ✅/❌ | |
+| Label update (hapus noindex) | ✅/❌ | |
+
+### G. Schema JSON-LD
+\`\`\`html
+<script type="application/ld+json">
+{ "@context":"https://schema.org","@type":"BlogPosting","headline":"${d.new_title.replace(/"/g,'\\"')}","description":"${d.meta.replace(/"/g,'\\"')}","url":"${d.final_url.replace(/"/g,'\\"')}" }
+<\\/script>
+<script type="application/ld+json">
+{ "@context":"https://schema.org","@type":"FAQPage","mainEntity":[${faq.slice(0,7).map((q)=>`{"@type":"Question","name":"${q.replace(/"/g,'\\"')}","acceptedAnswer":{"@type":"Answer","text":"[Isi jawaban 50-100 kata]"}}`).join(',')}] }
+<\\/script>
+\`\`\`
+
+### H. Instruksi Blogspot
+1. Edit artikel lama lalu ganti konten dengan artikel hybrid.
+2. Jangan ubah URL artikel lama.
+3. Update label (hapus noindex jika ada).
+4. Tempel schema BlogPosting + FAQPage di mode HTML.
+5. Tambah internal link lalu request indexing di GSC.
+
+## SCORECARD + QUALITY GATE
+- Status awal: ${d.gsc}
+- Target: terindeks, relevan niche, bridge natural, CTA natural.
+- Quality gate: pembuka informatif, FAQ >= 5, schema aktif, internal link >= 2, request indexing.
+
+## LAMPIRAN ARTIKEL LAMA
+\`\`\`text
+${d.old_article}
+\`\`\`
+`;
+}
+
+function buildHtml(d){
+  const issues = splitList(d.issues);
+  const potentials = splitList(d.potentials);
+  const faq = splitList(d.faq);
+  const keywords = splitList(d.sk);
+  const clientTypes = Array.isArray(d.client_types) ? d.client_types : [];
+  const services = Array.isArray(d.services) ? d.services : [];
+  return `<article>
+    <h1>Master Prompt Konversi Conten Web Vendor Outbound</h1>
+    <p><strong>Mode:</strong> ${escapeHtml(d.mode)} | <strong>Website:</strong> ${escapeHtml(d.biz_site)}</p>
+    <h2>Input Ringkas</h2>
+    <table>
+      <tr><th>Judul Lama</th><td>${escapeHtml(d.old_title)}</td></tr>
+      <tr><th>URL Lama</th><td>${escapeHtml(d.old_url)}</td></tr>
+      <tr><th>Tipe Topik</th><td>${escapeHtml(d.topic)}</td></tr>
+      <tr><th>Bucket</th><td>${escapeHtml(d.bucket)}</td></tr>
+      <tr><th>Status GSC</th><td>${escapeHtml(d.gsc)}</td></tr>
+      <tr><th>Metrik GSC</th><td>${escapeHtml(d.gsc_metrics || '-')}</td></tr>
+      <tr><th>Service Utama</th><td>${escapeHtml(d.service_main)}</td></tr>
+      <tr><th>Primary Keyword</th><td>${escapeHtml(d.pk)}</td></tr>
+    </table>
+    <h2>A. Diagnosis</h2>
+    <p><strong>Keputusan:</strong> ${escapeHtml(decisionByBucket(d.bucket))}</p>
+    <p><strong>Masalah:</strong></p>${listHtml(issues)}
+    <p><strong>Potensi:</strong></p>${listHtml(potentials)}
+    <h2>B. Angle & Strategi</h2>
+    <p>${escapeHtml(d.angle).replace(/\n/g,'<br>')}</p>
+    <p><strong>Tipe Klien:</strong></p>${listHtml(clientTypes)}
+    <p><strong>Layanan:</strong></p>${listHtml(services)}
+    <p><strong>Secondary + LSI:</strong></p>${listHtml(keywords)}
+    <h2>E. Seed FAQ</h2>
+    ${listHtml(faq)}
+    <h2>Instruksi Blogspot</h2>
+    <ol>
+      <li>Edit artikel lama dan ganti konten dengan artikel hybrid.</li>
+      <li>Jangan ubah URL artikel lama.</li>
+      <li>Update label dan tempel schema.</li>
+      <li>Tambahkan internal link dan request indexing.</li>
+    </ol>
+    <h2>Lampiran Artikel Lama</h2>
+    <pre>${escapeHtml(d.old_article)}</pre>
+  </article>`;
+}
+
+function showTab(tab){
+  activeTab = tab;
+  byId('markdown-preview').style.display = tab === 'md' ? 'block' : 'none';
+  byId('html-preview').style.display = tab === 'html' ? 'block' : 'none';
+  byId('tab-md').classList.toggle('active', tab === 'md');
+  byId('tab-html').classList.toggle('active', tab === 'html');
+}
+
+function generateOutput(){
+  if (!validateForm()){
+    alert('Masih ada field wajib yang belum lengkap atau minimum item belum terpenuhi.');
+    return false;
+  }
+  const data = collectData();
+  lastOutput.markdown = buildMarkdown(data);
+  lastOutput.html = buildHtml(data);
+  byId('markdown-preview').textContent = lastOutput.markdown;
+  byId('html-preview').innerHTML = lastOutput.html;
+  showTab(activeTab);
+  return true;
+}
+
+function ensureOutput(){
+  if (lastOutput.markdown && lastOutput.html) return true;
+  return generateOutput();
+}
+
+function copyMarkdown(){
+  if (!ensureOutput()) return;
+  navigator.clipboard.writeText(lastOutput.markdown)
+    .then(()=>alert('Markdown berhasil disalin.'))
+    .catch(()=>alert('Gagal copy otomatis. Silakan copy manual dari preview.'));
+}
+
+function copyHtml(){
+  if (!ensureOutput()) return;
+  navigator.clipboard.writeText(lastOutput.html)
+    .then(()=>alert('HTML berhasil disalin.'))
+    .catch(()=>alert('Gagal copy otomatis. Silakan copy manual dari preview.'));
+}
+
+function downloadBlob(content, type, filename){
+  const blob = new Blob([content], { type });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
+}
+
+function buildHtmlDoc(bodyHtml){
+  return `<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Konversi Conten Web Vendor Outbound</title><style>body{font-family:Arial,sans-serif;margin:28px;color:#18203a;line-height:1.65}h1,h2,h3{line-height:1.3}h1{font-size:30px}h2{font-size:24px;margin-top:20px}h3{font-size:18px;margin-top:14px}table{border-collapse:collapse;width:100%;margin:8px 0 14px}th,td{border:1px solid #ccd7ee;padding:8px 10px;text-align:left;vertical-align:top}th{background:#edf4ff;font-size:12px;text-transform:uppercase}pre{background:#f3f7ff;border:1px solid #cfd8ee;border-radius:8px;padding:10px;overflow:auto}@media print{body{margin:12mm}}</style></head><body>${bodyHtml}</body></html>`;
+}
+
+function downloadMarkdown(){
+  if (!ensureOutput()) return;
+  const title = clean(byId('old_title').value) || 'artikel';
+  downloadBlob(lastOutput.markdown, 'text/markdown;charset=utf-8', `konversi-conten-vendor-outbound-${slug(title)}.md`);
+}
+
+function downloadHtml(){
+  if (!ensureOutput()) return;
+  const title = clean(byId('old_title').value) || 'artikel';
+  downloadBlob(buildHtmlDoc(lastOutput.html), 'text/html;charset=utf-8', `konversi-conten-vendor-outbound-${slug(title)}.html`);
+}
+
+function downloadPdf(){
+  if (!ensureOutput()) return;
+  const printWindow = window.open('', '_blank');
+  if (!printWindow){
+    alert('Pop-up diblokir browser. Izinkan pop-up lalu coba lagi.');
+    return;
+  }
+  printWindow.document.open();
+  printWindow.document.write(buildHtmlDoc(lastOutput.html));
+  printWindow.document.close();
+  printWindow.focus();
+  setTimeout(() => printWindow.print(), 320);
+}
+
+function resetForm(){
+  renderForm();
+  clearValidation();
+  lastOutput = { markdown:'', html:'' };
+  byId('markdown-preview').textContent = 'Belum ada output. Isi form lalu klik "Generate Output".';
+  byId('html-preview').innerHTML = '<p>Belum ada output HTML.</p>';
+  showTab('md');
+}
+
+renderForm();
+</script>
+</body>
+</html>
