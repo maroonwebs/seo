@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Schema Markup untuk Artikel Blog</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #111310;
+  --ink2: #283228;
+  --paper: #f9f8f4;
+  --muted: #687267;
+  --border: rgba(17,19,16,0.14);
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-body: "DM Sans", sans-serif;
+  --font-mono: "DM Mono", monospace;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: var(--font-body);
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.66;
+}
+.wrap {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 24px 18px 48px;
+}
+.crumb {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin-bottom: 14px;
+}
+.crumb a {
+  color: #1f5cb7;
+  text-decoration: none;
+}
+h1 {
+  font-family: var(--font-display);
+  font-size: 42px;
+  line-height: 1.16;
+  font-weight: 400;
+  color: var(--ink2);
+  margin-bottom: 12px;
+}
+.meta {
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 0;
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 22px;
+}
+h2 {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--ink2);
+  margin: 26px 0 8px;
+}
+p { margin-bottom: 10px; }
+pre {
+  border: 1px solid var(--border);
+  background: #fcfcfb;
+  border-radius: 12px;
+  padding: 12px;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+.rel {
+  margin-top: 28px;
+  border-top: 1px dashed var(--border);
+  padding-top: 16px;
+}
+.rel a {
+  color: #1f5cb7;
+  text-decoration: none;
+}
+.rel a:hover { text-decoration: underline; }
+@media (max-width: 720px) {
+  h1 { font-size: 32px; }
+  h2 { font-size: 24px; }
+}
+</style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="crumb"><a href="index.html">Blog</a> / Schema</div>
+    <h1>Schema Markup untuk Artikel Blog</h1>
+    <div class="meta">Dummy Artikel · 3 menit baca · Update template: April 2026</div>
+
+    <p>Artikel ini adalah contoh dummy untuk mempersiapkan implementasi schema pada konten blog. Jika nanti artikel real sudah siap, bagian ini bisa diisi schema final per halaman.</p>
+
+    <h2>Schema Dasar Article</h2>
+    <pre>{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Judul Artikel",
+  "author": {
+    "@type": "Person",
+    "name": "Nama Penulis"
+  }
+}</pre>
+
+    <h2>Kapan Menambahkan FAQ Schema</h2>
+    <p>Jika artikel memiliki blok pertanyaan-jawaban yang benar-benar terlihat untuk user, Anda dapat menambahkan FAQ schema untuk membantu mesin pencari memahami struktur konten.</p>
+
+    <div class="rel">
+      Lanjut baca:
+      <a href="checklist-on-page-seo.html">Checklist On-Page SEO</a>
+      ·
+      <a href="strategi-seo-lokal-2026.html">Strategi SEO Lokal 2026</a>
+    </div>
+  </main>
+</body>
+</html>

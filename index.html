@@ -1340,6 +1340,111 @@ tr:hover td { background: var(--paper2); }
   background: #d9f0e1;
 }
 
+.blog-links-section {
+  margin: 10px auto 12px;
+  max-width: 1320px;
+  padding: 0 40px;
+}
+
+.blog-links-shell {
+  border: 1px solid var(--border2);
+  border-radius: 14px;
+  background: linear-gradient(145deg, #fff 0%, #f7f4ec 100%);
+  box-shadow: var(--shadow);
+  padding: 14px;
+}
+
+.blog-links-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.blog-links-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink2);
+}
+
+.blog-links-all {
+  text-decoration: none;
+  border: 1px solid rgba(31,92,183,0.38);
+  background: rgba(232,240,253,0.95);
+  color: #1f5cb7;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 999px;
+  padding: 6px 12px;
+}
+
+.blog-links-all:hover {
+  border-color: rgba(31,92,183,0.55);
+  background: #dfeafb;
+}
+
+.blog-links-sub {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+
+.blog-links-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 10px;
+}
+
+.blog-card {
+  border: 1px solid rgba(14,13,11,0.12);
+  border-radius: 12px;
+  background: #fff;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.blog-card-tag {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  border-radius: 999px;
+  background: rgba(184,134,11,0.14);
+  color: #8d6508;
+  font-size: 10.5px;
+  font-family: var(--font-mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 4px 8px;
+}
+
+.blog-card-title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  line-height: 1.28;
+  color: var(--ink2);
+}
+
+.blog-card-desc {
+  font-size: 13px;
+  color: var(--ink3);
+  line-height: 1.5;
+}
+
+.blog-card-link {
+  margin-top: auto;
+  text-decoration: none;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--blue);
+}
+
+.blog-card-link:hover {
+  text-decoration: underline;
+}
+
 @media (max-width: 700px) {
   .framework-links-section {
     padding-left: 20px;
@@ -1361,12 +1466,27 @@ tr:hover td { background: var(--paper2); }
     padding-left: 20px;
     padding-right: 20px;
   }
+  .blog-links-section {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
   .niche-links-shell {
+    padding: 10px;
+  }
+  .blog-links-shell {
     padding: 10px;
   }
   .niche-links-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 7px;
+  }
+  .blog-links-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .blog-links-head {
+    flex-direction: column;
+    align-items: flex-start;
   }
   .footer-badge {
     min-height: 38px;
@@ -1385,6 +1505,9 @@ tr:hover td { background: var(--paper2); }
   }
   .niche-links-grid {
     grid-template-columns: 1fr;
+  }
+  .blog-card-title {
+    font-size: 17px;
   }
 }
 
@@ -1483,6 +1606,7 @@ tr:hover td { background: var(--paper2); }
       <a class="app-nav-link" href="prd-generator.html">PRD Builder</a>
       <a class="app-nav-link" href="master-blueprint.html">Master Blueprint</a>
       <a class="app-nav-link" href="prompt-advanced.html">Prompt Lanjutan</a>
+      <a class="app-nav-link" href="blog/">Blog</a>
       <button type="button" class="app-nav-link app-nav-btn" onclick="resetGlobalHistoryFromIndex()">Reset Histori</button>
     </div>
     <div class="step-pills" id="step-pills"></div>
@@ -1927,6 +2051,42 @@ tr:hover td { background: var(--paper2); }
       <a class="framework-badge live" href="data-optimization-scale.html">Bab 10 · Data, Optimization &amp; Scale</a>
       <a class="framework-badge live" href="buyer-persona-workbook.html">Workbook · Buyer Persona</a>
       <a class="framework-badge live" href="funnel-marketing-workbook.html">Workbook · Funnel Marketing</a>
+    </div>
+  </div>
+</section>
+
+<section class="blog-links-section" aria-label="Halaman blog artikel">
+  <div class="blog-links-shell">
+    <div class="blog-links-head">
+      <span class="blog-links-title">Blog Artikel</span>
+      <a class="blog-links-all" href="blog/">Lihat semua artikel</a>
+    </div>
+    <p class="blog-links-sub">Artikel tutorial dan artikel pendukung yang siap dipakai sebagai referensi eksekusi konten.</p>
+    <div class="blog-links-grid">
+      <article class="blog-card">
+        <span class="blog-card-tag">Tutorial Praktis</span>
+        <h3 class="blog-card-title">Tutorial Optimasi Artikel Update Vendor Outbound</h3>
+        <p class="blog-card-desc">Tutorial lengkap: audit konten, struktur hybrid, langkah schema Blogspot, validasi rich result, hingga request indexing.</p>
+        <a class="blog-card-link" href="blog/tutorial-optimasi-artikel-update-vendor-outbound.html">Baca artikel</a>
+      </article>
+      <article class="blog-card">
+        <span class="blog-card-tag">Vendor Outbound</span>
+        <h3 class="blog-card-title">Panduan Konversi Hybrid Content untuk Vendor Outbound</h3>
+        <p class="blog-card-desc">Artikel pertama blog: panduan mengubah konten wisata informasional menjadi konten hybrid SEO yang lebih siap konversi.</p>
+        <a class="blog-card-link" href="blog/konversi-hybrid-content-vendor-outbound.html">Baca artikel</a>
+      </article>
+      <article class="blog-card">
+        <span class="blog-card-tag">Content</span>
+        <h3 class="blog-card-title">Cara Menyusun Content Brief yang Siap Tulis</h3>
+        <p class="blog-card-desc">Template ringkas untuk brief artikel agar tim menulis sesuai search intent, struktur heading, dan CTA.</p>
+        <a class="blog-card-link" href="blog/cara-menyusun-content-brief.html">Baca artikel</a>
+      </article>
+      <article class="blog-card">
+        <span class="blog-card-tag">Teknis SEO</span>
+        <h3 class="blog-card-title">Checklist On-Page SEO Sebelum Publish Artikel</h3>
+        <p class="blog-card-desc">Daftar pemeriksaan praktis untuk title tag, meta description, schema, dan kualitas internal link.</p>
+        <a class="blog-card-link" href="blog/checklist-on-page-seo.html">Baca artikel</a>
+      </article>
     </div>
   </div>
 </section>

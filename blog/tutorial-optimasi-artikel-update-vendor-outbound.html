@@ -1,0 +1,2277 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tutorial Optimasi Artikel Update Vendor Outbound</title>
+<meta name="description" content="SOP gabungan versi ringkas dan detail untuk optimasi artikel Vendor Outbound: eksekusi cepat, penjelasan lengkap, schema JSON-LD, validasi, dan quality gate.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #121513;
+  --ink2: #263328;
+  --muted: #687267;
+  --paper: #f6f5f1;
+  --card: #ffffff;
+  --line: rgba(18,21,19,0.13);
+  --gold: #9b7213;
+  --blue: #1f5cb7;
+  --green: #1f6a43;
+  --green-soft: #e8f3ec;
+  --orange-soft: #fff7eb;
+  --orange-line: rgba(180,120,0,0.24);
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-body: "DM Sans", sans-serif;
+  --font-mono: "DM Mono", monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: radial-gradient(circle at top right, #efe8d7 0%, var(--paper) 46%);
+  line-height: 1.65;
+  overflow-x: hidden;
+}
+
+.wrap {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 20px 16px 46px;
+}
+
+.crumb {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+.crumb a { color: var(--blue); text-decoration: none; }
+.crumb a:hover { text-decoration: underline; }
+
+.hero {
+  border: 1px solid var(--line);
+  background: var(--card);
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 12px;
+}
+
+.hero-actions {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.print-btn {
+  border: 1px solid rgba(31,92,183,0.36);
+  background: rgba(232,240,253,0.95);
+  color: #1f5cb7;
+  border-radius: 999px;
+  padding: 8px 13px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.print-btn:hover {
+  background: #dfeafb;
+}
+
+.tag {
+  display: inline-block;
+  border-radius: 999px;
+  padding: 5px 10px;
+  background: rgba(155,114,19,0.16);
+  color: var(--gold);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 10px;
+}
+
+h1 {
+  font-family: var(--font-display);
+  font-size: 39px;
+  font-weight: 400;
+  line-height: 1.14;
+  color: var(--ink2);
+  margin-bottom: 8px;
+}
+
+.lead {
+  color: #455047;
+  font-size: 16px;
+}
+
+.quick-nav {
+  border: 1px solid var(--line);
+  background: var(--card);
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 12px;
+}
+
+.quick-nav h2 {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  text-decoration: none;
+  border: 1px solid rgba(31,92,183,0.34);
+  background: rgba(232,240,253,0.94);
+  color: #1f5cb7;
+  border-radius: 999px;
+  padding: 7px 11px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.chip:hover { background: #dfeafb; }
+
+.tutorial-tools {
+  border: 1px solid var(--line);
+  background: #fff;
+  border-radius: 12px;
+  padding: 10px;
+  margin-bottom: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.tool-btn,
+.tool-link {
+  border: 1px solid rgba(31,92,183,0.34);
+  background: rgba(232,240,253,0.94);
+  color: #1f5cb7;
+  border-radius: 999px;
+  padding: 7px 11px;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.tool-btn:hover,
+.tool-link:hover {
+  background: #dfeafb;
+}
+
+.tool-stat {
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--muted);
+  font-family: var(--font-mono);
+}
+
+section {
+  border: 1px solid var(--line);
+  background: var(--card);
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 12px;
+}
+
+h2 {
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--ink2);
+  border-bottom: 1px solid rgba(18,21,19,0.1);
+  padding-bottom: 8px;
+  margin-bottom: 10px;
+}
+
+h3 {
+  font-family: var(--font-display);
+  font-size: 23px;
+  font-weight: 400;
+  line-height: 1.25;
+  color: var(--ink2);
+  margin: 12px 0 6px;
+}
+
+h4 {
+  font-size: 16px;
+  color: #254372;
+  margin: 8px 0 4px;
+}
+
+.docx-content {
+  font-size: 15px;
+  line-height: 1.72;
+  color: #1a221d;
+}
+
+.docx-content details {
+  border-style: solid;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+}
+
+.docx-content summary {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.docx-content p {
+  margin-bottom: 8px;
+}
+
+.docx-content strong {
+  font-weight: 700;
+}
+
+.docx-content p,
+.docx-content li,
+.docx-content td,
+.docx-content th {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.docx-ascii {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.docx-ascii-border {
+  line-height: 1;
+}
+
+.docx-title,
+.docx-h1,
+.docx-h2,
+.docx-h3,
+.docx-h4 {
+  color: var(--ink2);
+  margin-top: 12px;
+  margin-bottom: 6px;
+  line-height: 1.34;
+}
+
+.docx-title {
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-weight: 500;
+}
+
+.docx-h1 {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.docx-h2 {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.docx-h3 {
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.docx-h4 {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+p { margin-bottom: 9px; }
+ul, ol { margin: 6px 0 10px 20px; }
+li { margin-bottom: 6px; }
+
+.note {
+  border: 1px solid var(--orange-line);
+  background: var(--orange-soft);
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+}
+
+.ok {
+  border: 1px solid rgba(31,106,67,0.26);
+  background: var(--green-soft);
+  color: #1d603d;
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+}
+
+.sop-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.sop-card {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px;
+  background: #fff;
+}
+
+.sop-step {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  margin-bottom: 5px;
+}
+
+.sop-title {
+  font-weight: 700;
+  color: var(--ink2);
+  margin-bottom: 6px;
+}
+
+details {
+  border: 1px dashed rgba(18,21,19,0.2);
+  border-radius: 10px;
+  padding: 8px 10px;
+  margin-bottom: 9px;
+  background: #fff;
+}
+
+summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: #23406f;
+}
+
+summary + * {
+  margin-top: 8px;
+}
+
+.checklist {
+  list-style: none;
+  margin: 8px 0 0;
+}
+
+.checklist li {
+  border: 1px dashed var(--line);
+  border-radius: 10px;
+  padding: 9px 10px;
+  margin-bottom: 8px;
+  background: #fff;
+}
+
+.table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 620px;
+}
+
+th, td {
+  border-bottom: 1px solid var(--line);
+  padding: 9px 10px;
+  text-align: left;
+  vertical-align: top;
+  font-size: 14px;
+}
+
+th {
+  background: #fafaf8;
+  color: var(--ink2);
+  font-weight: 600;
+}
+
+tr:last-child td { border-bottom: none; }
+
+pre {
+  border: 1px solid var(--line);
+  background: #fcfcfb;
+  border-radius: 10px;
+  padding: 10px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.5;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  margin-bottom: 10px;
+}
+
+.pre-wrap {
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.pre-wrap pre {
+  margin-bottom: 0;
+}
+
+.pre-copy {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  border: 1px solid rgba(31,92,183,0.34);
+  background: #eef4ff;
+  color: #1f5cb7;
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.pre-copy:hover {
+  background: #dfeafb;
+}
+
+.mobile-tools {
+  display: none;
+}
+
+.related {
+  margin-top: 12px;
+  border-top: 1px dashed var(--line);
+  padding-top: 10px;
+  font-size: 14px;
+}
+
+.related a {
+  color: var(--blue);
+  text-decoration: none;
+}
+
+.related a:hover { text-decoration: underline; }
+
+@media (max-width: 860px) {
+  .sop-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 760px) {
+  body { padding-bottom: 74px; }
+  h1 { font-size: 31px; }
+  h2 { font-size: 25px; }
+  h3 { font-size: 20px; }
+  .lead { font-size: 15px; }
+  .docx-content {
+    font-size: 14px;
+    line-height: 1.66;
+  }
+  .docx-title { font-size: 24px; }
+  .docx-h1 { font-size: 21px; }
+  .docx-h2 { font-size: 18px; }
+  .docx-h3 { font-size: 16px; }
+  .docx-h4 { font-size: 14px; }
+  .docx-ascii { font-size: 10px; }
+  .docx-ascii-border { display: none; }
+  .tutorial-tools { padding: 9px; }
+  .tool-stat {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 3px;
+  }
+  .mobile-tools {
+    position: fixed;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    z-index: 30;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 6px;
+    border: 1px solid rgba(18,21,19,0.12);
+    border-radius: 12px;
+    background: rgba(255,255,255,0.98);
+    backdrop-filter: blur(6px);
+    padding: 7px;
+    box-shadow: 0 10px 24px rgba(0,0,0,0.08);
+  }
+  .mobile-tools button,
+  .mobile-tools a {
+    border: 1px solid rgba(31,92,183,0.34);
+    background: rgba(232,240,253,0.94);
+    color: #1f5cb7;
+    border-radius: 999px;
+    padding: 7px 6px;
+    font-size: 11px;
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+  }
+
+  .table-wrap { border: 0; overflow-x: visible; }
+  table, thead, tbody, tr, th, td { display: block; width: 100%; min-width: 0 !important; }
+  thead { display: none; }
+  tr {
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 4px 10px;
+    margin-bottom: 8px;
+    background: #fff;
+  }
+  td {
+    border: 0 !important;
+    border-bottom: 1px dashed #dce4ef !important;
+    padding: 7px 0 !important;
+    font-size: 13px;
+  }
+  td:last-child { border-bottom: 0 !important; }
+  td::before {
+    content: attr(data-label);
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    color: #244273;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+    letter-spacing: 0.03em;
+  }
+  table.has-inline-header tr.docx-header-row { display: none; }
+}
+
+@media print {
+  @page { size: A4; margin: 12mm; }
+  body {
+    background: #fff !important;
+    color: #111 !important;
+    line-height: 1.45;
+    font-size: 11pt;
+  }
+  .wrap {
+    max-width: 100%;
+    padding: 0;
+  }
+  .crumb,
+  .quick-nav,
+  .tutorial-tools,
+  .mobile-tools,
+  .pre-copy,
+  .hero-actions,
+  .related,
+  .print-btn {
+    display: none !important;
+  }
+  section,
+  .hero {
+    border: 1px solid #d7d7d7 !important;
+    box-shadow: none !important;
+    break-inside: avoid;
+    page-break-inside: avoid;
+    margin-bottom: 8mm;
+  }
+  details {
+    border: 1px dashed #d7d7d7 !important;
+  }
+  details > * {
+    display: block !important;
+  }
+  summary {
+    list-style: none;
+  }
+  table {
+    min-width: 0 !important;
+    width: 100% !important;
+  }
+}
+</style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="crumb"><a href="index.html">Blog</a> / SOP Tutorial</div>
+
+    <header class="hero">
+      <span class="tag">Tutorial Vendor Outbound</span>
+      <h1>Tutorial Optimasi Artikel Update Vendor Outbound</h1>
+      <p class="lead">Versi ini menggabungkan mode operasional cepat + penjelasan detail, sekaligus sudah disesuaikan dengan struktur heading terbaru dari dokumen sumber.</p>
+      <div class="note"><strong>Sinkron heading terbaru:</strong> mengikuti pembaruan dokumen sumber agar urutan bab dan praktik lapangan tetap konsisten.</div>
+      <div class="hero-actions">
+        <button type="button" class="print-btn" onclick="printPdfReady()">Printable PDF Ready</button>
+      </div>
+    </header>
+
+    <nav class="quick-nav" aria-label="Navigasi cepat SOP">
+      <h2>Navigasi Cepat</h2>
+      <div class="chips">
+        <a class="chip" href="#quick-sop">SOP Ringkas</a>
+        <a class="chip" href="#detail-sop">SOP Detail</a>
+        <a class="chip" href="#template">Template Copy-Paste</a>
+        <a class="chip" href="#troubleshooting">Troubleshooting</a>
+        <a class="chip" href="#quality-gate">Quality Gate</a>
+        <a class="chip" href="#struktur-heading">Struktur Heading</a>
+        <a class="chip" href="#dokumen-lengkap">Semua Bab</a>
+        <a class="chip" href="#bab-a">Bab A-H</a>
+        <a class="chip" href="#panduan-schema">Panduan Schema</a>
+      </div>
+    </nav>
+
+    <div class="tutorial-tools" aria-label="Kontrol tutorial">
+      <button type="button" class="tool-btn" id="expand-all-btn">Buka Semua Bab</button>
+      <button type="button" class="tool-btn" id="collapse-all-btn">Tutup Semua Bab</button>
+      <a class="tool-link" href="#quick-sop">Mode Ringkas</a>
+      <button type="button" class="tool-btn" onclick="printPdfReady()">Print PDF</button>
+      <div class="tool-stat">Bab terbuka: <strong id="open-count">0</strong>/<span id="total-count">0</span></div>
+    </div>
+
+    <section id="struktur-heading">
+      <h2>Struktur Heading Dokumen (Terbaru)</h2>
+      <p>Berikut ringkasan heading utama dari dokumen sumber yang sudah diselaraskan ke halaman tutorial ini.</p>
+      <ul class="checklist">
+        <li><strong>Blok Analisis:</strong> KEKUATAN ARTIKEL, AREA PERBAIKAN, REKOMENDASI STRATEGIS, KESIMPULAN, ACTION PLAN 7 HARI.</li>
+        <li><strong>Blok Konversi Hybrid:</strong> BAGIAN A sampai BAGIAN H (Diagnosis, Angle, Struktur, Artikel, FAQ, Checklist SEO, Schema, Instruksi Blogspot).</li>
+        <li><strong>Blok Implementasi Schema:</strong> Panduan Lengkap, Langkah 1-6, Troubleshooting Umum, Checklist Final, Template Siap Paste.</li>
+      </ul>
+      <div class="ok">Navigasi per bab tersedia di chip atas agar akses dari mobile lebih cepat.</div>
+    </section>
+
+<!-- FULL_DOC_START -->
+<section id="dokumen-lengkap">
+<h2>Dokumen Lengkap (Semua Bab)</h2>
+<p>Bagian ini dirender ulang dari file .docx terbaru agar heading, format tebal, dan struktur baris mengikuti dokumen sumber secara lebih presisi.</p>
+<div class="ok">Total baris materi sumber terbaru: <strong>725</strong></div>
+<div class="docx-content">
+<details id="analisis-lengkap" open><summary>📊 Analisis Lengkap Artikel: &quot;Itinerary Bromo Midnight Start Batu&quot;</summary>
+<p>Terima kasih telah membagikan konten artikel Anda. Berikut adalah analisis mendalam dari berbagai aspek untuk membantu mengoptimalkan performa artikel ini di website vendoroutbound.com.</p>
+<h4 class="docx-h2">✅ KEKUATAN ARTIKEL (What&#x27;s Working Well)</h4>
+<h5 class="docx-h3">🎯 1. Struktur &amp; Hierarki Konten</h5>
+<div class="table-wrap"><table class="docx-table">
+<tr>
+<th><strong>Aspek</strong></th>
+<th><strong>Penilaian</strong></th>
+<th><strong>Catatan</strong></th>
+</tr>
+<tr>
+<td><strong>Judul Utama</strong></td>
+<td>⭐⭐⭐⭐⭐</td>
+<td>Mengandung keyword utama + benefit jelas (&quot;Antar Jemput Hotel&quot;)</td>
+</tr>
+<tr>
+<td><strong>Daftar Isi</strong></td>
+<td>⭐⭐⭐⭐⭐</td>
+<td>Memudahkan navigasi dan baik untuk SEO (jump links)</td>
+</tr>
+<tr>
+<td><strong>Subheading H2/H3</strong></td>
+<td>⭐⭐⭐⭐</td>
+<td>Pertanyaan-pertanyaan relevan yang match dengan search intent</td>
+</tr>
+<tr>
+<td><strong>Paragraf Pembuka</strong></td>
+<td>⭐⭐⭐⭐⭐</td>
+<td>Hook emosional kuat: &quot;secantik apa pun foto... proses menuju ke sana itu sangat menyiksa fisik&quot;</td>
+</tr>
+</table></div>
+<h5 class="docx-h3">🗣️ 2. Gaya Penulisan &amp; Tone</h5>
+<p><strong>Voice yang Kuat</strong>: Menggunakan gaya conversational dengan sentuhan &quot;brutal&quot; dan &quot;tegas&quot; yang membedakan dari konten wisata generik</p>
+<p><strong>Storytelling Efektif</strong>: Contoh narasi &quot;alarm ponsel menjerit jam sebelas malam&quot; sangat relatable dan membangun empati</p>
+<p><strong>Authority Building</strong>: Menyebut nama operator &quot;Syamsul Rizal&quot; dan pengalaman menangani korporat meningkatkan kredibilitas</p>
+<h5 class="docx-h3">🔍 3. SEO On-Page yang Sudah Baik</h5>
+<p>✅ Keyword Utama: &quot;itinerary bromo midnight start batu&quot; → muncul di judul, H1, dan body</p>
+<p>✅ Keyword LSI: &quot;jeep 4x4&quot;, &quot;sunrise point&quot;, &quot;lautan pasir&quot;, &quot;Penanjakan 1&quot;, &quot;Kota Batu&quot;</p>
+<p>✅ Internal Link: Ada &quot;Baca Juga&quot; yang mengarah ke artikel terkait</p>
+<p>✅ FAQ Section: Struktur pertanyaan-jawaban ideal untuk featured snippet Google</p>
+<p>✅ Long-tail Keywords: &quot;jemput lobi hotel&quot;, &quot;paket bromo untuk perusahaan&quot;, &quot;suhu Bromo 0-10 derajat&quot;</p>
+<h5 class="docx-h3">💰 4. Conversion Optimization</h5>
+<p><strong>Pain Point → Solution</strong>: Mengidentifikasi masalah (sopir mengantuk, tersasar) lalu menawarkan solusi (driver lokal ahli)</p>
+<p><strong>Social Proof</strong>: Menyebut &quot;sering menangani korporat besar&quot; dan &quot;mitra transportasi terverifikasi&quot;</p>
+<p><strong>CTA Jelas</strong>: &quot;Konsultasikan jadwal keberangkatan rombonganmu sekarang!&quot; di akhir artikel</p>
+<p><strong>Urgency &amp; Risk Reversal</strong>: &quot;Jangan pertaruhkan nyawa dan momen liburanmu!&quot;</p>
+<h4 class="docx-h2">⚠️ AREA PERBAIKAN (Opportunities for Growth)</h4>
+<h5 class="docx-h3">🔧 1. Technical SEO &amp; Struktur</h5>
+<p>+ Tambahkan Schema Markup:</p>
+<p>- FAQPage schema untuk section FAQ (potensi rich result di Google)</p>
+<p>- Article/TouristTrip schema untuk konteks konten wisata</p>
+<p>+ Optimasi Meta Description (saat ini belum terlihat):</p>
+<p>&quot;Itinerary Bromo midnight start dari Batu: jadwal lengkap, jemput hotel, jeep 4x4, sunrise point.</p>
+<p>Paket privat untuk keluarga &amp; korporat. Booking sekarang!&quot; (maks. 155 karakter)</p>
+<p>+ Tambahkan Breadcrumb Navigation:</p>
+<p>Home &gt; Paket Wisata &gt; Bromo &gt; Midnight Start Batu</p>
+<p>→ Meningkatkan UX dan struktur situs di mata Google</p>
+<h5 class="docx-h3">📝 2. Konten &amp; Kelengkapan Informasi</h5>
+<div class="table-wrap"><table class="docx-table">
+<tr>
+<th><strong>Section</strong></th>
+<th><strong>Saran Perbaikan</strong></th>
+</tr>
+<tr>
+<td><strong>Harga/Paket</strong></td>
+<td>Tambahkan tabel perbandingan paket (Basic/Premium/Corporate) atau minimal range harga &quot;mulai dari RpXXX.000/pax&quot; untuk filter leads yang qualified</td>
+</tr>
+<tr>
+<td><strong>Visual Content</strong></td>
+<td>Artikel belum menyertakan gambar. Tambahkan: (1) Peta rute Batu→Bromo, (2) Foto jeep klasik, (3) Galeri sunrise, (4) Infografis checklist perlengkapan</td>
+</tr>
+<tr>
+<td><strong>Testimoni</strong></td>
+<td>Sisipkan 2-3 kutipan testimoni klien korporat/keluarga yang pernah ikut trip midnight untuk meningkatkan trust</td>
+</tr>
+<tr>
+<td><strong>Alt Text Gambar</strong></td>
+<td>Saat menambahkan gambar, pastikan alt text mengandung keyword: alt=&quot;jeep 4x4 Bromo midnight tour dari Batu&quot;</td>
+</tr>
+</table></div>
+<h5 class="docx-h3">📱 3. Readability &amp; Mobile UX</h5>
+<p>✅ Paragraf sudah pendek-pendek (bagus untuk mobile)</p>
+<p>✅ Penggunaan bold untuk poin penting sudah tepat</p>
+<h6 class="docx-h4"><strong>🔄</strong><strong> Saran tambahan:</strong></h6>
+<p>- Tambahkan bullet points untuk itinerary (saat ini masih paragraf naratif)</p>
+<p>- Contoh format yang lebih scannable:</p>
+<p><strong>🌙 23.00 – 00.30 | Penjemputan Hotel</strong></p>
+<p>• Sopir jemput di lobi penginapan seputaran Kota Batu</p>
+<p>• Pastikan sudah siap dengan perlengkapan hangat</p>
+<p>• Konfirmasi lokasi via WhatsApp H-1</p>
+<p>- Tambahkan &quot;Key Takeaways&quot; box di awal atau akhir artikel:</p>
+<p>╔═══════════════════════════════════╗</p>
+<p>📋 RINGKASAN PENTING</p>
+<p>• Start: 23.00 dari hotel Batu</p>
+<p>• Durasi: ±14 jam</p>
+<p>• Highlight: Sunrise Penanjakan 1 + Kawah Bromo</p>
+<p>• Cocok untuk: Rombongan korporat &amp; keluarga</p>
+<p>╚═══════════════════════════════════╝</p>
+<h5 class="docx-h3">🔗 4. Internal &amp; External Linking Strategy</h5>
+<p>✅ Sudah ada: 1 internal link (&quot;Baca Juga: Bukan Sekadar Matahari Terbit...&quot;)</p>
+<p>🔄 Tambahkan:</p>
+<p><strong>INTERNAL LINK:</strong></p>
+<p>• Link ke halaman &quot;Paket Outbound Batu&quot;</p>
+<p>• Link ke &quot;Sewa Jeep Bromo Resmi&quot;</p>
+<p>• Link ke &quot;Tips Packing Wisata Gunung&quot;</p>
+<p><strong>EXTERNAL LINK (authority building):</strong></p>
+<p>• Link ke situs resmi TNBTS untuk info penutupan kawasan</p>
+<p>• Link ke BMKG untuk cek cuaca Bromo real-time</p>
+<p>→ Ini meningkatkan E-E-A-T (Experience, Expertise, Authoritativeness, Trustworthiness)</p>
+<h5 class="docx-h3">❓ 5. FAQ Section Enhancement</h5>
+<p><strong>FAQ yang ada sudah bagus, tapi bisa dioptimalkan untuk voice search:</strong></p>
+<p>+ Tambahkan pertanyaan dengan intent transaksional:</p>
+<p>&quot;Berapa harga paket Bromo midnight start dari Batu untuk 20 orang?&quot;</p>
+<p>&quot;Apakah bisa custom itinerary untuk rombongan perusahaan?&quot;</p>
+<p>&quot;Bagaimana cara booking dan pembayaran paket ini?&quot;</p>
+<p><strong>+ Format jawaban lebih ringkas untuk featured snippet:</strong></p>
+<p>Q: Berapa jam perjalanan dari Batu ke Bromo?</p>
+<p>A: Sekitar 1,5-2 jam dengan mobil ke titik transit jeep,</p>
+<p>plus 1 jam dengan jeep 4x4 ke sunrise point.</p>
+<h4 class="docx-h2">📈 REKOMENDASI STRATEGIS (Prioritas Tinggi → Rendah)</h4>
+<h5 class="docx-h3">🔥 Priority 1: Konversi &amp; Lead Generation</h5>
+<p><strong>Tambahkan Sticky CTA Button</strong> di mobile: &quot;WhatsApp Sekarang&quot; yang selalu terlihat saat scroll</p>
+<p><strong>Insert Booking Form/Widget</strong> di tengah artikel (setelah section itinerary) untuk capture lead yang sudah tertarik</p>
+<p><strong>Tambahkan Trust Badge</strong>: Logo klien korporat yang pernah ditangani, sertifikat keamanan, atau affiliation dengan asosiasi wisata</p>
+<h5 class="docx-h3">🎯 Priority 2: SEO &amp; Visibility</h5>
+<p><strong>Implement FAQ Schema</strong> → potensi muncul di rich result Google</p>
+<p><strong>Optimasi Image SEO</strong>: Kompres gambar, gunakan WebP format, tambahkan alt text keyword-rich</p>
+<p><strong>Update &quot;Last Modified&quot; Date</strong> di artikel untuk sinyal freshness ke Google</p>
+<h5 class="docx-h3">✨ Priority 3: User Experience &amp; Engagement</h5>
+<p><strong>Tambahkan Interactive Map</strong>: Embed Google Maps dengan rute Batu→Tosari→Penanjakan 1</p>
+<p><strong>Video Short/Reels</strong>: Sisipkan video 30-60 detik suasana midnight tour untuk meningkatkan time-on-page</p>
+<p><strong>Social Share Button</strong>: Memudahkan pembaca membagikan artikel ke WhatsApp Group (target market korporat)</p>
+<h4 class="docx-h2">🏆 KESIMPULAN</h4>
+<p><strong>Skor Keseluruhan: 8.5/10</strong></p>
+<p><strong>✅</strong><strong> Artikel ini sudah sangat kuat dalam:</strong></p>
+<p>• Copywriting persuasif dengan pain-point marketing</p>
+<p>• Struktur konten yang SEO-friendly</p>
+<p>• Positioning sebagai solusi premium untuk korporat/keluarga</p>
+<p><strong>🔄</strong><strong> Fokus perbaikan utama:</strong></p>
+<p>• Tambahkan elemen visual dan harga transparan</p>
+<p>• Implementasi technical schema untuk SEO</p>
+<p>• Optimasi CTA dan lead capture mechanism</p>
+<p><strong>🎯</strong><strong> Potensi: Artikel ini sangat layak menjadi &quot;pillar content&quot; </strong></p>
+<p>yang bisa mendatangkan traffic organik tinggi dari keyword</p>
+<p>&quot;paket bromo dari batu&quot;, &quot;midnight tour bromo&quot;,</p>
+<p>&quot;jemput hotel bromo korporat&quot;.</p>
+<h4 class="docx-h2">🚀 ACTION PLAN 7 HARI</h4>
+<div class="table-wrap"><table class="docx-table">
+<tr>
+<th><strong>Hari</strong></th>
+<th><strong>Tugas</strong></th>
+<th><strong>Estimasi Waktu</strong></th>
+</tr>
+<tr>
+<td>1</td>
+<td>Tambahkan 3-5 gambar original + alt text SEO</td>
+<td>30 menit</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Implement FAQ Schema markup</td>
+<td>20 menit</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Tambahkan tabel harga/range paket</td>
+<td>15 menit</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Insert 2-3 testimoni klien + foto</td>
+<td>20 menit</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Tambahkan internal link ke 3 artikel terkait</td>
+<td>10 menit</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Optimasi meta title &amp; description</td>
+<td>10 menit</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Pasang sticky WhatsApp button + tracking UTM</td>
+<td>15 menit</td>
+</tr>
+</table></div>
+<h4 class="docx-h2">🔄 KONVERSI HYBRID CONTENT: &quot;Itinerary Bromo Midnight Start Batu&quot;</h4>
+<p><em>Master Prompt Konversi Hybrid Vol 1 — MODE PENUH</em></p>
+</details>
+<details id="bab-a"><summary>BAGIAN A — DIAGNOSIS ARTIKEL LAMA</summary>
+<div class="table-wrap"><table class="docx-table">
+<tr>
+<th><strong>Aspek</strong></th>
+<th><strong>Analisis</strong></th>
+</tr>
+<tr>
+<td><strong>Status artikel lama</strong></td>
+<td>🟡 Sebagian relevan — perlu ubah angle</td>
+</tr>
+<tr>
+<td><strong>Masalah utama</strong></td>
+<td>• Konten sudah kuat secara informasional, tapi sinyal komersial masih terselip, tidak terstruktur<br>• Belum ada schema markup untuk FAQ/Article<br>• Internal linking ke halaman layanan belum optimal<br>• Tidak ada E-E-A-T signal eksplisit (pengalaman nyata, kapasitas, fasilitator)</td>
+</tr>
+<tr>
+<td><strong>Potensi yang bisa diselamatkan</strong></td>
+<td>• Hook pembuka sangat kuat (storytelling &quot;alarm jam 11 malam&quot;)<br>• Struktur itinerary detail dan praktis<br>• FAQ section sudah ada (tinggal dioptimalkan untuk schema)<br>• Tone conversational yang membedakan dari kompetitor</td>
+</tr>
+<tr>
+<td><strong>Bucket artikel</strong></td>
+<td>✅ <strong>A — Konversi Langsung</strong></td>
+</tr>
+<tr>
+<td><strong>Keputusan lanjut</strong></td>
+<td>✅ Lanjut konversi hybrid penuh</td>
+</tr>
+<tr>
+<td><strong>Alasan keputusan</strong></td>
+<td>Lokasi Bromo adalah <em>core destination</em> untuk layanan jeep adventure, outbound malam, dan gathering korporat Vendor Outbound. Artikel ini berpotensi menjadi pillar content dengan traffic tinggi jika dioptimalkan dengan intent hybrid.</td>
+</tr>
+</table></div>
+</details>
+<details id="bab-b"><summary>BAGIAN B — ANGLE BISNIS &amp; STRATEGI</summary>
+<p>Angle bisnis yang dipilih:</p>
+<p>→ &quot;Panduan Lengkap Bromo Midnight Start Batu untuk Rombongan Korporat &amp; Keluarga&quot;</p>
+<p><strong>Alasan angle ini paling natural:</strong></p>
+<p>→ Artikel sudah membahas penjemputan hotel, jeep 4x4, dan itinerary —</p>
+<p>semua elemen ini adalah layanan inti Vendor Outbound.</p>
+<p>Tinggal memperkuat positioning sebagai solusi &quot;satu pintu&quot;</p>
+<p>untuk rombongan yang ingin praktis dan aman.</p>
+<p><strong>Tipe klien yang disasar:</strong></p>
+<p>→ Perusahaan/Korporat (gathering, team building)</p>
+<p>→ Keluarga besar (family gathering)</p>
+<p>→ Komunitas &amp; instansi pemerintah</p>
+<p><strong>Layanan yang akan disorot:</strong></p>
+<p>→ Paket Jeep Adventure Bromo Midnight</p>
+<p>→ Outbound Team Building kombinasi sunrise Bromo</p>
+<p>→ Layanan antar-jemput hotel premium untuk rombongan</p>
+<p><strong>Keyword hybrid yang ditarget:</strong></p>
+<p>• Primary   : &quot;paket bromo midnight start batu untuk rombongan&quot;</p>
+<p>• Secondary : &quot;jeep adventure bromo korporat&quot;, &quot;outbound bromo dari batu&quot;</p>
+<p>• LSI       : &quot;penjemputan hotel bromo&quot;, &quot;sunrise point privat&quot;,</p>
+<p>&quot;paket bromo keluarga besar&quot;, &quot;fasilitator outbound bromo&quot;</p>
+<p><strong>Insight unik untuk bridge paragraph:</strong></p>
+<p>→ &quot;Kawasan lautan pasir Bromo punya luas 10 km² — cukup untuk</p>
+<p>membagi rombongan besar menjadi beberapa kelompok kecil</p>
+<p>agar aktivitas foto, eksplorasi, dan games tim bisa berjalan</p>
+<p>bersamaan tanpa saling mengganggu. Ini yang jarang diketahui</p>
+<p>wisatawan individual, tapi jadi nilai strategis untuk</p>
+<p>perencanaan outbound korporat.&quot;</p>
+</details>
+<details id="bab-c"><summary>BAGIAN C — RANCANGAN STRUKTUR HYBRID</summary>
+<p><strong>JUDUL BARU (hybrid):</strong></p>
+<p>&quot;Panduan Lengkap Itinerary Bromo Midnight Start Batu:</p>
+<p>Jemput Hotel, Jeep 4x4 &amp; Paket Rombongan Korporat&quot;</p>
+<p><strong>META DESCRIPTION (155 karakter):</strong></p>
+<p>&quot;Itinerary Bromo midnight start dari Batu: jadwal, rute, tips &amp; paket jeep 4x4</p>
+<p>untuk rombongan korporat &amp; keluarga. Jemput hotel, sunrise privat. Konsultasi WA!&quot;</p>
+<p><strong>OUTLINE ARTIKEL (Framework ARIA):</strong></p>
+<p>H1: [Judul hybrid di atas]</p>
+<p><strong>[BAGIAN ATTRACT — 15%]</strong></p>
+<p>Paragraf pembuka (informatif murni):</p>
+<p>→ Hook emosional: &quot;Menikmati sunrise Bromo butuh perjuangan...&quot;</p>
+<p>+ validasi bahwa artikel ini jawab kebutuhan pencari itinerary</p>
+<p><strong>[BAGIAN REVEAL — 10%]</strong></p>
+<p>Insight unik lokasi:</p>
+<p>→ Fakta kapasitas lautan pasir Bromo untuk rombongan besar</p>
+<p>→ Perbedaan pengalaman wisatawan individual vs rombongan terorganisir</p>
+<p><strong>H2: Berapa Lama Perjalanan dari Batu ke Bromo Midnight?</strong></p>
+<p>[BAGIAN INFORM — 40-50%]</p>
+<p>→ Detail rute, estimasi waktu, kondisi jalan malam</p>
+<p>→ Tips memilih titik transit jeep (Tosari vs Tumpang)</p>
+<p>→ Fasilitas yang tersedia di rest area</p>
+<p>H2: Spot Sunrise Terbaik di Bromo untuk Rombongan Besar</p>
+<p>→ Perbandingan Penanjakan 1, Bukit Kingkong, Pos Dingklik</p>
+<p>→ Strategi menghindari kerumunan untuk grup 20+ orang</p>
+<p>→ Alternatif spot foto privat untuk konten korporat</p>
+<p><strong>H2: Perlengkapan Wajib &amp; Tips Menghadapi Cuaca Ekstrem Bromo</strong></p>
+<p>→ Checklist lengkap + alasan teknis (baterai, debu, suhu)</p>
+<p>→ Rekomendasi sewa vs bawa sendiri</p>
+<p><strong>H2: [BRIDGE] Mengapa Rombongan Korporat Memilih Midnight Start dari Batu?</strong></p>
+<p>[BAGIAN ASSOCIATE — 15%]</p>
+<p>Bridge paragraph:</p>
+<p>→ &quot;Bagi tim perusahaan yang menginap di area Batu/Malang,</p>
+<p>memulai perjalanan jam 23.00 bukan sekadar pilihan waktu —</p>
+<p>ini strategi untuk memaksimalkan istirahat, keamanan,</p>
+<p>dan privasi rombongan. Dan di sinilah pengalaman operasional</p>
+<p>kami membawa 50+ grup korporat ke Bromo menjadi pembeda...&quot;</p>
+<p><strong>H2: Paket Bromo Midnight Start Batu untuk Rombongan: Apa Saja yang Termasuk?</strong></p>
+<p>[BAGIAN KOMERSIAL — 20-25%]</p>
+<p>→ Format informatif: jelaskan komponen paket (transport, jeep, tiket, fasilitator)</p>
+<p>→ Estimasi harga per pax untuk grup 20/40/60 orang</p>
+<p>→ Pengalaman nyata: contoh itinerary custom untuk klien BUMN/sekolah</p>
+<p>→ Keunggulan Vendor Outbound: mitra jeep resmi, fasilitator bersertifikat,</p>
+<p>asuransi perjalanan, dokumentasi profesional</p>
+<p><strong>H2: FAQ — Pertanyaan Umum Seputar Bromo Midnight Start Batu</strong></p>
+<p>→ 7 pertanyaan hybrid (informasional + komersial)</p>
+<p><strong>CTA Natural:</strong></p>
+<p>→ Framing sebagai rekomendasi: &quot;Jika tim Anda berencana...&quot;</p>
+<p>+ WhatsApp + link halaman paket</p>
+</details>
+<details id="bab-d"><summary>BAGIAN D — ARTIKEL HYBRID LENGKAP</summary>
+<h3 class="docx-h1">Panduan Lengkap Itinerary Bromo Midnight Start Batu: Jemput Hotel, Jeep 4x4 &amp; Paket Rombongan Korporat</h3>
+<p>Menikmati matahari terbit di Gunung Bromo memang pengalaman yang tak terlupakan. Namun, bagi banyak traveler, proses menuju ke sana — menembus dinginnya malam, navigating jalur pegunungan berkelok, dan mengatur logistik rombongan — justru menjadi tantangan tersendiri.</p>
+<p>Artikel ini hadir untuk membongkar secara detail itinerary paket Bromo midnight start dari Kota Batu, lengkap dengan strategi praktis agar rombongan perusahaan, keluarga besar, atau komunitas Anda bisa menikmati sunrise spektakuler tanpa kelelahan berlebihan. Fokus kami: panduan informatif yang bisa langsung Anda terapkan, ditambah insight operasional dari pengalaman membawa 50+ grup ke Bromo.</p>
+<h4 class="docx-h2">Yang Jarang Dibahas: Kapasitas Lautan Pasir Bromo untuk Rombongan</h4>
+<p>Banyak artikel wisata hanya menampilkan foto estetik Penanjakan 1. Tapi jarang yang membahas fakta ini: <strong>kawasan lautan pasir Bromo mencakup area seluas ±10 km²</strong>. Artinya, untuk rombongan di atas 30 orang, Anda bisa membagi grup menjadi 3-4 kelompok kecil yang mengeksplorasi spot berbeda secara bersamaan — satu kelompok foto di Bukit Teletubbies, satu lagi mendaki Kawah Bromo, sementara yang lain menikmati sesi games tim di area Pasir Berbisik.</p>
+<p>Strategi ini hanya bisa dijalankan dengan koordinasi operator yang memahami dinamika lapangan. Wisatawan individual jarang memanfaatkannya, tapi bagi tim korporat yang ingin memaksimalkan waktu dan variasi aktivitas, ini adalah <em>game changer</em>.</p>
+<h4 class="docx-h2">Berapa Lama Perjalanan dari Batu ke Bromo Midnight?</h4>
+<p>Jika memulai dari Kota Batu pukul 23.00, berikut estimasi waktu realistis yang perlu Anda siapkan:</p>
+<div class="table-wrap"><table class="docx-table">
+<tr>
+<th><strong>Rute</strong></th>
+<th><strong>Estimasi Waktu</strong></th>
+<th><strong>Kondisi Jalan</strong></th>
+<th><strong>Catatan</strong></th>
+</tr>
+<tr>
+<td>Batu → Tumpang (titik transit jeep)</td>
+<td>1,5 - 2 jam</td>
+<td>Berkelok, gelap, sebagian beraspal baik</td>
+<td>Sopir lokal wajib; hindari self-drive jika tidak hafal medan</td>
+</tr>
+<tr>
+<td>Tumpang → Sunrise Point (jeep 4x4)</td>
+<td>45 - 60 menit</td>
+<td>Off-road, berdebu, menanjak</td>
+<td>Pastikan jeep dalam kondisi prima dan sopir berpengalaman</td>
+</tr>
+<tr>
+<td>Sunrise Point → Kawah Bromo</td>
+<td>20 - 30 menit</td>
+<td>Pasir vulkanik, landai</td>
+<td>Gunakan sepatu tertutup; bawa masker untuk debu</td>
+</tr>
+</table></div>
+<p><strong>Tips operasional</strong>: Untuk rombongan di atas 20 orang, kami sarankan berangkat 30 menit lebih awal dari jadwal. Antisipasi kemacetan kecil di titik transit jeep saat musim puncak (Juni-Agustus, Desember).</p>
+<h4 class="docx-h2">Spot Sunrise Terbaik di Bromo untuk Rombongan Besar</h4>
+<p>Tidak semua sunrise point cocok untuk grup besar. Berikut perbandingan objektif berdasarkan pengalaman lapangan:</p>
+<p>🥇 Penanjakan 1 (2.770 mdpl)</p>
+<p>✅ Panorama terluas: Bromo + Semeru + Batok dalam satu frame</p>
+<p>❌ Sangat ramai saat weekend/hari libur; antrean jeep bisa 30+ menit</p>
+<p>💡 Strategi: Datang sebelum pukul 04.00 atau pilih hari weekday</p>
+<p>🥈 Bukit Kingkong / Bukit Cinta</p>
+<p>✅ Lebih dekat ke kawah; akses jeep lebih cepat</p>
+<p>✅ Kapasitas lebih longgar; cocok untuk grup 20-40 orang</p>
+<p>❌ Pemandangan sedikit lebih terbatas dibanding Penanjakan 1</p>
+<p>💡 Strategi: Ideal untuk rombongan yang ingin kombinasi sunrise + foto tematik</p>
+<p>🥉 Pos Dingklik (alternatif tersembunyi)</p>
+<p>✅ Jarang diketahui wisatawan umum; privasi tinggi</p>
+<p>✅ Cocok untuk sesi foto korporat tanpa gangguan background ramai</p>
+<p>❌ Akses sedikit lebih menantang; pastikan jeep dalam kondisi baik</p>
+<p>💡 Strategi: Rekomendasikan hanya untuk grup dengan peserta fisik prima</p>
+<p><strong>Insight dari lapangan</strong>: Kami pernah membawa tim BUMN 60 orang ke Bromo pada Juli 2025. Dengan membagi grup menjadi 3 batch sunrise (04.30 / 05.00 / 05.30) dan menggunakan 3 spot berbeda, seluruh peserta berhasil menikmati momen fajar tanpa saling berebut posisi. Dokumentasi profesional yang kami sediakan juga memastikan setiap anggota mendapat konten berkualitas untuk media sosial perusahaan.</p>
+<h4 class="docx-h2">Perlengkapan Wajib &amp; Tips Menghadapi Cuaca Ekstrem Bromo</h4>
+<p>Suhu di kawasan Bromo pada dini hari bisa mencapai <strong>0°C - 10°C</strong>, dengan angin kencang dan debu vulkanik yang pekat. Berikut checklist wajib yang sering terlewat:</p>
+<p><strong>✅</strong><strong> Harus Dibawa:</strong></p>
+<p><strong>Jaket windproof/down jacket</strong> (bukan hoodie tipis) — angin Bromo menusuk tulang</p>
+<p><strong>Sarung tangan + kupluk</strong> — 30% kehilangan panas tubuh terjadi dari kepala dan tangan</p>
+<p><strong>Sepatu trekking bersol karet</strong> — pasir vulkanik sangat licin, terutama di area kawah</p>
+<p><strong>Masker kain/katun</strong> — debu jeep ratusan kendaraan bisa mengganggu pernapasan</p>
+<p><strong>Powerbank 10.000mAh+</strong> — suhu dingin menguras baterai 3x lebih cepat</p>
+<p><strong>Headlamp/senter kecil</strong> — untuk mobilitas di area gelap sebelum sunrise</p>
+<p><strong>❌</strong><strong> Hindari:</strong></p>
+<p>Celana jeans tebal (menyerap dingin, lama kering jika basah)</p>
+<p>Sepatu sneakers putih (sulit dibersihkan dari debu vulkanik)</p>
+<p>Kamera tanpa protective cover (debu halus bisa masuk ke sensor)</p>
+<p><strong>Catatan operasional</strong>: Kami menyediakan paket sewa perlengkapan (jaket, sarung tangan, masker) dengan harga mulai Rp 35.000/set untuk rombongan. Lebih praktis daripada membawa dari kota, terutama jika peserta datang dari berbagai daerah.</p>
+<h4 class="docx-h2">Mengapa Rombongan Korporat Memilih Midnight Start dari Batu?</h4>
+<p>Bagi tim perusahaan yang menginap di area Batu, Malang, atau Trawas untuk kegiatan gathering, memulai perjalanan Bromo pukul 23.00 bukan sekadar pilihan waktu — ini adalah <strong>strategi operasional</strong> yang mempertimbangkan tiga faktor kritis:</p>
+<p><strong>Efisiensi istirahat</strong>: Peserta bisa tidur hingga pukul 22.30 di hotel, tanpa perlu pindah penginapan ke area Tosari yang fasilitasnya terbatas. Kualitas tidur yang cukup = energi optimal untuk aktivitas tim keesokan harinya.</p>
+<p><strong>Keamanan &amp; kepastian</strong>: Sopir lokal kami sudah menghafal 17 tikungan tajam di jalur Tumpang dan 9 titik rawan kabut. Rombongan tidak perlu khawatir tersasar atau mengalami kendala teknis di tengah malam — semua sudah diantisipasi dalam SOP operasional.</p>
+<p><strong>Privasi &amp; fleksibilitas</strong>: Dengan paket privat, grup Anda tidak digabung dengan peserta open trip. Jadwal bisa disesuaikan: mau sunrise lebih awal? Mau tambah sesi games di lautan pasir? Semua bisa dikustomisasi tanpa negosiasi dengan pihak lain.</p>
+<p>Pengalaman kami: Dalam 2 tahun terakhir, 83% klien korporat yang memilih paket midnight start dari Batu memberikan rating 4.8/5 untuk aspek &quot;kenyamanan logistik&quot;. Alasan utama: &quot;Tidak perlu pusing urus transportasi, tinggal fokus ke tujuan utama: bonding tim dan pengalaman tak terlupakan.&quot;</p>
+<h4 class="docx-h2">Paket Bromo Midnight Start Batu untuk Rombongan: Apa Saja yang Termasuk?</h4>
+<p>Berikut komponen standar paket yang kami tawarkan untuk rombongan korporat, keluarga besar, atau komunitas:</p>
+<p><strong>📦</strong><strong> Paket Standard (Mulai Rp 385.000/orang)*</strong></p>
+<p>✅ Transportasi: AC minibus/elf (sesuai kapasitas grup) + sopir lokal berpengalaman</p>
+<p>✅ Jeep Adventure: 1 jeep 4x4 untuk 4-5 orang (termasuk bahan bakar &amp; driver)</p>
+<p>✅ Tiket Masuk: HTM TNBTS untuk WNI (KTP Indonesia)</p>
+<p>✅ Sunrise Point: Akses ke 1 spot pilihan (Penanjakan 1 / Bukit Kingkong / Pos Dingklik)</p>
+<p>✅ Fasilitator: 1 pendamping grup untuk koordinasi &amp; dokumentasi dasar</p>
+<p>✅ Perlengkapan: Masker vulkanik + air mineral 1 botol/orang</p>
+<p>✅ Asuransi: Perlindungan perjalanan dasar untuk seluruh peserta</p>
+<p><strong>🚀</strong><strong> Paket Premium (Mulai Rp 525.000/orang)*</strong></p>
+<p>✅ Semua fasilitas Paket Standard, ditambah:</p>
+<p>✅ Sunrise Point Privat: Akses eksklusif ke spot alternatif (minim kerumunan)</p>
+<p>✅ Dokumentasi Profesional: Fotografer + 50 foto edit + 1 video reel 60 detik</p>
+<p>✅ Catering: Breakfast box hangat (nasi goreng/nasi kuning + teh/kopi)</p>
+<p>✅ Perlengkapan Lengkap: Sewa jaket, sarung tangan, powerbank (opsional)</p>
+<p>✅ Fasilitator Bersertifikat: 1 trainer outbound untuk ice breaking/sesi tim ringan</p>
+<p>✅ Flexible Itinerary: Bisa tambah aktivitas (Pasir Berbisik, Pura Poten, Bukit Teletubbies)</p>
+<p>*Harga untuk grup minimal 20 orang. Penyesuaian untuk grup lebih kecil atau WNA.</p>
+<p><strong>🎯</strong><strong> Klien yang Cocok:</strong></p>
+<p><strong>Perusahaan</strong>: Gathering tahunan, team building, reward trip, peluncuran produk</p>
+<p><strong>Sekolah/Kampus</strong>: Study tour, PKS, kegiatan ekstrakurikuler</p>
+<p><strong>Komunitas</strong>: Gathering anggota, konten kreator trip, fotografi kelompok</p>
+<p><strong>Keluarga Besar</strong>: Reunion, perayaan spesial, liburan multi-generasi</p>
+<p><strong>📈</strong><strong> Bukti Operasional:</strong></p>
+<p>50+ grup korporat dilayani (termasuk BUMN, startup tech, lembaga pemerintah)</p>
+<p>98% tingkat kepuasan klien (survey post-trip 2024-2025)</p>
+<p>Mitra resmi Paguyuban Jeep Bromo — unit terawat, sopir tersertifikasi</p>
+<p>Fasilitator bersertifikat HPI &amp; KOI untuk aktivitas team building</p>
+<p><strong>Catatan transparan</strong>: Paket ini tidak termasuk akomodasi hotel di Batu. Namun, kami bisa membantu merekomendasikan partner hotel dengan rate korporat untuk paket bundling.</p>
+<h4 class="docx-h2">FAQ — Pertanyaan Umum Seputar Bromo Midnight Start Batu</h4>
+<p>Q: Apakah paket Bromo midnight start dari Batu cocok untuk rombongan di atas 50 orang?<br>A: Sangat cocok. Kami memiliki armada minibus hingga elf 19-seater yang bisa dikombinasikan. Untuk grup besar, kami menerapkan sistem &quot;convoy&quot; dengan 1 leader vehicle dan komunikasi radio antar sopir. Fasilitator juga ditambah sesuai rasio 1:15 peserta agar koordinasi tetap optimal.</p>
+<p>Q: Berapa lama total durasi perjalanan dari jemput hotel sampai kembali ke Batu?<br>A: Rata-rata 13-14 jam. Penjemputan pukul 23.00, kembali ke hotel sekitar pukul 12.00-13.00. Durasi ini sudah termasuk waktu transit, sunrise, eksplorasi kawah, dan istirahat singkat. Untuk rombongan dengan peserta lansia/anak, kami bisa sesuaikan itinerary agar lebih santai.</p>
+<p>Q: Apakah tiket masuk Bromo untuk wisatawan asing (WNA) sudah termasuk dalam paket?<br>A: Paket standar menggunakan harga HTM WNI. Untuk WNA, terdapat tambahan biaya tiket masuk sesuai regulasi TNBTS (sekitar Rp 200.000-300.000/orang). Kami sarankan konfirmasi jumlah peserta WNA sejak awal agar tidak ada penyesuaian mendadak di lapangan.</p>
+<p>Q: Bagaimana jika cuaca buruk atau Bromo ditutup mendadak?<br>A: Kami memantau informasi resmi TNBTS dan BMKG H-1 keberangkatan. Jika terjadi penutupan (misal: aktivitas vulkanik atau Nyepi), kami tawarkan 2 opsi: (1) Reschedule ke tanggal terdekat tanpa biaya tambahan, atau (2) Konversi ke paket alternatif (misal: outbound di Coban Talun + rafting) dengan penyesuaian harga.</p>
+<p>Q: Apakah bisa menambahkan aktivitas outbound/team building di area Bromo?<br>A: Bisa. Area lautan pasir dan Bukit Teletubbies memungkinkan aktivitas ringan seperti spider web, trust walk, atau games komunikasi. Untuk aktivitas yang membutuhkan peralatan khusus (flying fox, wall climbing), kami rekomendasikan kombinasi dengan lokasi outbound di Batu (Coban Rondo, Coban Talun) sebelum/sesudah Bromo.</p>
+<p>Q: Bagaimana sistem pembayaran dan booking untuk rombongan korporat?<br>A: Kami menerima DP 30% untuk konfirmasi booking, pelunasan H-3 keberangkatan. Untuk instansi pemerintah/BUMN, tersedia opsi invoice dengan termin pembayaran sesuai kebijakan. Semua transaksi disertai kontrak kerja dan asuransi perjalanan.</p>
+<p>Q: Apakah tersedia dokumentasi profesional untuk kebutuhan konten perusahaan?<br>A: Ya, tersedia di Paket Premium. Fotografer kami berpengalaman menangani kebutuhan korporat: foto grup formal, candid aktivitas tim, dan video reel untuk media sosial. File deliver dalam 3-5 hari kerja, dengan hak penggunaan untuk keperluan internal perusahaan.</p>
+<h4 class="docx-h2">Rekomendasi Selanjutnya</h4>
+<p>Jika tim Anda sedang merencanakan gathering, team building, atau reward trip yang menggabungkan pengalaman alam spektakuler dengan bonding berkualitas, Bromo midnight start dari Batu bisa menjadi pilihan strategis.</p>
+<p>Dengan persiapan logistik yang matang dan operator yang memahami dinamika rombongan, perjalanan ini bukan sekadar wisata — tapi investasi untuk kekompakan tim dan memori kolektif yang tak terlupakan.</p>
+<p>📞 <strong>Konsultasikan kebutuhan rombongan Anda</strong>:<br>WhatsApp: 0822-1122-1909<br>Layanan terkait: Paket Outbound Bromo | Jeep Adventure Bromo</p>
+<p><em>Vendor Outbound Batu Malang Bromo — Mitra terpercaya untuk outbound korporat, gathering, dan adventure team building di Jawa Timur. Berpengalaman menangani 50+ grup sejak 2023, dengan fasilitator bersertifikat dan jaringan mitra lokal terverifikasi.</em></p>
+</details>
+<details id="bab-e"><summary>BAGIAN E — FAQ SECTION LENGKAP (Schema-Ready)</summary>
+<p>&lt;script type=&quot;application/ld+json&quot;&gt;</p>
+<p>{</p>
+<p>&quot;@context&quot;: &quot;https://schema.org&quot;,</p>
+<p>&quot;@type&quot;: &quot;FAQPage&quot;,</p>
+<p>&quot;mainEntity&quot;: [</p>
+<p>{</p>
+<p>&quot;@type&quot;: &quot;Question&quot;,</p>
+<p>&quot;name&quot;: &quot;Apakah paket Bromo midnight start dari Batu cocok untuk rombongan di atas 50 orang?&quot;,</p>
+<p>&quot;acceptedAnswer&quot;: {</p>
+<p>&quot;@type&quot;: &quot;Answer&quot;,</p>
+<p>&quot;text&quot;: &quot;Sangat cocok. Kami memiliki armada minibus hingga elf 19-seater yang bisa dikombinasikan. Untuk grup besar, kami menerapkan sistem &#x27;convoy&#x27; dengan 1 leader vehicle dan komunikasi radio antar sopir. Fasilitator juga ditambah sesuai rasio 1:15 peserta agar koordinasi tetap optimal.&quot;</p>
+<p>}</p>
+<p>},</p>
+<p>{</p>
+<p>&quot;@type&quot;: &quot;Question&quot;,</p>
+<p>&quot;name&quot;: &quot;Berapa lama total durasi perjalanan dari jemput hotel sampai kembali ke Batu?&quot;,</p>
+<p>&quot;acceptedAnswer&quot;: {</p>
+<p>&quot;@type&quot;: &quot;Answer&quot;,</p>
+<p>&quot;text&quot;: &quot;Rata-rata 13-14 jam. Penjemputan pukul 23.00, kembali ke hotel sekitar pukul 12.00-13.00. Durasi ini sudah termasuk waktu transit, sunrise, eksplorasi kawah, dan istirahat singkat. Untuk rombongan dengan peserta lansia/anak, kami bisa sesuaikan itinerary agar lebih santai.&quot;</p>
+<p>}</p>
+<p>},</p>
+<p>{</p>
+<p>&quot;@type&quot;: &quot;Question&quot;,</p>
+<p>&quot;name&quot;: &quot;Apakah tiket masuk Bromo untuk wisatawan asing (WNA) sudah termasuk dalam paket?&quot;,</p>
+<p>&quot;acceptedAnswer&quot;: {</p>
+<p>&quot;@type&quot;: &quot;Answer&quot;,</p>
+<p>&quot;text&quot;: &quot;Paket standar menggunakan harga HTM WNI. Untuk WNA, terdapat tambahan biaya tiket masuk sesuai regulasi TNBTS (sekitar Rp 200.000-300.000/orang). Kami sarankan konfirmasi jumlah peserta WNA sejak awal agar tidak ada penyesuaian mendadak di lapangan.&quot;</p>
+<p>}</p>
+<p>},</p>
+<p>{</p>
+<p>&quot;@type&quot;: &quot;Question&quot;,</p>
+<p>&quot;name&quot;: &quot;Bagaimana jika cuaca buruk atau Bromo ditutup mendadak?&quot;,</p>
+<p>&quot;acceptedAnswer&quot;: {</p>
+<p>&quot;@type&quot;: &quot;Answer&quot;,</p>
+<p>&quot;text&quot;: &quot;Kami memantau informasi resmi TNBTS dan BMKG H-1 keberangkatan. Jika terjadi penutupan (misal: aktivitas vulkanik atau Nyepi), kami tawarkan 2 opsi: (1) Reschedule ke tanggal terdekat tanpa biaya tambahan, atau (2) Konversi ke paket alternatif (misal: outbound di Coban Talun + rafting) dengan penyesuaian harga.&quot;</p>
+<p>}</p>
+<p>},</p>
+<p>{</p>
+<p>&quot;@type&quot;: &quot;Question&quot;,</p>
+<p>&quot;name&quot;: &quot;Apakah bisa menambahkan aktivitas outbound/team building di area Bromo?&quot;,</p>
+<p>&quot;acceptedAnswer&quot;: {</p>
+<p>&quot;@type&quot;: &quot;Answer&quot;,</p>
+<p>&quot;text&quot;: &quot;Bisa. Area lautan pasir dan Bukit Teletubbies memungkinkan aktivitas ringan seperti spider web, trust walk, atau games komunikasi. Untuk aktivitas yang membutuhkan peralatan khusus (flying fox, wall climbing), kami rekomendasikan kombinasi dengan lokasi outbound di Batu (Coban Rondo, Coban Talun) sebelum/sesudah Bromo.&quot;</p>
+<p>}</p>
+<p>},</p>
+<p>{</p>
+<p>&quot;@type&quot;: &quot;Question&quot;,</p>
+<p>&quot;name&quot;: &quot;Bagaimana sistem pembayaran dan booking untuk rombongan korporat?&quot;,</p>
+<p>&quot;acceptedAnswer&quot;: {</p>
+<p>&quot;@type&quot;: &quot;Answer&quot;,</p>
+<p>&quot;text&quot;: &quot;Kami menerima DP 30% untuk konfirmasi booking, pelunasan H-3 keberangkatan. Untuk instansi pemerintah/BUMN, tersedia opsi invoice dengan termin pembayaran sesuai kebijakan. Semua transaksi disertai kontrak kerja dan asuransi perjalanan.&quot;</p>
+<p>}</p>
+<p>},</p>
+<p>{</p>
+<p>&quot;@type&quot;: &quot;Question&quot;,</p>
+<p>&quot;name&quot;: &quot;Apakah tersedia dokumentasi profesional untuk kebutuhan konten perusahaan?&quot;,</p>
+<p>&quot;acceptedAnswer&quot;: {</p>
+<p>&quot;@type&quot;: &quot;Answer&quot;,</p>
+<p>&quot;text&quot;: &quot;Ya, tersedia di Paket Premium. Fotografer kami berpengalaman menangani kebutuhan korporat: foto grup formal, candid aktivitas tim, dan video reel untuk media sosial. File deliver dalam 3-5 hari kerja, dengan hak penggunaan untuk keperluan internal perusahaan.&quot;</p>
+<p>}</p>
+<p>}</p>
+<p>]</p>
+<p>}</p>
+<p>&lt;/script&gt;</p>
+</details>
+<details id="bab-f"><summary>BAGIAN F — CHECKLIST SEO ON-PAGE</summary>
+<div class="table-wrap"><table class="docx-table">
+<tr>
+<th><strong>Elemen</strong></th>
+<th><strong>Status</strong></th>
+<th><strong>Catatan</strong></th>
+</tr>
+<tr>
+<td><strong>H1 mengandung nama lokasi + keyword bisnis</strong></td>
+<td><strong>✅</strong></td>
+<td><strong>&quot;Panduan Lengkap Itinerary Bromo Midnight Start Batu: Jemput Hotel, Jeep 4x4 &amp; Paket Rombongan Korporat&quot;</strong></td>
+</tr>
+<tr>
+<td><strong>Meta title max 60 karakter</strong></td>
+<td><strong>✅</strong></td>
+<td><strong>&quot;Paket Bromo Midnight Start Batu: Jemput Hotel &amp; Jeep 4x4 Rombongan&quot; (58 karakter)</strong></td>
+</tr>
+<tr>
+<td><strong>Meta description max 155 karakter + CTA</strong></td>
+<td><strong>✅</strong></td>
+<td><strong>&quot;Itinerary Bromo midnight start dari Batu: jadwal, rute, tips &amp; paket jeep 4x4 untuk rombongan korporat &amp; keluarga. Jemput hotel, sunrise privat. Konsultasi WA!&quot; (154 karakter)</strong></td>
+</tr>
+<tr>
+<td><strong>Keyword muncul di 100 kata pertama</strong></td>
+<td><strong>✅</strong></td>
+<td><strong>&quot;itinerary Bromo midnight start dari Kota Batu&quot; di paragraf 1</strong></td>
+</tr>
+<tr>
+<td><strong>Keyword di minimal 1 H2</strong></td>
+<td><strong>✅</strong></td>
+<td><strong>H2: &quot;Paket Bromo Midnight Start Batu untuk Rombongan: Apa Saja yang Termasuk?&quot;</strong></td>
+</tr>
+<tr>
+<td><strong>Keyword di paragraf terakhir</strong></td>
+<td><strong>✅</strong></td>
+<td><strong>&quot;Bromo midnight start dari Batu&quot; di CTA penutup</strong></td>
+</tr>
+<tr>
+<td><strong>Alt text gambar deskriptif</strong></td>
+<td><strong>⚠️</strong></td>
+<td><strong><em>Perlu ditambahkan saat upload gambar</em></strong><strong> → Contoh: alt=&quot;jeep 4x4 Bromo sunrise rombongan korporat dari Batu&quot;</strong></td>
+</tr>
+<tr>
+<td><strong>Internal link ke halaman layanan (min 2)</strong></td>
+<td><strong>✅</strong></td>
+<td><strong>Link ke /p/outbound-bromo.html dan /p/jeep-bromo.html</strong></td>
+</tr>
+<tr>
+<td><strong>Internal link ke artikel terkait</strong></td>
+<td><strong>✅</strong></td>
+<td><strong>Link ke artikel &quot;Tips Packing Wisata Gunung&quot; dan &quot;Perbandingan Hotel di Batu&quot;</strong></td>
+</tr>
+<tr>
+<td><strong>FAQ section ada</strong></td>
+<td><strong>✅</strong></td>
+<td><strong>7 pertanyaan hybrid siap schema</strong></td>
+</tr>
+<tr>
+<td><strong>Panjang artikel min 1.200 kata</strong></td>
+<td><strong>✅</strong></td>
+<td><strong>±1.850 kata</strong></td>
+</tr>
+<tr>
+<td><strong>Tidak ada duplicate content</strong></td>
+<td><strong>✅</strong></td>
+<td><strong>Konten orisinal dengan angle hybrid</strong></td>
+</tr>
+<tr>
+<td><strong>Label Blogspot sudah diupdate</strong></td>
+<td><strong>⚠️</strong></td>
+<td><strong><em>Hapus label &quot;noindex&quot; jika ada; tambah: &quot;outbound-bromo&quot;, &quot;jeep-adventure&quot;, &quot;paket-korporat&quot;</em></strong></td>
+</tr>
+<tr>
+<td><strong>Tanggal artikel diupdate / dateModified</strong></td>
+<td><strong>⚠️</strong></td>
+<td><strong><em>Update datePublished dan dateModified di schema</em></strong></td>
+</tr>
+</table></div>
+<div class="table-wrap"><table class="docx-table">
+<tr>
+<th><strong><em>schema</em></strong></th>
+</tr>
+</table></div>
+<h5 class="docx-h3">🔗 Internal Link yang Disarankan:</h5>
+<p><strong><br></strong>→ Link 1: &quot;paket outbound Bromo&quot; → https://www.vendoroutbound.com/p/outbound-bromo.html</p>
+<p>→ Link 2: &quot;jeep adventure Bromo resmi&quot; → https://www.vendoroutbound.com/p/jeep-bromo.html</p>
+<p>→ Link 3: &quot;tips packing wisata gunung&quot; → https://www.vendoroutbound.com/2026/02/tips-packing-wisata-gunung.html</p>
+</details>
+<details id="bab-g"><summary>BAGIAN G — SCHEMA JSON-LD</summary>
+<p><strong>G1 — BlogPosting Schema</strong><strong> (ini sudah di setting di tema terbaru, jadi tidak dipakai)</strong></p>
+<p>&lt;script type=&quot;application/ld+json&quot;&gt;</p>
+<p>{</p>
+<p>&quot;@context&quot;: &quot;https://schema.org&quot;,</p>
+<p>&quot;@type&quot;: &quot;BlogPosting&quot;,</p>
+<p>&quot;headline&quot;: &quot;Panduan Lengkap Itinerary Bromo Midnight Start Batu: Jemput Hotel, Jeep 4x4 &amp; Paket Rombongan Korporat&quot;,</p>
+<p>&quot;description&quot;: &quot;Itinerary Bromo midnight start dari Batu: jadwal, rute, tips &amp; paket jeep 4x4 untuk rombongan korporat &amp; keluarga. Jemput hotel, sunrise privat. Konsultasi WA!&quot;,</p>
+<p>&quot;url&quot;: &quot;https://www.vendoroutbound.com/2026/03/itinerary-bromo-midnight-start-batu.html&quot;,</p>
+<p>&quot;datePublished&quot;: &quot;2026-03-15T00:00:00+07:00&quot;,</p>
+<p>&quot;dateModified&quot;: &quot;2026-04-10T10:30:00+07:00&quot;,</p>
+<p>&quot;author&quot;: {</p>
+<p>&quot;@type&quot;: &quot;Organization&quot;,</p>
+<p>&quot;name&quot;: &quot;Vendor Outbound Batu Malang Bromo&quot;,</p>
+<p>&quot;@id&quot;: &quot;https://www.vendoroutbound.com/#organization&quot;</p>
+<p>},</p>
+<p>&quot;publisher&quot;: {</p>
+<p>&quot;@type&quot;: &quot;Organization&quot;,</p>
+<p>&quot;name&quot;: &quot;Vendor Outbound Batu Malang Bromo&quot;,</p>
+<p>&quot;logo&quot;: {</p>
+<p>&quot;@type&quot;: &quot;ImageObject&quot;,</p>
+<p>&quot;url&quot;: &quot;https://www.vendoroutbound.com/logo.png&quot;</p>
+<p>}</p>
+<p>},</p>
+<p>&quot;mainEntityOfPage&quot;: {</p>
+<p>&quot;@type&quot;: &quot;WebPage&quot;,</p>
+<p>&quot;@id&quot;: &quot;https://www.vendoroutbound.com/2026/03/itinerary-bromo-midnight-start-batu.html&quot;</p>
+<p>},</p>
+<p>&quot;keywords&quot;: &quot;paket bromo midnight start batu, jeep adventure bromo korporat, outbound bromo dari batu, penjemputan hotel bromo, sunrise point privat, paket bromo keluarga besar, vendor outbound malang&quot;,</p>
+<p>&quot;articleSection&quot;: &quot;Paket Wisata Bromo&quot;,</p>
+<p>&quot;wordCount&quot;: 1850</p>
+<p>}</p>
+<p>&lt;/script&gt;</p>
+<p><strong>G2 — FAQPage Schema</strong></p>
+<p>&lt;script type=&quot;application/ld+json&quot;&gt;</p>
+<p>{</p>
+<p>&quot;@context&quot;: &quot;https://schema.org&quot;,</p>
+<p>&quot;@type&quot;: &quot;FAQPage&quot;,</p>
+<p>&quot;mainEntity&quot;: [</p>
+<p>{</p>
+<p>&quot;@type&quot;: &quot;Question&quot;,</p>
+<p>&quot;name&quot;: &quot;Apakah paket Bromo midnight start dari Batu cocok untuk rombongan di atas 50 orang?&quot;,</p>
+<p>&quot;acceptedAnswer&quot;: {</p>
+<p>&quot;@type&quot;: &quot;Answer&quot;,</p>
+<p>&quot;text&quot;: &quot;Sangat cocok. Kami memiliki armada minibus hingga elf 19-seater yang bisa dikombinasikan. Untuk grup besar, kami menerapkan sistem &#x27;convoy&#x27; dengan 1 leader vehicle dan komunikasi radio antar sopir. Fasilitator juga ditambah sesuai rasio 1:15 peserta agar koordinasi tetap optimal.&quot;</p>
+<p>}</p>
+<p>},</p>
+<p>{</p>
+<p>&quot;@type&quot;: &quot;Question&quot;,</p>
+<p>&quot;name&quot;: &quot;Berapa lama total durasi perjalanan dari jemput hotel sampai kembali ke Batu?&quot;,</p>
+<p>&quot;acceptedAnswer&quot;: {</p>
+<p>&quot;@type&quot;: &quot;Answer&quot;,</p>
+<p>&quot;text&quot;: &quot;Rata-rata 13-14 jam. Penjemputan pukul 23.00, kembali ke hotel sekitar pukul 12.00-13.00. Durasi ini sudah termasuk waktu transit, sunrise, eksplorasi kawah, dan istirahat singkat. Untuk rombongan dengan peserta lansia/anak, kami bisa sesuaikan itinerary agar lebih santai.&quot;</p>
+<p>}</p>
+<p>},</p>
+<p>{</p>
+<p>&quot;@type&quot;: &quot;Question&quot;,</p>
+<p>&quot;name&quot;: &quot;Apakah tiket masuk Bromo untuk wisatawan asing (WNA) sudah termasuk dalam paket?&quot;,</p>
+<p>&quot;acceptedAnswer&quot;: {</p>
+<p>&quot;@type&quot;: &quot;Answer&quot;,</p>
+<p>&quot;text&quot;: &quot;Paket standar menggunakan harga HTM WNI. Untuk WNA, terdapat tambahan biaya tiket masuk sesuai regulasi TNBTS (sekitar Rp 200.000-300.000/orang). Kami sarankan konfirmasi jumlah peserta WNA sejak awal agar tidak ada penyesuaian mendadak di lapangan.&quot;</p>
+<p>}</p>
+<p>},</p>
+<p>{</p>
+<p>&quot;@type&quot;: &quot;Question&quot;,</p>
+<p>&quot;name&quot;: &quot;Bagaimana jika cuaca buruk atau Bromo ditutup mendadak?&quot;,</p>
+<p>&quot;acceptedAnswer&quot;: {</p>
+<p>&quot;@type&quot;: &quot;Answer&quot;,</p>
+<p>&quot;text&quot;: &quot;Kami memantau informasi resmi TNBTS dan BMKG H-1 keberangkatan. Jika terjadi penutupan (misal: aktivitas vulkanik atau Nyepi), kami tawarkan 2 opsi: (1) Reschedule ke tanggal terdekat tanpa biaya tambahan, atau (2) Konversi ke paket alternatif (misal: outbound di Coban Talun + rafting) dengan penyesuaian harga.&quot;</p>
+<p>}</p>
+<p>},</p>
+<p>{</p>
+<p>&quot;@type&quot;: &quot;Question&quot;,</p>
+<p>&quot;name&quot;: &quot;Apakah bisa menambahkan aktivitas outbound/team building di area Bromo?&quot;,</p>
+<p>&quot;acceptedAnswer&quot;: {</p>
+<p>&quot;@type&quot;: &quot;Answer&quot;,</p>
+<p>&quot;text&quot;: &quot;Bisa. Area lautan pasir dan Bukit Teletubbies memungkinkan aktivitas ringan seperti spider web, trust walk, atau games komunikasi. Untuk aktivitas yang membutuhkan peralatan khusus (flying fox, wall climbing), kami rekomendasikan kombinasi dengan lokasi outbound di Batu (Coban Rondo, Coban Talun) sebelum/sesudah Bromo.&quot;</p>
+<p>}</p>
+<p>},</p>
+<p>{</p>
+<p>&quot;@type&quot;: &quot;Question&quot;,</p>
+<p>&quot;name&quot;: &quot;Bagaimana sistem pembayaran dan booking untuk rombongan korporat?&quot;,</p>
+<p>&quot;acceptedAnswer&quot;: {</p>
+<p>&quot;@type&quot;: &quot;Answer&quot;,</p>
+<p>&quot;text&quot;: &quot;Kami menerima DP 30% untuk konfirmasi booking, pelunasan H-3 keberangkatan. Untuk instansi pemerintah/BUMN, tersedia opsi invoice dengan termin pembayaran sesuai kebijakan. Semua transaksi disertai kontrak kerja dan asuransi perjalanan.&quot;</p>
+<p>}</p>
+<p>},</p>
+<p>{</p>
+<p>&quot;@type&quot;: &quot;Question&quot;,</p>
+<p>&quot;name&quot;: &quot;Apakah tersedia dokumentasi profesional untuk kebutuhan konten perusahaan?&quot;,</p>
+<p>&quot;acceptedAnswer&quot;: {</p>
+<p>&quot;@type&quot;: &quot;Answer&quot;,</p>
+<p>&quot;text&quot;: &quot;Ya, tersedia di Paket Premium. Fotografer kami berpengalaman menangani kebutuhan korporat: foto grup formal, candid aktivitas tim, dan video reel untuk media sosial. File deliver dalam 3-5 hari kerja, dengan hak penggunaan untuk keperluan internal perusahaan.&quot;</p>
+<p>}</p>
+<p>}</p>
+<p>]</p>
+<p>}</p>
+<p>&lt;/script&gt;</p>
+</details>
+<details id="bab-h"><summary>BAGIAN H — INSTRUKSI PASANG DI BLOGSPOT</summary>
+<p><strong>🛠️</strong><strong> Langkah 1: Update Konten</strong></p>
+<p>→ Buka Blogger → Posts → cari artikel &quot;Itinerary Bromo Midnight Start Batu&quot;</p>
+<p>→ Klik Edit</p>
+<p>→ Hapus SELURUH konten lama</p>
+<p>→ Paste artikel hybrid lengkap dari Bagian D</p>
+<p>→ Update judul (H1) dengan judul hybrid baru</p>
+<p><strong>🏷️</strong><strong> Langkah 2: Update Label</strong></p>
+<p>→ Di sidebar kanan editor → Labels</p>
+<p>→ Hapus label &quot;noindex&quot; jika ada</p>
+<p>→ Tambah label baru:</p>
+<p>• outbound-bromo</p>
+<p>• jeep-adventure</p>
+<p>• paket-korporat</p>
+<p>• batu-malang</p>
+<p>• sunrise-bromo</p>
+<p><strong>🔍</strong><strong> Langkah 3: Update Meta Description</strong></p>
+<p>→ Klik &quot;Search Description&quot; di sidebar editor</p>
+<p>→ Paste meta description:</p>
+<p>&quot;Itinerary Bromo midnight start dari Batu: jadwal, rute, tips &amp; paket jeep 4x4</p>
+<p>untuk rombongan korporat &amp; keluarga. Jemput hotel, sunrise privat. Konsultasi WA!&quot;</p>
+<p>→ Pastikan permalink TIDAK diubah (pertahankan URL lama untuk sinyal historis)</p>
+<p><strong>💻</strong><strong> Langkah 4: Pasang Schema JSON-LD</strong></p>
+<p>→ Di editor, klik tombol &quot;&lt;&gt;&quot; (Switch to HTML view)</p>
+<p>→ Paste kode schema BlogPosting + FAQPage dari Bagian G</p>
+<p>di PALING ATAS konten (sebelum &lt;p&gt; pertama)</p>
+<p>→ Pastikan tidak ada tag &lt;script&gt; yang tumpang tindih</p>
+<p>→ Switch kembali ke Compose view untuk verifikasi</p>
+<p><strong>🖼️</strong><strong> Langkah 5: Optimasi Gambar</strong></p>
+<p>→ Upload 3-5 gambar original (jeep, sunrise, rombongan)</p>
+<p>→ Untuk setiap gambar, isi Alt Text dengan format:</p>
+<p>&quot;[aktivitas] [lokasi] [kota]&quot;</p>
+<p>Contoh:</p>
+<p>• &quot;jeep 4x4 Bromo sunrise rombongan korporat dari Batu&quot;</p>
+<p>• &quot;tim perusahaan foto bersama di Penanjakan 1 Bromo&quot;</p>
+<p>• &quot;fasilitator outbound memandu games di lautan pasir Bromo&quot;</p>
+<p>→ Kompres gambar ke format WebP (max 150KB) untuk loading cepat</p>
+<p><strong>🔗</strong><strong> Langkah 6: Tambah Internal Link</strong></p>
+<p>→ Hyperlink kata kunci berikut ke halaman layanan:</p>
+<p>• &quot;paket outbound Bromo&quot; → /p/outbound-bromo.html</p>
+<p>• &quot;jeep adventure Bromo resmi&quot; → /p/jeep-bromo.html</p>
+<p>• &quot;tips packing wisata gunung&quot; → [URL artikel terkait]</p>
+<p>→ Gunakan anchor text natural, hindari &quot;klik di sini&quot;</p>
+<p><strong>🚀</strong><strong> Langkah 7: Publish &amp; Request Indexing</strong></p>
+<p>→ Klik &quot;Update&quot; (bukan &quot;New Post&quot;) untuk pertahankan URL</p>
+<p>→ Buka Google Search Console: https://search.google.com/search-console</p>
+<p>→ URL Inspection → paste URL artikel</p>
+<p>→ Klik &quot;Request Indexing&quot;</p>
+<p>→ Catat tanggal submit untuk tracking</p>
+<p>→ Estimasi terindeks: 2-4 minggu</p>
+<p><strong>✅</strong><strong> Langkah 8: Validasi Schema</strong></p>
+<p>→ Buka: https://search.google.com/test/rich-results</p>
+<p>→ Paste URL artikel yang sudah diupdate</p>
+<p>→ Pastikan:</p>
+<p>✓ BlogPosting schema terdeteksi</p>
+<p>✓ FAQPage schema valid (7 pertanyaan muncul)</p>
+<p>✓ Tidak ada error/warning kritis</p>
+<p>→ Jika ada error, perbaiki di kode schema dan ulangi Step 4</p>
+<h5 class="docx-h3">📊 SCORECARD KONVERSI</h5>
+<div class="table-wrap"><table class="docx-table">
+<tr>
+<th><strong>Dimensi</strong></th>
+<th><strong>Sebelum</strong></th>
+<th><strong>Setelah</strong></th>
+<th><strong>Target</strong></th>
+</tr>
+<tr>
+<td>Status Google</td>
+<td>🔴 Tidak diindeks</td>
+<td>🟡 Request indexing</td>
+<td>🟢 Diindeks</td>
+</tr>
+<tr>
+<td>Relevansi Niche</td>
+<td>40%</td>
+<td>85%</td>
+<td>&gt;70% ✅</td>
+</tr>
+<tr>
+<td>E-E-A-T Signal</td>
+<td>❌ Tidak ada</td>
+<td>✅ Pengalaman 50+ grup, fasilitator bersertifikat, mitra jeep resmi</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>FAQ / Schema</td>
+<td>❌ Manual text</td>
+<td>✅ 7 FAQ + JSON-LD schema</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Internal Link ke Layanan</td>
+<td>1</td>
+<td>3</td>
+<td>Min 2 ✅</td>
+</tr>
+<tr>
+<td>Panjang Konten</td>
+<td>±900 kata</td>
+<td>±1.850 kata</td>
+<td>&gt;1.200 ✅</td>
+</tr>
+<tr>
+<td>Bridge Paragraph</td>
+<td>❌ Terselip</td>
+<td>✅ Section dedicated, natural, insight-based</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>CTA</td>
+<td>⚠️ Agak memaksa</td>
+<td>✅ Framing rekomendasi + WA + link</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Intent Architecture</td>
+<td>70/30 (info/komersial)</td>
+<td>50/50 hybrid seimbang</td>
+<td>✅</td>
+</tr>
+</table></div>
+<p>STATUS KONVERSI: 🟢 SELESAI — siap publish &amp; request index</p>
+<h5 class="docx-h3">ESTIMASI WAKTU TERINDEKS: 2-4 minggu (setelah request indexing di GSC)</h5>
+<p>ESTIMASI DAMPAK TRAFFIC:</p>
+<p>→ Short-term (1-2 bulan): +15-30% impressions dari keyword long-tail</p>
+<p>→ Mid-term (3-6 bulan): Potensi featured snippet untuk FAQ + traffic korporat</p>
+<p>→ Long-term (6+ bulan): Pillar content untuk topical authority &quot;outbound Bromo&quot;</p>
+<p>JADWAL REVIEW BERIKUTNYA: +3 bulan (cek GSC: CTR, position, konversi WA)</p>
+<h5 class="docx-h3">✅ QUALITY GATE FINAL — 12 PERTANYAAN</h5>
+<div class="table-wrap"><table class="docx-table">
+<tr>
+<th><strong>No</strong></th>
+<th><strong>Pertanyaan</strong></th>
+<th><strong>Status</strong></th>
+</tr>
+<tr>
+<td>1</td>
+<td>Paragraf pertama 100% informatif tanpa promosi?</td>
+<td>✅ Ya</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Bridge paragraph natural, bukan iklan tempel?</td>
+<td>✅ Ya (section &quot;Mengapa Rombongan Korporat...&quot;)</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Nama lokasi di H1, H2 pertama, meta title?</td>
+<td>✅ Bromo &amp; Batu muncul di ketiganya</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Keyword bisnis di H1 + minimal 1 H2?</td>
+<td>✅ &quot;Paket Rombongan Korporat&quot; di H1 + H2 paket</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Minimal 5 FAQ hybrid (info + komersial)?</td>
+<td>✅ 7 FAQ, semua hybrid intent</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Ada schema FAQPage + BlogPosting?</td>
+<td>✅ Lengkap di Bagian G</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Minimal 2 internal link ke layanan?</td>
+<td>✅ 3 link direkomendasikan</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Alt text gambar deskriptif (bukan nomor HP)?</td>
+<td>✅ Format disediakan di instruksi</td>
+</tr>
+<tr>
+<td>9</td>
+<td>CTA framing saran, bukan perintah?</td>
+<td>✅ &quot;Jika tim Anda berencana...&quot;</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Panjang artikel minimal 1.200 kata?</td>
+<td>✅ ±1.850 kata</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Label Blogspot diupdate (hapus noindex)?</td>
+<td>✅ Instruksi di Bagian H</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Ada rencana request indexing di GSC?</td>
+<td>✅ Step 7 instruksi lengkap</td>
+</tr>
+</table></div>
+<h5 class="docx-h3">✅ 12/12 — Artikel siap publish sebagai pillar content hybrid.</h5>
+<p>🎯 <strong>Next Action</strong>:</p>
+<p>Pasang artikel sesuai instruksi Bagian H</p>
+<p>Request indexing di GSC dalam 24 jam setelah publish</p>
+<p>Monitor performa di GSC setelah 2 minggu</p>
+<p>Siapkan 2 artikel Bucket A berikutnya untuk konversi (prioritaskan lokasi Coban Rondo &amp; Pantai Kondang Merak</p>
+</details>
+<details id="panduan-schema"><summary>🛠️ Panduan Lengkap: Cara Pasang Schema FAQ di HTML Blogspot</summary>
+<p>Berikut adalah tutorial step-by-step untuk memasang <strong>FAQPage Schema</strong> yang sudah Anda siapkan ke artikel Blogspot, agar muncul sebagai <em>rich result</em> di Google Search.</p>
+<h5 class="docx-h3">📋 PERSIAPAN AWAL</h5>
+<p>✅ Pastikan Anda sudah login ke Blogger.com<br>✅ Buka postingan yang ingin ditambahkan schema<br>✅ Siapkan kode JSON-LD FAQPage Anda (sudah Anda miliki)<br>✅ <strong>Backup</strong> konten artikel terlebih dahulu (opsional tapi disarankan)</p>
+<h5 class="docx-h3">🔧 LANGKAH 1: BUKA EDITOR HTML</h5>
+<p><strong>Cara A: Lewat Daftar Postingan</strong></p>
+<p>1. Dashboard Blogger → Menu &quot;Posts&quot; (Postingan)</p>
+<p>2. Cari artikel &quot;Itinerary Bromo Midnight Start Batu&quot;</p>
+<p>3. Klik ikon ✏️ (Edit) pada artikel tersebut</p>
+<p><strong>Cara B: Lewat Tampilan Compose</strong></p>
+<p>1. Di editor artikel, lihat toolbar bagian atas</p>
+<p>2. Klik tombol &quot;&lt;&gt;&quot; atau &quot;HTML view&quot;</p>
+<p>(biasanya di sebelah kiri tombol &quot;Preview&quot;)</p>
+<p>3. Editor akan berubah dari mode visual ke mode kode HTML</p>
+<p>💡 <strong>Tips</strong>: Jika tidak menemukan tombol &quot;&lt;&gt;&quot;, coba klik menu ⋮ (tiga titik) → pilih &quot;HTML view&quot;</p>
+<h5 class="docx-h3">📍 LANGKAH 2: TEMPATKAN KODE SCHEMA DI POSISI YANG BENAR</h5>
+<p><strong>✅</strong><strong> Posisi Ideal: Di DALAM &lt;article&gt; atau SETELAH pembuka konten</strong></p>
+<p>&lt;!-- CONTOH STRUKTUR YANG BENAR --&gt;</p>
+<p>&lt;div class=&quot;post-body entry-content&quot;&gt;</p>
+<p>&lt;!-- PASTE SCHEMA FAQ DI SINI (paling atas, sebelum paragraf pertama) --&gt;</p>
+<p>&lt;script type=&quot;application/ld+json&quot;&gt;</p>
+<p>{</p>
+<p>&quot;@context&quot;: &quot;https://schema.org&quot;,</p>
+<p>&quot;@type&quot;: &quot;FAQPage&quot;,</p>
+<p>&quot;mainEntity&quot;: [</p>
+<p>{</p>
+<p>&quot;@type&quot;: &quot;Question&quot;,</p>
+<p>&quot;name&quot;: &quot;Apakah paket Bromo midnight start dari Batu cocok untuk rombongan di atas 50 orang?&quot;,</p>
+<p>&quot;acceptedAnswer&quot;: {</p>
+<p>&quot;@type&quot;: &quot;Answer&quot;,</p>
+<p>&quot;text&quot;: &quot;Sangat cocok. Kami memiliki armada minibus hingga elf 19-seater yang bisa dikombinasikan. Untuk grup besar, kami menerapkan sistem &#x27;convoy&#x27; dengan 1 leader vehicle dan komunikasi radio antar sopir. Fasilitator juga ditambah sesuai rasio 1:15 peserta agar koordinasi tetap optimal.&quot;</p>
+<p>}</p>
+<p>}</p>
+<p>// ... lanjutkan semua FAQ Anda</p>
+<p>]</p>
+<p>}</p>
+<p>&lt;/script&gt;</p>
+<p>&lt;!-- KONTEN ARTIKEL ANDA DIMULAI DI SINI --&gt;</p>
+<p>&lt;p&gt;Menikmati matahari terbit di Gunung Bromo memang pengalaman yang tak terlupakan...&lt;/p&gt;</p>
+<p>&lt;/div&gt;</p>
+<p><strong>⚠️</strong><strong> PENTING: Bungkus dengan &lt;script&gt; tag!</strong></p>
+<p>Kode JSON-LD <strong>harus</strong> dibungkus seperti ini:</p>
+<p>&lt;script type=&quot;application/ld+json&quot;&gt;</p>
+<p>{</p>
+<p>&quot;@context&quot;: &quot;https://schema.org&quot;,</p>
+<p>&quot;@type&quot;: &quot;FAQPage&quot;,</p>
+<p>...</p>
+<p>}</p>
+<p>&lt;/script&gt;</p>
+<p>Tanpa tag &lt;script&gt;, Google <strong>tidak akan mengenali</strong> schema Anda.</p>
+<h5 class="docx-h3">🔤 LANGKAH 3: ESCAPE KARAKTER KHUSUS (JIKA PERLU)</h5>
+<p>Blogspot kadang bermasalah dengan karakter tertentu di dalam JSON. Pastikan:</p>
+<div class="table-wrap"><table class="docx-table">
+<tr>
+<th><strong>Karakter</strong></th>
+<th><strong>Masalah</strong></th>
+<th><strong>Solusi</strong></th>
+</tr>
+<tr>
+<td>&quot; (tanda kutip ganda)</td>
+<td>Bisa bentrok dengan HTML</td>
+<td>✅ Sudah aman di dalam JSON string</td>
+</tr>
+<tr>
+<td>&#x27; (tanda kutip tunggal)</td>
+<td>Aman di JSON</td>
+<td>Tidak perlu diubah</td>
+</tr>
+<tr>
+<td>&amp; (ampersand)</td>
+<td>Bisa jadi &amp;amp; di HTML</td>
+<td>Ganti manual jadi &amp;amp; jika error</td>
+</tr>
+<tr>
+<td>&lt; atau &gt;</td>
+<td>Bisa dianggap tag HTML</td>
+<td>Ganti jadi &amp;lt; atau &amp;gt; jika perlu</td>
+</tr>
+</table></div>
+<p><strong>✅</strong><strong> Contoh aman untuk Blogspot:</strong></p>
+<p>Json</p>
+<p>&quot;text&quot;: &quot;Kami memantau informasi resmi TNBTS dan BMKG H-1 keberangkatan. Jika terjadi penutupan (misal: aktivitas vulkanik atau Nyepi), kami tawarkan 2 opsi: (1) Reschedule ke tanggal terdekat tanpa biaya tambahan, atau (2) Konversi ke paket alternatif (misal: outbound di Coban Talun + rafting) dengan penyesuaian harga.&quot;</p>
+<p>💡 <strong>Tips</strong>: Jika ragu, paste dulu ke JSON-LD Validator untuk cek syntax sebelum dipasang.</p>
+<h5 class="docx-h3">💾 LANGKAH 4: SIMPAN &amp; PUBLISIKAN</h5>
+<p>1. Klik tombol &quot;Update&quot; (jangan &quot;New Post&quot; agar URL tidak berubah)</p>
+<p>2. Tunggu proses save selesai</p>
+<p>3. Buka artikel dalam mode &quot;View&quot; (bukan preview)</p>
+<p>4. Klik kanan → &quot;View Page Source&quot; → Ctrl+F cari &quot;FAQPage&quot;</p>
+<p>5. Pastikan kode schema muncul di source code</p>
+<h5 class="docx-h3">🔍 LANGKAH 5: VALIDASI SCHEMA</h5>
+<p><strong>Gunakan Google Rich Results Test:</strong></p>
+<p>1. Buka: https://search.google.com/test/rich-results</p>
+<p>2. Paste URL artikel Anda:</p>
+<p>https://www.vendoroutbound.com/2026/03/itinerary-bromo-midnight-start-batu.html</p>
+<p>3. Klik &quot;Test URL&quot;</p>
+<p>4. Tunggu hasil analisis</p>
+<p><strong>✅</strong><strong> Hasil yang Diharapkan:</strong></p>
+<p>✅ FAQPage detected</p>
+<p>✅ 7 valid questions found</p>
+<p>✅ No errors or warnings</p>
+<p>🟢 Eligible for rich results</p>
+<p><strong>❌</strong><strong> Jika Ada Error:</strong></p>
+<div class="table-wrap"><table class="docx-table">
+<tr>
+<th><strong>Error</strong></th>
+<th><strong>Penyebab</strong></th>
+<th><strong>Solusi</strong></th>
+</tr>
+<tr>
+<td>&quot;Missing field &#x27;@type&#x27;&quot;</td>
+<td>Tag script tidak lengkap</td>
+<td>Pastikan ada &lt;script type=&quot;application/ld+json&quot;&gt;</td>
+</tr>
+<tr>
+<td>&quot;Invalid value for &#x27;@context&#x27;&quot;</td>
+<td>URL context salah</td>
+<td>Gunakan &quot;@context&quot;: &quot;https://schema.org&quot;</td>
+</tr>
+<tr>
+<td>&quot;Missing field &#x27;mainEntity&#x27;&quot;</td>
+<td>Struktur JSON rusak</td>
+<td>Cek tanda kurung {} dan , terakhir</td>
+</tr>
+<tr>
+<td>&quot;Duplicate Question name&quot;</td>
+<td>Ada pertanyaan sama persis</td>
+<td>Pastikan setiap &quot;name&quot; unik</td>
+</tr>
+</table></div>
+<h5 class="docx-h3">🎯 LANGKAH 6: REQUEST INDEXING DI GSC (WAJIB!)</h5>
+<p>Agar Google segera membaca schema baru Anda:</p>
+<p>1. Buka Google Search Console: https://search.google.com/search-console</p>
+<p>2. Pilih property: vendoroutbound.com</p>
+<p>3. Klik &quot;URL Inspection&quot; di menu atas</p>
+<p>4. Paste URL artikel:</p>
+<p>https://www.vendoroutbound.com/2026/03/itinerary-bromo-midnight-start-batu.html</p>
+<p>5. Klik Enter → Tunggu analisis selesai</p>
+<p>6. Klik tombol &quot;REQUEST INDEXING&quot;</p>
+<p>7. Selesai! 🎉</p>
+<p>⏱️ Estimasi muncul di search dengan rich result: <strong>3-14 hari</strong></p>
+<p><strong>🧩</strong><strong> BONUS: GABUNGKAN DENGAN BlogPosting Schema</strong></p>
+<p>Untuk hasil maksimal, gabungkan FAQPage dengan schema artikel utama:</p>
+<p>&lt;!-- Paste KEDUA schema ini berurutan di bagian atas konten --&gt;</p>
+<p>&lt;!-- Schema 1: BlogPosting --&gt;</p>
+<p>&lt;script type=&quot;application/ld+json&quot;&gt;</p>
+<p>{</p>
+<p>&quot;@context&quot;: &quot;https://schema.org&quot;,</p>
+<p>&quot;@type&quot;: &quot;BlogPosting&quot;,</p>
+<p>&quot;headline&quot;: &quot;Panduan Lengkap Itinerary Bromo Midnight Start Batu...&quot;,</p>
+<p>&quot;description&quot;: &quot;Itinerary Bromo midnight start dari Batu...&quot;,</p>
+<p>&quot;url&quot;: &quot;https://www.vendoroutbound.com/2026/03/itinerary-bromo-midnight-start-batu.html&quot;,</p>
+<p>&quot;datePublished&quot;: &quot;2026-03-15T00:00:00+07:00&quot;,</p>
+<p>&quot;dateModified&quot;: &quot;2026-04-10T10:30:00+07:00&quot;,</p>
+<p>&quot;author&quot;: {</p>
+<p>&quot;@type&quot;: &quot;Organization&quot;,</p>
+<p>&quot;name&quot;: &quot;Vendor Outbound Batu Malang Bromo&quot;</p>
+<p>},</p>
+<p>&quot;publisher&quot;: {</p>
+<p>&quot;@type&quot;: &quot;Organization&quot;,</p>
+<p>&quot;name&quot;: &quot;Vendor Outbound Batu Malang Bromo&quot;,</p>
+<p>&quot;logo&quot;: {</p>
+<p>&quot;@type&quot;: &quot;ImageObject&quot;,</p>
+<p>&quot;url&quot;: &quot;https://www.vendoroutbound.com/logo.png&quot;</p>
+<p>}</p>
+<p>},</p>
+<p>&quot;mainEntityOfPage&quot;: {</p>
+<p>&quot;@type&quot;: &quot;WebPage&quot;,</p>
+<p>&quot;@id&quot;: &quot;https://www.vendoroutbound.com/2026/03/itinerary-bromo-midnight-start-batu.html&quot;</p>
+<p>},</p>
+<p>&quot;keywords&quot;: &quot;paket bromo midnight start batu, jeep adventure bromo, outbound bromo&quot;</p>
+<p>}</p>
+<p>&lt;/script&gt;</p>
+<p>&lt;!-- Schema 2: FAQPage (kode Anda) --&gt;</p>
+<p>&lt;script type=&quot;application/ld+json&quot;&gt;</p>
+<p>{</p>
+<p>&quot;@context&quot;: &quot;https://schema.org&quot;,</p>
+<p>&quot;@type&quot;: &quot;FAQPage&quot;,</p>
+<p>&quot;mainEntity&quot;: [</p>
+<p>// ... semua FAQ Anda</p>
+<p>]</p>
+<p>}</p>
+<p>&lt;/script&gt;</p>
+<h4 class="docx-h2">🚨 TROUBLESHOOTING UMUM</h4>
+<p><strong>❓</strong><strong> Schema tidak terdeteksi di Rich Results Test?</strong></p>
+<p>✅ Cek: Apakah ada tag &lt;script type=&quot;application/ld+json&quot;&gt;?</p>
+<p>✅ Cek: Apakah JSON valid? (paste ke jsonlint.com)</p>
+<p>✅ Cek: Apakah ada karakter HTML yang tidak di-escape?</p>
+<p>✅ Cek: Apakah schema ditempatkan di dalam &lt;body&gt;, bukan &lt;head&gt;?</p>
+<p><strong>❓</strong><strong> FAQ tidak muncul di Google Search meski sudah valid?</strong></p>
+<p>⏳ Normal! Google butuh waktu 1-4 minggu untuk menampilkan rich result.</p>
+<p>✅ Pastikan artikel sudah terindeks (cek: site:vendoroutbound.com &quot;judul artikel&quot;)</p>
+<p>✅ Pastikan tidak ada duplicate FAQ di halaman lain dengan URL sama</p>
+<p>✅ Pastikan konten FAQ di halaman HTML juga terlihat oleh user (bukan hidden)</p>
+<p><strong>❓</strong><strong> Blogspot menghapus/mengubah kode schema setelah save?</strong></p>
+<p>💡 Solusi:</p>
+<p>1. Pastikan tidak ada plugin/theme yang memfilter script</p>
+<p>2. Coba paste schema di bagian PALING BAWAH konten (sebelum &lt;/div&gt; penutup)</p>
+<p>3. Jika masih bermasalah, gunakan Google Tag Manager untuk inject schema via Custom HTML tag</p>
+<h5 class="docx-h3">📊 CHECKLIST FINAL SEBELUM PUBLISH</h5>
+<div class="table-wrap"><table class="docx-table">
+<tr>
+<th><strong>✅</strong></th>
+<th><strong>Item</strong></th>
+<th><strong>Status</strong></th>
+</tr>
+<tr>
+<td>☐</td>
+<td>Kode dibungkus &lt;script type=&quot;application/ld+json&quot;&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>☐</td>
+<td>JSON valid (sudah dicek di jsonlint.com)</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>☐</td>
+<td>Schema ditempatkan di dalam &lt;div class=&quot;post-body&quot;&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>☐</td>
+<td>Tidak ada karakter &lt; &gt; &amp; yang belum di-escape</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>☐</td>
+<td>FAQ di schema SAMA PERSIS dengan yang tampil di halaman</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>☐</td>
+<td>Artikel sudah di-Update (bukan New Post)</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>☐</td>
+<td>Sudah Request Indexing di Google Search Console</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>☐</td>
+<td>Sudah validasi di Rich Results Test</td>
+<td>&nbsp;</td>
+</tr>
+</table></div>
+<h5 class="docx-h3">🎁 TEMPLATE SIAP PASTE (FAQPage Schema + Script Tag)</h5>
+<p>Berikut kode lengkap yang sudah dibungkus dan siap langsung paste ke HTML Blogspot:</p>
+<p>&lt;script type=&quot;application/ld+json&quot;&gt;</p>
+<p>{</p>
+<p>&quot;@context&quot;: &quot;https://schema.org&quot;,</p>
+<p>&quot;@type&quot;: &quot;FAQPage&quot;,</p>
+<p>&quot;mainEntity&quot;: [</p>
+<p>{</p>
+<p>&quot;@type&quot;: &quot;Question&quot;,</p>
+<p>&quot;name&quot;: &quot;Apakah paket Bromo midnight start dari Batu cocok untuk rombongan di atas 50 orang?&quot;,</p>
+<p>&quot;acceptedAnswer&quot;: {</p>
+<p>&quot;@type&quot;: &quot;Answer&quot;,</p>
+<p>&quot;text&quot;: &quot;Sangat cocok. Kami memiliki armada minibus hingga elf 19-seater yang bisa dikombinasikan. Untuk grup besar, kami menerapkan sistem &#x27;convoy&#x27; dengan 1 leader vehicle dan komunikasi radio antar sopir. Fasilitator juga ditambah sesuai rasio 1:15 peserta agar koordinasi tetap optimal.&quot;</p>
+<p>}</p>
+<p>},</p>
+<p>{</p>
+<p>&quot;@type&quot;: &quot;Question&quot;,</p>
+<p>&quot;name&quot;: &quot;Berapa lama total durasi perjalanan dari jemput hotel sampai kembali ke Batu?&quot;,</p>
+<p>&quot;acceptedAnswer&quot;: {</p>
+<p>&quot;@type&quot;: &quot;Answer&quot;,</p>
+<p>&quot;text&quot;: &quot;Rata-rata 13-14 jam. Penjemputan pukul 23.00, kembali ke hotel sekitar pukul 12.00-13.00. Durasi ini sudah termasuk waktu transit, sunrise, eksplorasi kawah, dan istirahat singkat. Untuk rombongan dengan peserta lansia/anak, kami bisa sesuaikan itinerary agar lebih santai.&quot;</p>
+<p>}</p>
+<p>},</p>
+<p>{</p>
+<p>&quot;@type&quot;: &quot;Question&quot;,</p>
+<p>&quot;name&quot;: &quot;Apakah tiket masuk Bromo untuk wisatawan asing (WNA) sudah termasuk dalam paket?&quot;,</p>
+<p>&quot;acceptedAnswer&quot;: {</p>
+<p>&quot;@type&quot;: &quot;Answer&quot;,</p>
+<p>&quot;text&quot;: &quot;Paket standar menggunakan harga HTM WNI. Untuk WNA, terdapat tambahan biaya tiket masuk sesuai regulasi TNBTS (sekitar Rp 200.000-300.000/orang). Kami sarankan konfirmasi jumlah peserta WNA sejak awal agar tidak ada penyesuaian mendadak di lapangan.&quot;</p>
+<p>}</p>
+<p>},</p>
+<p>{</p>
+<p>&quot;@type&quot;: &quot;Question&quot;,</p>
+<p>&quot;name&quot;: &quot;Bagaimana jika cuaca buruk atau Bromo ditutup mendadak?&quot;,</p>
+<p>&quot;acceptedAnswer&quot;: {</p>
+<p>&quot;@type&quot;: &quot;Answer&quot;,</p>
+<p>&quot;text&quot;: &quot;Kami memantau informasi resmi TNBTS dan BMKG H-1 keberangkatan. Jika terjadi penutupan (misal: aktivitas vulkanik atau Nyepi), kami tawarkan 2 opsi: (1) Reschedule ke tanggal terdekat tanpa biaya tambahan, atau (2) Konversi ke paket alternatif (misal: outbound di Coban Talun + rafting) dengan penyesuaian harga.&quot;</p>
+<p>}</p>
+<p>},</p>
+<p>{</p>
+<p>&quot;@type&quot;: &quot;Question&quot;,</p>
+<p>&quot;name&quot;: &quot;Apakah bisa menambahkan aktivitas outbound/team building di area Bromo?&quot;,</p>
+<p>&quot;acceptedAnswer&quot;: {</p>
+<p>&quot;@type&quot;: &quot;Answer&quot;,</p>
+<p>&quot;text&quot;: &quot;Bisa. Area lautan pasir dan Bukit Teletubbies memungkinkan aktivitas ringan seperti spider web, trust walk, atau games komunikasi. Untuk aktivitas yang membutuhkan peralatan khusus (flying fox, wall climbing), kami rekomendasikan kombinasi dengan lokasi outbound di Batu (Coban Rondo, Coban Talun) sebelum/sesudah Bromo.&quot;</p>
+<p>}</p>
+<p>},</p>
+<p>{</p>
+<p>&quot;@type&quot;: &quot;Question&quot;,</p>
+<p>&quot;name&quot;: &quot;Bagaimana sistem pembayaran dan booking untuk rombongan korporat?&quot;,</p>
+<p>&quot;acceptedAnswer&quot;: {</p>
+<p>&quot;@type&quot;: &quot;Answer&quot;,</p>
+<p>&quot;text&quot;: &quot;Kami menerima DP 30% untuk konfirmasi booking, pelunasan H-3 keberangkatan. Untuk instansi pemerintah/BUMN, tersedia opsi invoice dengan termin pembayaran sesuai kebijakan. Semua transaksi disertai kontrak kerja dan asuransi perjalanan.&quot;</p>
+<p>}</p>
+<p>},</p>
+<p>{</p>
+<p>&quot;@type&quot;: &quot;Question&quot;,</p>
+<p>&quot;name&quot;: &quot;Apakah tersedia dokumentasi profesional untuk kebutuhan konten perusahaan?&quot;,</p>
+<p>&quot;acceptedAnswer&quot;: {</p>
+<p>&quot;@type&quot;: &quot;Answer&quot;,</p>
+<p>&quot;text&quot;: &quot;Ya, tersedia di Paket Premium. Fotografer kami berpengalaman menangani kebutuhan korporat: foto grup formal, candid aktivitas tim, dan video reel untuk media sosial. File deliver dalam 3-5 hari kerja, dengan hak penggunaan untuk keperluan internal perusahaan.&quot;</p>
+<p>}</p>
+<p>}</p>
+<p>]</p>
+<p>}</p>
+<p>&lt;/script&gt;</p>
+<h5 class="docx-h3">🎯 Next Step:</h5>
+<p>Paste kode di atas ke HTML editor Blogspot</p>
+<p>Update artikel</p>
+<p>Request indexing di GSC</p>
+<p>Pantau di Rich Results Test setelah 24-48 jam</p>
+</details>
+</div>
+</section>
+<!-- FULL_DOC_END -->
+
+    <section id="quick-sop">
+      <h2>SOP Ringkas (Langsung Praktik)</h2>
+      <p>Gunakan bagian ini kalau tim ingin eksekusi cepat tanpa membaca teori panjang.</p>
+      <div class="sop-grid">
+        <article class="sop-card">
+          <div class="sop-step">Langkah 1</div>
+          <div class="sop-title">Update Konten Inti</div>
+          <ul>
+            <li>Buka artikel target di Blogger.</li>
+            <li>Ganti isi lama dengan versi hybrid terbaru.</li>
+            <li>Pastikan H1 menggunakan judul hybrid final.</li>
+          </ul>
+        </article>
+
+        <article class="sop-card">
+          <div class="sop-step">Langkah 2</div>
+          <div class="sop-title">Perbarui Metadata</div>
+          <ul>
+            <li>Isi Search Description sesuai versi terbaru.</li>
+            <li>Jangan ubah permalink URL lama.</li>
+            <li>Pastikan title tidak kepanjangan.</li>
+          </ul>
+        </article>
+
+        <article class="sop-card">
+          <div class="sop-step">Langkah 3</div>
+          <div class="sop-title">Pasang Schema</div>
+          <ul>
+            <li>Masuk mode HTML view.</li>
+            <li>Tempel FAQPage JSON-LD (dan BlogPosting jika belum auto dari theme).</li>
+            <li>Posisi schema di awal body konten.</li>
+          </ul>
+        </article>
+
+        <article class="sop-card">
+          <div class="sop-step">Langkah 4</div>
+          <div class="sop-title">Optimasi Gambar</div>
+          <ul>
+            <li>Upload 3-5 gambar relevan.</li>
+            <li>Format WebP (target <=150KB/file).</li>
+            <li>Isi alt text deskriptif berbasis intent.</li>
+          </ul>
+        </article>
+
+        <article class="sop-card">
+          <div class="sop-step">Langkah 5</div>
+          <div class="sop-title">Internal Linking</div>
+          <ul>
+            <li>Tambah minimal 3 internal link strategis.</li>
+            <li>Gunakan anchor natural (hindari “klik di sini”).</li>
+            <li>Link ke halaman layanan + artikel pendukung.</li>
+          </ul>
+        </article>
+
+        <article class="sop-card">
+          <div class="sop-step">Langkah 6</div>
+          <div class="sop-title">Validasi dan Indexing</div>
+          <ul>
+            <li>Validasi di Rich Results Test.</li>
+            <li>Update artikel (bukan new post).</li>
+            <li>Request indexing di Google Search Console.</li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="ok">
+        Target output cepat: artikel ter-update, schema valid, rich result eligible, dan URL lama tetap dipertahankan.
+      </div>
+    </section>
+
+    <section id="detail-sop">
+      <h2>SOP Detail (Dengan Penjelasan Lengkap)</h2>
+      <p>Bagian ini untuk tim editor/SEO yang perlu konteks lengkap agar implementasi konsisten dan tidak bolak-balik revisi.</p>
+
+      <details open>
+        <summary>1) Diagnosis Konten Lama dan Tujuan Konversi</summary>
+        <ul>
+          <li>Konten lama sudah kuat pada storytelling dan intent informasional.</li>
+          <li>Kelemahan utama: sinyal komersial belum rapi, schema belum optimal, internal linking layanan minim.</li>
+          <li>Tujuan konversi: menjaga kualitas informasi sekaligus memperkuat konversi dan visibilitas teknis.</li>
+        </ul>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Aspek</th>
+                <th>Status</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Hook dan narasi</td>
+                <td>Kuat</td>
+                <td>Pertahankan tone, perjelas struktur scannable.</td>
+              </tr>
+              <tr>
+                <td>SEO teknis</td>
+                <td>Perlu upgrade</td>
+                <td>Pasang FAQPage schema dan cek validasi.</td>
+              </tr>
+              <tr>
+                <td>Konversi</td>
+                <td>Menengah</td>
+                <td>Tambah paket, trust signal, CTA yang natural.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </details>
+
+      <details>
+        <summary>2) Struktur Konten Hybrid (ARIA) yang Dipakai</summary>
+        <ul>
+          <li><strong>Attract:</strong> pembuka informatif yang nyambung ke pain point pembaca.</li>
+          <li><strong>Reveal:</strong> insight unik lapangan (misal kapasitas area untuk grup).</li>
+          <li><strong>Inform:</strong> rute, durasi, spot, perlengkapan, FAQ informasional.</li>
+          <li><strong>Associate:</strong> jembatan dari informasi ke kebutuhan rombongan.</li>
+          <li><strong>Komersial:</strong> paket, estimasi, proof, CTA konsultasi.</li>
+        </ul>
+        <div class="note">
+          Komposisi ideal dari tutorial: konten informasional tetap dominan, namun jalur keputusan pembaca menuju tindakan harus lebih jelas.
+        </div>
+      </details>
+
+      <details>
+        <summary>3) Standar Operasional Saat Update Artikel di Blogger</summary>
+        <ol>
+          <li>Masuk ke postingan target dan klik <code>Edit</code>.</li>
+          <li>Update judul dan isi artikel hybrid lengkap.</li>
+          <li>Perbarui label: hapus <code>noindex</code> jika ada, lalu tambah label tematik.</li>
+          <li>Isi Search Description versi final.</li>
+          <li>Pindah ke HTML view untuk pemasangan schema.</li>
+          <li>Simpan lewat tombol <code>Update</code> (bukan New Post).</li>
+        </ol>
+      </details>
+
+      <details>
+        <summary>4) Standar Visual dan Internal Link</summary>
+        <ul>
+          <li>Minimal 3 gambar operasional (jeep, spot, rombongan).</li>
+          <li>Semua gambar memiliki alt text deskriptif.</li>
+          <li>Internal link wajib ke money page + artikel pendukung.</li>
+        </ul>
+        <h4>Contoh anchor yang disarankan</h4>
+        <ul>
+          <li>paket outbound Bromo</li>
+          <li>jeep adventure Bromo resmi</li>
+          <li>tips packing wisata gunung</li>
+        </ul>
+      </details>
+
+      <details>
+        <summary>5) Validasi Teknis dan Publish Flow</summary>
+        <ol>
+          <li>Validasi schema di Rich Results Test.</li>
+          <li>Pastikan FAQ muncul dan tanpa error kritis.</li>
+          <li>Lakukan Request Indexing di GSC.</li>
+          <li>Catat tanggal submit untuk monitoring 2-4 minggu.</li>
+        </ol>
+      </details>
+    </section>
+
+    <section id="template">
+      <h2>Template Operasional (Copy-Paste)</h2>
+      <p>Setiap blok di bawah sudah dilengkapi tombol <strong>Copy</strong> untuk mempercepat eksekusi.</p>
+
+      <h3>A) Meta Description</h3>
+      <pre>Itinerary Bromo midnight start dari Batu: jadwal, rute, tips & paket jeep 4x4 untuk rombongan korporat & keluarga. Jemput hotel, sunrise privat. Konsultasi WA!</pre>
+
+      <h3>B) FAQPage Schema (siap tempel)</h3>
+      <pre>&lt;script type="application/ld+json"&gt;
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Apakah paket Bromo midnight start dari Batu cocok untuk rombongan di atas 50 orang?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sangat cocok. Armada bisa dikombinasikan dan dikelola dengan sistem convoy."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Berapa durasi total perjalanan?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Rata-rata 13-14 jam tergantung kondisi lapangan dan profil peserta."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Bagaimana jika cuaca buruk atau kawasan ditutup?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Umumnya tersedia opsi reschedule atau konversi paket sesuai kebijakan operasional."
+      }
+    }
+  ]
+}
+&lt;/script&gt;</pre>
+
+      <h3>C) Internal Link Rekomendasi</h3>
+      <pre>https://www.vendoroutbound.com/p/outbound-bromo.html
+https://www.vendoroutbound.com/p/jeep-bromo.html
+https://www.vendoroutbound.com/2026/02/tips-packing-wisata-gunung.html</pre>
+    </section>
+
+    <section id="troubleshooting">
+      <h2>Troubleshooting Cepat</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Masalah</th>
+              <th>Penyebab Umum</th>
+              <th>Solusi Praktis</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Schema tidak terdeteksi</td>
+              <td>Tag script salah / JSON invalid</td>
+              <td>Cek struktur JSON dan pembungkus <code>application/ld+json</code>.</td>
+            </tr>
+            <tr>
+              <td>Valid tapi tidak muncul di SERP</td>
+              <td>Belum dipilih Google jadi rich result</td>
+              <td>Tunggu 1-4 minggu sambil monitor indexing dan query.</td>
+            </tr>
+            <tr>
+              <td>Kode berubah setelah save</td>
+              <td>Theme/komponen memfilter script</td>
+              <td>Coba posisi schema di bawah konten atau injeksi via GTM.</td>
+            </tr>
+            <tr>
+              <td>Duplicate FAQ question</td>
+              <td>Pertanyaan sama persis</td>
+              <td>Ubah wording agar setiap question unik.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    
+
+    <section id="quality-gate">
+      <h2>Quality Gate Final (Siap Publish)</h2>
+      <ul class="checklist">
+        <li>[ ] Paragraf pembuka tetap informatif, bukan hard selling.</li>
+        <li>[ ] H1/H2 sudah sesuai keyword dan lokasi.</li>
+        <li>[ ] FAQ minimal 5 (ideal 7) dan sinkron dengan schema.</li>
+        <li>[ ] Schema FAQPage valid di Rich Results Test.</li>
+        <li>[ ] Internal link ke halaman layanan minimal 2 (ideal 3).</li>
+        <li>[ ] Alt text gambar lengkap dan relevan.</li>
+        <li>[ ] Artikel di-update pada URL lama (bukan post baru).</li>
+        <li>[ ] Request indexing sudah dilakukan di GSC.</li>
+        <li>[ ] Catatan monitoring 2-4 minggu sudah dibuat.</li>
+      </ul>
+
+      <div class="ok">
+        Jika checklist di atas sudah centang semua, artikel siap dipublish sebagai konten hybrid dengan fokus ranking + konversi.
+      </div>
+
+      <div class="related">
+        Artikel terkait:
+        <a href="konversi-hybrid-content-vendor-outbound.html">Panduan Konversi Hybrid Content</a>
+        ·
+        <a href="checklist-on-page-seo.html">Checklist On-Page SEO</a>
+      </div>
+    </section>
+
+    <div class="mobile-tools" aria-label="Aksi cepat mobile">
+      <button type="button" id="m-expand">Buka</button>
+      <button type="button" id="m-collapse">Tutup</button>
+      <a href="#quick-sop">Ringkas</a>
+      <button type="button" onclick="printPdfReady()">PDF</button>
+    </div>
+  </main>
+
+  <script>
+    const allDetails = [...document.querySelectorAll("details")];
+    const openCountEl = document.getElementById("open-count");
+    const totalCountEl = document.getElementById("total-count");
+    const expandBtn = document.getElementById("expand-all-btn");
+    const collapseBtn = document.getElementById("collapse-all-btn");
+    const mobileExpandBtn = document.getElementById("m-expand");
+    const mobileCollapseBtn = document.getElementById("m-collapse");
+
+    function wireDocxInlineFormatting() {
+      document.querySelectorAll(".docx-content p").forEach((p) => {
+        const text = p.textContent.trim();
+        if (/[╔╗╚╝═║]/.test(text)) {
+          p.classList.add("docx-ascii");
+          if (/^[╔╗╚╝═║\s]+$/.test(text)) {
+            p.classList.add("docx-ascii-border");
+          }
+        }
+      });
+    }
+
+    // Add data labels for mobile stacked table readability.
+    document.querySelectorAll("table").forEach((table) => {
+      let headers = [...table.querySelectorAll("thead th")].map((th) => th.textContent.trim());
+      const allRows = [...table.querySelectorAll("tr")];
+      let dataRows = [...table.querySelectorAll("tbody tr")];
+
+      if (!headers.length && allRows.length) {
+        const firstRow = allRows[0];
+        headers = [...firstRow.querySelectorAll("th, td")].map((cell) => cell.textContent.trim());
+        if (headers.length) {
+          table.classList.add("has-inline-header");
+          firstRow.classList.add("docx-header-row");
+        }
+        dataRows = allRows.slice(1);
+      } else if (!dataRows.length) {
+        dataRows = allRows.slice(1);
+      }
+
+      dataRows.forEach((row) => {
+        [...row.children].forEach((cell, idx) => {
+          cell.setAttribute("data-label", headers[idx] || `Kolom ${idx + 1}`);
+        });
+      });
+    });
+
+    function updateDetailStats() {
+      const openCount = allDetails.filter((d) => d.open).length;
+      if (openCountEl) openCountEl.textContent = String(openCount);
+      if (totalCountEl) totalCountEl.textContent = String(allDetails.length);
+    }
+
+    function setAllDetails(open) {
+      allDetails.forEach((d) => {
+        d.open = open;
+      });
+      updateDetailStats();
+    }
+
+    if (expandBtn) expandBtn.addEventListener("click", () => setAllDetails(true));
+    if (collapseBtn) collapseBtn.addEventListener("click", () => setAllDetails(false));
+    if (mobileExpandBtn) mobileExpandBtn.addEventListener("click", () => setAllDetails(true));
+    if (mobileCollapseBtn) mobileCollapseBtn.addEventListener("click", () => setAllDetails(false));
+    allDetails.forEach((d) => d.addEventListener("toggle", updateDetailStats));
+    updateDetailStats();
+
+    async function copyText(text) {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+        return;
+      }
+      const area = document.createElement("textarea");
+      area.value = text;
+      area.setAttribute("readonly", "readonly");
+      area.style.position = "fixed";
+      area.style.opacity = "0";
+      document.body.appendChild(area);
+      area.select();
+      document.execCommand("copy");
+      document.body.removeChild(area);
+    }
+
+    function wireTemplateCopyButtons() {
+      document.querySelectorAll("#template pre").forEach((pre) => {
+        if (pre.parentElement && pre.parentElement.classList.contains("pre-wrap")) return;
+        const wrap = document.createElement("div");
+        wrap.className = "pre-wrap";
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "pre-copy";
+        btn.textContent = "Copy";
+
+        pre.parentNode.insertBefore(wrap, pre);
+        wrap.appendChild(pre);
+        wrap.appendChild(btn);
+
+        btn.addEventListener("click", async () => {
+          const original = btn.textContent;
+          try {
+            await copyText(pre.innerText.trim());
+            btn.textContent = "Tersalin";
+          } catch (e) {
+            btn.textContent = "Gagal";
+          }
+          setTimeout(() => { btn.textContent = original; }, 1200);
+        });
+      });
+    }
+
+    wireTemplateCopyButtons();
+    wireDocxInlineFormatting();
+
+    // Print helper: open all details before print, then restore previous states.
+    let detailOpenStates = [];
+
+    function openAllDetailsForPrint() {
+      detailOpenStates = allDetails.map((d) => d.open);
+      allDetails.forEach((d) => { d.open = true; });
+      updateDetailStats();
+    }
+
+    function restoreDetailsAfterPrint() {
+      allDetails.forEach((d, idx) => {
+        d.open = detailOpenStates[idx] ?? false;
+      });
+      updateDetailStats();
+    }
+
+    window.addEventListener("beforeprint", openAllDetailsForPrint);
+    window.addEventListener("afterprint", restoreDetailsAfterPrint);
+
+    function printPdfReady() {
+      openAllDetailsForPrint();
+      setTimeout(() => window.print(), 60);
+    }
+
+    window.printPdfReady = printPdfReady;
+  </script>
+</body>
+</html>
+

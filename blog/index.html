@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog Artikel - SEO System Generator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #10130f;
+  --ink2: #29322a;
+  --muted: #687267;
+  --paper: #f8f7f3;
+  --card: #ffffff;
+  --border: rgba(16,19,15,0.13);
+  --gold: #b8860b;
+  --green: #1f6a43;
+  --green-soft: #e7f3ec;
+  --blue-soft: #e8edf8;
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-body: "DM Sans", sans-serif;
+  --font-mono: "DM Mono", monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-body);
+  background: radial-gradient(circle at top right, #f2ecdd 0%, var(--paper) 45%);
+  color: var(--ink);
+  min-height: 100vh;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 26px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(255,255,255,0.82);
+  backdrop-filter: blur(8px);
+  position: sticky;
+  top: 0;
+}
+
+.brand {
+  font-family: var(--font-display);
+  font-size: 20px;
+  color: var(--ink2);
+}
+
+.brand em {
+  color: var(--gold);
+  font-style: italic;
+}
+
+.nav {
+  display: flex;
+  gap: 8px;
+}
+
+.nav a {
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 7px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(16,19,15,0.2);
+  color: var(--ink2);
+}
+
+.nav a:hover {
+  background: #f1efe8;
+}
+
+.hero {
+  max-width: 1080px;
+  margin: 26px auto 18px;
+  padding: 0 24px;
+}
+
+.hero-tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #8d6508;
+  background: rgba(184,134,11,0.14);
+  border-radius: 999px;
+  padding: 6px 10px;
+  margin-bottom: 10px;
+}
+
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: 38px;
+  line-height: 1.2;
+  font-weight: 400;
+  color: var(--ink2);
+  margin-bottom: 8px;
+}
+
+.hero p {
+  color: var(--muted);
+  max-width: 720px;
+}
+
+.cards {
+  max-width: 1080px;
+  margin: 0 auto 34px;
+  padding: 0 24px 10px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 12px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.card-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--green);
+  background: var(--green-soft);
+  width: fit-content;
+  border-radius: 999px;
+  padding: 5px 8px;
+}
+
+.card h2 {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 1.24;
+  color: var(--ink2);
+}
+
+.card p {
+  color: #495349;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.card a {
+  margin-top: auto;
+  color: #1f5cb7;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 13px;
+}
+
+.card a:hover {
+  text-decoration: underline;
+}
+
+.section-note {
+  max-width: 1080px;
+  margin: 0 auto 30px;
+  padding: 0 24px;
+}
+
+.section-note .box {
+  border: 1px solid rgba(31,92,183,0.26);
+  background: var(--blue-soft);
+  border-radius: 12px;
+  padding: 12px;
+  color: #244373;
+  font-size: 14px;
+}
+
+@media (max-width: 760px) {
+  .topbar {
+    padding: 14px 16px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .hero {
+    padding: 0 16px;
+  }
+
+  .hero h1 {
+    font-size: 30px;
+  }
+
+  .cards, .section-note {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+</style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">Blog <em>Artikel</em> SEO</div>
+    <nav class="nav">
+      <a href="../index.html">Home</a>
+      <a href="../keyword-research-vol3.html">Keyword V3</a>
+      <a href="../competitor-research.html">Riset</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <span class="hero-tag">Blog Hub</span>
+    <h1>Kumpulan Artikel</h1>
+    <p>Berisi artikel tutorial praktis dan artikel pendukung SEO yang bisa langsung dipakai untuk eksekusi konten.</p>
+  </section>
+
+  <main class="cards">
+    <article class="card">
+      <span class="card-tag">Tutorial Praktis</span>
+      <h2>Tutorial Optimasi Artikel Update Vendor Outbound</h2>
+      <p>Panduan lengkap dari audit konten, struktur hybrid, optimasi on-page, implementasi schema, sampai request indexing.</p>
+      <a href="tutorial-optimasi-artikel-update-vendor-outbound.html">Baca artikel</a>
+    </article>
+    <article class="card">
+      <span class="card-tag">Vendor Outbound</span>
+      <h2>Panduan Konversi Hybrid Content untuk Vendor Outbound</h2>
+      <p>Artikel pertama: ringkasan strategi mengubah konten informasional menjadi konten hybrid yang SEO-friendly dan lebih siap konversi.</p>
+      <a href="konversi-hybrid-content-vendor-outbound.html">Baca artikel</a>
+    </article>
+    <article class="card">
+      <span class="card-tag">Content</span>
+      <h2>Cara Menyusun Content Brief yang Siap Tulis</h2>
+      <p>Template praktis agar tim konten menulis artikel sesuai intent, struktur heading, dan CTA yang jelas.</p>
+      <a href="cara-menyusun-content-brief.html">Baca artikel</a>
+    </article>
+    <article class="card">
+      <span class="card-tag">Teknis SEO</span>
+      <h2>Checklist On-Page SEO Sebelum Publish Artikel</h2>
+      <p>Daftar pemeriksaan terakhir sebelum publikasi: title tag, meta, schema, internal link, dan kualitas copy.</p>
+      <a href="checklist-on-page-seo.html">Baca artikel</a>
+    </article>
+    <article class="card">
+      <span class="card-tag">Schema</span>
+      <h2>Schema Markup untuk Artikel Blog</h2>
+      <p>Contoh struktur schema sederhana untuk membantu mesin pencari memahami konteks konten lebih cepat.</p>
+      <a href="schema-markup-untuk-artikel-blog.html">Baca artikel</a>
+    </article>
+  </main>
+
+  <section class="section-note">
+    <div class="box">
+      Artikel di halaman ini bisa dilanjutkan sebagai knowledge base tim konten. Struktur folder <strong>/blog/</strong> siap untuk artikel berikutnya.
+    </div>
+  </section>
+</body>
+</html>

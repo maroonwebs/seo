@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panduan Lengkap: Konversi Hybrid Content - Vendor Outbound</title>
+  <meta name="description" content="Panduan lengkap konversi artikel wisata menjadi konten hybrid SEO-friendly untuk vendoroutbound.com, termasuk analisis, struktur ARIA, schema FAQ, dan instruksi Blogspot.">
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --secondary: #059669;
+      --accent: #f59e0b;
+      --dark: #0f172a;
+      --text: #334155;
+      --light: #f8fafc;
+      --bg-card: #ffffff;
+      --border: #e2e8f0;
+      --code-bg: #1e293b;
+      --code-text: #e2e8f0;
+      --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+    }
+    
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.7;
+      color: var(--text);
+      background: #f1f5f9;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 20px;
+      overflow-x: hidden;
+    }
+    img, video, iframe { max-width: 100%; height: auto; }
+    a, p, li, td, th { overflow-wrap: anywhere; }
+
+    /* HEADER */
+    header {
+      background: linear-gradient(135deg, var(--primary) 0%, #7c3aed 100%);
+      color: white;
+      padding: 2.5rem 2rem;
+      border-radius: 16px;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow-lg);
+    }
+    header h1 { font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; line-height: 1.2; }
+    header .subtitle { font-size: 1.1rem; opacity: 0.95; font-weight: 500; }
+    header .meta { margin-top: 0.8rem; font-size: 0.9rem; opacity: 0.9; }
+
+    /* LAYOUT UTAMA (Flexbox agar tidak overlap) */
+    .page-layout {
+      display: flex;
+      gap: 1.5rem;
+      align-items: flex-start;
+    }
+    .content { flex: 1; min-width: 0; }
+
+    /* TOC DESKTOP */
+    .toc {
+      width: 280px;
+      flex-shrink: 0;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.2rem;
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 20px;
+      max-height: calc(100vh - 40px);
+      overflow-y: auto;
+    }
+    .toc::-webkit-scrollbar { width: 6px; }
+    .toc::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+    .toc h3 { margin-bottom: 0.8rem; color: var(--dark); font-size: 1.1rem; }
+    .toc ul { list-style: none; }
+    .toc li { margin: 0.3rem 0; }
+    .toc a {
+      color: var(--text);
+      text-decoration: none;
+      padding: 0.3rem 0.5rem;
+      border-radius: 6px;
+      display: block;
+      transition: all 0.2s;
+      font-size: 0.95rem;
+    }
+    .toc a:hover { background: #f1f5f9; color: var(--primary); }
+    .toc .level-2 { padding-left: 1.2rem; }
+    .toc .level-2 a { font-size: 0.9rem; color: var(--text); opacity: 0.85; }
+    
+    /* Hide toggle on desktop */
+    .toc-toggle { display: none; }
+
+    /* RESPONSIVE TABLET & MOBILE */
+    @media (max-width: 1023px) {
+      .page-layout { flex-direction: column; }
+      
+      .toc {
+        width: 100%;
+        position: static; /* Tidak sticky di mobile */
+        max-height: none;
+        margin-bottom: 1.5rem;
+      }
+      
+      .toc-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        padding: 1rem;
+        background: var(--primary);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 1rem;
+        cursor: pointer;
+        margin-bottom: 0;
+      }
+      .toc-toggle:hover { background: var(--primary-dark); }
+      
+      /* Accordion TOC Content */
+      .toc-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.35s ease, padding 0.35s ease, opacity 0.3s ease;
+        padding: 0 1rem;
+        opacity: 0;
+      }
+      .toc-content.active {
+        max-height: 800px; /* Cukup untuk semua link */
+        padding: 1rem;
+        opacity: 1;
+      }
+    }
+
+    /* SECTION STYLING */
+    section {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.8rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--shadow);
+      scroll-margin-top: 20px;
+    }
+    section h2 { color: var(--primary); margin-bottom: 1.2rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--border); font-size: 1.5rem; }
+    section h3 { color: var(--secondary); margin: 1.5rem 0 0.8rem; font-size: 1.25rem; }
+    section h4 { color: var(--dark); margin: 1rem 0 0.5rem; font-size: 1.1rem; }
+    p { margin-bottom: 1rem; }
+    ul, ol { margin: 0.5rem 0 1rem 1.5rem; }
+    li { margin: 0.3rem 0; }
+
+    /* TABLES */
+    .table-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 1rem 0; border-radius: 8px; border: 1px solid var(--border); background: #fff; }
+    table { width: 100%; border-collapse: collapse; min-width: 500px; }
+    th, td { padding: 0.8rem 1rem; text-align: left; border-bottom: 1px solid var(--border); }
+    th { background: #f8fafc; color: var(--dark); font-weight: 600; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover { background: #f9fafb; }
+
+    /* BADGES & BOXES */
+    .badge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.8rem; font-weight: 600; margin: 0.15rem; }
+    .badge-success { background: #dcfce7; color: #166534; }
+    .badge-warning { background: #fef3c7; color: #92400e; }
+    .badge-error { background: #fee2e2; color: #991b1b; }
+    .badge-info { background: #dbeafe; color: #1e40af; }
+
+    .tip-box, .warning-box, .info-box {
+      padding: 1rem 1.2rem;
+      border-radius: 10px;
+      margin: 1rem 0;
+      border-left: 4px solid;
+      background: #f8fafc;
+    }
+    .tip-box { border-color: var(--primary); background: #eff6ff; }
+    .warning-box { border-color: var(--accent); background: #fff7ed; }
+    .info-box { border-color: var(--secondary); background: #f0fdf4; }
+
+    /* CODE BLOCKS */
+    pre {
+      background: var(--code-bg);
+      color: var(--code-text);
+      padding: 1.2rem;
+      border-radius: 10px;
+      overflow-x: auto;
+      font-family: "Fira Code", "Consolas", monospace;
+      font-size: 0.88rem;
+      line-height: 1.5;
+      margin: 1rem 0;
+      border: 1px solid #334155;
+    }
+    code { font-family: inherit; word-break: break-word; overflow-wrap: anywhere; }
+    pre code { white-space: pre-wrap; word-break: break-word; overflow-wrap: anywhere; }
+    .hl-comment { color: #64748b; }
+    .hl-key { color: #38bdf8; }
+    .hl-str { color: #fbbf24; }
+    .hl-tag { color: #f472b6; }
+    .hl-attr { color: #a78bfa; }
+
+    .highlight { background: #fef08a; padding: 0.1rem 0.4rem; border-radius: 4px; font-weight: 500; }
+
+    /* SCORECARD & CTA */
+    .scorecard { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin: 1rem 0; }
+    .score-item { background: #f8fafc; padding: 1rem; border-radius: 10px; text-align: center; border: 1px solid var(--border); }
+    .score-item .label { font-size: 0.85rem; color: var(--text); margin-bottom: 0.3rem; }
+    .score-item .value { font-size: 1.5rem; font-weight: 800; color: var(--primary); }
+
+    .cta-box {
+      background: linear-gradient(135deg, var(--primary), #7c3aed);
+      color: white;
+      padding: 1.8rem;
+      border-radius: 12px;
+      text-align: center;
+      margin: 2rem 0;
+      box-shadow: var(--shadow-lg);
+    }
+    .cta-box h3 { color: white; margin-bottom: 0.5rem; border: none; }
+    .cta-box p { opacity: 0.95; margin-bottom: 0.5rem; }
+    .cta-box a { color: white; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+
+    /* BACK TO TOP */
+    .back-to-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--primary);
+      color: white;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 1.2rem;
+      font-weight: bold;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 9999;
+    }
+    .back-to-top.visible { opacity: 1; visibility: visible; }
+    .back-to-top:hover { transform: translateY(-4px); background: var(--primary-dark); }
+
+    /* FOOTER */
+    footer { text-align: center; padding: 2rem; color: #64748b; font-size: 0.9rem; margin-top: 2rem; border-top: 1px solid var(--border); }
+
+    /* PRINT & MOBILE TWEAKS */
+    @media (max-width: 768px) {
+      body { padding: 12px; }
+      header { padding: 1.5rem; }
+      header h1 { font-size: 1.6rem; }
+      section { padding: 1.2rem; }
+      pre { font-size: 0.8rem; }
+      .back-to-top { width: 42px; height: 42px; bottom: 15px; right: 15px; }
+    }
+    @media (max-width: 600px) {
+      body { padding: 10px; }
+      .page-layout { gap: 0.9rem; }
+      header { padding: 1.15rem; border-radius: 12px; }
+      header h1 { font-size: 1.35rem; }
+      header .subtitle { font-size: 0.95rem; }
+      header .meta { font-size: 0.82rem; line-height: 1.5; }
+      section { padding: 1rem; border-radius: 10px; }
+      section h2 { font-size: 1.22rem; line-height: 1.35; }
+      section h3 { font-size: 1.06rem; line-height: 1.4; }
+      .scorecard { grid-template-columns: 1fr; gap: 0.7rem; }
+      .table-wrapper { margin: 0.8rem 0; overflow-x: visible; border: 0; background: transparent; }
+      table, thead, tbody, tr, th, td { display: block; width: 100%; min-width: 0 !important; }
+      thead { display: none; }
+      tr {
+        margin-bottom: 0.7rem;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        background: #fff;
+        padding: 0.3rem 0.75rem;
+      }
+      td {
+        border: 0 !important;
+        border-bottom: 1px dashed #dbe3ee !important;
+        padding: 0.5rem 0 !important;
+        font-size: 0.84rem;
+        line-height: 1.45;
+      }
+      td:last-child { border-bottom: 0 !important; }
+      td::before {
+        content: attr(data-label);
+        display: block;
+        font-weight: 700;
+        color: #1f3d72;
+        margin-bottom: 0.18rem;
+        font-size: 0.72rem;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+      }
+      pre {
+        font-size: 0.73rem;
+        line-height: 1.45;
+        padding: 0.82rem;
+        white-space: pre-wrap;
+        word-break: break-word;
+        overflow-wrap: anywhere;
+      }
+      pre span { white-space: pre-wrap; }
+      .toc { border-radius: 10px; }
+      .toc a { padding: 0.42rem 0.5rem; }
+      .toc-content.active { max-height: 62vh; overflow-y: auto; }
+      .back-to-top { width: 40px; height: 40px; font-size: 1rem; bottom: 12px; right: 12px; }
+    }
+    @media print {
+      .toc, .back-to-top, .toc-toggle { display: none !important; }
+      .page-layout { display: block; }
+      body { background: white; }
+      section { break-inside: avoid; box-shadow: none; border: 1px solid #ccc; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🎯 Panduan Lengkap: Konversi Hybrid Content</h1>
+  <p class="subtitle">Framework ARIA • SEO • Schema FAQ • Blogspot Optimization</p>
+  <p class="meta">📄 Dokumen untuk: <strong>vendoroutbound.com</strong> | 🎯 Fokus: Artikel Bromo Midnight Start Batu</p>
+</header>
+
+<div class="page-layout">
+  <!-- TOC -->
+  <nav class="toc" aria-label="Daftar Isi">
+    <button class="toc-toggle" aria-expanded="false" aria-controls="toc-list">
+      📑 Navigasi Cepat <span id="arrow">▼</span>
+    </button>
+    <div class="toc-content" id="toc-list">
+      <h3>Daftar Isi</h3>
+      <ul>
+        <li><a href="#bagian1">1. Konteks & Tujuan Konversi</a></li>
+        <li><a href="#bagian2">2. Analisis Artikel Lengkap</a>
+          <ul class="level-2">
+            <li><a href="#bagian2-1">2.1 Kekuatan & Area Perbaikan</a></li>
+            <li><a href="#bagian2-2">2.2 Rekomendasi Strategis</a></li>
+          </ul>
+        </li>
+        <li><a href="#bagian3">3. Konversi Hybrid (Master Prompt Vol 1)</a>
+          <ul class="level-2">
+            <li><a href="#bagian3-1">3.1 Diagnosis & Angle Bisnis</a></li>
+            <li><a href="#bagian3-2">3.2 Struktur ARIA & Konten</a></li>
+            <li><a href="#bagian3-3">3.3 FAQ Schema-Ready</a></li>
+          </ul>
+        </li>
+        <li><a href="#bagian4">4. Panduan Pasang Schema di Blogspot</a>
+          <ul class="level-2">
+            <li><a href="#bagian4-1">4.1 Langkah Instalasi</a></li>
+            <li><a href="#bagian4-2">4.2 Troubleshooting & Validasi</a></li>
+          </ul>
+        </li>
+        <li><a href="#bagian5">5. Scorecard & Action Plan</a></li>
+        <li><a href="#lampiran">📎 Lampiran: Kode Lengkap</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="content">
+    <section id="bagian1">
+      <h2>1. Konteks & Tujuan Konversi</h2>
+      <p><strong>URL Fokus:</strong> <code>https://www.vendoroutbound.com/2026/03/itinerary-bromo-midnight-start-batu.html</code></p>
+      <p><strong>Judul Asli:</strong> <em>"Itinerary Bromo Midnight Start Batu, Antar Jemput Hotel"</em></p>
+      <p><strong>Tujuan:</strong> Mengubah artikel wisata informasional menjadi <span class="highlight">konten hybrid</span> yang:</p>
+      <ul>
+        <li>✅ Tetap menarik traffic organik dari pencari itinerary</li>
+        <li>✅ Menambahkan sinyal komersial natural untuk konversi bisnis</li>
+        <li>✅ Memenuhi standar E-E-A-T & siap dikutip AI Overview</li>
+        <li>✅ Terintegrasi dengan layanan Vendor Outbound (Jeep, Team Building, Korporat)</li>
+      </ul>
+      <div class="scorecard">
+        <div class="score-item"><div class="label">Bucket Artikel</div><div class="value">A</div><div style="font-size:0.8rem;color:#64748b">Konversi Langsung</div></div>
+        <div class="score-item"><div class="label">Tipe Lokasi</div><div class="value">Pegunungan</div><div style="font-size:0.8rem;color:#64748b">Angle: Outbound Korporat</div></div>
+        <div class="score-item"><div class="label">Target Klien</div><div class="value">Korporat + Keluarga</div><div style="font-size:0.8rem;color:#64748b">Rombongan 20+ orang</div></div>
+        <div class="score-item"><div class="label">Mode Output</div><div class="value">PENUH</div><div style="font-size:0.8rem;color:#64748b">Schema + Instruksi</div></div>
+      </div>
+    </section>
+
+    <section id="bagian2">
+      <h2>2. Analisis Artikel Lengkap</h2>
+      <h3 id="bagian2-1">2.1 Kekuatan & Area Perbaikan</h3>
+      <div class="table-wrapper">
+        <table>
+          <thead><tr><th>Aspek</th><th>Penilaian</th><th>Catatan</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Judul & Hook</strong></td><td><span class="badge badge-success">⭐⭐⭐⭐⭐</span></td><td>Keyword utama + benefit jelas ("Antar Jemput Hotel")</td></tr>
+            <tr><td><strong>Struktur Heading</strong></td><td><span class="badge badge-success">⭐⭐⭐⭐⭐</span></td><td>H1, H2, H3 hierarkis + Daftar Isi</td></tr>
+            <tr><td><strong>Storytelling</strong></td><td><span class="badge badge-success">⭐⭐⭐⭐⭐</span></td><td>Hook emosional kuat: "alarm ponsel menjerit jam sebelas malam"</td></tr>
+            <tr><td><strong>Technical SEO</strong></td><td><span class="badge badge-warning">⚠️ Perlu Schema</span></td><td>Belum ada FAQPage/Article schema, internal link minim</td></tr>
+            <tr><td><strong>Konversi</strong></td><td><span class="badge badge-warning">⚠️ Soft CTA</span></td><td>Belum ada tabel paket, harga estimasi, atau trust badge</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 id="bagian2-2">2.2 Rekomendasi Strategis</h3>
+      <div class="info-box">
+        <strong>🔥 Priority 1:</strong> Sticky CTA WhatsApp + Tabel Paket + Testimoni → +30-50% konversi lead<br>
+        <strong>🎯 Priority 2:</strong> FAQ Schema + Image Optimization + Last Modified → +15-30% impressions Google<br>
+        <strong>✨ Priority 3:</strong> Interactive Map + Video Short + Social Share → +20-40% time-on-page
+      </div>
+    </section>
+
+    <section id="bagian3">
+      <h2>3. Konversi Hybrid (Master Prompt Vol 1)</h2>
+      <h3 id="bagian3-1">3.1 Diagnosis & Angle Bisnis</h3>
+      <ul>
+        <li><strong>Bucket:</strong> A (Konversi Langsung)</li>
+        <li><strong>Angle Dipilih:</strong> "Panduan Lengkap Bromo Midnight Start Batu untuk Rombongan Korporat & Keluarga"</li>
+        <li><strong>Keyword Target:</strong> Primary: <code>paket bromo midnight start batu untuk rombongan</code> | Secondary: <code>jeep adventure bromo korporat</code></li>
+        <li><strong>Insight Bridge:</strong> Luas lautan pasir Bromo ±10 km² memungkinkan pembagian rombongan besar ke beberapa spot sekaligus tanpa berebut.</li>
+      </ul>
+
+      <h3 id="bagian3-2">3.2 Struktur ARIA & Konten</h3>
+      <div class="tip-box">
+        <strong>FRAMEWORK ARIA:</strong><br>
+        <strong>A</strong>ttract (15%) → Paragraf pembuka 100% informatif<br>
+        <strong>R</strong>eveal (10%) → Fakta kapasitas lokasi untuk grup<br>
+        <strong>I</strong>nform (40-50%) → Rute, spot sunrise, checklist perlengkapan<br>
+        <strong>A</strong>ssociate (15%) → Bridge paragraph kontekstual ke layanan<br>
+        <strong>K</strong>omersial (20-25%) → Paket Standard/Premium, bukti operasional, CTA natural
+      </div>
+      <p>Artikel hybrid akhir telah dioptimasi menjadi ±1.850 kata dengan struktur heading yang menjawab search intent secara bertahap, tanpa terasa seperti iklan tempel.</p>
+
+      <h3 id="bagian3-3">3.3 FAQ Schema-Ready</h3>
+      <p>7 pertanyaan hybrid yang menggabungkan intent informasional & komersial:</p>
+      <ol>
+        <li>Apakah paket cocok untuk rombongan di atas 50 orang?</li>
+        <li>Berapa lama total durasi perjalanan dari jemput hotel sampai kembali?</li>
+        <li>Apakah tiket masuk WNA sudah termasuk dalam paket?</li>
+        <li>Bagaimana jika cuaca buruk atau Bromo ditutup mendadak?</li>
+        <li>Apakah bisa menambahkan aktivitas outbound di area Bromo?</li>
+        <li>Bagaimana sistem pembayaran dan booking untuk korporat?</li>
+        <li>Apakah tersedia dokumentasi profesional untuk konten perusahaan?</li>
+      </ol>
+    </section>
+
+    <section id="bagian4">
+      <h2>4. Panduan Pasang Schema di Blogspot</h2>
+      <h3 id="bagian4-1">4.1 Langkah Instalasi</h3>
+      <ol>
+        <li><strong>Update Konten:</strong> Blogger → Posts → Edit → Ganti seluruh konten dengan artikel hybrid.</li>
+        <li><strong>Update Label:</strong> Hapus <code>noindex</code> → Tambah: <code>outbound-bromo</code>, <code>jeep-adventure</code>, <code>paket-korporat</code>.</li>
+        <li><strong>Meta Description:</strong> Paste di "Search Description" (maks 155 karakter). <strong>JANGAN</strong> ubah URL.</li>
+        <li><strong>Pasang Schema:</strong> Switch ke <strong>HTML view</strong> → Paste kode JSON-LD di paling atas → Save.</li>
+        <li><strong>Optimasi Gambar:</strong> Alt text format: <code>"[aktivitas] [lokasi] [kota]"</code>. Kompres ke WebP &lt;150KB.</li>
+        <li><strong>Internal Link:</strong> Minimal 2 ke halaman layanan (anchor text natural).</li>
+        <li><strong>Request Indexing:</strong> Google Search Console → URL Inspection → Request Indexing.</li>
+        <li><strong>Validasi:</strong> <code>search.google.com/test/rich-results</code> → Pastikan FAQPage valid.</li>
+      </ol>
+
+      <h3 id="bagian4-2">4.2 Troubleshooting & Validasi</h3>
+      <div class="table-wrapper">
+        <table>
+          <thead><tr><th>Error Umum</th><th>Penyebab</th><th>Solusi</th></tr></thead>
+          <tbody>
+            <tr><td><code>Missing field '@type'</code></td><td>Tag script tidak lengkap</td><td>Bungkus dengan <code>&lt;script type="application/ld+json"&gt;</code></td></tr>
+            <tr><td><code>Invalid value for '@context'</code></td><td>URL context salah</td><td>Gunakan <code>"https://schema.org"</code></td></tr>
+            <tr><td>Schema tidak terdeteksi</td><td>Kode terfilter theme / di luar body</td><td>Paste di paling atas konten atau gunakan GTM</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="warning-box">
+        ⚠️ FAQ tidak muncul di Google? Normal! Butuh 1-4 minggu. Pastikan: (1) Artikel terindeks, (2) Tidak ada duplikat di URL lain, (3) Schema sama persis dengan teks di halaman.
+      </div>
+    </section>
+
+    <section id="bagian5">
+      <h2>5. Scorecard & Action Plan</h2>
+      <div class="table-wrapper">
+        <table>
+          <thead><tr><th>Dimensi</th><th>Sebelum</th><th>Setelah</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>Relevansi Niche</td><td>40%</td><td>85%</td><td><span class="badge badge-success">✅</span></td></tr>
+            <tr><td>E-E-A-T Signal</td><td>❌ Tidak ada</td><td>✅ Pengalaman 50+ grup, fasilitator</td><td><span class="badge badge-success">✅</span></td></tr>
+            <tr><td>FAQ / Schema</td><td>❌ Manual text</td><td>✅ 7 FAQ + JSON-LD</td><td><span class="badge badge-success">✅</span></td></tr>
+            <tr><td>Panjang Konten</td><td>±900 kata</td><td>±1.850 kata</td><td><span class="badge badge-success">✅</span></td></tr>
+            <tr><td>Intent Architecture</td><td>70/30 (info/komersial)</td><td>50/50 hybrid seimbang</td><td><span class="badge badge-success">✅</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>📅 Action Plan 7 Hari</h3>
+      <div class="table-wrapper">
+        <table>
+          <thead><tr><th>Hari</th><th>Tugas</th><th>Estimasi</th><th>Check</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>Tambah 3-5 gambar + alt text SEO</td><td>30 menit</td><td><input type="checkbox"></td></tr>
+            <tr><td>2</td><td>Implement FAQ Schema markup</td><td>20 menit</td><td><input type="checkbox"></td></tr>
+            <tr><td>3</td><td>Tambah tabel harga/range paket</td><td>15 menit</td><td><input type="checkbox"></td></tr>
+            <tr><td>4</td><td>Insert 2-3 testimoni klien</td><td>20 menit</td><td><input type="checkbox"></td></tr>
+            <tr><td>5</td><td>Tambah internal link ke 3 artikel</td><td>10 menit</td><td><input type="checkbox"></td></tr>
+            <tr><td>6</td><td>Optimasi meta title & description</td><td>10 menit</td><td><input type="checkbox"></td></tr>
+            <tr><td>7</td><td>Pasang sticky WA + Request GSC</td><td>15 menit</td><td><input type="checkbox"></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="cta-box">
+        <h3>🎯 Status Konversi: SELESAI</h3>
+        <p>Artikel siap publish & request index</p>
+        <p style="margin-top:0.5rem;font-size:0.9rem">Estimasi: +15-30% impressions (1-2 bln) | Potensi featured snippet (3-6 bln)</p>
+        <a href="https://search.google.com/search-console" target="_blank" style="display:inline-block;margin-top:0.8rem;padding:0.6rem 1.2rem;background:white;color:#7c3aed;border-radius:8px;text-decoration:none;font-weight:600;">🔍 Request Indexing di GSC</a>
+      </div>
+    </section>
+
+    <section id="lampiran">
+      <h2>📎 Lampiran: Kode Lengkap</h2>
+      
+      <h3>🔹 1. FAQPage Schema (JSON-LD)</h3>
+      <pre><code><span class="hl-tag">&lt;script</span> <span class="hl-attr">type=</span><span class="hl-str">"application/ld+json"</span><span class="hl-tag">&gt;</span>
+{
+  <span class="hl-key">"@context"</span>: <span class="hl-str">"https://schema.org"</span>,
+  <span class="hl-key">"@type"</span>: <span class="hl-str">"FAQPage"</span>,
+  <span class="hl-key">"mainEntity"</span>: [
+    {
+      <span class="hl-key">"@type"</span>: <span class="hl-str">"Question"</span>,
+      <span class="hl-key">"name"</span>: <span class="hl-str">"Apakah paket Bromo midnight start dari Batu cocok untuk rombongan di atas 50 orang?"</span>,
+      <span class="hl-key">"acceptedAnswer"</span>: {
+        <span class="hl-key">"@type"</span>: <span class="hl-str">"Answer"</span>,
+        <span class="hl-key">"text"</span>: <span class="hl-str">"Sangat cocok. Kami memiliki armada minibus hingga elf 19-seater yang bisa dikombinasikan. Untuk grup besar, kami menerapkan sistem 'convoy' dengan 1 leader vehicle dan komunikasi radio antar sopir. Fasilitator juga ditambah sesuai rasio 1:15 peserta agar koordinasi tetap optimal."</span>
+      }
+    },
+    {
+      <span class="hl-key">"@type"</span>: <span class="hl-str">"Question"</span>,
+      <span class="hl-key">"name"</span>: <span class="hl-str">"Berapa lama total durasi perjalanan dari jemput hotel sampai kembali ke Batu?"</span>,
+      <span class="hl-key">"acceptedAnswer"</span>: {
+        <span class="hl-key">"@type"</span>: <span class="hl-str">"Answer"</span>,
+        <span class="hl-key">"text"</span>: <span class="hl-str">"Rata-rata 13-14 jam. Penjemputan pukul 23.00, kembali ke hotel sekitar pukul 12.00-13.00. Durasi ini sudah termasuk waktu transit, sunrise, eksplorasi kawah, dan istirahat singkat."</span>
+      }
+    },
+    {
+      <span class="hl-key">"@type"</span>: <span class="hl-str">"Question"</span>,
+      <span class="hl-key">"name"</span>: <span class="hl-str">"Apakah tiket masuk Bromo untuk wisatawan asing (WNA) sudah termasuk dalam paket?"</span>,
+      <span class="hl-key">"acceptedAnswer"</span>: {
+        <span class="hl-key">"@type"</span>: <span class="hl-str">"Answer"</span>,
+        <span class="hl-key">"text"</span>: <span class="hl-str">"Paket standar menggunakan harga HTM WNI. Untuk WNA, terdapat tambahan biaya tiket masuk sesuai regulasi TNBTS (sekitar Rp200.000–Rp300.000/orang). Kami sarankan konfirmasi jumlah peserta WNA sejak awal."</span>
+      }
+    },
+    {
+      <span class="hl-key">"@type"</span>: <span class="hl-str">"Question"</span>,
+      <span class="hl-key">"name"</span>: <span class="hl-str">"Bagaimana jika cuaca buruk atau Bromo ditutup mendadak?"</span>,
+      <span class="hl-key">"acceptedAnswer"</span>: {
+        <span class="hl-key">"@type"</span>: <span class="hl-str">"Answer"</span>,
+        <span class="hl-key">"text"</span>: <span class="hl-str">"Kami memantau informasi resmi TNBTS & BMKG H-1. Jika terjadi penutupan, kami tawarkan: (1) Reschedule tanpa biaya tambahan, atau (2) Konversi ke paket alternatif (misal: outbound Coban Talun) dengan penyesuaian harga."</span>
+      }
+    },
+    {
+      <span class="hl-key">"@type"</span>: <span class="hl-str">"Question"</span>,
+      <span class="hl-key">"name"</span>: <span class="hl-str">"Apakah bisa menambahkan aktivitas outbound/team building di area Bromo?"</span>,
+      <span class="hl-key">"acceptedAnswer"</span>: {
+        <span class="hl-key">"@type"</span>: <span class="hl-str">"Answer"</span>,
+        <span class="hl-key">"text"</span>: <span class="hl-str">"Bisa. Area lautan pasir & Bukit Teletubbies cocok untuk games ringan (spider web, trust walk). Untuk alat khusus (flying fox), kami rekomendasikan kombinasi dengan lokasi outbound di Batu sebelum/sesudah Bromo."</span>
+      }
+    },
+    {
+      <span class="hl-key">"@type"</span>: <span class="hl-str">"Question"</span>,
+      <span class="hl-key">"name"</span>: <span class="hl-str">"Bagaimana sistem pembayaran dan booking untuk rombongan korporat?"</span>,
+      <span class="hl-key">"acceptedAnswer"</span>: {
+        <span class="hl-key">"@type"</span>: <span class="hl-str">"Answer"</span>,
+        <span class="hl-key">"text"</span>: <span class="hl-str">"Kami menerima DP 30% untuk konfirmasi booking, pelunasan H-3 keberangkatan. Untuk instansi/BUMN tersedia opsi invoice dengan termin sesuai kebijakan. Semua transaksi disertai kontrak & asuransi."</span>
+      }
+    },
+    {
+      <span class="hl-key">"@type"</span>: <span class="hl-str">"Question"</span>,
+      <span class="hl-key">"name"</span>: <span class="hl-str">"Apakah tersedia dokumentasi profesional untuk kebutuhan konten perusahaan?"</span>,
+      <span class="hl-key">"acceptedAnswer"</span>: {
+        <span class="hl-key">"@type"</span>: <span class="hl-str">"Answer"</span>,
+        <span class="hl-key">"text"</span>: <span class="hl-str">"Ya, tersedia di Paket Premium. Fotografer kami berpengalaman menangani kebutuhan korporat: foto grup formal, candid, dan video reel. File deliver dalam 3-5 hari kerja dengan hak pakai internal."</span>
+      }
+    }
+  ]
+}
+<span class="hl-tag">&lt;/script&gt;</span></code></pre>
+
+      <h3>🔹 2. BlogPosting Schema</h3>
+      <pre><code><span class="hl-tag">&lt;script</span> <span class="hl-attr">type=</span><span class="hl-str">"application/ld+json"</span><span class="hl-tag">&gt;</span>
+{
+  <span class="hl-key">"@context"</span>: <span class="hl-str">"https://schema.org"</span>,
+  <span class="hl-key">"@type"</span>: <span class="hl-str">"BlogPosting"</span>,
+  <span class="hl-key">"headline"</span>: <span class="hl-str">"Panduan Lengkap Itinerary Bromo Midnight Start Batu"</span>,
+  <span class="hl-key">"description"</span>: <span class="hl-str">"Itinerary Bromo midnight start dari Batu: jadwal, rute, tips & paket jeep 4x4 untuk rombongan."</span>,
+  <span class="hl-key">"url"</span>: <span class="hl-str">"https://www.vendoroutbound.com/2026/03/itinerary-bromo-midnight-start-batu.html"</span>,
+  <span class="hl-key">"datePublished"</span>: <span class="hl-str">"2026-03-15T00:00:00+07:00"</span>,
+  <span class="hl-key">"dateModified"</span>: <span class="hl-str">"2026-04-10T10:30:00+07:00"</span>,
+  <span class="hl-key">"author"</span>: { <span class="hl-key">"@type"</span>: <span class="hl-str">"Organization"</span>, <span class="hl-key">"name"</span>: <span class="hl-str">"Vendor Outbound Batu Malang Bromo"</span> },
+  <span class="hl-key">"publisher"</span>: { <span class="hl-key">"@type"</span>: <span class="hl-str">"Organization"</span>, <span class="hl-key">"name"</span>: <span class="hl-str">"Vendor Outbound Batu Malang Bromo"</span> },
+  <span class="hl-key">"keywords"</span>: <span class="hl-str">"paket bromo midnight, jeep adventure bromo, outbound korporat"</span>,
+  <span class="hl-key">"articleSection"</span>: <span class="hl-str">"Paket Wisata Bromo"</span>,
+  <span class="hl-key">"wordCount"</span>: <span class="hl-str">1850</span>
+}
+<span class="hl-tag">&lt;/script&gt;</span></code></pre>
+
+      <h3>🔹 3. Sticky WhatsApp Button (CSS+HTML)</h3>
+      <pre><code><span class="hl-comment">&lt;!-- CSS --&gt;</span>
+<span class="hl-tag">&lt;style&gt;</span>
+.wa-sticky {
+  position: fixed; bottom: 20px; right: 20px;
+  background: #25D366; color: white;
+  padding: 12px 20px; border-radius: 50px;
+  text-decoration: none; font-weight: bold;
+  box-shadow: 0 4px 14px rgba(37,211,102,0.4);
+  z-index: 9999; display: flex; align-items: center; gap: 8px;
+  transition: transform 0.2s;
+}
+.wa-sticky:hover { transform: scale(1.05); background: #128C7E; }
+<span class="hl-tag">&lt;/style&gt;</span>
+
+<span class="hl-comment">&lt;!-- HTML (paste sebelum &lt;/body&gt;) --&gt;</span>
+<span class="hl-tag">&lt;a</span> <span class="hl-attr">href=</span><span class="hl-str">"https://wa.me/6282211221909?text=Halo%20Vendor%20Outbound,%20saya%20tertarik%20paket%20Bromo%20Midnight"</span>
+   <span class="hl-attr">class=</span><span class="hl-str">"wa-sticky"</span> <span class="hl-attr">target=</span><span class="hl-str">"_blank"</span> <span class="hl-attr">rel=</span><span class="hl-str">"noopener"</span><span class="hl-tag">&gt;</span>
+  💬 Konsultasi WA
+<span class="hl-tag">&lt;/a&gt;</span></code></pre>
+    </section>
+  </main>
+</div>
+
+<footer>
+  <p><strong>📄 Dokumen ini dibuat untuk:</strong> vendoroutbound.com</p>
+  <p><strong>🎯 Tujuan:</strong> Konversi artikel off-niche → konten hybrid SEO-friendly</p>
+  <p><strong>🔄 Update Terakhir:</strong> April 2026 | Framework: MASTER_PROMPT_KONVERSI_HYBRID_CONTENT_VOL1</p>
+</footer>
+
+<a href="#" class="back-to-top" id="backToTop" aria-label="Kembali ke atas">↑</a>
+
+<script>
+  // TOC Toggle Logic (Mobile)
+  const tocToggle = document.querySelector('.toc-toggle');
+  const tocContent = document.querySelector('.toc-content');
+  const arrow = document.getElementById('arrow');
+  
+  if (tocToggle && tocContent) {
+    tocToggle.addEventListener('click', () => {
+      const isActive = tocContent.classList.toggle('active');
+      tocToggle.setAttribute('aria-expanded', isActive);
+      arrow.textContent = isActive ? '▲' : '▼';
+    });
+  }
+
+  // Smooth Scroll & Auto Close TOC on Mobile
+  document.querySelectorAll('.toc a').forEach(link => {
+    link.addEventListener('click', (e) => {
+      if (window.innerWidth <= 1023) {
+        tocContent.classList.remove('active');
+        tocToggle.setAttribute('aria-expanded', 'false');
+        arrow.textContent = '▼';
+      }
+    });
+  });
+
+  // Active Section Highlight
+  const sections = document.querySelectorAll('section');
+  const tocLinks = document.querySelectorAll('.toc a');
+
+  // Add data-label to each table cell so mobile stacked table stays readable
+  document.querySelectorAll('table').forEach((table) => {
+    const headers = [...table.querySelectorAll('thead th')].map(th => th.textContent.trim());
+    table.querySelectorAll('tbody tr').forEach((row) => {
+      [...row.children].forEach((cell, idx) => {
+        if (!cell.getAttribute('data-label')) {
+          cell.setAttribute('data-label', headers[idx] || `Kolom ${idx + 1}`);
+        }
+      });
+    });
+  });
+  
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(sec => {
+      const top = sec.offsetTop - 100;
+      if (pageYOffset >= top) current = sec.getAttribute('id');
+    });
+    tocLinks.forEach(link => {
+      link.style.fontWeight = link.getAttribute('href') === `#${current}` ? '600' : '';
+      link.style.color = link.getAttribute('href') === `#${current}` ? 'var(--primary)' : '';
+    });
+  });
+
+  // Back to Top
+  const btt = document.getElementById('backToTop');
+  window.addEventListener('scroll', () => {
+    btt.classList.toggle('visible', window.pageYOffset > 300);
+  });
+  btt.addEventListener('click', e => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
+
+  // Auto expand TOC on desktop load
+  if (window.innerWidth > 1023 && tocContent) tocContent.classList.add('active');
+</script>
+
+</body>
+</html>
